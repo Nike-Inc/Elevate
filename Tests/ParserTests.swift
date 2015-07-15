@@ -245,3 +245,128 @@ class ParserTestCase: BaseTestCase {
         }
     }
 }
+
+// MARK: -
+
+class ParserJSONFragmentDataTestCase: BaseTestCase {
+    func testThatItFailsToParseDataFragments() {
+        // Given
+        let dataValues: [NSData] = {
+            var values = [NSData]()
+
+            var intValue: Int = 1000
+            let intData = NSData(bytes: &intValue, length: sizeof(Int))
+            values.append(intData)
+
+            var uIntValue: UInt = 1000
+            let uIntData = NSData(bytes: &uIntValue, length: sizeof(UInt))
+            values.append(uIntData)
+
+            var doubleValue: Double = 123.456
+            let doubleData = NSData(bytes: &doubleValue, length: sizeof(Double))
+            values.append(doubleData)
+
+            var floatValue: Float = -987.345
+            let floatData = NSData(bytes: &floatValue, length: sizeof(Float))
+            values.append(floatData)
+
+            var boolValue = false
+            let boolData = NSData(bytes: &boolValue, length: sizeof(Bool))
+            values.append(boolData)
+
+            let stringData = "Some random string".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
+            values.append(stringData)
+
+            return values
+        }()
+
+        // When
+        for dataValue in dataValues {
+            do {
+                try Parser.parseProperties(data: dataValue) { make in
+                    make.propertyForKeyPath("not_real_value", type: .Int)
+                }
+
+                XCTFail("Parser succeeded unexpectedly")
+            } catch let error as ParserError {
+                let prefix = "JSON data serialization failed with error:"
+                XCTAssertTrue(error.failureReason.hasPrefix(prefix), "Error failure reason prefix does not match")
+            } catch {
+                XCTFail("Parser error was of incorrect type")
+            }
+        }
+    }
+}
+
+// MARK: -
+
+class ParserJSONNumericDataTestCase: BaseTestCase {
+    func testThatItHandlesAllTypesOfNumericData() {
+        // Given
+        let data = loadJSONDataForFileNamed("JSONNumericData")
+
+        // When
+        do {
+            let parsed = try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("intMin", type: .Int)
+                make.propertyForKeyPath("intMax", type: .Int)
+                make.propertyForKeyPath("uintMin", type: .UInt)
+                make.propertyForKeyPath("uintMax", type: .UInt)
+                make.propertyForKeyPath("float", type: .Float)
+                make.propertyForKeyPath("double", type: .Double)
+
+                make.propertyForKeyPath("boolFalse", type: .Bool)
+                make.propertyForKeyPath("boolTrue", type: .Bool)
+
+                make.propertyForKeyPath("intZero", type: .Int)
+                make.propertyForKeyPath("uintZero", type: .UInt)
+                make.propertyForKeyPath("numberZero", type: .Number)
+                make.propertyForKeyPath("floatZero", type: .Float)
+                make.propertyForKeyPath("doubleZero", type: .Double)
+
+                make.propertyForKeyPath("intOne", type: .Int)
+                make.propertyForKeyPath("uintOne", type: .UInt)
+                make.propertyForKeyPath("numberOne", type: .Number)
+                make.propertyForKeyPath("floatOne", type: .Float)
+                make.propertyForKeyPath("doubleOne", type: .Double)
+
+                make.propertyForKeyPath("intMinusOne", type: .Int)
+                make.propertyForKeyPath("uintMinusOne", type: .UInt)
+                make.propertyForKeyPath("numberMinusOne", type: .Number)
+                make.propertyForKeyPath("floatMinusOne", type: .Float)
+                make.propertyForKeyPath("doubleMinusOne", type: .Double)
+            }
+
+            // Then
+            XCTAssertEqual(parsed["intMin"] as! Int, Int.min, "Parsed [intMin] did not equal `Int.min`.")
+            XCTAssertEqual(parsed["intMax"] as! Int, Int.max, "Parsed [intMax] did not equal `Int.max`.")
+            XCTAssertEqual(parsed["uintMin"] as! UInt, UInt.min, "Parsed [uintMin] did not equal `UInt.min`.")
+            XCTAssertEqual(parsed["uintMax"] as! UInt, UInt.max, "Parsed [uintMax] did not equal `UInt.max`.")
+            XCTAssertEqual(parsed["float"] as! Float, Float(4123.6789), "Parsed [float] did not equal expected value.")
+            XCTAssertEqual(parsed["double"] as! Double, Double(-123456.789), "Parsed [double] did not equal expected value.")
+
+            XCTAssertFalse(parsed["boolFalse"] as! Bool, "Parsed [boolFalse] was not `false`.")
+            XCTAssertTrue(parsed["boolTrue"] as! Bool, "Parsed [boolTrue] was not `true`.")
+
+            XCTAssertEqual(parsed["intZero"] as! Int, Int(0), "Parsed [intZero] did not equal expected value.")
+            XCTAssertEqual(parsed["uintZero"] as! UInt, UInt(0), "Parsed [uintZero] did not equal expected value.")
+            XCTAssertEqual(parsed["numberZero"] as! NSNumber, NSNumber(integer: 0), "Parsed [numberZero] did not equal expected value.")
+            XCTAssertEqual(parsed["floatZero"] as! Float, Float(0.0), "Parsed [floatZero] did not equal expected value.")
+            XCTAssertEqual(parsed["doubleZero"] as! Double, Double(0.0), "Parsed [doubleZero] did not equal expected value.")
+
+            XCTAssertEqual(parsed["intOne"] as! Int, Int(1), "Parsed [intOne] did not equal expected value.")
+            XCTAssertEqual(parsed["uintOne"] as! UInt, UInt(1), "Parsed [uintOne] did not equal expected value.")
+            XCTAssertEqual(parsed["numberOne"] as! NSNumber, NSNumber(integer: 1), "Parsed [numberOne] did not equal expected value.")
+            XCTAssertEqual(parsed["floatOne"] as! Float, Float(1.0), "Parsed [floatOne] did not equal expected value.")
+            XCTAssertEqual(parsed["doubleOne"] as! Double, Double(1.0), "Parsed [doubleOne] did not equal expected value.")
+
+            XCTAssertEqual(parsed["intMinusOne"] as! Int, Int(-1), "Parsed [intMinusOne] did not equal expected value.")
+            XCTAssertEqual(parsed["uintMinusOne"] as! UInt, UInt.max, "Parsed [uintMinusOne] did not equal expected value.")
+            XCTAssertEqual(parsed["numberMinusOne"] as! NSNumber, NSNumber(integer: -1), "Parsed [numberMinusOne] did not equal expected value.")
+            XCTAssertEqual(parsed["floatMinusOne"] as! Float, Float(-1.0), "Parsed [floatMinusOne] did not equal expected value.")
+            XCTAssertEqual(parsed["doubleMinusOne"] as! Double, Double(-1.0), "Parsed [doubleMinusOne] did not equal expected value.")
+        } catch {
+            XCTFail("Parser unexpectedly returned an error")
+        }
+    }
+}

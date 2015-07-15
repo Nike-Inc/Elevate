@@ -20,11 +20,17 @@
 		E91C4DE31B547559000481D2 /* Elevate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E91C4DD81B547559000481D2 /* Elevate.framework */; };
 		E91C4DFB1B5475CC000481D2 /* Elevate.h in Headers */ = {isa = PBXBuildFile; fileRef = E91C4DF51B5475CC000481D2 /* Elevate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E91C4DFC1B5475CC000481D2 /* Elevate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C4DF61B5475CC000481D2 /* Elevate.swift */; };
-		E91C4E0A1B54770C000481D2 /* ElevateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C4E081B54770C000481D2 /* ElevateTests.swift */; };
+		E91C4E0A1B54770C000481D2 /* DecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C4E081B54770C000481D2 /* DecoderTests.swift */; };
 		E91C4E1C1B5477BD000481D2 /* Elevate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E91C4E121B5477BD000481D2 /* Elevate.framework */; };
 		E91C4E291B5478A8000481D2 /* Elevate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C4DF61B5475CC000481D2 /* Elevate.swift */; };
 		E91C4E2A1B5478B0000481D2 /* Elevate.h in Headers */ = {isa = PBXBuildFile; fileRef = E91C4DF51B5475CC000481D2 /* Elevate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E91C4E2B1B5478B8000481D2 /* ElevateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C4E081B54770C000481D2 /* ElevateTests.swift */; };
+		E91C4E2B1B5478B8000481D2 /* DecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C4E081B54770C000481D2 /* DecoderTests.swift */; };
+		E99C82011B55E1400090FA56 /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C82001B55E1400090FA56 /* BaseTestCase.swift */; };
+		E99C82021B55E1400090FA56 /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C82001B55E1400090FA56 /* BaseTestCase.swift */; };
+		E99C82041B55E3380090FA56 /* DecodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C82031B55E3380090FA56 /* DecodableTests.swift */; };
+		E99C82051B55E3380090FA56 /* DecodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C82031B55E3380090FA56 /* DecodableTests.swift */; };
+		E99C82071B55E5B50090FA56 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C82061B55E5B50090FA56 /* ParserTests.swift */; };
+		E99C82081B55E5B50090FA56 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C82061B55E5B50090FA56 /* ParserTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,10 +61,13 @@
 		E91C4DF51B5475CC000481D2 /* Elevate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Elevate.h; sourceTree = "<group>"; };
 		E91C4DF61B5475CC000481D2 /* Elevate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Elevate.swift; sourceTree = "<group>"; };
 		E91C4DF71B5475CC000481D2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E91C4E081B54770C000481D2 /* ElevateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElevateTests.swift; sourceTree = "<group>"; };
+		E91C4E081B54770C000481D2 /* DecoderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecoderTests.swift; sourceTree = "<group>"; };
 		E91C4E091B54770C000481D2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E91C4E121B5477BD000481D2 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91C4E1B1B5477BD000481D2 /* Elevate Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Elevate Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E99C82001B55E1400090FA56 /* BaseTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTestCase.swift; sourceTree = "<group>"; };
+		E99C82031B55E3380090FA56 /* DecodableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodableTests.swift; sourceTree = "<group>"; };
+		E99C82061B55E5B50090FA56 /* ParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +157,10 @@
 		E91C4E071B54770C000481D2 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				E91C4E081B54770C000481D2 /* ElevateTests.swift */,
+				E99C82001B55E1400090FA56 /* BaseTestCase.swift */,
+				E99C82031B55E3380090FA56 /* DecodableTests.swift */,
+				E91C4E081B54770C000481D2 /* DecoderTests.swift */,
+				E99C82061B55E5B50090FA56 /* ParserTests.swift */,
 				4C5FB49C1B55C229001258D3 /* Resources */,
 				E91C4E0C1B54771B000481D2 /* Supporting Files */,
 			);
@@ -355,7 +367,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E91C4E0A1B54770C000481D2 /* ElevateTests.swift in Sources */,
+				E99C82071B55E5B50090FA56 /* ParserTests.swift in Sources */,
+				E91C4E0A1B54770C000481D2 /* DecoderTests.swift in Sources */,
+				E99C82041B55E3380090FA56 /* DecodableTests.swift in Sources */,
+				E99C82011B55E1400090FA56 /* BaseTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,7 +386,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E91C4E2B1B5478B8000481D2 /* ElevateTests.swift in Sources */,
+				E99C82081B55E5B50090FA56 /* ParserTests.swift in Sources */,
+				E91C4E2B1B5478B8000481D2 /* DecoderTests.swift in Sources */,
+				E99C82051B55E3380090FA56 /* DecodableTests.swift in Sources */,
+				E99C82021B55E1400090FA56 /* BaseTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

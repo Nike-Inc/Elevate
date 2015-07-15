@@ -6,14 +6,11 @@
 //  Copyright © 2015 Nike. All rights reserved.
 //
 
+import Elevate
 import Foundation
 import XCTest
-import Elevate
 
-
-// MARK: -
-
-class TestDecoder: Decoder { // What does this decode so we can be better about naming
+class ValidDecoder: Decoder {
     func decodeObject(object: AnyObject) throws -> Any {
         let json = object as! [String: AnyObject]
 
@@ -57,7 +54,7 @@ class ParserTestCase: BaseTestCase {
                 make.propertyForKeyPath("testDictionary", type: .Dictionary)
                 make.propertyForKeyPath("testDate", type: .String, decoder: dateDecoder)
                 make.propertyForKeyPath("testURL", type: .URL)
-                make.propertyForKeyPath("sub-object", type: .Dictionary, decoder: TestDecoder())
+                make.propertyForKeyPath("sub-object", type: .Dictionary, decoder: ValidDecoder())
             }
 
             // Then
@@ -186,14 +183,14 @@ class ParserTestCase: BaseTestCase {
 
     func testThatItParsesArray() {
         // Given
-        let data = ParserTestUtilities.loadJSONDataForFileNamed("ArrayTest")
+        let data = loadJSONDataForFileNamed("ArrayTest")
 
         // When
         do {
             let properties = try Parser.parseProperties(data: data) { make in
                 make.propertyForKeyPath("rootString", type: .String)
                 make.propertyForKeyPath("rootInt", type: .Int)
-                make.propertyForKeyPath("items", type: .Array, decoder: TestDecoder())
+                make.propertyForKeyPath("items", type: .Array, decoder: ValidDecoder())
             }
 
             // Then
@@ -215,7 +212,7 @@ class ParserTestCase: BaseTestCase {
 
     func testThatItAggregatesErrorsWhenDecodingArrayWithInvalidDecoder() {
         // Given
-        let data = ParserTestUtilities.loadJSONDataForFileNamed("ArrayTest")
+        let data = loadJSONDataForFileNamed("ArrayTest")
 
         // When
         do {
@@ -252,7 +249,7 @@ class ParserTestCase: BaseTestCase {
 
     func testThatItParsesURL() {
         // Given
-        let data = ParserTestUtilities.loadJSONDataForFileNamed("PropertyTypesTest")
+        let data = loadJSONDataForFileNamed("PropertyTypesTest")
 
         // When
         do {

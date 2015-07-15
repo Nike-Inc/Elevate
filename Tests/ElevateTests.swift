@@ -38,7 +38,7 @@ class TestDecoder: Decoder { // What does this decode so we can be better about 
     }
 }
 
-class ErroneousDecoder: Decoder { // What is the error that throws so we can name this better!
+class InvalidDecoder: Decoder {
     func decodeObject(object: AnyObject) throws -> Any {
         let json = object as! [String: AnyObject]
 
@@ -59,7 +59,7 @@ class ParserTestCase: XCTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { (make: ParserPropertyMaker) -> Void in
+            let properties = try Parser.parseProperties(data: data) { make in
                 make.propertyForKeyPath("testUInt", type: ParserPropertyType.UInt)
                 make.propertyForKeyPath("testInt", type: .Int)
                 make.propertyForKeyPath("testString", type: .String)
@@ -199,11 +199,90 @@ class ParserTestCase: XCTestCase {
 
     func testThatItParsesArray() {
         // Given
-
+        let data = ParserTestUtilities.loadJSONDataForFileNamed("ArrayTest")
 
         // When
+        do {
+            let properties = try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("rootString", type: .String)
+                make.propertyForKeyPath("rootInt", type: .Int)
+                make.propertyForKeyPath("items", type: .Array, decoder: TestDecoder())
+            }
 
+            // Then
+            XCTAssertTrue(properties["rootString"] is String, "Parsed root string was of incorrect type.")
+            XCTAssertTrue(properties["rootInt"] is Int, "Parsed root int was of incorrect type.")
 
-        // Then
+            XCTAssertTrue((properties["items"] as! [Any]).count == 3, "Incorrect number of elements in testArrayParser()")
+
+            for (index, item) in (properties["items"] as! [Any]).enumerate() {
+                let dict = item as! [String: Any]
+                XCTAssertEqual(dict["subUInt"] as! UInt, UInt(index), "Array UInt object value was incorrect")
+                XCTAssertEqual(dict["subInt"] as! Int, index, "Array Int object value was incorrect")
+                XCTAssertEqual(dict["subString"] as! String, "value\(index)", "Array string object value was incorrect")
+            }
+        } catch {
+            XCTFail("Parser failed to parse array")
+        }
+    }
+
+    func testThatItAggregatesErrorsWhenDecodingArrayWithInvalidDecoder() {
+        // Given
+        let data = ParserTestUtilities.loadJSONDataForFileNamed("ArrayTest")
+
+        // When
+        do {
+            let _ = try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("rootString", type: .String)
+                make.propertyForKeyPath("rootInt", type: .Int)
+                make.propertyForKeyPath("items", type: .Array, decoder: InvalidDecoder())
+            }
+
+            XCTFail("Array parser succeeded unexpectedly")
+        } catch let error as ParserError {
+            // Then
+            let actualValue = error.description
+            let expectedValue = (
+                "Parser Validation Error - Error parsing array object at index 0 with parser [Elevate_Tests.InvalidDecoder]\n" +
+                    "Value for key path [subUInt] is of incorrect type\n" +
+                    "Required key path [missingSubInt] was missing or null\n" +
+                    "--\n" +
+                    "Error parsing array object at index 1 with parser [Elevate_Tests.InvalidDecoder]\n" +
+                    "Value for key path [subUInt] is of incorrect type\n" +
+                    "Required key path [missingSubInt] was missing or null\n" +
+                    "--\n" +
+                    "Error parsing array object at index 2 with parser [Elevate_Tests.InvalidDecoder]\n" +
+                    "Value for key path [subUInt] is of incorrect type\n" +
+                    "Required key path [missingSubInt] was missing or null\n" +
+                "--"
+            )
+
+            XCTAssertEqual(actualValue, expectedValue, "error message did not match expected value.")
+        } catch {
+            XCTFail("Parser error was of incorrect type")
+        }
+    }
+
+    func testThatItParsesURL() {
+        // Given
+        let data = ParserTestUtilities.loadJSONDataForFileNamed("PropertyTypesTest")
+
+        // When
+        do {
+            let properties = try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("testURL", type: .URL)
+            }
+
+            // Then
+            let actualURL = properties["testURL"] as? NSURL
+            let expectedURL = NSURL(string: "http://apple.com")
+            if let actualURL = actualURL {
+                XCTAssertEqual(actualURL.absoluteString, expectedURL!.absoluteString, "Parsed URL did not equal value from json file.")
+            } else {
+                XCTFail("Parsed URL was unexpectedly nil")
+            }
+        } catch {
+            XCTFail("Parser unexpectedly returned an error")
+        }
     }
 }

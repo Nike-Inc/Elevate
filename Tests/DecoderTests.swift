@@ -8,21 +8,8 @@
 
 import Foundation
 import XCTest
-@testable import Elevate
+import Elevate
 
-struct DateFormats {
-    static let Format1 = "yyyy-MM-dd 'at' HH:mm"
-}
-
-// MARK: -
-
-class ParserTestUtilities {
-    class func loadJSONDataForFileNamed(filename: String) -> NSData {
-        let bundle = NSBundle(forClass: ParserTestUtilities.self)
-        let path = bundle.pathForResource(filename, ofType: "json")
-        return NSData(contentsOfFile: path!)!
-    }
-}
 
 // MARK: -
 
@@ -51,10 +38,10 @@ class ErroneousDecoder: Decoder { // What is the error that throws so we can nam
 
 // MARK: -
 
-class ParserTestCase: XCTestCase {
+class ParserTestCase: BaseTestCase {
     func testThatItParsesValuesForAllPropertyTypes() {
         // Given
-        let data = ParserTestUtilities.loadJSONDataForFileNamed("PropertyTypesTest")
+        let data = loadJSONDataForFileNamed("PropertyTypesTest")
         let dateDecoder = DateDecoder(dateFormatString: DateFormats.Format1)
 
         // When
@@ -108,7 +95,7 @@ class ParserTestCase: XCTestCase {
 
     func testThatItGeneratesErrorsWhenParsingValuesOfIncorrectType() {
         // Given
-        let data = ParserTestUtilities.loadJSONDataForFileNamed("PropertyTypesWithIncorrectValueTypes")
+        let data = loadJSONDataForFileNamed("PropertyTypesWithIncorrectValueTypes")
 
         // When
         do {
@@ -142,7 +129,7 @@ class ParserTestCase: XCTestCase {
 
     func testThatItAggregatesErrorsWithMultipleLevels() {
         // Given
-        let data = ParserTestUtilities.loadJSONDataForFileNamed("PropertyTypesWithIncorrectValueTypes")
+        let data = loadJSONDataForFileNamed("PropertyTypesWithIncorrectValueTypes")
 
         // When
         do {
@@ -176,7 +163,7 @@ class ParserTestCase: XCTestCase {
 
     func testThatItParsesMultiLevelKeyPaths() {
         // Given
-        let data = ParserTestUtilities.loadJSONDataForFileNamed("KeyPathsTest")
+        let data = loadJSONDataForFileNamed("KeyPathsTest")
 
         // When
         do {

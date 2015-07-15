@@ -8,17 +8,19 @@
 
 import Foundation
 
-// MARK: -
+// MARK: - Decodable
 
 public protocol Decodable {
     init(json: AnyObject) throws
 }
 
+// MARK: - Decoder
+
 public protocol Decoder {
     func decodeObject(object: AnyObject) throws -> Any
 }
 
-// MARK: -
+// MARK: - ParserError
 
 public enum ParserError: ErrorType, CustomStringConvertible, CustomDebugStringConvertible {
     case Deserialization(failureReason: String)
@@ -50,6 +52,9 @@ public enum ParserError: ErrorType, CustomStringConvertible, CustomDebugStringCo
 // MARK: -
 
 public class Parser {
+
+    // MARK: Decodable Parsing Methods
+
     public class func parseDecodable<T: Decodable>(
         data data: NSData,
         forKeyPath keyPath: String)
@@ -73,6 +78,8 @@ public class Parser {
 
         return properties[keyPath] as! [T]
     }
+
+    // MARK: Property Parsing Methods
 
     public class func parseProperties(data data: NSData, closure: ParserPropertyMaker -> Void) throws -> [String: Any] {
         let failureReason: String
@@ -336,8 +343,6 @@ public class ParserPropertyMaker {
 
         return addProperty(keyPath: keyPath, type: type, optional: optional, decodingMethod: decodingMethod)
     }
-
-    // MARK: Internal - Helper Methods
 
     func addProperty(
         keyPath keyPath: String,

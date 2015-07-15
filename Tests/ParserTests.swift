@@ -10,31 +10,6 @@ import Elevate
 import Foundation
 import XCTest
 
-class ValidDecoder: Decoder {
-    func decodeObject(object: AnyObject) throws -> Any {
-        let json = object as! [String: AnyObject]
-
-        return try Parser.parseProperties(json: json) { make in
-            make.propertyForKeyPath("subUInt", type: .UInt)
-            make.propertyForKeyPath("subInt", type: .Int)
-            make.propertyForKeyPath("subString", type: .String)
-        }
-    }
-}
-
-class InvalidDecoder: Decoder {
-    func decodeObject(object: AnyObject) throws -> Any {
-        let json = object as! [String: AnyObject]
-
-        return try Parser.parseProperties(json: json) { make in
-            make.propertyForKeyPath("subUInt", type: .String)
-            make.propertyForKeyPath("missingSubInt", type: .Int)
-        }
-    }
-}
-
-// MARK: -
-
 class ParserTestCase: BaseTestCase {
     func testThatItParsesValuesForAllPropertyTypes() {
         // Given

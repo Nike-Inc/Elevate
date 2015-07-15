@@ -10,22 +10,26 @@ import Foundation
 
 // MARK: - Decodable
 
+// TODO: Add docstring
 public protocol Decodable {
     init(json: AnyObject) throws
 }
 
 // MARK: - Decoder
 
+// TODO: Add docstring
 public protocol Decoder {
     func decodeObject(object: AnyObject) throws -> Any
 }
 
 // MARK: - ParserError
 
+// TODO: Add docstring
 public enum ParserError: ErrorType, CustomStringConvertible, CustomDebugStringConvertible {
     case Deserialization(failureReason: String)
     case Validation(failureReason: String)
 
+    // TODO: Add docstring
     public var failureReason: String {
         switch self {
         case .Deserialization(let failureReason):
@@ -35,6 +39,7 @@ public enum ParserError: ErrorType, CustomStringConvertible, CustomDebugStringCo
         }
     }
 
+    // TODO: Add docstring
     public var description: String {
         switch self {
         case .Deserialization(let failureReason):
@@ -44,6 +49,7 @@ public enum ParserError: ErrorType, CustomStringConvertible, CustomDebugStringCo
         }
     }
 
+    // TODO: Add docstring
     public var debugDescription: String {
         return self.description
     }
@@ -51,10 +57,12 @@ public enum ParserError: ErrorType, CustomStringConvertible, CustomDebugStringCo
 
 // MARK: -
 
+// TODO: Add docstring
 public class Parser {
 
     // MARK: Decodable Parsing Methods
 
+    // TODO: Add docstring
     public class func parseDecodable<T: Decodable>(
         data data: NSData,
         forKeyPath keyPath: String)
@@ -67,6 +75,7 @@ public class Parser {
         return properties[keyPath] as! T
     }
 
+    // TODO: Add docstring
     public class func parseDecodableArray<T: Decodable>(
         data data: NSData,
         forKeyPath keyPath: String)
@@ -81,6 +90,19 @@ public class Parser {
 
     // MARK: Property Parsing Methods
 
+    /**
+        Performs the work of validating and extracting values from the passed in NSData object. The NSData object must
+        contain json that can be deserialized by `NSJSONSerialization.JSONObjectWithData`.
+
+        Returns resulting Dictionary object containing all the parsed property results where the property keyPath is 
+        the key and the extracted object is the value. The value is guaranteed to be an object of the type defined by 
+        the property and can be cast to that type directly, without further checks.
+
+        - parameter data:    An NSData object containing encoded json data.
+        - parameter closure: Defines the property list for the parser via the passed in `ParserPropertyMaker` instance.
+
+        - returns: The result Dictionary.
+    */
     public class func parseProperties(data data: NSData, closure: ParserPropertyMaker -> Void) throws -> [String: Any] {
         let failureReason: String
 
@@ -102,6 +124,32 @@ public class Parser {
         throw ParserError.Validation(failureReason: failureReason)
     }
 
+    /**
+        Performs the work of validating and extracting values from the passed in Dictionary object. The type of the
+        object passed in must be [String: AnyObject]. Values in the Dictionary must be `NSJSONSerialization` compatible.
+
+        Defining the property list to be parsed is achieved using a maker pattern via the `ParserPropertyMaker` object 
+        passed into the trailing closure. Inside the closure, for each property, call the `propertyForKeyPath` instance 
+        method.
+
+        The parser will evaluate each property using the following steps:
+
+        1) Extract the object for the given keyPath
+        2) Validate the value type and optionality
+        3) Extract the value in the specified type
+        4) Optionally, run the parser on the value or on each item in an array
+
+        The resulting Dictionary contains all the parsed property results where the property keyPath is the key and the 
+        extracted object is the value. The value is guaranteed to be an object of the type defined by the property and 
+        can be cast to that type directly, without further checks.
+
+        See the README for code samples and best practices for creating re-usable `Decoder`s.
+
+        - parameter data:    A NSData object containing encoded json data.
+        - parameter closure: Defines the property list for the parser via the passed in `ParserPropertyMaker` instance.
+
+        - returns: The result Dictionary.
+    */
     public class func parseProperties(json json: AnyObject, closure: ParserPropertyMaker -> Void) throws -> [String: Any] {
         guard json is [String: AnyObject] else {
             throw ParserError.Validation(failureReason: "JSON object was not of type: [String: AnyObject]")
@@ -305,13 +353,42 @@ public class Parser {
 
 // MARK: -
 
+/**
+    The parser property maker is used to define the list of properties to be validated and extracted from a object. 
+    If a property is not defined in the list it will be ignored.
+*/
 public class ParserPropertyMaker {
     var properties = [ParserProperty]()
 
+    /**
+        Creates, adds and returns a property for the specified key path, type and optionality.
+
+        NOTE: Compound key paths may be used (e.g. `address.city`). Each property name in the key path MUST be 
+        separated by a `.` character.
+
+        - parameter keyPath:  Key path for property.
+        - parameter type:     Swift object type to be validated and extracted.
+        - parameter optional: Specifies if the keyPath is optional. `false` by default.
+
+        - returns: The created parser property.
+    */
     public func propertyForKeyPath(keyPath: String, type: ParserPropertyType, optional: Bool = false) -> ParserProperty {
         return addProperty(keyPath: keyPath, type: type, optional: optional, decodingMethod: nil)
     }
 
+    /**
+        Creates, adds and returns a property for the specified key path, type, optionality and decodable type.
+
+        NOTE: Compound key paths may be used (e.g. `address.city`). Each property name in the key path MUST be
+        separated by a `.` character.
+
+        - parameter keyPath:       Key path for property.
+        - parameter type:          Swift object type to be validated and extracted.
+        - parameter optional:      Specifies if the keyPath is optional. `false` by default.
+        - parameter decodedToType: The `Decodable` type associated to the property. `nil` by default.
+
+        - returns: The created parser property.
+    */
     public func propertyForKeyPath(
         keyPath: String,
         type: ParserPropertyType,
@@ -328,6 +405,19 @@ public class ParserPropertyMaker {
         return addProperty(keyPath: keyPath, type: type, optional: optional, decodingMethod: decodingMethod)
     }
 
+    /**
+        Creates, adds and returns a property for the specified key path, type, optionality and decoder.
+
+        NOTE: Compound key paths may be used (e.g. `address.city`). Each property name in the key path MUST be
+        separated by a `.` character.
+
+        - parameter keyPath:  Key path for property.
+        - parameter type:     Swift object type to be validated and extracted.
+        - parameter optional: Specifies if the keyPath is optional. `false` by default.
+        - parameter decoder:  The `Decoder` associated to the property. `nil` by default.
+
+        - returns: The created parser property.
+    */
     public func propertyForKeyPath(
         keyPath: String,
         type: ParserPropertyType,
@@ -360,6 +450,20 @@ public class ParserPropertyMaker {
 
 // MARK: -
 
+/**
+    Defines a Swift object type used to extract values from a JSON document.
+
+    - String:     Represents a Swift `String` type.
+    - UInt:       Represents a Swift `UInt` type.
+    - Int:        Represents a Swift `Int` type.
+    - Float:      Represents a Swift `Float` type.
+    - Double:     Represents a Swift `Double` type.
+    - Number:     Represents a Swift `Number` type.
+    - Bool:       Represents a Swift `Bool` type.
+    - Array:      Represents a Swift `Array` type.
+    - Dictionary: Represents a Swift `Dictionary` type.
+    - URL:        Represents a Swift `URL` type.
+*/
 public enum ParserPropertyType {
     case String
     case UInt
@@ -373,7 +477,12 @@ public enum ParserPropertyType {
     case URL
 }
 
+/**
+    Represents a parser property and all its internal characteristics.
+*/
 public struct ParserProperty {
+
+    // TODO: Add docstring
     public enum DecodingMethod {
         case UseDecoder(Decoder)
         case UseDecodable(Decodable.Type)
@@ -394,7 +503,18 @@ public struct ParserProperty {
 
 // MARK: -
 
+/**
+    Decodes a String to an Int.
+*/
 public class StringToIntDecoder: Decoder {
+
+    /**
+        Converts the `String` object to an `Int`.
+
+        - parameter object: The `String` to decode.
+
+        - returns: The decoded `Int` or throws.
+    */
     public func decodeObject(object: AnyObject) throws -> Any {
         if let
             intString = object as? String,
@@ -409,18 +529,43 @@ public class StringToIntDecoder: Decoder {
 
 // MARK: -
 
+/**
+    The date decoder converts a `String` into an `NSDate` object using the provided date format string 
+    or `NSDateFormatter`.
+*/
 public class DateDecoder: Decoder {
     private let dateFormatter: NSDateFormatter
 
+    /**
+        Creates a data decoder with the given date format string.
+
+        - parameter dateFormatString: The date format string.
+
+        - returns: The date decoder.
+    */
     public init(dateFormatString: String) {
         self.dateFormatter = NSDateFormatter()
         self.dateFormatter.dateFormat = dateFormatString
     }
 
+    /**
+        Creates a date decoder with the given date formatter.
+
+        - parameter dateFormatter: A `NSDateFormatter` instance.
+
+        - returns: The date decoder.
+    */
     public init(dateFormatter: NSDateFormatter) {
         self.dateFormatter = dateFormatter
     }
 
+    /**
+        Decodes the data parameter into an `NSDate`.
+
+        - parameter data: The string to parse. MUST be of type `String` or `NSString`.
+
+        - returns: The parsed date.
+    */
     public func decodeObject(data: AnyObject) throws -> Any {
         if let string = data as? String {
             return try dateFromString(string, withFormatter:self.dateFormatter)

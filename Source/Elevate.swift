@@ -11,7 +11,7 @@ import Foundation
 // MARK: -
 
 public protocol Decodable {
-    init(json: AnyObject?) throws
+    init(json: AnyObject) throws
 }
 
 public protocol Decoder {

@@ -81,3 +81,76 @@ class DecoderTestCase: BaseTestCase {
         }
     }
 }
+
+// MARK: -
+
+class DateDecoderTestCase: BaseTestCase {
+    func testThatItParsesDateUsingFormatString() {
+        // Given
+        let data = loadJSONDataForFileNamed("PropertyTypesTest")
+        let decoder = DateDecoder(dateFormatString: DateFormats.Format1)
+
+        // When
+        do {
+            let properties = try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("testDate", type: .String, decoder: decoder)
+            }
+
+            // Then
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = DateFormats.Format1
+            let parsedDate = properties["testDate"] as! NSDate
+            let testDate = dateFormatter.dateFromString("2015-01-30 at 13:00")
+            XCTAssertEqual(parsedDate, testDate!, "Parsed NSDate did not equal value from json file.")
+        } catch {
+            XCTFail("Parser unexpectedly returned an error")
+        }
+    }
+
+    func testThatItParsesDateUsingDateFormatter() {
+        // Given
+        let data = loadJSONDataForFileNamed("PropertyTypesTest")
+
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = DateFormats.Format1
+        let decoder = DateDecoder(dateFormatter: dateFormatter)
+
+        // When
+        do {
+            let properties = try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("testDate", type: .String, decoder: decoder)
+            }
+
+            // Then
+            let expectedDateFormatter = NSDateFormatter()
+            expectedDateFormatter.dateFormat = DateFormats.Format1
+            let parsedDate = properties["testDate"] as! NSDate
+            let testDate = expectedDateFormatter.dateFromString("2015-01-30 at 13:00")
+            XCTAssertEqual(parsedDate, testDate!, "Parsed NSDate did not equal value from json file.")
+        } catch {
+            XCTFail("Parser unexpectedly returned an error")
+        }
+    }
+
+    func testThatItGeneratesErrorForIncorrectDateFormat() {
+        // Given
+        let data = loadJSONDataForFileNamed("PropertyTypesTest")
+        let decoder = DateDecoder(dateFormatString: "d")
+
+        do {
+            // When
+            try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("testDate", type: .String, decoder: decoder)
+            }
+
+            XCTFail("Parser unexpectedly succeeded")
+        } catch let error as ParserError {
+            // Then
+            let actualValue = error.description
+            let expectedValue = "Parser Validation Error - DateParser string could not be parsed to NSDate with the given formatter."
+            XCTAssertEqual(actualValue, expectedValue, "DateParser error message did not match expected string")
+        }  catch {
+            XCTFail("Parser error was of incorrect type")
+        }
+    }
+}

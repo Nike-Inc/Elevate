@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C5FB4A21B55C229001258D3 /* ArrayTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB49D1B55C229001258D3 /* ArrayTest.json */; };
+		4C5FB4A31B55C229001258D3 /* ArrayTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB49D1B55C229001258D3 /* ArrayTest.json */; };
+		4C5FB4A41B55C229001258D3 /* JSONNumericData.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB49E1B55C229001258D3 /* JSONNumericData.json */; };
+		4C5FB4A51B55C229001258D3 /* JSONNumericData.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB49E1B55C229001258D3 /* JSONNumericData.json */; };
+		4C5FB4A61B55C229001258D3 /* KeyPathsTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB49F1B55C229001258D3 /* KeyPathsTest.json */; };
+		4C5FB4A71B55C229001258D3 /* KeyPathsTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB49F1B55C229001258D3 /* KeyPathsTest.json */; };
+		4C5FB4A81B55C229001258D3 /* PropertyTypesTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB4A01B55C229001258D3 /* PropertyTypesTest.json */; };
+		4C5FB4A91B55C229001258D3 /* PropertyTypesTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB4A01B55C229001258D3 /* PropertyTypesTest.json */; };
+		4C5FB4AA1B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB4A11B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json */; };
+		4C5FB4AB1B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB4A11B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json */; };
 		E91C4DE31B547559000481D2 /* Elevate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E91C4DD81B547559000481D2 /* Elevate.framework */; };
 		E91C4DFB1B5475CC000481D2 /* Elevate.h in Headers */ = {isa = PBXBuildFile; fileRef = E91C4DF51B5475CC000481D2 /* Elevate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E91C4DFC1B5475CC000481D2 /* Elevate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C4DF61B5475CC000481D2 /* Elevate.swift */; };
@@ -35,6 +45,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C5FB49D1B55C229001258D3 /* ArrayTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ArrayTest.json; sourceTree = "<group>"; };
+		4C5FB49E1B55C229001258D3 /* JSONNumericData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = JSONNumericData.json; sourceTree = "<group>"; };
+		4C5FB49F1B55C229001258D3 /* KeyPathsTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = KeyPathsTest.json; sourceTree = "<group>"; };
+		4C5FB4A01B55C229001258D3 /* PropertyTypesTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PropertyTypesTest.json; sourceTree = "<group>"; };
+		4C5FB4A11B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PropertyTypesWithIncorrectValueTypes.json; sourceTree = "<group>"; };
 		E91C4DD81B547559000481D2 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91C4DE21B547559000481D2 /* Elevate Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Elevate Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91C4DF51B5475CC000481D2 /* Elevate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Elevate.h; sourceTree = "<group>"; };
@@ -80,6 +95,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C5FB49C1B55C229001258D3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4C5FB49D1B55C229001258D3 /* ArrayTest.json */,
+				4C5FB49E1B55C229001258D3 /* JSONNumericData.json */,
+				4C5FB49F1B55C229001258D3 /* KeyPathsTest.json */,
+				4C5FB4A01B55C229001258D3 /* PropertyTypesTest.json */,
+				4C5FB4A11B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		E91C4DCE1B547559000481D2 = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				E91C4E081B54770C000481D2 /* ElevateTests.swift */,
+				4C5FB49C1B55C229001258D3 /* Resources */,
 				E91C4E0C1B54771B000481D2 /* Supporting Files */,
 			);
 			path = Tests;
@@ -285,6 +313,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C5FB4AA1B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json in Resources */,
+				4C5FB4A81B55C229001258D3 /* PropertyTypesTest.json in Resources */,
+				4C5FB4A21B55C229001258D3 /* ArrayTest.json in Resources */,
+				4C5FB4A61B55C229001258D3 /* KeyPathsTest.json in Resources */,
+				4C5FB4A41B55C229001258D3 /* JSONNumericData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +332,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C5FB4AB1B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json in Resources */,
+				4C5FB4A91B55C229001258D3 /* PropertyTypesTest.json in Resources */,
+				4C5FB4A31B55C229001258D3 /* ArrayTest.json in Resources */,
+				4C5FB4A71B55C229001258D3 /* KeyPathsTest.json in Resources */,
+				4C5FB4A51B55C229001258D3 /* JSONNumericData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,6 +640,7 @@
 				E91C4E241B5477BD000481D2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E91C4E281B5477BD000481D2 /* Build configuration list for PBXNativeTarget "Elevate OSX Tests" */ = {
 			isa = XCConfigurationList;
@@ -610,6 +649,7 @@
 				E91C4E261B5477BD000481D2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

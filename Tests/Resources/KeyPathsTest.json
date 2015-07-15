@@ -1,0 +1,19 @@
+{
+    "keypath": "value",
+    "two": {
+        "level": "value"
+    },
+    "multi": {
+        "level": {
+            "key": {
+                "path": "value"
+            }
+        }
+    },
+    "numb3r": "value",
+    "speci@l": "value",
+    "dashed-key-path": "value",
+    "twoLevelNumb3r": {
+        "speci@l": "value"
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "testUInt": 1,
+    "testInt": -1,
+    "testString": "test string",
+    "testFloat": 1.1111,
+    "testDouble": 1.1111,
+    "testNumber": 1.1111,
+    "testNull": null,
+    "testDictionary": {
+        "key1": "value1",
+        "key2": "value2",
+        "key3": "value3"
+    },
+    "testDate": "2015-01-30 at 13:00",
+    "testURL": "http://apple.com",
+    "sub-object": {
+        "subUInt": 1,
+        "subInt": -1,
+        "subString": "sub test string"
+    }
+}

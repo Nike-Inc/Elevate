@@ -1,0 +1,21 @@
+{
+	"rootString": "string",
+	"rootInt": 0,
+    "items" : [
+        {
+            "subUInt": 0,
+            "subInt": 0,
+            "subString": "value0"
+        },
+        {
+        	"subUInt": 1,
+        	"subInt": 1,
+        	"subString": "value1"
+        },
+        {
+        	"subUInt": 2,
+        	"subInt": 2,
+        	"subString": "value2"
+        }
+    ]
+}

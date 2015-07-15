@@ -6,7 +6,6 @@
 //  Copyright © 2015 Nike. All rights reserved.
 //
 
+import Elevate
 import Foundation
 import XCTest
-import Elevate
-

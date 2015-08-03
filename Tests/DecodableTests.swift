@@ -66,7 +66,7 @@ class DecodableTestCase: BaseTestCase {
             let expectedPrefix = "Parser Validation Error - JSON data serialization failed with error:" // prefix
             XCTAssertTrue(error.description.hasPrefix(expectedPrefix), "Error does not begin with expected prefix")
 
-            let expectedFailureReason = "The data couldn’t be read because it isn’t in the correct format."
+            let expectedFailureReason = "JSON data serialization failed with error:"
             let containsFailureReason = (error.description as NSString).containsString(expectedFailureReason)
             XCTAssertTrue(containsFailureReason, "Error should contain expected failure reason")
         } catch {

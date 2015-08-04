@@ -85,7 +85,7 @@ public class Parser {
             make.propertyForKeyPath(keyPath, type: .Array, decodedToType: T.self)
         }
 
-        return properties[keyPath] as! [T]
+        return (properties[keyPath] as! [Any]).map { $0 as! T }
     }
 
     // MARK: Property Parsing Methods

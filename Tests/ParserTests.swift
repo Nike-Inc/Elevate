@@ -44,12 +44,12 @@ class ParserTestCase: BaseTestCase {
             let jsonDictionary = properties["testDictionary"] as! [String: AnyObject]
 
             XCTAssertEqual(jsonDictionary["key1"] as! String, "value1", "Parsed Dictionary<String, AnyObject> did not equal value from json file.")
-            XCTAssertTrue(properties["sub-object"] is [String: Any], "Parsed sub object did not contain value of correct type")
+            XCTAssertTrue(properties["sub-object"] is TestObject, "Parsed sub object did not contain value of correct type")
 
-            let subObject = properties["sub-object"] as? [String: Any]
-            XCTAssertEqual(subObject?["subUInt"] as! UInt, UInt(1), "Parsed sub object value did not equal value from json file.")
-            XCTAssertEqual(subObject?["subInt"] as! Int, -1, "Parsed sub object value did not equal value from json file.")
-            XCTAssertEqual(subObject?["subString"] as! String, "sub test string", "Parsed sub object value did not equal value from json file.")
+            let subObject = properties["sub-object"] as! TestObject
+            XCTAssertEqual(subObject.subUInt, UInt(1), "Parsed sub object value did not equal value from json file.")
+            XCTAssertEqual(subObject.subInt, -1, "Parsed sub object value did not equal value from json file.")
+            XCTAssertEqual(subObject.subString, "sub test string", "Parsed sub object value did not equal value from json file.")
 
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = DateFormats.Format1
@@ -165,7 +165,7 @@ class ParserTestCase: BaseTestCase {
             let properties = try Parser.parseProperties(data: data) { make in
                 make.propertyForKeyPath("rootString", type: .String)
                 make.propertyForKeyPath("rootInt", type: .Int)
-                make.propertyForKeyPath("items", type: .Array, decoder: ValidDecoder())
+                make.propertyForKeyPath("items", type: .Array, decoder: ValidDecoder(toDictionary: true))
             }
 
             // Then

@@ -8,14 +8,14 @@
             "subString": "value0"
         },
         {
-        	"subUInt": 1,
-        	"subInt": 1,
-        	"subString": "value1"
+            "subUInt": 1,
+            "subInt": 1,
+            "subString": "value1"
         },
         {
-        	"subUInt": 2,
-        	"subInt": 2,
-        	"subString": "value2"
+            "subUInt": 2,
+            "subInt": 2,
+            "subString": "value2"
         }
     ]
 }

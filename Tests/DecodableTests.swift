@@ -10,11 +10,13 @@ import Elevate
 import Foundation
 import XCTest
 
-struct TestObject: Decodable {
+struct TestObject {
     let subUInt: UInt
     let subInt: Int
     let subString: String
+}
 
+extension TestObject: Decodable {
     init(json: AnyObject) throws {
         let subUIntKeyPath = "subUInt"
         let subIntKeyPath = "subInt"
@@ -35,30 +37,47 @@ struct TestObject: Decodable {
 // MARK: -
 
 class DecodableTestCase: BaseTestCase {
-    func testThatParseDecodableSucceeds() {
+    func testThatParseOnADecodableSucceeds() {
         // Given
         let data = loadJSONDataForFileNamed("PropertyTypesTest")
 
         // When
         do {
-            let testObject: TestObject = try Parser.parseDecodable(data: data, forKeyPath: "sub-object")
+            let testObject: TestObject = try Parser.parse(data: data, forKeyPath: "sub-object")
 
             // Then
             XCTAssertEqual(testObject.subUInt, UInt(1), "test object subUInt does not match expected value")
             XCTAssertEqual(testObject.subInt, -1, "test object subInt does not match expected value")
             XCTAssertEqual(testObject.subString, "sub test string", "test object subString does not match expected value")
         } catch {
-            XCTFail("Parser unexpected failed by throwing error: \(error)")
+            XCTFail("Parser unexpectedly failed by throwing error: \(error)")
         }
     }
 
-    func testThatParseDecodableThrowsWithInvalidJSON() {
+    func testThatParseOnAnArraySucceeds() {
+        // Given
+        let data = loadJSONDataForFileNamed("ArrayTest")
+
+        // When
+        do {
+            let result: [TestObject] = try Parser.parse(data: data, forKeyPath: "items")
+
+            // Then
+            XCTAssertEqual(result[0].subInt, 0, "array item 0 subInt does not match expected value")
+            XCTAssertEqual(result[1].subInt, 1, "array item 0 subInt does not match expected value")
+            XCTAssertEqual(result[2].subInt, 2, "array item 0 subInt does not match expected value")
+        } catch {
+            XCTFail("Parser uneexpectedly failed by throwing error: \(error)")
+        }
+    }
+
+    func testThatParseThrowsWithInvalidJSON() {
         // Given
         let data = "some random data that isn't json".dataUsingEncoding(NSUTF8StringEncoding)!
 
         // When
         do {
-            let _: TestObject = try Parser.parseDecodable(data: data, forKeyPath: "sub-object")
+            let _: TestObject = try Parser.parse(data: data, forKeyPath: "sub-object")
 
             XCTFail("Parser unexpectedly succeeded.")
         } catch let error as ParserError {
@@ -74,13 +93,13 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatParseDecodableThrowsWithMissingKeyPath() {
+    func testThatParseThrowsWithMissingKeyPath() {
         // Given
         let data = loadJSONDataForFileNamed("PropertyTypesTest")
 
         // When
         do {
-            let _: TestObject = try Parser.parseDecodable(data: data, forKeyPath: "key_does_not_exist")
+            let _: TestObject = try Parser.parse(data: data, forKeyPath: "key_does_not_exist")
 
             XCTFail("Parser unexpectedly succeeded.")
         } catch let error as ParserError {
@@ -93,13 +112,13 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatParseDecodableThrowsWhenDecodableThrows() {
+    func testThatParseThrowsWhenDecodableThrows() {
         // Given
         let data = loadJSONDataForFileNamed("PropertyTypesTest")
 
         // When
         do {
-            let _: TestObject = try Parser.parseDecodable(data: data, forKeyPath: "testDictionary")
+            let _: TestObject = try Parser.parse(data: data, forKeyPath: "testDictionary")
 
             XCTFail("Parser unexpectedly succeeded.")
         } catch let error as ParserError {

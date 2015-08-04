@@ -63,11 +63,7 @@ public class Parser {
     // MARK: Decodable Parsing Methods
 
     // TODO: Add docstring
-    public class func parseDecodable<T: Decodable>(
-        data data: NSData,
-        forKeyPath keyPath: String)
-        throws -> T
-    {
+    public class func parse<T: Decodable>(data data: NSData, forKeyPath keyPath: String) throws -> T {
         let properties = try Parser.parseProperties(data: data) { make in
             make.propertyForKeyPath(keyPath, type: .Dictionary, decodedToType: T.self)
         }
@@ -76,16 +72,28 @@ public class Parser {
     }
 
     // TODO: Add docstring
-    public class func parseDecodableArray<T: Decodable>(
-        data data: NSData,
-        forKeyPath keyPath: String)
-        throws -> [T]
-    {
+    public class func parse<T: Decodable>(data data: NSData, forKeyPath keyPath: String) throws -> [T] {
         let properties = try Parser.parseProperties(data: data) { make in
             make.propertyForKeyPath(keyPath, type: .Array, decodedToType: T.self)
         }
 
-        return properties[keyPath] as! [T]
+        return (properties[keyPath] as! [Any]).map { $0 as! T }
+    }
+
+    public class func parse<T>(data data: NSData, forKeyPath keyPath: String, withDecoder decoder: Decoder) throws -> T {
+        let result = try Parser.parseProperties(data: data) { make in
+            make.propertyForKeyPath(keyPath, type: .Dictionary, decoder: decoder)
+        }
+
+        return result[keyPath] as! T
+    }
+
+    public class func parse<T>(data data: NSData, forKeyPath keyPath: String, withDecoder decoder: Decoder) throws -> [T] {
+        let result = try Parser.parseProperties(data: data) { make in
+            make.propertyForKeyPath(keyPath, type: .Array, decoder: decoder)
+        }
+
+        return (result[keyPath] as! [Any]).map { $0 as! T }
     }
 
     // MARK: Property Parsing Methods

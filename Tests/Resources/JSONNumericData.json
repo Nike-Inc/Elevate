@@ -9,17 +9,14 @@
 	"boolTrue": true,
     "intZero": 0,
     "uintZero": 0,
-    "numberZero": 0,
     "floatZero": 0.0,
     "doubleZero": 0.0,
     "intOne": 1,
     "uintOne": 1,
-    "numberOne": 1,
     "floatOne": 1.0,
     "doubleOne": 1.0,
     "intMinusOne": -1,
     "uintMinusOne": -1,
-    "numberMinusOne": -1,
     "floatMinusOne": -1.0,
     "doubleMinusOne": -1.0
 }

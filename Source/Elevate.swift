@@ -183,7 +183,7 @@ public class Parser {
                     parsedValue = jsonValue
                     parsed[property.keyPath] = jsonValue
                 case .UInt:
-                    parsedValue = (jsonValue as! NSNumber).unsignedIntegerValue
+                    parsedValue = (jsonValue as! NSNumber).unsignedLongValue
                     parsed[property.keyPath] = parsedValue
                 case .Int:
                     parsedValue = (jsonValue as! NSNumber).integerValue
@@ -194,9 +194,6 @@ public class Parser {
                 case .Double:
                     parsedValue = (jsonValue as! NSNumber).doubleValue
                     parsed[property.keyPath] = parsedValue
-                case .Number:
-                    parsedValue = jsonValue
-                    parsed[property.keyPath] = jsonValue
                 case .Bool:
                     parsedValue = (jsonValue as! NSNumber).boolValue
                     parsed[property.keyPath] = parsedValue
@@ -289,7 +286,7 @@ public class Parser {
                     isCorrectType = true
                 } else {
                     switch property.type {
-                    case .Number, .Int, .UInt, .Double, .Float:
+                    case .Int, .UInt, .Double, .Float:
                         isCorrectType = true
                     default:
                         isCorrectType = false
@@ -478,7 +475,6 @@ public enum ParserPropertyType {
     case Int
     case Float
     case Double
-    case Number
     case Bool
     case Array
     case Dictionary

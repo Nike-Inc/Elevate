@@ -1,5 +1,5 @@
 //
-//  PrimativeDecodables.swift
+//  Decodable.swift
 //  Elevate
 //
 //  Created by Eric Appel on 8/4/15.
@@ -7,6 +7,15 @@
 //
 
 import Foundation
+
+// MARK: - Decodable Protocol Definition
+
+// TODO: Add docstring
+public protocol Decodable {
+    init(json: AnyObject) throws
+}
+
+// MARK: - Primative Decodables
 
 extension String: Decodable {
     public init(json: AnyObject) throws {

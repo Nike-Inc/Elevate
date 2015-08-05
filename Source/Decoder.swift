@@ -10,24 +10,35 @@ import Foundation
 
 // MARK: - Decoder Protocol Definition
 
-// TODO: Add docstring
+/**
+    The `Decoder` protocol declares an interface used to parse an `AnyObject` to an object of type `T`.
+*/
 public protocol Decoder {
+    /**
+        Parses the given object into a value of type `T`
+
+        - parameter object: The object to parse.
+
+        - throws: ParserError.Validation
+        - returns: The parsed object.
+    */
     func decodeObject(object: AnyObject) throws -> Any
 }
 
 // MARK: - Supplied Decoders
 
 /**
-Decodes a String to an Int.
+    Decodes a String to an Int.
 */
 public class StringToIntDecoder: Decoder {
 
     /**
-    Converts the `String` object to an `Int`.
+        Converts the `String` object to an `Int`.
 
-    - parameter object: The `String` to decode.
+        - parameter object: The `String` to decode.
 
-    - returns: The decoded `Int` or throws.
+        - throws: ParserError.Validation
+        - returns: The decoded `Int`.
     */
     public func decodeObject(object: AnyObject) throws -> Any {
         if let
@@ -42,18 +53,18 @@ public class StringToIntDecoder: Decoder {
 }
 
 /**
-The date decoder converts a `String` into an `NSDate` object using the provided date format string
-or `NSDateFormatter`.
+    The date decoder converts a `String` into an `NSDate` object using the provided date format string
+    or `NSDateFormatter`.
 */
 public class DateDecoder: Decoder {
     private let dateFormatter: NSDateFormatter
 
     /**
-    Creates a data decoder with the given date format string.
+        Creates a data decoder with the given date format string.
 
-    - parameter dateFormatString: The date format string.
+        - parameter dateFormatString: The date format string.
 
-    - returns: The date decoder.
+        - returns: The date decoder.
     */
     public init(dateFormatString: String) {
         self.dateFormatter = NSDateFormatter()
@@ -61,22 +72,23 @@ public class DateDecoder: Decoder {
     }
 
     /**
-    Creates a date decoder with the given date formatter.
+        Creates a date decoder with the given date formatter.
 
-    - parameter dateFormatter: A `NSDateFormatter` instance.
+        - parameter dateFormatter: A `NSDateFormatter` instance.
 
-    - returns: The date decoder.
+        - returns: The date decoder.
     */
     public init(dateFormatter: NSDateFormatter) {
         self.dateFormatter = dateFormatter
     }
 
     /**
-    Decodes the data parameter into an `NSDate`.
+        Decodes the data parameter into an `NSDate`.
 
-    - parameter data: The string to parse. MUST be of type `String` or `NSString`.
+        - parameter data: The string to parse. MUST be of type `String` or `NSString`.
 
-    - returns: The parsed date.
+        - throws: ParserError.Validation
+        - returns: The parsed date.
     */
     public func decodeObject(data: AnyObject) throws -> Any {
         if let string = data as? String {

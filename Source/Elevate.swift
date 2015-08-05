@@ -278,36 +278,40 @@ public class Parser {
         } else if property.optional == true && value is NSNull {
             return nil
         } else {
-            var isCorrectType = false
-
-            switch value {
-            case let number as NSNumber:
-                if number.isBool && property.type == .Bool {
-                    isCorrectType = true
-                } else {
-                    switch property.type {
-                    case .Int, .UInt, .Double, .Float:
-                        isCorrectType = true
-                    default:
-                        isCorrectType = false
-                    }
-                }
-            case is NSString:
-                isCorrectType = property.type == .String || property.type == .URL
-            case is [AnyObject]:
-                isCorrectType = property.type == .Array
-            case is [String: AnyObject]:
-                isCorrectType = property.type == .Dictionary
-            default:
-                break
-            }
-
-            if !isCorrectType {
+            if !valueIsSpecifiedType(value: value, type: property.type) {
                 errorDescription = "Value for key path [\(property.keyPath)] is of incorrect type"
             }
         }
 
         return errorDescription
+    }
+
+    class func valueIsSpecifiedType(value value: AnyObject, type: ParserPropertyType) -> Bool {
+        var isValid = false
+
+        switch value {
+        case let number as NSNumber:
+            if number.isBool && type == .Bool {
+                isValid = true
+            } else {
+                switch type {
+                case .Int, .UInt, .Double, .Float:
+                    isValid = true
+                default:
+                    isValid = false
+                }
+            }
+        case is NSString:
+            isValid = type == .String || type == .URL
+        case is [AnyObject]:
+            isValid = type == .Array
+        case is [String: AnyObject]:
+            isValid = type == .Dictionary
+        default:
+            break
+        }
+
+        return isValid
     }
 
     private class func parseArray(data data: AnyObject, decodingMethod: ParserProperty.DecodingMethod) throws -> [Any] {
@@ -463,7 +467,6 @@ public class ParserPropertyMaker {
     - Int:        Represents a Swift `Int` type.
     - Float:      Represents a Swift `Float` type.
     - Double:     Represents a Swift `Double` type.
-    - Number:     Represents a Swift `Number` type.
     - Bool:       Represents a Swift `Bool` type.
     - Array:      Represents a Swift `Array` type.
     - Dictionary: Represents a Swift `Dictionary` type.

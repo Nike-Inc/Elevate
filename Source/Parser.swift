@@ -13,7 +13,15 @@ public class Parser {
 
     // MARK: Decodable Parsing Methods
 
-    // TODO: Add docstring
+    /**
+        Parses json data at the specified key path into an object of type `T`. `T` must implement the `Decodable` protocol.
+    
+        - parameter data:       An NSData object containing encoded json data.
+        - parameter forKeyPath: The json key path identifying the object to be parsed.
+    
+        - throws: ParserError.Deserialization and ParserError.Validation
+        - returns: The parsed object
+    */
     public class func parse<T: Decodable>(data data: NSData, forKeyPath keyPath: String) throws -> T {
         let properties = try Parser.parseProperties(data: data) { make in
             make.propertyForKeyPath(keyPath, type: .Dictionary, decodedToType: T.self)
@@ -22,7 +30,16 @@ public class Parser {
         return properties[keyPath] as! T
     }
 
-    // TODO: Add docstring
+    /**
+        Parses json data at the specified key path into an array of objects of type `T`. `T` must implement the 
+        `Decodable` protocol.
+
+        - parameter data:       An NSData object containing encoded json data.
+        - parameter forKeyPath: The json key path identifying the object to be parsed.
+
+        - throws: ParserError.Deserialization and ParserError.Validation
+        - returns: The parsed array of objects
+    */
     public class func parse<T: Decodable>(data data: NSData, forKeyPath keyPath: String) throws -> [T] {
         let properties = try Parser.parseProperties(data: data) { make in
             make.propertyForKeyPath(keyPath, type: .Array, decodedToType: T.self)
@@ -31,6 +48,16 @@ public class Parser {
         return (properties[keyPath] as! [Any]).map { $0 as! T }
     }
 
+    /**
+        Parses json data at the specified key path into an object of type `T` using the passed in `Decoder` instance.
+
+        - parameter data:           An NSData object containing encoded json data.
+        - parameter forKeyPath:     The json key path identifying the object to be parsed.
+        - parameter withDecoder:    The `Decoder` instance used to parse the data.
+
+        - throws: ParserError.Deserialization and ParserError.Validation
+        - returns: The parsed object
+    */
     public class func parse<T>(data data: NSData, forKeyPath keyPath: String, withDecoder decoder: Decoder) throws -> T {
         let result = try Parser.parseProperties(data: data) { make in
             make.propertyForKeyPath(keyPath, type: .Dictionary, decoder: decoder)
@@ -39,6 +66,17 @@ public class Parser {
         return result[keyPath] as! T
     }
 
+    /**
+        Parses json data at the specified key path into an array of objects of type `T` using the passed in `Decoder` 
+        instance.
+
+        - parameter data:           An NSData object containing encoded json data.
+        - parameter forKeyPath:     The json key path identifying the object to be parsed.
+        - parameter withDecoder:    The `Decoder` instance used to parse the data.
+
+        - throws: ParserError.Deserialization and ParserError.Validation
+        - returns: The parsed array of objects
+    */
     public class func parse<T>(data data: NSData, forKeyPath keyPath: String, withDecoder decoder: Decoder) throws -> [T] {
         let result = try Parser.parseProperties(data: data) { make in
             make.propertyForKeyPath(keyPath, type: .Array, decoder: decoder)
@@ -96,7 +134,7 @@ public class Parser {
         1) Extract the object for the given keyPath
         2) Validate the value type and optionality
         3) Extract the value in the specified type
-        4) Optionally, run the parser on the value or on each item in an array
+        4) Optionally, run the `Decoder` on the value or on each item in an array
 
         The resulting Dictionary contains all the parsed property results where the property keyPath is the key and the 
         extracted object is the value. The value is guaranteed to be an object of the type defined by the property and 

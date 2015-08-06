@@ -20,7 +20,7 @@ public protocol Decodable {
     
         - parameter json: The data to be parsed.
     
-        - throws: ParserError.Validation or ParserError.Deserialization
+        - throws: A ParserError.Validation or ParserError.Deserialization if decoding fails.
     */
     init(json: AnyObject) throws
 }
@@ -36,9 +36,9 @@ extension String: Decodable {
     /**
         Implements the `Decodable` protocol for the `String` type. Expects input to be a `String`.
     
-        - parameter json: A `String` instance
+        - parameter json: A `String` instance.
         
-        - throws: ParserError.Validation
+        - throws: A ParserError.Validation error if decoding fails.
     */
     public init(json: AnyObject) throws {
         guard Parser.valueIsSpecifiedType(value: json, type: .String) else {
@@ -53,9 +53,9 @@ extension Int: Decodable {
     /**
         Implements the `Decodable` protocol for the `Int` type. Expects input to be an `Int`.
 
-        - parameter json: An `Int` instance
+        - parameter json: An `Int` instance.
 
-        - throws: ParserError.Validation
+        - throws: A ParserError.Validation error if decoding fails.
     */
     public init(json: AnyObject) throws {
         guard Parser.valueIsSpecifiedType(value: json, type: .Int) else {
@@ -70,9 +70,9 @@ extension UInt: Decodable {
     /**
         Implements the `Decodable` protocol for the `UInt` type. Expects input to be a `UInt`.
 
-        - parameter json: A `UInt` instance
+        - parameter json: A `UInt` instance.
 
-        - throws: ParserError.Validation
+        - throws: A ParserError.Validation error if decoding fails.
     */
     public init(json: AnyObject) throws {
         guard Parser.valueIsSpecifiedType(value: json, type: .UInt) else {
@@ -87,9 +87,9 @@ extension Float: Decodable {
     /**
         Implements the `Decodable` protocol for the `Float` type. Expects input to be a `Float`.
 
-        - parameter json: A `Float` instance
+        - parameter json: A `Float` instance.
 
-        - throws: ParserError.Validation
+        - throws: A ParserError.Validation error if decoding fails.
     */
     public init(json: AnyObject) throws {
         guard Parser.valueIsSpecifiedType(value: json, type: .Float) else {
@@ -104,9 +104,9 @@ extension Double: Decodable {
     /**
         Implements the `Decodable` protocol for the `Double` type. Expects input to be a `Double`.
 
-        - parameter json: A `Double` instance
+        - parameter json: A `Double` instance.
 
-        - throws: ParserError.Validation
+        - throws: A ParserError.Validation error if decoding fails.
     */
     public init(json: AnyObject) throws {
         guard Parser.valueIsSpecifiedType(value: json, type: .Double) else {
@@ -121,9 +121,9 @@ extension Bool: Decodable {
     /**
         Implements the `Decodable` protocol for the `Bool` type. Expects input to be a `Bool`.
 
-        - parameter json: A `Bool` instance
+        - parameter json: A `Bool` instance.
 
-        - throws: ParserError.Validation
+        - throws: A ParserError.Validation error if decoding fails.
     */
     public init(json: AnyObject) throws {
         guard Parser.valueIsSpecifiedType(value: json, type: .Bool) else {

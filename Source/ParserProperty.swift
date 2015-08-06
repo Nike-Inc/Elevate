@@ -40,7 +40,7 @@ public struct ParserProperty {
 
     /**
         Indicates how a property value should be decoded.
-    
+
         - UseDecoder:   Should be decoded with the provided instance of a Decoder.
         - UseDecodable: Should be decoded to an instance of the provided Decodable type.
     */

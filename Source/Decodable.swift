@@ -11,15 +11,15 @@ import Foundation
 // MARK: Decodable Protocol Definition
 
 /**
-    The `Decodable` protocol declares an interface used to create an instance of an object from an `AnyObject` to be 
+    The `Decodable` protocol declares an interface used to create an instance of an object from an `AnyObject` to be
     parsed.
 */
 public protocol Decodable {
     /**
         Initializes an instance of the object using the given json object.
-    
+
         - parameter json: The data to be parsed.
-    
+
         - throws: A ParserError.Validation or ParserError.Deserialization if decoding fails.
     */
     init(json: AnyObject) throws
@@ -28,16 +28,16 @@ public protocol Decodable {
 // MARK: - Primative Decodables
 
 /**
-    The primative decodables implemented below are used by the parser when parsing an array of primative values. The 
+    The primative decodables implemented below are used by the parser when parsing an array of primative values. The
     input is expected to be of the same type as the object and will be validated and cast as such.
 */
 
 extension String: Decodable {
     /**
         Implements the `Decodable` protocol for the `String` type. Expects input to be a `String`.
-    
+
         - parameter json: A `String` instance.
-        
+
         - throws: A ParserError.Validation error if decoding fails.
     */
     public init(json: AnyObject) throws {

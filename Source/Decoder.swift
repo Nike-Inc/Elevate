@@ -8,7 +8,7 @@
 
 import Foundation
 
-// MARK: - Decoder Protocol Definition
+// MARK: Decoder Protocol Definition
 
 // TODO: Add docstring
 public protocol Decoder {

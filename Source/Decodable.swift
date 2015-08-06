@@ -8,7 +8,7 @@
 
 import Foundation
 
-// MARK: - Decodable Protocol Definition
+// MARK: Decodable Protocol Definition
 
 // TODO: Add docstring
 public protocol Decodable {

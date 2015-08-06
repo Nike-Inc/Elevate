@@ -8,7 +8,7 @@
 
 import Foundation
 
-// MARK: - Decodable Protocol Definition
+// MARK: Decodable Protocol Definition
 
 /**
     The `Decodable` protocol declares an interface used to create an instance of an object from an `AnyObject` to be 

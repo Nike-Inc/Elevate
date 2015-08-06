@@ -8,7 +8,7 @@
 
 import Foundation
 
-// MARK: - Decoder Protocol Definition
+// MARK: Decoder Protocol Definition
 
 /**
     The `Decoder` protocol declares an interface used to parse an `AnyObject` to an `Any`, which is typically a model 

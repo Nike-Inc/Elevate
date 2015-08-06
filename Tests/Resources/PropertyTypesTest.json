@@ -4,7 +4,6 @@
     "testString": "test string",
     "testFloat": 1.1111,
     "testDouble": 1.1111,
-    "testNumber": 1.1111,
     "testNull": null,
     "testDictionary": {
         "key1": "value1",
@@ -17,5 +16,17 @@
         "subUInt": 1,
         "subInt": -1,
         "subString": "sub test string"
-    }
+    },
+    "arrayOfStrings": [
+        "array", "of", "strings"
+    ],
+    "arrayOfInts": [
+        0, 1, 2
+    ],
+    "arrayOfDoubles": [
+        -1.1, 0, 1.1
+    ],
+    "arrayOfBools": [
+        true, true, false
+    ]
 }

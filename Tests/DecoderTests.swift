@@ -11,11 +11,27 @@ import Foundation
 import XCTest
 
 class ValidDecoder: Decoder {
+    let toDictionary: Bool
+
+    init(toDictionary: Bool = false) {
+        self.toDictionary = toDictionary
+    }
+
     func decodeObject(object: AnyObject) throws -> Any {
-        return try Parser.parseProperties(json: object) { make in
+        let result = try Parser.parseProperties(json: object) { make in
             make.propertyForKeyPath("subUInt", type: .UInt)
             make.propertyForKeyPath("subInt", type: .Int)
             make.propertyForKeyPath("subString", type: .String)
+        }
+
+        if toDictionary {
+            return result
+        } else {
+            return TestObject(
+                subUInt: result["subUInt"] as! UInt,
+                subInt: result["subInt"] as! Int,
+                subString: result["subString"] as! String
+            )
         }
     }
 }
@@ -34,7 +50,7 @@ class InvalidDecoder: Decoder {
 class DecoderTestCase: BaseTestCase {
     func testThatItDecodesObject() {
         // Given
-        let decoder = ValidDecoder()
+        let decoder = ValidDecoder(toDictionary: true)
 
         let data = loadJSONDataForFileNamed("PropertyTypesTest")
         let json = try! NSJSONSerialization.JSONObjectWithData(
@@ -52,6 +68,24 @@ class DecoderTestCase: BaseTestCase {
             } else {
                 XCTFail("Parser did not return the expected type")
             }
+        } catch {
+            XCTFail("Parser unexpectedly returned an error")
+        }
+    }
+
+    func testThatItParsesObjectSuccessfully() {
+        // Given
+        let decoder = ValidDecoder()
+        let data = loadJSONDataForFileNamed("PropertyTypesTest")
+
+        do {
+            // When
+            let testObject: TestObject = try Parser.parse(data: data, forKeyPath: "sub-object", withDecoder: decoder)
+
+            // Then
+            XCTAssertEqual(testObject.subUInt, UInt(1), "Parsed UInt value did not equal value from json file.")
+            XCTAssertEqual(testObject.subInt, -1, "Parsed Int value did not equal value from json file.")
+            XCTAssertEqual(testObject.subString, "sub test string", "Parsed string value did not equal value from json file.")
         } catch {
             XCTFail("Parser unexpectedly returned an error")
         }

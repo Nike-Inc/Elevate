@@ -24,7 +24,6 @@ class ParserTestCase: BaseTestCase {
                 make.propertyForKeyPath("testString", type: .String)
                 make.propertyForKeyPath("testFloat", type: .Float)
                 make.propertyForKeyPath("testDouble", type: .Double)
-                make.propertyForKeyPath("testNumber", type: .Number)
                 make.propertyForKeyPath("testNull", type: .String, optional: true)
                 make.propertyForKeyPath("testDictionary", type: .Dictionary)
                 make.propertyForKeyPath("testDate", type: .String, decoder: dateDecoder)
@@ -38,18 +37,17 @@ class ParserTestCase: BaseTestCase {
             XCTAssertEqual(properties["testString"] as! String, "test string", "Parsed String value did not equal value from json file.")
             XCTAssertEqual(properties["testFloat"] as! Float, Float(1.1111), "Parsed Float did not equal value from json file.")
             XCTAssertEqual(properties["testDouble"] as! Double, 1.1111, "Parsed Double did not equal value from json file.")
-            XCTAssertEqual(properties["testNumber"] as! NSNumber, NSNumber(double: 1.1111), "Parsed NSNumber did not equal value from json file.")
             XCTAssertTrue(properties["testNull"] == nil, "Parsed value did not equal nil from json file.")
 
             let jsonDictionary = properties["testDictionary"] as! [String: AnyObject]
 
             XCTAssertEqual(jsonDictionary["key1"] as! String, "value1", "Parsed Dictionary<String, AnyObject> did not equal value from json file.")
-            XCTAssertTrue(properties["sub-object"] is [String: Any], "Parsed sub object did not contain value of correct type")
+            XCTAssertTrue(properties["sub-object"] is TestObject, "Parsed sub object did not contain value of correct type")
 
-            let subObject = properties["sub-object"] as? [String: Any]
-            XCTAssertEqual(subObject?["subUInt"] as! UInt, UInt(1), "Parsed sub object value did not equal value from json file.")
-            XCTAssertEqual(subObject?["subInt"] as! Int, -1, "Parsed sub object value did not equal value from json file.")
-            XCTAssertEqual(subObject?["subString"] as! String, "sub test string", "Parsed sub object value did not equal value from json file.")
+            let subObject = properties["sub-object"] as! TestObject
+            XCTAssertEqual(subObject.subUInt, UInt(1), "Parsed sub object value did not equal value from json file.")
+            XCTAssertEqual(subObject.subInt, -1, "Parsed sub object value did not equal value from json file.")
+            XCTAssertEqual(subObject.subString, "sub test string", "Parsed sub object value did not equal value from json file.")
 
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = DateFormats.Format1
@@ -77,7 +75,6 @@ class ParserTestCase: BaseTestCase {
                 make.propertyForKeyPath("string", type: .String)
                 make.propertyForKeyPath("float", type: .Float)
                 make.propertyForKeyPath("double", type: .Double)
-                make.propertyForKeyPath("number", type: .Number)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -89,8 +86,7 @@ class ParserTestCase: BaseTestCase {
                     "Value for key path [int] is of incorrect type\n" +
                     "Value for key path [string] is of incorrect type\n" +
                     "Value for key path [float] is of incorrect type\n" +
-                    "Value for key path [double] is of incorrect type\n" +
-                "Value for key path [number] is of incorrect type"
+                    "Value for key path [double] is of incorrect type"
             )
 
             XCTAssertEqual(expectedValue, actualValue, "Parser error message did not match expected value")
@@ -111,7 +107,6 @@ class ParserTestCase: BaseTestCase {
                 make.propertyForKeyPath("string", type: .String)
                 make.propertyForKeyPath("float", type: .Float)
                 make.propertyForKeyPath("double", type: .Double)
-                make.propertyForKeyPath("number", type: .Number)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -123,8 +118,7 @@ class ParserTestCase: BaseTestCase {
                     "Value for key path [int] is of incorrect type\n" +
                     "Value for key path [string] is of incorrect type\n" +
                     "Value for key path [float] is of incorrect type\n" +
-                    "Value for key path [double] is of incorrect type\n" +
-                "Value for key path [number] is of incorrect type"
+                    "Value for key path [double] is of incorrect type"
             )
 
             XCTAssertEqual(expectedValue, actualValue, "Parser error message did not match expected value")
@@ -165,7 +159,7 @@ class ParserTestCase: BaseTestCase {
             let properties = try Parser.parseProperties(data: data) { make in
                 make.propertyForKeyPath("rootString", type: .String)
                 make.propertyForKeyPath("rootInt", type: .Int)
-                make.propertyForKeyPath("items", type: .Array, decoder: ValidDecoder())
+                make.propertyForKeyPath("items", type: .Array, decoder: ValidDecoder(toDictionary: true))
             }
 
             // Then
@@ -182,6 +176,91 @@ class ParserTestCase: BaseTestCase {
             }
         } catch {
             XCTFail("Parser failed to parse array")
+        }
+    }
+
+    func testThatItParsesArrayOfStrings() {
+        // Given
+        let data = loadJSONDataForFileNamed("PropertyTypesTest")
+
+        // When
+        do {
+            let properties = try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("arrayOfStrings", type: .Array, decodedToType: String.self)
+            }
+
+            // Then
+            let values = (properties["arrayOfStrings"] as! [Any]).map { $0 as! String }
+            XCTAssertEqual(values[0], "array", "Array of Strings object was incorrect")
+            XCTAssertEqual(values[1], "of", "Array of Strings object was incorrect")
+            XCTAssertEqual(values[2], "strings", "Array of Strings object was incorrect")
+        }
+        catch {
+            XCTFail("Parse failed unexpectedly")
+        }
+    }
+
+    func testThatItParsesArrayOfInts() {
+        // Given
+        let data = loadJSONDataForFileNamed("PropertyTypesTest")
+
+        // When
+        do {
+            let properties = try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("arrayOfInts", type: .Array, decodedToType: Int.self)
+            }
+
+            // Then
+            let values = (properties["arrayOfInts"] as! [Any]).map { $0 as! Int }
+            XCTAssertEqual(values[0], 0, "Array of Ints object was incorrect")
+            XCTAssertEqual(values[1], 1, "Array of Ints object was incorrect")
+            XCTAssertEqual(values[2], 2, "Array of Ints object was incorrect")
+        }
+        catch let error {
+            print(error)
+            XCTFail("Parse failed unexpectedly")
+        }
+    }
+
+    func testThatItParsesArrayOfDoubles() {
+        // Given
+        let data = loadJSONDataForFileNamed("PropertyTypesTest")
+
+        // When
+        do {
+            let properties = try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("arrayOfDoubles", type: .Array, decodedToType: Double.self)
+            }
+
+            // Then
+            let values = (properties["arrayOfDoubles"] as! [Any]).map { $0 as! Double }
+            XCTAssertEqual(values[0], -1.1, "Array of Doubles object was incorrect")
+            XCTAssertEqual(values[1], 0, "Array of Doubles object was incorrect")
+            XCTAssertEqual(values[2], 1.1, "Array of Doubles object was incorrect")
+        }
+        catch {
+            XCTFail("Parse failed unexpectedly")
+        }
+    }
+
+    func testThatItParsesArrayOfBools() {
+        // Given
+        let data = loadJSONDataForFileNamed("PropertyTypesTest")
+
+        // When
+        do {
+            let properties = try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("arrayOfBools", type: .Array, decodedToType: Bool.self)
+            }
+
+            // Then
+            let values = (properties["arrayOfBools"] as! [Any]).map { $0 as! Bool }
+            XCTAssertEqual(values[0], true, "Array of Bools object was incorrect")
+            XCTAssertEqual(values[1], true, "Array of Bools object was incorrect")
+            XCTAssertEqual(values[2], false, "Array of Bools object was incorrect")
+        }
+        catch {
+            XCTFail("Parse failed unexpectedly")
         }
     }
 
@@ -320,19 +399,16 @@ class ParserJSONNumericDataTestCase: BaseTestCase {
 
                 make.propertyForKeyPath("intZero", type: .Int)
                 make.propertyForKeyPath("uintZero", type: .UInt)
-                make.propertyForKeyPath("numberZero", type: .Number)
                 make.propertyForKeyPath("floatZero", type: .Float)
                 make.propertyForKeyPath("doubleZero", type: .Double)
 
                 make.propertyForKeyPath("intOne", type: .Int)
                 make.propertyForKeyPath("uintOne", type: .UInt)
-                make.propertyForKeyPath("numberOne", type: .Number)
                 make.propertyForKeyPath("floatOne", type: .Float)
                 make.propertyForKeyPath("doubleOne", type: .Double)
 
                 make.propertyForKeyPath("intMinusOne", type: .Int)
                 make.propertyForKeyPath("uintMinusOne", type: .UInt)
-                make.propertyForKeyPath("numberMinusOne", type: .Number)
                 make.propertyForKeyPath("floatMinusOne", type: .Float)
                 make.propertyForKeyPath("doubleMinusOne", type: .Double)
             }
@@ -350,19 +426,16 @@ class ParserJSONNumericDataTestCase: BaseTestCase {
 
             XCTAssertEqual(parsed["intZero"] as! Int, Int(0), "Parsed [intZero] did not equal expected value.")
             XCTAssertEqual(parsed["uintZero"] as! UInt, UInt(0), "Parsed [uintZero] did not equal expected value.")
-            XCTAssertEqual(parsed["numberZero"] as! NSNumber, NSNumber(integer: 0), "Parsed [numberZero] did not equal expected value.")
             XCTAssertEqual(parsed["floatZero"] as! Float, Float(0.0), "Parsed [floatZero] did not equal expected value.")
             XCTAssertEqual(parsed["doubleZero"] as! Double, Double(0.0), "Parsed [doubleZero] did not equal expected value.")
 
             XCTAssertEqual(parsed["intOne"] as! Int, Int(1), "Parsed [intOne] did not equal expected value.")
             XCTAssertEqual(parsed["uintOne"] as! UInt, UInt(1), "Parsed [uintOne] did not equal expected value.")
-            XCTAssertEqual(parsed["numberOne"] as! NSNumber, NSNumber(integer: 1), "Parsed [numberOne] did not equal expected value.")
             XCTAssertEqual(parsed["floatOne"] as! Float, Float(1.0), "Parsed [floatOne] did not equal expected value.")
             XCTAssertEqual(parsed["doubleOne"] as! Double, Double(1.0), "Parsed [doubleOne] did not equal expected value.")
 
             XCTAssertEqual(parsed["intMinusOne"] as! Int, Int(-1), "Parsed [intMinusOne] did not equal expected value.")
             XCTAssertEqual(parsed["uintMinusOne"] as! UInt, UInt.max, "Parsed [uintMinusOne] did not equal expected value.")
-            XCTAssertEqual(parsed["numberMinusOne"] as! NSNumber, NSNumber(integer: -1), "Parsed [numberMinusOne] did not equal expected value.")
             XCTAssertEqual(parsed["floatMinusOne"] as! Float, Float(-1.0), "Parsed [floatMinusOne] did not equal expected value.")
             XCTAssertEqual(parsed["doubleMinusOne"] as! Double, Double(-1.0), "Parsed [doubleMinusOne] did not equal expected value.")
         } catch {

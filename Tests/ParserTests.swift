@@ -44,10 +44,13 @@ class ParserTestCase: BaseTestCase {
             XCTAssertEqual(jsonDictionary["key1"] as! String, "value1", "Parsed Dictionary<String, AnyObject> did not equal value from json file.")
             XCTAssertTrue(properties["sub-object"] is TestObject, "Parsed sub object did not contain value of correct type")
 
-            let subObject = properties["sub-object"] as! TestObject
-            XCTAssertEqual(subObject.subUInt, UInt(1), "Parsed sub object value did not equal value from json file.")
-            XCTAssertEqual(subObject.subInt, -1, "Parsed sub object value did not equal value from json file.")
-            XCTAssertEqual(subObject.subString, "sub test string", "Parsed sub object value did not equal value from json file.")
+            if let subObject = properties["sub-object"] as? TestObject {
+                XCTAssertEqual(subObject.subUInt, UInt(1), "Parsed sub object value did not equal value from json file.")
+                XCTAssertEqual(subObject.subInt, -1, "Parsed sub object value did not equal value from json file.")
+                XCTAssertEqual(subObject.subString, "sub test string", "Parsed sub object value did not equal value from json file.")
+            } else {
+                XCTFail("subObject should not be nil")
+            }
 
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = DateFormats.Format1

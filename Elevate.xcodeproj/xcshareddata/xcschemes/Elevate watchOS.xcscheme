@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4CA33F3E1B7558C30047C307"
-               BuildableName = "Elevate watchOS.framework"
+               BuildableName = "Elevate.framework"
                BlueprintName = "Elevate watchOS"
                ReferencedContainer = "container:Elevate.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4CA33F3E1B7558C30047C307"
-            BuildableName = "Elevate watchOS.framework"
+            BuildableName = "Elevate.framework"
             BlueprintName = "Elevate watchOS"
             ReferencedContainer = "container:Elevate.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4CA33F3E1B7558C30047C307"
-            BuildableName = "Elevate watchOS.framework"
+            BuildableName = "Elevate.framework"
             BlueprintName = "Elevate watchOS"
             ReferencedContainer = "container:Elevate.xcodeproj">
          </BuildableReference>

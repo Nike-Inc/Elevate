@@ -11,16 +11,16 @@ import Foundation
 // MARK: Decoder Protocol Definition
 
 /**
-    The `Decoder` protocol declares an interface used to parse an `AnyObject` to an `Any`, which is typically a model 
+    The `Decoder` protocol declares an interface used to parse an `AnyObject` to an `Any`, which is typically a model
     object.
 */
 public protocol Decoder {
     /**
-        Parses the given object into a value of type `T`
+        Parses the given object into a value of type `T`.
 
         - parameter object: The object to parse.
 
-        - throws: ParserError.Validation
+        - throws:  A ParserError.Validation error if object decoding fails.
         - returns: The parsed object.
     */
     func decodeObject(object: AnyObject) throws -> Any
@@ -38,7 +38,7 @@ public class StringToIntDecoder: Decoder {
 
         - parameter object: The `String` to decode.
 
-        - throws: ParserError.Validation
+        - throws:  A ParserError.Validation error if int decoding fails.
         - returns: The decoded `Int`.
     */
     public func decodeObject(object: AnyObject) throws -> Any {

@@ -10,7 +10,6 @@ import Foundation
 import XCTest
 
 public class BaseTestCase: XCTestCase {
-
     struct DateFormats {
         static let Format1 = "yyyy-MM-dd 'at' HH:mm"
     }
@@ -20,5 +19,4 @@ public class BaseTestCase: XCTestCase {
         let path = bundle.pathForResource(filename, ofType: "json")
         return NSData(contentsOfFile: path!)!
     }
-
 }

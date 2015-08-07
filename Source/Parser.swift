@@ -276,7 +276,7 @@ public class Parser {
     // MARK: Private - Parser Helper Methods
 
     private class func json(var json: AnyObject?, forKeyPath keypath: String) -> AnyObject {
-        let keys = split(keypath.characters) { $0 == "." }.map { String($0) }
+        let keys = keypath.characters.split() { $0 == "." }.map { String($0) }
 
         for key in keys {
             let dictionary = json as! [String: AnyObject]

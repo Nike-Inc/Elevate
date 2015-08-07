@@ -62,9 +62,9 @@ class DecoderTestCase: BaseTestCase {
         do {
             if let properties = try decoder.decodeObject(json["sub-object"]!) as? [String: Any] {
                 // Then
-                XCTAssertEqual(properties["subUInt"] as! UInt, UInt(1), "Parsed UInt value did not equal value from json file.")
-                XCTAssertEqual(properties["subInt"] as! Int, -1, "Parsed Int value did not equal value from json file.")
-                XCTAssertEqual(properties["subString"] as! String, "sub test string", "Parsed String value did not equal value from json file.")
+                XCTAssertEqual(properties["subUInt"] as? UInt, UInt(1), "Parsed UInt value did not equal value from json file.")
+                XCTAssertEqual(properties["subInt"] as? Int, -1, "Parsed Int value did not equal value from json file.")
+                XCTAssertEqual(properties["subString"] as? String, "sub test string", "Parsed String value did not equal value from json file.")
             } else {
                 XCTFail("Parser did not return the expected type")
             }

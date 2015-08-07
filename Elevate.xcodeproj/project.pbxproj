@@ -17,6 +17,12 @@
 		4C5FB4A91B55C229001258D3 /* PropertyTypesTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB4A01B55C229001258D3 /* PropertyTypesTest.json */; };
 		4C5FB4AA1B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB4A11B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json */; };
 		4C5FB4AB1B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB4A11B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json */; };
+		4CA33F471B7559250047C307 /* Elevate.h in Headers */ = {isa = PBXBuildFile; fileRef = E91C4DF51B5475CC000481D2 /* Elevate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4CA33F481B75592A0047C307 /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE681B72C123005584D4 /* Decoder.swift */; };
+		4CA33F491B75592A0047C307 /* Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE541B713D0C005584D4 /* Decodable.swift */; };
+		4CA33F4A1B75592A0047C307 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C4DF61B5475CC000481D2 /* Parser.swift */; };
+		4CA33F4B1B75592A0047C307 /* ParserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE6E1B72C26E005584D4 /* ParserError.swift */; };
+		4CA33F4C1B75592A0047C307 /* ParserProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE6B1B72C1BD005584D4 /* ParserProperty.swift */; };
 		E91C4DE31B547559000481D2 /* Elevate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E91C4DD81B547559000481D2 /* Elevate.framework */; };
 		E91C4DFB1B5475CC000481D2 /* Elevate.h in Headers */ = {isa = PBXBuildFile; fileRef = E91C4DF51B5475CC000481D2 /* Elevate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E91C4DFC1B5475CC000481D2 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C4DF61B5475CC000481D2 /* Parser.swift */; };
@@ -64,6 +70,7 @@
 		4C5FB49F1B55C229001258D3 /* KeyPathsTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = KeyPathsTest.json; sourceTree = "<group>"; };
 		4C5FB4A01B55C229001258D3 /* PropertyTypesTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PropertyTypesTest.json; sourceTree = "<group>"; };
 		4C5FB4A11B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PropertyTypesWithIncorrectValueTypes.json; sourceTree = "<group>"; };
+		4CA33F3F1B7558C30047C307 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91C4DD81B547559000481D2 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91C4DE21B547559000481D2 /* Elevate Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Elevate Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91C4DF51B5475CC000481D2 /* Elevate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Elevate.h; sourceTree = "<group>"; };
@@ -83,6 +90,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4CA33F3B1B7558C30047C307 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E91C4DD41B547559000481D2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -144,6 +158,7 @@
 				E91C4DE21B547559000481D2 /* Elevate Tests.xctest */,
 				E91C4E121B5477BD000481D2 /* Elevate.framework */,
 				E91C4E1B1B5477BD000481D2 /* Elevate Tests.xctest */,
+				4CA33F3F1B7558C30047C307 /* Elevate.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -194,6 +209,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		4CA33F3C1B7558C30047C307 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4CA33F471B7559250047C307 /* Elevate.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E91C4DD51B547559000481D2 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -213,6 +236,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		4CA33F3E1B7558C30047C307 /* Elevate watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4CA33F441B7558C30047C307 /* Build configuration list for PBXNativeTarget "Elevate watchOS" */;
+			buildPhases = (
+				4CA33F3A1B7558C30047C307 /* Sources */,
+				4CA33F3B1B7558C30047C307 /* Frameworks */,
+				4CA33F3C1B7558C30047C307 /* Headers */,
+				4CA33F3D1B7558C30047C307 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Elevate watchOS";
+			productName = Elevate;
+			productReference = 4CA33F3F1B7558C30047C307 /* Elevate.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		E91C4DD71B547559000481D2 /* Elevate iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E91C4DEC1B547559000481D2 /* Build configuration list for PBXNativeTarget "Elevate iOS" */;
@@ -295,6 +336,9 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Nike;
 				TargetAttributes = {
+					4CA33F3E1B7558C30047C307 = {
+						CreatedOnToolsVersion = 7.0;
+					};
 					E91C4DD71B547559000481D2 = {
 						CreatedOnToolsVersion = 7.0;
 					};
@@ -325,11 +369,19 @@
 				E91C4DE11B547559000481D2 /* Elevate iOS Tests */,
 				E91C4E111B5477BD000481D2 /* Elevate OSX */,
 				E91C4E1A1B5477BD000481D2 /* Elevate OSX Tests */,
+				4CA33F3E1B7558C30047C307 /* Elevate watchOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4CA33F3D1B7558C30047C307 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E91C4DD61B547559000481D2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -371,6 +423,18 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4CA33F3A1B7558C30047C307 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4CA33F481B75592A0047C307 /* Decoder.swift in Sources */,
+				4CA33F4C1B75592A0047C307 /* ParserProperty.swift in Sources */,
+				4CA33F491B75592A0047C307 /* Decodable.swift in Sources */,
+				4CA33F4A1B75592A0047C307 /* Parser.swift in Sources */,
+				4CA33F4B1B75592A0047C307 /* ParserError.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E91C4DD31B547559000481D2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -433,6 +497,44 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		4CA33F451B7558C30047C307 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Source/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nike.Elevate;
+				PRODUCT_NAME = Elevate;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		4CA33F461B7558C30047C307 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Source/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nike.Elevate;
+				PRODUCT_NAME = Elevate;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
 		E91C4DEA1B547559000481D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -650,6 +752,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4CA33F441B7558C30047C307 /* Build configuration list for PBXNativeTarget "Elevate watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4CA33F451B7558C30047C307 /* Debug */,
+				4CA33F461B7558C30047C307 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		E91C4DD21B547559000481D2 /* Build configuration list for PBXProject "Elevate" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

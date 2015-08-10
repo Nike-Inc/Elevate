@@ -32,22 +32,25 @@ class ParserTestCase: BaseTestCase {
             }
 
             // Then
-            XCTAssertEqual(properties["testUInt"] as! UInt, UInt(1), "Parsed UInt value did not equal value from json file.")
-            XCTAssertEqual(properties["testInt"] as! Int, -1, "Parsed Int value did not equal value from json file.")
-            XCTAssertEqual(properties["testString"] as! String, "test string", "Parsed String value did not equal value from json file.")
-            XCTAssertEqual(properties["testFloat"] as! Float, Float(1.1111), "Parsed Float did not equal value from json file.")
-            XCTAssertEqual(properties["testDouble"] as! Double, 1.1111, "Parsed Double did not equal value from json file.")
+            XCTAssertEqual(properties["testUInt"] as? UInt, UInt(1), "Parsed UInt value did not equal value from json file.")
+            XCTAssertEqual(properties["testInt"] as? Int, -1, "Parsed Int value did not equal value from json file.")
+            XCTAssertEqual(properties["testString"] as? String, "test string", "Parsed String value did not equal value from json file.")
+            XCTAssertEqual(properties["testFloat"] as? Float, Float(1.1111), "Parsed Float did not equal value from json file.")
+            XCTAssertEqual(properties["testDouble"] as? Double, 1.1111, "Parsed Double did not equal value from json file.")
             XCTAssertTrue(properties["testNull"] == nil, "Parsed value did not equal nil from json file.")
 
             let jsonDictionary = properties["testDictionary"] as! [String: AnyObject]
 
-            XCTAssertEqual(jsonDictionary["key1"] as! String, "value1", "Parsed Dictionary<String, AnyObject> did not equal value from json file.")
+            XCTAssertEqual(jsonDictionary["key1"] as? String, "value1", "Parsed Dictionary<String, AnyObject> did not equal value from json file.")
             XCTAssertTrue(properties["sub-object"] is TestObject, "Parsed sub object did not contain value of correct type")
 
-            let subObject = properties["sub-object"] as! TestObject
-            XCTAssertEqual(subObject.subUInt, UInt(1), "Parsed sub object value did not equal value from json file.")
-            XCTAssertEqual(subObject.subInt, -1, "Parsed sub object value did not equal value from json file.")
-            XCTAssertEqual(subObject.subString, "sub test string", "Parsed sub object value did not equal value from json file.")
+            if let subObject = properties["sub-object"] as? TestObject {
+                XCTAssertEqual(subObject.subUInt, UInt(1), "Parsed sub object value did not equal value from json file.")
+                XCTAssertEqual(subObject.subInt, -1, "Parsed sub object value did not equal value from json file.")
+                XCTAssertEqual(subObject.subString, "sub test string", "Parsed sub object value did not equal value from json file.")
+            } else {
+                XCTFail("subObject should not be nil")
+            }
 
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = DateFormats.Format1
@@ -170,9 +173,9 @@ class ParserTestCase: BaseTestCase {
 
             for (index, item) in (properties["items"] as! [Any]).enumerate() {
                 let dict = item as! [String: Any]
-                XCTAssertEqual(dict["subUInt"] as! UInt, UInt(index), "Array UInt object value was incorrect")
-                XCTAssertEqual(dict["subInt"] as! Int, index, "Array Int object value was incorrect")
-                XCTAssertEqual(dict["subString"] as! String, "value\(index)", "Array string object value was incorrect")
+                XCTAssertEqual(dict["subUInt"] as? UInt, UInt(index), "Array UInt object value was incorrect")
+                XCTAssertEqual(dict["subInt"] as? Int, index, "Array Int object value was incorrect")
+                XCTAssertEqual(dict["subString"] as? String, "value\(index)", "Array string object value was incorrect")
             }
         } catch {
             XCTFail("Parser failed to parse array")
@@ -414,30 +417,30 @@ class ParserJSONNumericDataTestCase: BaseTestCase {
             }
 
             // Then
-            XCTAssertEqual(parsed["intMin"] as! Int, Int.min, "Parsed [intMin] did not equal `Int.min`.")
-            XCTAssertEqual(parsed["intMax"] as! Int, Int.max, "Parsed [intMax] did not equal `Int.max`.")
-            XCTAssertEqual(parsed["uintMin"] as! UInt, UInt.min, "Parsed [uintMin] did not equal `UInt.min`.")
-            XCTAssertEqual(parsed["uintMax"] as! UInt, UInt.max, "Parsed [uintMax] did not equal `UInt.max`.")
-            XCTAssertEqual(parsed["float"] as! Float, Float(4123.6789), "Parsed [float] did not equal expected value.")
-            XCTAssertEqual(parsed["double"] as! Double, Double(-123456.789), "Parsed [double] did not equal expected value.")
+            XCTAssertEqual(parsed["intMin"] as? Int, Int.min, "Parsed [intMin] did not equal `Int.min`.")
+            XCTAssertEqual(parsed["intMax"] as? Int, Int.max, "Parsed [intMax] did not equal `Int.max`.")
+            XCTAssertEqual(parsed["uintMin"] as? UInt, UInt.min, "Parsed [uintMin] did not equal `UInt.min`.")
+            XCTAssertEqual(parsed["uintMax"] as? UInt, UInt.max, "Parsed [uintMax] did not equal `UInt.max`.")
+            XCTAssertEqual(parsed["float"] as? Float, Float(4123.6789), "Parsed [float] did not equal expected value.")
+            XCTAssertEqual(parsed["double"] as? Double, Double(-123456.789), "Parsed [double] did not equal expected value.")
 
             XCTAssertFalse(parsed["boolFalse"] as! Bool, "Parsed [boolFalse] was not `false`.")
             XCTAssertTrue(parsed["boolTrue"] as! Bool, "Parsed [boolTrue] was not `true`.")
 
-            XCTAssertEqual(parsed["intZero"] as! Int, Int(0), "Parsed [intZero] did not equal expected value.")
-            XCTAssertEqual(parsed["uintZero"] as! UInt, UInt(0), "Parsed [uintZero] did not equal expected value.")
-            XCTAssertEqual(parsed["floatZero"] as! Float, Float(0.0), "Parsed [floatZero] did not equal expected value.")
-            XCTAssertEqual(parsed["doubleZero"] as! Double, Double(0.0), "Parsed [doubleZero] did not equal expected value.")
+            XCTAssertEqual(parsed["intZero"] as? Int, Int(0), "Parsed [intZero] did not equal expected value.")
+            XCTAssertEqual(parsed["uintZero"] as? UInt, UInt(0), "Parsed [uintZero] did not equal expected value.")
+            XCTAssertEqual(parsed["floatZero"] as? Float, Float(0.0), "Parsed [floatZero] did not equal expected value.")
+            XCTAssertEqual(parsed["doubleZero"] as? Double, Double(0.0), "Parsed [doubleZero] did not equal expected value.")
 
-            XCTAssertEqual(parsed["intOne"] as! Int, Int(1), "Parsed [intOne] did not equal expected value.")
-            XCTAssertEqual(parsed["uintOne"] as! UInt, UInt(1), "Parsed [uintOne] did not equal expected value.")
-            XCTAssertEqual(parsed["floatOne"] as! Float, Float(1.0), "Parsed [floatOne] did not equal expected value.")
-            XCTAssertEqual(parsed["doubleOne"] as! Double, Double(1.0), "Parsed [doubleOne] did not equal expected value.")
+            XCTAssertEqual(parsed["intOne"] as? Int, Int(1), "Parsed [intOne] did not equal expected value.")
+            XCTAssertEqual(parsed["uintOne"] as? UInt, UInt(1), "Parsed [uintOne] did not equal expected value.")
+            XCTAssertEqual(parsed["floatOne"] as? Float, Float(1.0), "Parsed [floatOne] did not equal expected value.")
+            XCTAssertEqual(parsed["doubleOne"] as? Double, Double(1.0), "Parsed [doubleOne] did not equal expected value.")
 
-            XCTAssertEqual(parsed["intMinusOne"] as! Int, Int(-1), "Parsed [intMinusOne] did not equal expected value.")
-            XCTAssertEqual(parsed["uintMinusOne"] as! UInt, UInt.max, "Parsed [uintMinusOne] did not equal expected value.")
-            XCTAssertEqual(parsed["floatMinusOne"] as! Float, Float(-1.0), "Parsed [floatMinusOne] did not equal expected value.")
-            XCTAssertEqual(parsed["doubleMinusOne"] as! Double, Double(-1.0), "Parsed [doubleMinusOne] did not equal expected value.")
+            XCTAssertEqual(parsed["intMinusOne"] as? Int, Int(-1), "Parsed [intMinusOne] did not equal expected value.")
+            XCTAssertEqual(parsed["uintMinusOne"] as? UInt, UInt.max, "Parsed [uintMinusOne] did not equal expected value.")
+            XCTAssertEqual(parsed["floatMinusOne"] as? Float, Float(-1.0), "Parsed [floatMinusOne] did not equal expected value.")
+            XCTAssertEqual(parsed["doubleMinusOne"] as? Double, Double(-1.0), "Parsed [doubleMinusOne] did not equal expected value.")
         } catch {
             XCTFail("Parser unexpectedly returned an error")
         }

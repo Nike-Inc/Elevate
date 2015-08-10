@@ -100,11 +100,11 @@ public class DateDecoder: Decoder {
         }
     }
 
-    private func dateFromString<T>(string: String, withFormatter formatter: NSDateFormatter) throws -> T {
+    private func dateFromString(string: String, withFormatter formatter: NSDateFormatter) throws -> Any {
         let date = formatter.dateFromString(string)
 
         if let date = date {
-            return date as! T
+            return date
         }
 
         let description = "DateParser string could not be parsed to NSDate with the given formatter."

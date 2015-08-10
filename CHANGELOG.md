@@ -4,4 +4,13 @@ The changelog for Elevate includes information about the each release including 
 
 ---
 
-Elevate has not yet been released and is still under development.
+## 1.0.0
+
+This is the initial relase of Elevate. It includes:
+
+- Validation of full JSON payload
+- Parse complex JSON into strongly typed objects
+- Support for optional and required values
+- Convenient and flexible protocols to define object parsing
+- Large object graphs can be parsed into their component objects
+- Error aggregation across entire object graph

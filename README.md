@@ -13,12 +13,8 @@ Elevate brings sanity and reliability to JSON parsing in Swift.
 
 ## Requirements
 
-- iOS 8.0+ / Mac OS X 10.10+
+- iOS 8.0+ / Mac OS X 10.10+ / watchOS 2.0+
 - Xcode 7.0+
-
-## Dependencies
-
-* None!
 
 ## Communication
 
@@ -83,9 +79,9 @@ carthage update --platform iOS
 
 ## Usage
 
-Elevate aims to make JSON parsing and validation simple, yet robust. This is achieved through a set of protocols and classes that can be utilized to create `Decodable` and `Decoder` classes. By using Surge's parsing infrastructure, you'll be able to easily parse JSON data into strongly typed model objects or simple dictionaries. Specify each of the property key paths to be parsed and what their type is. Elevate will validate that the keys exist (if they're not optional) and validate that they are of the correct type. Validation errors will be aggregated as the JSON data is parsed. If an error is encountered, a `ParserError` will be thrown.
+Elevate aims to make JSON parsing and validation simple, yet robust. This is achieved through a set of protocols and classes that can be utilized to create `Decodable` and `Decoder` classes. By using Elevate's parsing infrastructure, you'll be able to easily parse JSON data into strongly typed model objects or simple dictionaries by specifying each property key path and its associated type. Elevate will validate that the keys exist (if they're not optional) and that they are of the correct type. Validation errors will be aggregated as the JSON data is parsed. If an error is encountered, a `ParserError` will be thrown.
 
-### Living the Dream
+### Parsing JSON with Elevate
 
 After you have made your model objects `Decodable` or implemented a `Decoder` for them, parsing with Elevate is as simple as:
 
@@ -93,16 +89,16 @@ After you have made your model objects `Decodable` or implemented a `Decoder` fo
 let avatar: Avatar = try Parser.parse(data: data, forKeyPath: "response.avatar")
 ```
 
-> Note: Pass an empty string into `forKeyPath` if your object is at the root level. 
+> Pass an empty string into `forKeyPath` if your object is at the root level. 
 
-### Wha?? How?
+### Creating Decodables
 
 In the previous example `Avatar` implements the `Decodable` protocol. By implementing the `Decodable` protocol on an object, it can be used by Elevate to parse avatars from JSON data as a top-level object, a sub-object, or even an array of avatar objects.
-  
-The `Decodable` protocol specifies an initializer that must be implemented:
 
 ```swift
+public protocol Decodable {
     init(json: AnyObject) throws
+}
 ```
 
 The `json: AnyObject` will typically be a `[String: AnyObject]` instance that was created from the `NSJSONSerialization` APIs. Use the Elevate `Parser.parseProperties` method to define the structure of the JSON data to be validated and perform the parsing.
@@ -138,13 +134,13 @@ extension Person: Decodable {
 }
 ```
 
-Implementing the `Decodable` protocol in this way allows you to create fully intialized structs that can contain non-optional constants, from JSON data.
-  
-Some other things to notice in the example: 
+Implementing the `Decodable` protocol in this way allows you to create fully intialized structs that can contain non-optional constants from JSON data.
+
+Some other things worth noting in this example:
 
 1. The `Decodable` protocol conformance was implemented as an extension on the struct. This allows the struct to keep its automatic memberwise initializer.
-2. Standard primative types are supported, plus NSURL, array and dictionary types. See `ParserPropertyType` definition for the full list.
-3. Elevate facilitates passing a parsed property into a `Decoder` for further manipulation. See the birthDate property in the example above. The `DateDecoder` is a standard `Decoder` provided by Elevate to make date parsing hassle free.
+2. Standard primitive types are supported as well as `NSURL`, `Array`, and `Dictionary` types. See `ParserPropertyType` definition for the full list.
+3. Elevate facilitates passing a parsed property into a `Decoder` for further manipulation. See the `birthDate` property in the example above. The `DateDecoder` is a standard `Decoder` provided by Elevate to make date parsing hassle free.
 4. A `Decoder` or `Decodable` type can be provided to a property of type `.Array` to parse each item in the array to that type. This also works with the `.Dictionary` type to parse a nested JSON object.
 5. The parser guarantees that properties will be of the specified type, so it is safe to use the `as!` force cast when extracting the values from the returned `[String: Any]`.
   
@@ -154,16 +150,20 @@ Some other things to notice in the example:
 
 ### Decoders
 
-In most cases implementing a `Decodable` model object is all that is needed to parse JSON using Elevate. There are some instances though where you will need more flexibility in the way that the JSON is parsed. A `Decoder` can be implemented as a separate object from the model that returns instances of the desired model. This is useful if you have multiple JSON mappings for a single model object type, or if you are aggregating data across multiple JSON payloads. For example, if there are two separate services that return JSON for Avatar objects, that have slightly different property structure, a `Decoder` could be created for each mapping to handle each one individually.
-  
-`Decoder` defines a single method that must be implemented. The input type and output types are intentionally vague to allow for flexibility. A `Decoder` can return any type you want -- a strongly typed model object, a dictionary, etc. It can even dynamically return different types at runtime if needed.
+In most cases implementing a `Decodable` model object is all that is needed to parse JSON using Elevate. There are some instances though where you will need more flexibility in the way that the JSON is parsed. This is where the `Decoder` protocol comes in.
 
 ```swift
-func decodeObject(object: AnyObject) throws -> Any
+public protocol Decoder {
+    func decodeObject(object: AnyObject) throws -> Any
+}
 ```
-  
+
+A `Decoder` is generally implemented as a separate object that returns instances of the desired model object. This is useful when you have multiple JSON mappings for a single model object, or if you are aggregating data across multiple JSON payloads. For example, if there are two separate services that return JSON for `Avatar` objects that have a slightly different property structure, a `Decoder` could be created for each mapping to handle each one individually.
+
+> The input type and output types are intentionally vague to allow for flexibility. A `Decoder` can return any type you want -- a strongly typed model object, a dictionary, etc. It can even dynamically return different types at runtime if needed.
+
 #### Using Multiple Decoders
-  
+
 ```swift
 class AvatarDecoder: Decoder {
     func decodeObject(object: AnyObject) throws -> Any {
@@ -184,7 +184,9 @@ class AvatarDecoder: Decoder {
         )
     }
 }
+```
 
+```swift
 class AlternateAvatarDecoder: Decoder {
     func decodeObject(object: AnyObject) throws -> Any {
         let locationKeyPath = "location"
@@ -205,8 +207,24 @@ class AlternateAvatarDecoder: Decoder {
     }
 }
 ```
-  
-Each of these decoders is built to handle a different JSON structure to create `Avatar` object from. Each uses the key paths specific to the JSON data it's dealing with, then maps those back to the properties on the `Avatar` object. This is a simple example, you could imaging much more complex examples that could also be handled via this protocol.
+
+Then to use the two different `Decoder` objects with the `Parser`:
+
+```swift
+let avatar1: Avatar = try Parser.parse(
+    data: data1, 
+    forKeyPath: "response.avatar", 
+    withDecoder: AvatarDecoder()
+)
+
+let avatar2: Avatar = try Parser.parse(
+    data: data2, 
+    forKeyPath: "alternative.response.avatar", 
+    withDecoder: AlternateAvatarDecoder()
+)
+```
+
+Each `Decoder` is designed to handle a different JSON structure for creating an `Avatar`. Each uses the key paths specific to the JSON data it's dealing with, then maps those back to the properties on the `Avatar` object. This is a very simple example to demonstration purposes. There are MANY more complex examples that could be handled in a similar manner via the `Decoder` protocol.
 
 ### Decoders as Property Value Transformers
 
@@ -226,16 +244,14 @@ public func decodeObject(data: AnyObject) throws -> Any {
 And here is how it's used to parse a JSON date string:
   
 ```swift
+let dateDecoder = DateDecoder(dateFormatString: "yyyy-MM-dd 'at' HH:mm")
+
 let properties = try Parser.parseProperties(data: data) { make in
-    make.propertyForKeyPath(
-        "dateString", 
-        type: .String, 
-        decoder: DateDecoder(dateFormatString: "yyyy-MM-dd 'at' HH:mm")
-    )
+    make.propertyForKeyPath("dateString", type: .String, decoder: dateDecoder)
 }
 ```
 
-You are free to create any decoders that you like and use them with your properties during parsing. Some other uses would be to create a `StringToBoolDecoder` or `StringToIntDecoder` that parses a bool or number from a JSON string value.
+You are free to create any decoders that you like and use them with your properties during parsing. Some other uses would be to create a `StringToBoolDecoder` or `StringToIntDecoder` that parses a `Bool` or `Int` from a JSON string value.
   
 ---
   

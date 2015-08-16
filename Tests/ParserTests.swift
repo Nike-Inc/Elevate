@@ -22,6 +22,8 @@ class ParserTestCase: BaseTestCase {
                 make.propertyForKeyPath("testUInt", type: ParserPropertyType.UInt)
                 make.propertyForKeyPath("testInt", type: .Int)
                 make.propertyForKeyPath("testString", type: .String)
+                make.propertyForKeyPath("testStringInt", type: .String, decoder: StringToIntDecoder())
+                make.propertyForKeyPath("testStringIntNegative", type: .String, decoder: StringToIntDecoder())
                 make.propertyForKeyPath("testFloat", type: .Float)
                 make.propertyForKeyPath("testDouble", type: .Double)
                 make.propertyForKeyPath("testNull", type: .String, optional: true)
@@ -35,6 +37,8 @@ class ParserTestCase: BaseTestCase {
             XCTAssertEqual(properties["testUInt"] as? UInt, UInt(1), "Parsed UInt value did not equal value from json file.")
             XCTAssertEqual(properties["testInt"] as? Int, -1, "Parsed Int value did not equal value from json file.")
             XCTAssertEqual(properties["testString"] as? String, "test string", "Parsed String value did not equal value from json file.")
+            XCTAssertEqual(properties["testStringInt"] as? Int, 100, "Parsed StringToIntDecoder value did not equal value from json file.")
+            XCTAssertEqual(properties["testStringIntNegative"] as? Int, -100, "Parsed StringToIntDecoder value did not equal value from json file.")
             XCTAssertEqual(properties["testFloat"] as? Float, Float(1.1111), "Parsed Float did not equal value from json file.")
             XCTAssertEqual(properties["testDouble"] as? Double, 1.1111, "Parsed Double did not equal value from json file.")
             XCTAssertTrue(properties["testNull"] == nil, "Parsed value did not equal nil from json file.")
@@ -125,6 +129,48 @@ class ParserTestCase: BaseTestCase {
             )
 
             XCTAssertEqual(expectedValue, actualValue, "Parser error message did not match expected value")
+        } catch {
+            XCTFail("Parser error was of incorrect type")
+        }
+    }
+
+    func testThatItGeneratesADeserializationErrorForInvalidData() {
+        // Given
+        let data: NSData! = "not json data".dataUsingEncoding(NSUTF8StringEncoding)
+
+        // When
+        do {
+            try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("foo", type: .String)
+            }
+
+            XCTFail("Parser unexpectedly succeeded")
+        } catch let error as ParserError {
+            // Then
+            let actualValue = error.description
+            let expectedValue = "Parser Deserialization Error - JSON data deserialization failed with error:"
+            XCTAssertTrue(actualValue.hasPrefix(expectedValue), "JSON deserialization message did not contain expected value")
+        } catch {
+            XCTFail("Parser error was of incorrect type")
+        }
+    }
+
+    func testThatItGeneratesADeserializationErrorForDataOfWrongType() {
+        // Given
+        let data: NSData = loadJSONDataForFileNamed("RootArrayTest")
+
+        // When
+        do {
+            try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("foo", type: .String)
+            }
+
+            XCTFail("Parser unexpectedly succeeded")
+        } catch let error as ParserError {
+            // Then
+            let actualValue = error.description
+            let expectedValue = "Parser Deserialization Error - JSON data deserialization failed because result was not of type: [String: AnyObject]"
+            XCTAssertEqual(actualValue, expectedValue, "Parser deserialization error did not match")
         } catch {
             XCTFail("Parser error was of incorrect type")
         }
@@ -371,7 +417,7 @@ class ParserJSONFragmentDataTestCase: BaseTestCase {
 
                 XCTFail("Parser succeeded unexpectedly")
             } catch let error as ParserError {
-                let prefix = "JSON data serialization failed with error:"
+                let prefix = "JSON data deserialization failed with error:"
                 XCTAssertTrue(error.failureReason.hasPrefix(prefix), "Error failure reason prefix does not match")
             } catch {
                 XCTFail("Parser error was of incorrect type")

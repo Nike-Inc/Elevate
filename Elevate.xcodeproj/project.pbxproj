@@ -31,6 +31,8 @@
 		E91C4E291B5478A8000481D2 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C4DF61B5475CC000481D2 /* Parser.swift */; };
 		E91C4E2A1B5478B0000481D2 /* Elevate.h in Headers */ = {isa = PBXBuildFile; fileRef = E91C4DF51B5475CC000481D2 /* Elevate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E91C4E2B1B5478B8000481D2 /* DecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C4E081B54770C000481D2 /* DecoderTests.swift */; };
+		E924263F1B80522F000CB0F1 /* RootArrayTest.json in Resources */ = {isa = PBXBuildFile; fileRef = E924263D1B805229000CB0F1 /* RootArrayTest.json */; };
+		E92426401B805230000CB0F1 /* RootArrayTest.json in Resources */ = {isa = PBXBuildFile; fileRef = E924263D1B805229000CB0F1 /* RootArrayTest.json */; };
 		E937BE551B713D0C005584D4 /* Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE541B713D0C005584D4 /* Decodable.swift */; };
 		E937BE561B713D0C005584D4 /* Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE541B713D0C005584D4 /* Decodable.swift */; };
 		E937BE691B72C123005584D4 /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE681B72C123005584D4 /* Decoder.swift */; };
@@ -80,6 +82,7 @@
 		E91C4E091B54770C000481D2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E91C4E121B5477BD000481D2 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91C4E1B1B5477BD000481D2 /* Elevate Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Elevate Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E924263D1B805229000CB0F1 /* RootArrayTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RootArrayTest.json; sourceTree = "<group>"; };
 		E937BE541B713D0C005584D4 /* Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decodable.swift; sourceTree = "<group>"; };
 		E937BE681B72C123005584D4 /* Decoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
 		E937BE6B1B72C1BD005584D4 /* ParserProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserProperty.swift; sourceTree = "<group>"; };
@@ -138,6 +141,7 @@
 				4C5FB49F1B55C229001258D3 /* KeyPathsTest.json */,
 				4C5FB4A01B55C229001258D3 /* PropertyTypesTest.json */,
 				4C5FB4A11B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json */,
+				E924263D1B805229000CB0F1 /* RootArrayTest.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -394,6 +398,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C5FB4AA1B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json in Resources */,
+				E924263F1B80522F000CB0F1 /* RootArrayTest.json in Resources */,
 				4C5FB4A81B55C229001258D3 /* PropertyTypesTest.json in Resources */,
 				4C5FB4A21B55C229001258D3 /* ArrayTest.json in Resources */,
 				4C5FB4A61B55C229001258D3 /* KeyPathsTest.json in Resources */,
@@ -413,6 +418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C5FB4AB1B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json in Resources */,
+				E92426401B805230000CB0F1 /* RootArrayTest.json in Resources */,
 				4C5FB4A91B55C229001258D3 /* PropertyTypesTest.json in Resources */,
 				4C5FB4A31B55C229001258D3 /* ArrayTest.json in Resources */,
 				4C5FB4A71B55C229001258D3 /* KeyPathsTest.json in Resources */,

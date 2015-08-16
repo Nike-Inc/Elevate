@@ -199,7 +199,7 @@ public class Parser {
                             parsingErrorDescriptions.append(failureReason)
                         }
                     } else {
-                        parsed[property.keyPath] = jsonValue
+                        parsingErrorDescriptions.append("A decoding method was not provided for `\(property.keyPath)` array")
                     }
                 case .Dictionary:
                     parsedValue = jsonValue

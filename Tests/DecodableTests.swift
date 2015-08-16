@@ -60,7 +60,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let result: [TestObject] = try Parser.parse(data: data, forKeyPath: "items")
+            let result: [TestObject] = try Parser.parse(arrayData: data, forKeyPath: "items")
 
             // Then
             XCTAssertEqual(result[0].subInt, 0, "array item 0 subInt does not match expected value")
@@ -82,10 +82,10 @@ class DecodableTestCase: BaseTestCase {
             XCTFail("Parser unexpectedly succeeded.")
         } catch let error as ParserError {
             // Then
-            let expectedPrefix = "Parser Validation Error - JSON data serialization failed with error:" // prefix
+            let expectedPrefix = "Parser Deserialization Error - JSON data deserialization failed with error:" // prefix
             XCTAssertTrue(error.description.hasPrefix(expectedPrefix), "Error does not begin with expected prefix")
 
-            let expectedFailureReason = "JSON data serialization failed with error:"
+            let expectedFailureReason = "JSON data deserialization failed with error:"
             let containsFailureReason = (error.description as NSString).containsString(expectedFailureReason)
             XCTAssertTrue(containsFailureReason, "Error should contain expected failure reason")
         } catch {

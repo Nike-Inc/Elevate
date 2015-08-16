@@ -43,7 +43,7 @@ public class Parser {
         - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
         - returns: The parsed array of objects
     */
-    public class func parse<T: Decodable>(data data: NSData, forKeyPath keyPath: String) throws -> [T] {
+    public class func parse<T: Decodable>(arrayData data: NSData, forKeyPath keyPath: String) throws -> [T] {
         let properties = try Parser.parseProperties(data: data) { make in
             make.propertyForKeyPath(keyPath, type: .Array, decodedToType: T.self)
         }
@@ -80,7 +80,7 @@ public class Parser {
         - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
         - returns: The parsed array of objects.
     */
-    public class func parse<T>(data data: NSData, forKeyPath keyPath: String, withDecoder decoder: Decoder) throws -> [T] {
+    public class func parse<T>(arrayData data: NSData, forKeyPath keyPath: String, withDecoder decoder: Decoder) throws -> [T] {
         let result = try Parser.parseProperties(data: data) { make in
             make.propertyForKeyPath(keyPath, type: .Array, decoder: decoder)
         }
@@ -104,24 +104,25 @@ public class Parser {
         - returns: The result Dictionary.
     */
     public class func parseProperties(data data: NSData, closure: ParserPropertyMaker -> Void) throws -> [String: Any] {
-        let failureReason: String
-
+        let result: [String: Any]
         do {
             let options = NSJSONReadingOptions(rawValue: 0)
-
             guard let json = try NSJSONSerialization.JSONObjectWithData(data, options: options) as? [String: AnyObject] else {
                 let failureReason = "JSON data deserialization failed because result was not of type: [String: AnyObject]"
                 throw ParserError.Deserialization(failureReason: failureReason)
             }
 
-            return try parseProperties(json: json, closure: closure)
-        } catch ParserError.Validation(let parserFailureReason) {
-            failureReason = parserFailureReason
-        } catch let error as NSError {
-            failureReason = "JSON data serialization failed with error: \"\(error.description)\""
+            result = try parseProperties(json: json, closure: closure)
+        } catch {
+            if error is ParserError {
+                throw error
+            } else {
+                let error = error as NSError
+                throw ParserError.Deserialization(failureReason: "JSON data deserialization failed with error: \"\(error.description)\"")
+            }
         }
 
-        throw ParserError.Validation(failureReason: failureReason)
+        return result
     }
 
     /**

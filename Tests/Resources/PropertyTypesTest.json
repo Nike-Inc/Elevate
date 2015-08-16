@@ -2,6 +2,8 @@
     "testUInt": 1,
     "testInt": -1,
     "testString": "test string",
+    "testStringInt": "100",
+    "testStringIntNegative": "-100",
     "testFloat": 1.1111,
     "testDouble": 1.1111,
     "testNull": null,

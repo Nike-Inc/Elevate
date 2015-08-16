@@ -28,6 +28,12 @@
     "arrayOfDoubles": [
         -1.1, 0, 1.1
     ],
+    "arrayOfUInts": [
+        0, 1, 2
+    ],
+    "arrayOfFloats": [
+        -1.1, 0, 1.1
+    ],
     "arrayOfBools": [
         true, true, false
     ]

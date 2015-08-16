@@ -33,6 +33,8 @@
 		E91C4E2B1B5478B8000481D2 /* DecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C4E081B54770C000481D2 /* DecoderTests.swift */; };
 		E924263F1B80522F000CB0F1 /* RootArrayTest.json in Resources */ = {isa = PBXBuildFile; fileRef = E924263D1B805229000CB0F1 /* RootArrayTest.json */; };
 		E92426401B805230000CB0F1 /* RootArrayTest.json in Resources */ = {isa = PBXBuildFile; fileRef = E924263D1B805229000CB0F1 /* RootArrayTest.json */; };
+		E92426421B81160F000CB0F1 /* ParserInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92426411B81160F000CB0F1 /* ParserInternalTests.swift */; };
+		E92426431B81160F000CB0F1 /* ParserInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92426411B81160F000CB0F1 /* ParserInternalTests.swift */; };
 		E937BE551B713D0C005584D4 /* Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE541B713D0C005584D4 /* Decodable.swift */; };
 		E937BE561B713D0C005584D4 /* Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE541B713D0C005584D4 /* Decodable.swift */; };
 		E937BE691B72C123005584D4 /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE681B72C123005584D4 /* Decoder.swift */; };
@@ -83,6 +85,7 @@
 		E91C4E121B5477BD000481D2 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91C4E1B1B5477BD000481D2 /* Elevate Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Elevate Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E924263D1B805229000CB0F1 /* RootArrayTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RootArrayTest.json; sourceTree = "<group>"; };
+		E92426411B81160F000CB0F1 /* ParserInternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserInternalTests.swift; sourceTree = "<group>"; };
 		E937BE541B713D0C005584D4 /* Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decodable.swift; sourceTree = "<group>"; };
 		E937BE681B72C123005584D4 /* Decoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
 		E937BE6B1B72C1BD005584D4 /* ParserProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserProperty.swift; sourceTree = "<group>"; };
@@ -195,6 +198,7 @@
 				E99C82001B55E1400090FA56 /* BaseTestCase.swift */,
 				E99C82031B55E3380090FA56 /* DecodableTests.swift */,
 				E91C4E081B54770C000481D2 /* DecoderTests.swift */,
+				E92426411B81160F000CB0F1 /* ParserInternalTests.swift */,
 				E99C82061B55E5B50090FA56 /* ParserTests.swift */,
 				4C5FB49C1B55C229001258D3 /* Resources */,
 				E91C4E0C1B54771B000481D2 /* Supporting Files */,
@@ -459,6 +463,7 @@
 			files = (
 				E99C82071B55E5B50090FA56 /* ParserTests.swift in Sources */,
 				E91C4E0A1B54770C000481D2 /* DecoderTests.swift in Sources */,
+				E92426421B81160F000CB0F1 /* ParserInternalTests.swift in Sources */,
 				E99C82041B55E3380090FA56 /* DecodableTests.swift in Sources */,
 				E99C82011B55E1400090FA56 /* BaseTestCase.swift in Sources */,
 			);
@@ -482,6 +487,7 @@
 			files = (
 				E99C82081B55E5B50090FA56 /* ParserTests.swift in Sources */,
 				E91C4E2B1B5478B8000481D2 /* DecoderTests.swift in Sources */,
+				E92426431B81160F000CB0F1 /* ParserInternalTests.swift in Sources */,
 				E99C82051B55E3380090FA56 /* DecodableTests.swift in Sources */,
 				E99C82021B55E1400090FA56 /* BaseTestCase.swift in Sources */,
 			);

@@ -33,6 +33,11 @@ public protocol Decoder {
 */
 public class StringToIntDecoder: Decoder {
 
+    /**
+        Creates a new instance of the `StringToIntDecoder`.
+
+        - returns: The new `StringToIntDecoder` instance.
+    */
     public init() {}
 
     /**

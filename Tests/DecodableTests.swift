@@ -150,7 +150,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatItThrowsWithInvalidDecoable() {
+    func testThatItThrowsWithInvalidDecodable() {
         // Given
         let data = loadJSONDataForFileNamed("ArrayTest")
 

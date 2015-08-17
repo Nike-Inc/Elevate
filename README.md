@@ -86,10 +86,10 @@ Elevate aims to make JSON parsing and validation simple, yet robust. This is ach
 After you have made your model objects `Decodable` or implemented a `Decoder` for them, parsing with Elevate is as simple as:
 
 ```swift
-let avatar: Avatar = try Parser.parse(data: data, forKeyPath: "response.avatar")
+let avatar: Avatar = try Parser.parseObject(data: data, forKeyPath: "response.avatar")
 ```
 
-> Pass an empty string into `forKeyPath` if your object is at the root level. 
+> Pass an empty string into `forKeyPath` if your object or array is at the root level. 
 
 ### Creating Decodables
 
@@ -211,13 +211,13 @@ class AlternateAvatarDecoder: Decoder {
 Then to use the two different `Decoder` objects with the `Parser`:
 
 ```swift
-let avatar1: Avatar = try Parser.parse(
+let avatar1: Avatar = try Parser.parseObject(
     data: data1, 
     forKeyPath: "response.avatar", 
     withDecoder: AvatarDecoder()
 )
 
-let avatar2: Avatar = try Parser.parse(
+let avatar2: Avatar = try Parser.parseObject(
     data: data2, 
     forKeyPath: "alternative.response.avatar", 
     withDecoder: AlternateAvatarDecoder()
@@ -251,7 +251,7 @@ let properties = try Parser.parseProperties(data: data) { make in
 }
 ```
 
-You are free to create any decoders that you like and use them with your properties during parsing. Some other uses would be to create a `StringToBoolDecoder` or `StringToIntDecoder` that parses a `Bool` or `Int` from a JSON string value.
+You are free to create any decoders that you like and use them with your properties during parsing. Some other uses would be to create a `StringToBoolDecoder` or `StringToFloatDecoder` that parses a `Bool` or `Float` from a JSON string value. The `DateDecoder` and `StringToIntDecoder` are already included in Elevate for your convenience.
   
 ---
   

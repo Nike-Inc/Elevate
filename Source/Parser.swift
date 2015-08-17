@@ -92,7 +92,7 @@ public class Parser {
 
     /**
         Performs the work of validating and extracting values from the passed in NSData object. The NSData object must
-        contain json that can be deserialized by `NSJSONSerialization.JSONObjectWithData`.
+        contain json that can be deserialized by `NSJSONSerialization.JSONObjectWithData`. Fragments are not allowed.
 
         Returns resulting Dictionary object containing all the parsed property results where the property keyPath is
         the key and the extracted object is the value. The value is guaranteed to be an object of the type defined by
@@ -123,8 +123,9 @@ public class Parser {
     }
 
     /**
-        Performs the work of validating and extracting values from the passed in Dictionary object. The type of the
-        object passed in must be [String: AnyObject]. Values in the Dictionary must be `NSJSONSerialization` compatible.
+        Performs the work of validating and extracting values from the passed in Dictionary or Array object. The type of 
+        the object passed in must be [String: AnyObject] or [AnyObject]. Values in the Dictionary must be 
+        `NSJSONSerialization` compatible. If the passed in json is an Array use an empty string for the property key path.
 
         Defining the property list to be parsed is achieved using a maker pattern via the `ParserPropertyMaker` object
         passed into the trailing closure. Inside the closure, for each property, call the `propertyForKeyPath` instance

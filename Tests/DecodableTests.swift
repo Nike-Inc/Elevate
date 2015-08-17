@@ -34,6 +34,20 @@ extension TestObject: Decodable {
     }
 }
 
+struct InvalidDecodable: Decodable {
+    let invalid: String
+
+    init(json: AnyObject) throws {
+        let invalidKeyPath = "invalid"
+
+        let properties = try Parser.parseProperties(json: json) { make in
+            make.propertyForKeyPath(invalidKeyPath, type: .String)
+        }
+
+        self.invalid = properties[invalidKeyPath] as! String
+    }
+}
+
 // MARK: -
 
 class DecodableTestCase: BaseTestCase {
@@ -43,7 +57,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let testObject: TestObject = try Parser.parse(data: data, forKeyPath: "sub-object")
+            let testObject: TestObject = try Parser.parseObject(data: data, forKeyPath: "sub-object")
 
             // Then
             XCTAssertEqual(testObject.subUInt, UInt(1), "test object subUInt does not match expected value")
@@ -60,7 +74,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let result: [TestObject] = try Parser.parse(data: data, forKeyPath: "items")
+            let result: [TestObject] = try Parser.parseArray(data: data, forKeyPath: "items")
 
             // Then
             XCTAssertEqual(result[0].subInt, 0, "array item 0 subInt does not match expected value")
@@ -77,15 +91,15 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let _: TestObject = try Parser.parse(data: data, forKeyPath: "sub-object")
+            let _: TestObject = try Parser.parseObject(data: data, forKeyPath: "sub-object")
 
             XCTFail("Parser unexpectedly succeeded.")
         } catch let error as ParserError {
             // Then
-            let expectedPrefix = "Parser Validation Error - JSON data serialization failed with error:" // prefix
+            let expectedPrefix = "Parser Deserialization Error - JSON data deserialization failed with error:" // prefix
             XCTAssertTrue(error.description.hasPrefix(expectedPrefix), "Error does not begin with expected prefix")
 
-            let expectedFailureReason = "JSON data serialization failed with error:"
+            let expectedFailureReason = "JSON data deserialization failed with error:"
             let containsFailureReason = (error.description as NSString).containsString(expectedFailureReason)
             XCTAssertTrue(containsFailureReason, "Error should contain expected failure reason")
         } catch {
@@ -99,7 +113,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let _: TestObject = try Parser.parse(data: data, forKeyPath: "key_does_not_exist")
+            let _: TestObject = try Parser.parseObject(data: data, forKeyPath: "key_does_not_exist")
 
             XCTFail("Parser unexpectedly succeeded.")
         } catch let error as ParserError {
@@ -118,7 +132,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let _: TestObject = try Parser.parse(data: data, forKeyPath: "testDictionary")
+            let _: TestObject = try Parser.parseObject(data: data, forKeyPath: "testDictionary")
 
             XCTFail("Parser unexpectedly succeeded.")
         } catch let error as ParserError {
@@ -131,6 +145,51 @@ class DecodableTestCase: BaseTestCase {
             )
 
             XCTAssertEqual(expectedValue, actualValue, "Parser error message did not match expected value.")
+        } catch {
+            XCTFail("Parser error was of incorrect type.")
+        }
+    }
+
+    func testThatItThrowsWithInvalidDecodable() {
+        // Given
+        let data = loadJSONDataForFileNamed("ArrayTest")
+
+        // When
+        do {
+            try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("items", type: .Array, decodedToType: InvalidDecodable.self)
+            }
+
+            XCTFail("Parser unexpectedly succeeded")
+        } catch let error as ParserError {
+            let actualValue = error.description
+            let expectedValue = "Parser Validation Error - Error parsing array object at index 0 with parser [InvalidDecodable]"
+            XCTAssertTrue(actualValue.hasPrefix(expectedValue), "Error message for Array Decodable did not match expected value")
+        } catch {
+            XCTFail("Parser error was of incorrect type.")
+        }
+    }
+
+    func testThatItThrowsWithIncorrectInputType() {
+        decodableErrorTest(String.self, value: 1)
+        decodableErrorTest(Int.self, value: "1")
+        decodableErrorTest(UInt.self, value: "1")
+        decodableErrorTest(Float.self, value: "1")
+        decodableErrorTest(Double.self, value: "1")
+        decodableErrorTest(Bool.self, value: "1")
+    }
+
+    // MARK: Private Helper Methods
+
+    private func decodableErrorTest(type: Decodable.Type, value: AnyObject) {
+        do {
+            let _ = try type.init(json: value)
+
+            XCTFail("Parser unexpectedly succeeded")
+        } catch let error as ParserError {
+            let actualValue = error.failureReason
+            let expectedValue = "JSON object was not of type: \(type)"
+            XCTAssertEqual(actualValue, expectedValue, "Decodable error message did not match expected value.")
         } catch {
             XCTFail("Parser error was of incorrect type.")
         }

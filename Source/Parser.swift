@@ -25,7 +25,7 @@ public class Parser {
         - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
         - returns: The parsed object.
     */
-    public class func parse<T: Decodable>(data data: NSData, forKeyPath keyPath: String) throws -> T {
+    public class func parseObject<T: Decodable>(data data: NSData, forKeyPath keyPath: String) throws -> T {
         let properties = try Parser.parseProperties(data: data) { make in
             make.propertyForKeyPath(keyPath, type: .Dictionary, decodedToType: T.self)
         }
@@ -43,7 +43,7 @@ public class Parser {
         - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
         - returns: The parsed array of objects
     */
-    public class func parse<T: Decodable>(data data: NSData, forKeyPath keyPath: String) throws -> [T] {
+    public class func parseArray<T: Decodable>(data data: NSData, forKeyPath keyPath: String) throws -> [T] {
         let properties = try Parser.parseProperties(data: data) { make in
             make.propertyForKeyPath(keyPath, type: .Array, decodedToType: T.self)
         }
@@ -61,7 +61,7 @@ public class Parser {
         - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
         - returns: The parsed object.
     */
-    public class func parse<T>(data data: NSData, forKeyPath keyPath: String, withDecoder decoder: Decoder) throws -> T {
+    public class func parseObject<T>(data data: NSData, forKeyPath keyPath: String, withDecoder decoder: Decoder) throws -> T {
         let result = try Parser.parseProperties(data: data) { make in
             make.propertyForKeyPath(keyPath, type: .Dictionary, decoder: decoder)
         }
@@ -80,7 +80,7 @@ public class Parser {
         - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
         - returns: The parsed array of objects.
     */
-    public class func parse<T>(data data: NSData, forKeyPath keyPath: String, withDecoder decoder: Decoder) throws -> [T] {
+    public class func parseArray<T>(data data: NSData, forKeyPath keyPath: String, withDecoder decoder: Decoder) throws -> [T] {
         let result = try Parser.parseProperties(data: data) { make in
             make.propertyForKeyPath(keyPath, type: .Array, decoder: decoder)
         }
@@ -92,7 +92,7 @@ public class Parser {
 
     /**
         Performs the work of validating and extracting values from the passed in NSData object. The NSData object must
-        contain json that can be deserialized by `NSJSONSerialization.JSONObjectWithData`.
+        contain json that can be deserialized by `NSJSONSerialization.JSONObjectWithData`. Fragments are not allowed.
 
         Returns resulting Dictionary object containing all the parsed property results where the property keyPath is
         the key and the extracted object is the value. The value is guaranteed to be an object of the type defined by
@@ -104,29 +104,29 @@ public class Parser {
         - returns: The result Dictionary.
     */
     public class func parseProperties(data data: NSData, closure: ParserPropertyMaker -> Void) throws -> [String: Any] {
-        let failureReason: String
-
+        let result: [String: Any]
+        
         do {
             let options = NSJSONReadingOptions(rawValue: 0)
+            let json = try NSJSONSerialization.JSONObjectWithData(data, options: options)
 
-            guard let json = try NSJSONSerialization.JSONObjectWithData(data, options: options) as? [String: AnyObject] else {
-                let failureReason = "JSON data deserialization failed because result was not of type: [String: AnyObject]"
-                throw ParserError.Deserialization(failureReason: failureReason)
+            result = try parseProperties(json: json, closure: closure)
+        } catch {
+            if error is ParserError {
+                throw error
+            } else {
+                let error = error as NSError
+                throw ParserError.Deserialization(failureReason: "JSON data deserialization failed with error: \"\(error.description)\"")
             }
-
-            return try parseProperties(json: json, closure: closure)
-        } catch ParserError.Validation(let parserFailureReason) {
-            failureReason = parserFailureReason
-        } catch let error as NSError {
-            failureReason = "JSON data serialization failed with error: \"\(error.description)\""
         }
 
-        throw ParserError.Validation(failureReason: failureReason)
+        return result
     }
 
     /**
-        Performs the work of validating and extracting values from the passed in Dictionary object. The type of the
-        object passed in must be [String: AnyObject]. Values in the Dictionary must be `NSJSONSerialization` compatible.
+        Performs the work of validating and extracting values from the passed in Dictionary or Array object. The type of 
+        the object passed in must be [String: AnyObject] or [AnyObject]. Values in the Dictionary must be 
+        `NSJSONSerialization` compatible. If the json parameter is an Array, use an empty string for the property key path.
 
         Defining the property list to be parsed is achieved using a maker pattern via the `ParserPropertyMaker` object
         passed into the trailing closure. Inside the closure, for each property, call the `propertyForKeyPath` instance
@@ -151,8 +151,8 @@ public class Parser {
         - returns: The result Dictionary.
     */
     public class func parseProperties(json json: AnyObject, closure: ParserPropertyMaker -> Void) throws -> [String: Any] {
-        guard json is [String: AnyObject] else {
-            throw ParserError.Validation(failureReason: "JSON object was not of type: [String: AnyObject]")
+        guard json is [String: AnyObject] || json is [AnyObject] else {
+            throw ParserError.Validation(failureReason: "JSON object was not of type: [String: AnyObject] or [AnyObject]")
         }
 
         var parsingErrorDescriptions = [String]()
@@ -198,7 +198,7 @@ public class Parser {
                             parsingErrorDescriptions.append(failureReason)
                         }
                     } else {
-                        parsed[property.keyPath] = jsonValue
+                        parsingErrorDescriptions.append("A decoding method was not provided for `\(property.keyPath)` array")
                     }
                 case .Dictionary:
                     parsedValue = jsonValue
@@ -276,6 +276,10 @@ public class Parser {
     // MARK: Private - Parser Helper Methods
 
     private class func json(var json: AnyObject?, forKeyPath keypath: String) -> AnyObject {
+        if let json = json as? [AnyObject] {
+            return json
+        }
+
         let keys = keypath.characters.split() { $0 == "." }.map { String($0) }
 
         for key in keys {

@@ -73,6 +73,23 @@ class DecoderTestCase: BaseTestCase {
         }
     }
 
+    func testThatItDecodesObjectArrayWithParseMethod() {
+        // Given
+        let data = loadJSONDataForFileNamed("ArrayTest")
+
+        // When
+        do {
+            let results: [TestObject] = try Parser.parseArray(data: data, forKeyPath: "items", withDecoder: ValidDecoder())
+
+            // Then
+            XCTAssertEqual(results[0].subInt, 0)
+            XCTAssertEqual(results[1].subString, "value1")
+            XCTAssertEqual(results[2].subUInt, 2)
+        } catch {
+            XCTFail("Parser unexpectedly returned an error")
+        }
+    }
+
     func testThatItParsesObjectSuccessfully() {
         // Given
         let decoder = ValidDecoder()
@@ -80,7 +97,7 @@ class DecoderTestCase: BaseTestCase {
 
         do {
             // When
-            let testObject: TestObject = try Parser.parse(data: data, forKeyPath: "sub-object", withDecoder: decoder)
+            let testObject: TestObject = try Parser.parseObject(data: data, forKeyPath: "sub-object", withDecoder: decoder)
 
             // Then
             XCTAssertEqual(testObject.subUInt, UInt(1), "Parsed UInt value did not equal value from json file.")
@@ -110,6 +127,25 @@ class DecoderTestCase: BaseTestCase {
                 "Required key path [missingSubInt] was missing or null"
             )
             XCTAssertEqual(actualValue, expectedValue, "ErroneousTestObjectParser error did not match expected value")
+        } catch {
+            XCTFail("Parser error was of incorrect type")
+        }
+    }
+
+    func testThatItGeneratesErrorWhenStringToIntDecoderStringIsNotAnInt() {
+        // Given
+        let data = loadJSONDataForFileNamed("PropertyTypesTest")
+
+        // When
+        do {
+            let _ = try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("testString", type: .String, decoder: StringToIntDecoder())
+            }
+        } catch let error as ParserError {
+            // Then
+            let actualValue = error.failureReason
+            let expectedValue = "Could not convert String to Int"
+            XCTAssertEqual(expectedValue, actualValue, "Parser error message did not match expected value")
         } catch {
             XCTFail("Parser error was of incorrect type")
         }
@@ -166,7 +202,7 @@ class DateDecoderTestCase: BaseTestCase {
         }
     }
 
-    func testThatItGeneratesErrorForIncorrectDateFormat() {
+    func testThatItGeneratesAnErrorForIncorrectDateFormat() {
         // Given
         let data = loadJSONDataForFileNamed("PropertyTypesTest")
         let decoder = DateDecoder(dateFormatString: "d")
@@ -184,6 +220,28 @@ class DateDecoderTestCase: BaseTestCase {
             let expectedValue = "Parser Validation Error - DateParser string could not be parsed to NSDate with the given formatter."
             XCTAssertEqual(actualValue, expectedValue, "DateParser error message did not match expected string")
         }  catch {
+            XCTFail("Parser error was of incorrect type")
+        }
+    }
+
+    func testThatItGeneratesAnErrorForIncorrectInputType() {
+        // Given
+        let data = loadJSONDataForFileNamed("PropertyTypesTest")
+        let decoder = DateDecoder(dateFormatString: "d")
+
+        do {
+            // When
+            try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("testInt", type: .Int, decoder: decoder)
+            }
+
+            XCTFail("Parser unexpectedly succeeded")
+        } catch let error as ParserError {
+            // Then
+            let actualValue = error.failureReason
+            let expectedValue = "DateParser object to parse was not a String."
+            XCTAssertEqual(actualValue, expectedValue, "DateParser error message did not match expected string")
+        } catch {
             XCTFail("Parser error was of incorrect type")
         }
     }

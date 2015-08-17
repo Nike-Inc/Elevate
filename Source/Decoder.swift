@@ -34,6 +34,13 @@ public protocol Decoder {
 public class StringToIntDecoder: Decoder {
 
     /**
+        Creates a new instance of the `StringToIntDecoder`.
+
+        - returns: The new `StringToIntDecoder` instance.
+    */
+    public init() {}
+
+    /**
         Converts the `String` object to an `Int`.
 
         - parameter object: The `String` to decode.
@@ -92,12 +99,12 @@ public class DateDecoder: Decoder {
         - returns: The parsed date.
     */
     public func decodeObject(data: AnyObject) throws -> Any {
-        if let string = data as? String {
-            return try dateFromString(string, withFormatter:self.dateFormatter)
-        } else {
+        guard let string = data as? String else {
             let description = "DateParser object to parse was not a String."
             throw ParserError.Validation(failureReason: description)
         }
+
+        return try dateFromString(string, withFormatter:self.dateFormatter)
     }
 
     private func dateFromString(string: String, withFormatter formatter: NSDateFormatter) throws -> Any {

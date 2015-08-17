@@ -25,7 +25,7 @@ The `Parser.parse` methods names have changed to remove ambiguity between the ob
 
 #### Fixed
 
-* A public initializer was added to the `StringToIntDecoder`
+* A public initializer was added to the `StringToIntDecoder`.
 
 ## 1.0.0
 

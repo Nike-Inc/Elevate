@@ -173,8 +173,8 @@
 		E91C4DF41B5475CC000481D2 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				E937BE681B72C123005584D4 /* Decoder.swift */,
 				E937BE541B713D0C005584D4 /* Decodable.swift */,
+				E937BE681B72C123005584D4 /* Decoder.swift */,
 				E91C4DF61B5475CC000481D2 /* Parser.swift */,
 				E937BE6E1B72C26E005584D4 /* ParserError.swift */,
 				E937BE6B1B72C1BD005584D4 /* ParserProperty.swift */,

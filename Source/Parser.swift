@@ -107,10 +107,7 @@ public class Parser {
         let result: [String: Any]
         do {
             let options = NSJSONReadingOptions(rawValue: 0)
-            guard let json = try NSJSONSerialization.JSONObjectWithData(data, options: options) as? [String: AnyObject] else {
-                let failureReason = "JSON data deserialization failed because result was not of type: [String: AnyObject]"
-                throw ParserError.Deserialization(failureReason: failureReason)
-            }
+            let json = try NSJSONSerialization.JSONObjectWithData(data, options: options)
 
             result = try parseProperties(json: json, closure: closure)
         } catch {
@@ -152,8 +149,8 @@ public class Parser {
         - returns: The result Dictionary.
     */
     public class func parseProperties(json json: AnyObject, closure: ParserPropertyMaker -> Void) throws -> [String: Any] {
-        guard json is [String: AnyObject] else {
-            throw ParserError.Validation(failureReason: "JSON object was not of type: [String: AnyObject]")
+        guard json is [String: AnyObject] || json is [AnyObject] else {
+            throw ParserError.Validation(failureReason: "JSON object was not of type: [String: AnyObject] or [AnyObject]")
         }
 
         var parsingErrorDescriptions = [String]()
@@ -277,6 +274,10 @@ public class Parser {
     // MARK: Private - Parser Helper Methods
 
     private class func json(var json: AnyObject?, forKeyPath keypath: String) -> AnyObject {
+        if let json = json as? [AnyObject] {
+            return json
+        }
+
         let keys = keypath.characters.split() { $0 == "." }.map { String($0) }
 
         for key in keys {

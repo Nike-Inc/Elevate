@@ -105,6 +105,7 @@ public class Parser {
     */
     public class func parseProperties(data data: NSData, closure: ParserPropertyMaker -> Void) throws -> [String: Any] {
         let result: [String: Any]
+        
         do {
             let options = NSJSONReadingOptions(rawValue: 0)
             let json = try NSJSONSerialization.JSONObjectWithData(data, options: options)
@@ -125,7 +126,7 @@ public class Parser {
     /**
         Performs the work of validating and extracting values from the passed in Dictionary or Array object. The type of 
         the object passed in must be [String: AnyObject] or [AnyObject]. Values in the Dictionary must be 
-        `NSJSONSerialization` compatible. If the passed in json is an Array use an empty string for the property key path.
+        `NSJSONSerialization` compatible. If the json parameter is an Array, use an empty string for the property key path.
 
         Defining the property list to be parsed is achieved using a maker pattern via the `ParserPropertyMaker` object
         passed into the trailing closure. Inside the closure, for each property, call the `propertyForKeyPath` instance

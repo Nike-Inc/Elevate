@@ -283,7 +283,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let results: [TestObject] = try Parser.parse(arrayData: data, forKeyPath: "", withDecoder: ValidDecoder())
+            let results: [TestObject] = try Parser.parseArray(data: data, forKeyPath: "", withDecoder: ValidDecoder())
 
             // Then
             XCTAssertEqual(results[0].subInt, 0)

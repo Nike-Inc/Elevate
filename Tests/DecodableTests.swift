@@ -57,7 +57,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let testObject: TestObject = try Parser.parse(data: data, forKeyPath: "sub-object")
+            let testObject: TestObject = try Parser.parseObject(data: data, forKeyPath: "sub-object")
 
             // Then
             XCTAssertEqual(testObject.subUInt, UInt(1), "test object subUInt does not match expected value")
@@ -74,7 +74,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let result: [TestObject] = try Parser.parse(arrayData: data, forKeyPath: "items")
+            let result: [TestObject] = try Parser.parseArray(data: data, forKeyPath: "items")
 
             // Then
             XCTAssertEqual(result[0].subInt, 0, "array item 0 subInt does not match expected value")
@@ -91,7 +91,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let _: TestObject = try Parser.parse(data: data, forKeyPath: "sub-object")
+            let _: TestObject = try Parser.parseObject(data: data, forKeyPath: "sub-object")
 
             XCTFail("Parser unexpectedly succeeded.")
         } catch let error as ParserError {
@@ -113,7 +113,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let _: TestObject = try Parser.parse(data: data, forKeyPath: "key_does_not_exist")
+            let _: TestObject = try Parser.parseObject(data: data, forKeyPath: "key_does_not_exist")
 
             XCTFail("Parser unexpectedly succeeded.")
         } catch let error as ParserError {
@@ -132,7 +132,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let _: TestObject = try Parser.parse(data: data, forKeyPath: "testDictionary")
+            let _: TestObject = try Parser.parseObject(data: data, forKeyPath: "testDictionary")
 
             XCTFail("Parser unexpectedly succeeded.")
         } catch let error as ParserError {

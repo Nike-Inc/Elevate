@@ -171,30 +171,9 @@ class ParserTestCase: BaseTestCase {
         }
     }
 
-    func testThatItGeneratesADeserializationErrorForDataOfWrongType() {
-        // Given
-        let data: NSData = loadJSONDataForFileNamed("RootArrayTest")
-
-        // When
-        do {
-            try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("foo", type: .String)
-            }
-
-            XCTFail("Parser unexpectedly succeeded")
-        } catch let error as ParserError {
-            // Then
-            let actualValue = error.description
-            let expectedValue = "Parser Deserialization Error - JSON data deserialization failed because result was not of type: [String: AnyObject]"
-            XCTAssertEqual(actualValue, expectedValue, "Parser deserialization error did not match")
-        } catch {
-            XCTFail("Parser error was of incorrect type")
-        }
-    }
-
     func testThatItGeneratesAValidationErrorForJSONOfWrongType() {
         // Given
-        let badJSON = ["foo1", "foo2"]
+        let badJSON = 1
 
         // When
         do {
@@ -206,7 +185,7 @@ class ParserTestCase: BaseTestCase {
         } catch let error as ParserError {
             // Then
             let actualValue = error.description
-            let expectedValue = "Parser Validation Error - JSON object was not of type: [String: AnyObject]"
+            let expectedValue = "Parser Validation Error - JSON object was not of type: [String: AnyObject] or [AnyObject]"
             XCTAssertEqual(actualValue, expectedValue, "Parser json type error value did not match")
         } catch {
             XCTFail("Parser error was of incorrect type")
@@ -295,6 +274,23 @@ class ParserTestCase: BaseTestCase {
             return
         } catch {
             XCTFail("Parser failed to parse key paths")
+        }
+    }
+
+    func testThatItParserRootArrayWithParseMethod() {
+        // Given
+        let data = loadJSONDataForFileNamed("RootArrayTest")
+
+        // When
+        do {
+            let results: [TestObject] = try Parser.parse(arrayData: data, forKeyPath: "", withDecoder: ValidDecoder())
+
+            // Then
+            XCTAssertEqual(results[0].subInt, 0)
+            XCTAssertEqual(results[1].subString, "value1")
+            XCTAssertEqual(results[2].subUInt, 2)
+        } catch {
+            XCTFail("Parser unexpectedly returned an error")
         }
     }
 

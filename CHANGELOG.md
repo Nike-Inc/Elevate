@@ -4,6 +4,29 @@ The changelog for Elevate includes information about the each release including 
 
 ---
 
+## 1.1.0
+
+### Upgrade Notes
+
+#### `Parser.parse` API Changes
+
+The `Parser.parse` methods names have changed to remove ambiguity between the object and array versions. Their names are now `Parser.parseObject` and `Parser.parseArray`. Your project will need to be updated to change all instances of `Parser.parse` to the corresponding new method.
+
+### Release Notes
+
+#### Added
+
+* Parsing data/json with an array as the root object is now supported.
+* Many new tests were added. Code coverage is now over 99%.
+
+#### Updated
+
+* The `Parser.parse` method names have changed to remove ambiguity between the object and array versions. Their names are now `Parser.parseObject` and `Parser.parseArray`.
+
+#### Fixed
+
+* A public initializer was added to the `StringToIntDecoder`
+
 ## 1.0.0
 
 This is the initial relase of Elevate. It includes:

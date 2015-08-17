@@ -25,7 +25,7 @@ public class Parser {
         - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
         - returns: The parsed object.
     */
-    public class func parse<T: Decodable>(data data: NSData, forKeyPath keyPath: String) throws -> T {
+    public class func parseObject<T: Decodable>(data data: NSData, forKeyPath keyPath: String) throws -> T {
         let properties = try Parser.parseProperties(data: data) { make in
             make.propertyForKeyPath(keyPath, type: .Dictionary, decodedToType: T.self)
         }
@@ -43,7 +43,7 @@ public class Parser {
         - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
         - returns: The parsed array of objects
     */
-    public class func parse<T: Decodable>(arrayData data: NSData, forKeyPath keyPath: String) throws -> [T] {
+    public class func parseArray<T: Decodable>(data data: NSData, forKeyPath keyPath: String) throws -> [T] {
         let properties = try Parser.parseProperties(data: data) { make in
             make.propertyForKeyPath(keyPath, type: .Array, decodedToType: T.self)
         }
@@ -61,7 +61,7 @@ public class Parser {
         - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
         - returns: The parsed object.
     */
-    public class func parse<T>(data data: NSData, forKeyPath keyPath: String, withDecoder decoder: Decoder) throws -> T {
+    public class func parseObject<T>(data data: NSData, forKeyPath keyPath: String, withDecoder decoder: Decoder) throws -> T {
         let result = try Parser.parseProperties(data: data) { make in
             make.propertyForKeyPath(keyPath, type: .Dictionary, decoder: decoder)
         }
@@ -80,7 +80,7 @@ public class Parser {
         - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
         - returns: The parsed array of objects.
     */
-    public class func parse<T>(arrayData data: NSData, forKeyPath keyPath: String, withDecoder decoder: Decoder) throws -> [T] {
+    public class func parseArray<T>(data data: NSData, forKeyPath keyPath: String, withDecoder decoder: Decoder) throws -> [T] {
         let result = try Parser.parseProperties(data: data) { make in
             make.propertyForKeyPath(keyPath, type: .Array, decoder: decoder)
         }

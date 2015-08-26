@@ -236,7 +236,7 @@ public class Parser {
         }
 
         guard parsingErrorDescriptions.isEmpty else {
-            let joinedDescriptions = "\n".join(parsingErrorDescriptions)
+            let joinedDescriptions = parsingErrorDescriptions.joinWithSeparator("\n")
             throw ParserError.Validation(failureReason: joinedDescriptions)
         }
 
@@ -350,7 +350,7 @@ public class Parser {
         }
 
         guard parsingErrorDescriptions.isEmpty else {
-            let joinedDescriptions = "\n".join(parsingErrorDescriptions)
+            let joinedDescriptions = parsingErrorDescriptions.joinWithSeparator("\n")
             throw ParserError.Validation(failureReason: joinedDescriptions)
         }
 

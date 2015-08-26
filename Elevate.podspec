@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Elevate'
-  s.version = '1.1.0'
+  s.version = '1.1.1'
   s.summary = 'Elevate brings sanity and reliability to JSON parsing in Swift.'
   s.homepage = 'http://stash.nikedev.com/projects/SRG/repos/elevate/browse'
   s.license = { :type => 'COMMERCIAL', :text => 'Created and licensed by Nike. Copyright 2014-2015 Nike, Inc. All rights reserved.' }

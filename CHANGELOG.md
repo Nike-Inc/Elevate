@@ -4,6 +4,14 @@ The changelog for Elevate includes information about the each release including 
 
 ---
 
+## 1.1.1
+
+### Release Notes
+
+#### Updated
+
+* All logic to compile against Xcode 7 beta 6.
+
 ## 1.1.0
 
 ### Upgrade Notes

@@ -9,7 +9,7 @@
 import Foundation
 
 /**
-    The `Parser` validates and extracts values from json data by allowing you to definte the type and optionality
+    The `Parser` validates and extracts values from json data by allowing you to define the type and optionality
     for each property to be parsed. All parser errors encountered are aggregated when evaluating the data.
 */
 public class Parser {

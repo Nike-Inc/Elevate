@@ -39,7 +39,7 @@ CocoaPods 0.36 adds supports for Swift and embedded frameworks. You can install 
 [sudo] gem install cocoapods
 ```
 
-To integrate Surge into your Xcode project using CocoaPods, specify it in your [Podfile](http://guides.cocoapods.org/using/the-podfile.html):
+To integrate Elevate into your Xcode project using CocoaPods, specify it in your [Podfile](http://guides.cocoapods.org/using/the-podfile.html):
 
 ```ruby
 platform :ios, '8.0'

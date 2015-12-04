@@ -280,16 +280,22 @@ public class Parser {
             return json
         }
 
-        let keys = keypath.characters.split() { $0 == "." }.map { String($0) }
+        var dictionary = json as! [String: AnyObject]
 
-        for key in keys {
-            let dictionary = json as! [String: AnyObject]
+        if dictionary.keys.contains(keypath) {
+            json = dictionary[keypath]
+        } else {
+            let keys = keypath.characters.split() { $0 == "." }.map { String($0) }
 
-            if let value: AnyObject = dictionary[key] {
-                json = value
-            } else {
-                json = nil
-                break
+            for key in keys {
+                dictionary = json as! [String: AnyObject]
+
+                if let value: AnyObject = dictionary[key] {
+                    json = value
+                } else {
+                    json = nil
+                    break
+                }
             }
         }
 

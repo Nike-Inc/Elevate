@@ -277,6 +277,23 @@ class ParserTestCase: BaseTestCase {
         }
     }
 
+    func testThatItParsesKeyPathsWithDots() {
+        // Given
+        let data = loadJSONDataForFileNamed("KeyPathsTest")
+
+        // When
+        do {
+            let parsed = try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("dots.key.path", type: .String)
+            }
+
+            // Then
+            XCTAssertEqual(parsed["dots.key.path"] as! String?, "value")
+        } catch {
+            XCTFail("Parser failed to parse dotted key path")
+        }
+    }
+
     func testThatItParserRootArrayWithParseMethod() {
         // Given
         let data = loadJSONDataForFileNamed("RootArrayTest")

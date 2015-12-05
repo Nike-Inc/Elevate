@@ -4,6 +4,14 @@ The changelog for Elevate includes information about the each release including 
 
 ---
 
+## 1.1.2
+
+### Release Notes
+
+#### FIXED
+
+* Support for JSON keys containing the `.` character.
+
 ## 1.1.1
 
 ### Release Notes

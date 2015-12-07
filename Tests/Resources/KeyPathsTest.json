@@ -13,6 +13,7 @@
     "numb3r": "value",
     "speci@l": "value",
     "dashed-key-path": "value",
+    "dots.key.path": "value",
     "twoLevelNumb3r": {
         "speci@l": "value"
     }

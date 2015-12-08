@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C0C61911C161E2700BBB2F9 /* PropertyExtraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C61901C161E2700BBB2F9 /* PropertyExtraction.swift */; };
+		4C0C61921C161E2700BBB2F9 /* PropertyExtraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C61901C161E2700BBB2F9 /* PropertyExtraction.swift */; };
+		4C0C61931C161E2700BBB2F9 /* PropertyExtraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C61901C161E2700BBB2F9 /* PropertyExtraction.swift */; };
+		4C0C61951C161E7800BBB2F9 /* PropertyExtractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C61941C161E7800BBB2F9 /* PropertyExtractionTests.swift */; };
+		4C0C61961C161E7800BBB2F9 /* PropertyExtractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C61941C161E7800BBB2F9 /* PropertyExtractionTests.swift */; };
 		4C5FB4A21B55C229001258D3 /* ArrayTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB49D1B55C229001258D3 /* ArrayTest.json */; };
 		4C5FB4A31B55C229001258D3 /* ArrayTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB49D1B55C229001258D3 /* ArrayTest.json */; };
 		4C5FB4A41B55C229001258D3 /* JSONNumericData.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB49E1B55C229001258D3 /* JSONNumericData.json */; };
@@ -69,6 +74,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C0C61901C161E2700BBB2F9 /* PropertyExtraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyExtraction.swift; sourceTree = "<group>"; };
+		4C0C61941C161E7800BBB2F9 /* PropertyExtractionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyExtractionTests.swift; sourceTree = "<group>"; };
 		4C5FB49D1B55C229001258D3 /* ArrayTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ArrayTest.json; sourceTree = "<group>"; };
 		4C5FB49E1B55C229001258D3 /* JSONNumericData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = JSONNumericData.json; sourceTree = "<group>"; };
 		4C5FB49F1B55C229001258D3 /* KeyPathsTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = KeyPathsTest.json; sourceTree = "<group>"; };
@@ -178,6 +185,7 @@
 				E91C4DF61B5475CC000481D2 /* Parser.swift */,
 				E937BE6E1B72C26E005584D4 /* ParserError.swift */,
 				E937BE6B1B72C1BD005584D4 /* ParserProperty.swift */,
+				4C0C61901C161E2700BBB2F9 /* PropertyExtraction.swift */,
 				E91C4E051B5475F6000481D2 /* Supporting Files */,
 			);
 			path = Source;
@@ -200,6 +208,7 @@
 				E91C4E081B54770C000481D2 /* DecoderTests.swift */,
 				E92426411B81160F000CB0F1 /* ParserInternalTests.swift */,
 				E99C82061B55E5B50090FA56 /* ParserTests.swift */,
+				4C0C61941C161E7800BBB2F9 /* PropertyExtractionTests.swift */,
 				4C5FB49C1B55C229001258D3 /* Resources */,
 				E91C4E0C1B54771B000481D2 /* Supporting Files */,
 			);
@@ -438,6 +447,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CA33F481B75592A0047C307 /* Decoder.swift in Sources */,
+				4C0C61931C161E2700BBB2F9 /* PropertyExtraction.swift in Sources */,
 				4CA33F4C1B75592A0047C307 /* ParserProperty.swift in Sources */,
 				4CA33F491B75592A0047C307 /* Decodable.swift in Sources */,
 				4CA33F4A1B75592A0047C307 /* Parser.swift in Sources */,
@@ -450,6 +460,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E91C4DFC1B5475CC000481D2 /* Parser.swift in Sources */,
+				4C0C61911C161E2700BBB2F9 /* PropertyExtraction.swift in Sources */,
 				E937BE6F1B72C26E005584D4 /* ParserError.swift in Sources */,
 				E937BE6C1B72C1BD005584D4 /* ParserProperty.swift in Sources */,
 				E937BE691B72C123005584D4 /* Decoder.swift in Sources */,
@@ -466,6 +477,7 @@
 				E92426421B81160F000CB0F1 /* ParserInternalTests.swift in Sources */,
 				E99C82041B55E3380090FA56 /* DecodableTests.swift in Sources */,
 				E99C82011B55E1400090FA56 /* BaseTestCase.swift in Sources */,
+				4C0C61951C161E7800BBB2F9 /* PropertyExtractionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,6 +486,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E91C4E291B5478A8000481D2 /* Parser.swift in Sources */,
+				4C0C61921C161E2700BBB2F9 /* PropertyExtraction.swift in Sources */,
 				E937BE701B72C26E005584D4 /* ParserError.swift in Sources */,
 				E937BE6D1B72C1BD005584D4 /* ParserProperty.swift in Sources */,
 				E937BE6A1B72C123005584D4 /* Decoder.swift in Sources */,
@@ -490,6 +503,7 @@
 				E92426431B81160F000CB0F1 /* ParserInternalTests.swift in Sources */,
 				E99C82051B55E3380090FA56 /* DecodableTests.swift in Sources */,
 				E99C82021B55E1400090FA56 /* BaseTestCase.swift in Sources */,
+				4C0C61961C161E7800BBB2F9 /* PropertyExtractionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

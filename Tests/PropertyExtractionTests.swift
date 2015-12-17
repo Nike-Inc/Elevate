@@ -113,101 +113,21 @@ class PropertyExtractionTestCase: BaseTestCase {
 
     func testArrayForKeyPathOperator() {
         // Given, When
-        let stringsArray: [String] = properties <-- "array_of_any_values"
+        let anyArray: [String] = properties <--! "array_of_any_values"
 
         // Then
-        XCTAssertEqual(stringsArray, ["value_0", "value_1"])
+        XCTAssertEqual(anyArray, ["value_0", "value_1"])
     }
 
-    // MARK: - Tests - CollectionType Extension
-
-    func testValueForKeyPath() {
+    func testOptionalArrayForKeyPathOperator() {
         // Given, When
-        let stringValue: String = properties.valueForKeyPath("string")
-        let intValue: Int = properties.valueForKeyPath("int")
-        let uintValue: UInt = properties.valueForKeyPath("uint")
-        let floatValue: Float = properties.valueForKeyPath("float")
-        let doubleValue: Double = properties.valueForKeyPath("double")
-        let boolValue: Bool = properties.valueForKeyPath("bool")
-        let arrayValue: [String] = properties.valueForKeyPath("array")
-        let dictionaryValue: [String: String] = properties.valueForKeyPath("dictionary")
-        let urlValue: NSURL = properties.valueForKeyPath("url")
+        let stringsArray: [String]? = properties <--? "array"
+        let anyArray: [String]? = properties <--? "array_of_any_values"
+        let missingKey: [String]? = properties <--? "key_does_not_exist"
 
         // Then
-        XCTAssertEqual(stringValue, "string_value")
-        XCTAssertEqual(intValue, -10)
-        XCTAssertEqual(uintValue, 45)
-        XCTAssertEqual(floatValue, 12.34)
-        XCTAssertEqual(doubleValue, 1234.5678)
-        XCTAssertEqual(boolValue, true)
-        XCTAssertEqual(arrayValue, ["value_0", "value_1"])
-        XCTAssertEqual(dictionaryValue, ["key": "value"])
-        XCTAssertEqual(urlValue, NSURL(string: "https://httpbin.org/get")!)
-    }
-
-    func testOptionalValueForKeyPath() {
-        // Given, When
-        let stringValue: String? = properties.optionalValueForKeyPath("string")
-        let stringNilValue: String? = properties.optionalValueForKeyPath("string_nil")
-
-        let intValue: Int? = properties.optionalValueForKeyPath("int")
-        let intNilValue: Int? = properties.optionalValueForKeyPath("int_nil")
-
-        let uintValue: UInt? = properties.optionalValueForKeyPath("uint")
-        let uintNilValue: UInt? = properties.optionalValueForKeyPath("uint_nil")
-
-        let floatValue: Float? = properties.optionalValueForKeyPath("float")
-        let floatNilValue: Float? = properties.optionalValueForKeyPath("float_nil")
-
-        let doubleValue: Double? = properties.optionalValueForKeyPath("double")
-        let doubleNilValue: Double? = properties.optionalValueForKeyPath("double_nil")
-
-        let boolValue: Bool? = properties.optionalValueForKeyPath("bool")
-        let boolNilValue: Bool? = properties.optionalValueForKeyPath("bool_nil")
-
-        let arrayValue: [String]? = properties.optionalValueForKeyPath("array")
-        let arrayNilValue: [String]? = properties.optionalValueForKeyPath("array_nil")
-
-        let dictionaryValue: [String: String]? = properties.optionalValueForKeyPath("dictionary")
-        let dictionaryNilValue: [String: String]? = properties.optionalValueForKeyPath("dictionary_nil")
-
-        let urlValue: NSURL? = properties.optionalValueForKeyPath("url")
-        let urlNilValue: NSURL? = properties.optionalValueForKeyPath("url_nil")
-
-        // Then
-        XCTAssertEqual(stringValue, "string_value")
-        XCTAssertNil(stringNilValue)
-
-        XCTAssertEqual(intValue, -10)
-        XCTAssertNil(intNilValue)
-
-        XCTAssertEqual(uintValue, 45)
-        XCTAssertNil(uintNilValue)
-
-        XCTAssertEqual(floatValue, 12.34)
-        XCTAssertNil(floatNilValue)
-
-        XCTAssertEqual(doubleValue, 1234.5678)
-        XCTAssertNil(doubleNilValue)
-
-        XCTAssertEqual(boolValue, true)
-        XCTAssertNil(boolNilValue)
-
-        XCTAssertEqual(arrayValue ?? [], ["value_0", "value_1"])
-        XCTAssertNil(arrayNilValue)
-
-        XCTAssertEqual(dictionaryValue ?? [:], ["key": "value"])
-        XCTAssertNil(dictionaryNilValue)
-
-        XCTAssertEqual(urlValue, NSURL(string: "https://httpbin.org/get")!)
-        XCTAssertNil(urlNilValue)
-    }
-
-    func testArrayForKeyPath() {
-        // Given, When
-        let stringsArray: [String] = properties.arrayForKeyPath("array_of_any_values")
-
-        // Then
-        XCTAssertEqual(stringsArray, ["value_0", "value_1"])
+        XCTAssertNil(stringsArray)
+        XCTAssertEqual(anyArray ?? [], ["value_0", "value_1"])
+        XCTAssertNil(missingKey)
     }
 }

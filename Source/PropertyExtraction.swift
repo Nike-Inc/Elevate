@@ -10,43 +10,56 @@ import Foundation
 
 infix operator <-! { associativity left precedence 140 }
 infix operator <-? { associativity left precedence 140 }
-infix operator <-- { associativity left precedence 140 }
 
+infix operator <--! { associativity left precedence 140 }
+infix operator <--? { associativity left precedence 140 }
+
+/**
+    Forcibly extracts the value for the key from the dictionary as the specified type.
+
+    - parameter lhs: Dictionary to extract the value from.
+    - parameter rhs: Key of the value to extract from the dictionary.
+
+    - returns: Value for the key in the dictionary.
+*/
 public func <-! <T>(lhs: [String: Any], rhs: String) -> T {
     return lhs[rhs] as! T
 }
 
+/**
+    Safely extracts the value for the key from the dictionary as the specified optional type.
+
+    - parameter lhs: Dictionary to extract the value from.
+    - parameter rhs: Key of the value to extract from the dictionary.
+
+    - returns: Value for the key in the dictionary.
+*/
 public func <-? <T>(lhs: [String: Any], rhs: String) -> T? {
     return lhs[rhs] as? T
 }
 
-public func <-- <T>(lhs: [String: Any], rhs: String) -> [T] {
+/**
+    Forcibly extracts the array for the key from the dictionary as the specified array type.
+
+    - parameter lhs: Dictionary to extract the array from.
+    - parameter rhs: Key of the array to extract from the dictionary.
+
+    - returns: Array for the key in the dictionary.
+*/
+public func <--! <T>(lhs: [String: Any], rhs: String) -> [T] {
     guard let array = lhs[rhs] else { return [] }
     return (array as! [Any]).map { $0 as! T }
 }
 
-// MARK: -
+/**
+    Safely extracts the array for the key from the dictionary as the specified optional array type.
 
-extension CollectionType where
-    Self: DictionaryLiteralConvertible,
-    Self.Key: StringLiteralConvertible,
-    Self.Value: Any,
-    Generator.Element == (Self.Key, Self.Value)
-{
-    public func valueForKeyPath<T>(keyPath: String) -> T {
-        let dictionary = self as! Dictionary<String, Any>
-        return dictionary[keyPath] as! T
-    }
+    - parameter lhs: Dictionary to extract the array from.
+    - parameter rhs: Key of the array to extract from the dictionary.
 
-    public func optionalValueForKeyPath<T>(keyPath: String) -> T? {
-        let dictionary = self as! Dictionary<String, Any>
-        return dictionary[keyPath] as? T
-    }
-
-    public func arrayForKeyPath<T>(keyPath: String) -> [T] {
-        let dictionary = self as! Dictionary<String, Any>
-        guard let array = dictionary[keyPath] else { return [] }
-
-        return (array as! [Any]).map { $0 as! T }
-    }
+    - returns: Array for the key in the dictionary.
+*/
+public func <--? <T>(lhs: [String: Any], rhs: String) -> [T]? {
+    guard let array = lhs[rhs] else { return nil }
+    return (array as? [Any])?.map { $0 as! T }
 }

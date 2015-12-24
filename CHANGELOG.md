@@ -4,11 +4,26 @@ The changelog for Elevate includes information about the each release including 
 
 ---
 
+## 1.2.0
+
+### Release Notes
+
+#### Added
+
+* Property extraction operators to make it easy to extract property values and cast them to a specified type.
+* New section to the README about the property extraction operators.
+
+#### Updated
+
+* All sample code in the README to use the property extraction operators.
+
+---
+
 ## 1.1.2
 
 ### Release Notes
 
-#### FIXED
+#### Fixed
 
 * Support for JSON keys containing the `.` character.
 
@@ -42,6 +57,8 @@ The `Parser.parse` methods names have changed to remove ambiguity between the ob
 #### Fixed
 
 * A public initializer was added to the `StringToIntDecoder`.
+
+---
 
 ## 1.0.0
 

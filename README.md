@@ -104,7 +104,14 @@ public protocol Decodable {
 The `json: AnyObject` will typically be a `[String: AnyObject]` instance that was created from the `NSJSONSerialization` APIs. Use the Elevate `Parser.parseProperties` method to define the structure of the JSON data to be validated and perform the parsing.
 
 ```swift
-extension Person: Decodable {
+struct Person: Decodable {
+	let identifier: String
+	let name: String
+	let nickname: String?
+	let birthDate: NSDate
+	let isMember: Bool?
+	let addresses: [Address]
+
     init(json: AnyObject) throws {
         let idKeyPath = "identifier"
         let nameKeyPath = "name"
@@ -124,12 +131,12 @@ extension Person: Decodable {
             make.propertyForKeyPath(addressesKeyPath, type: .Array, decodedToType: Address.self)
         }
 
-        self.identifier = properties[idKeyPath] as! Int
-        self.name = properties[nameKeyPath] as! String
-        self.nickname = properties[nicknameKeyPath] as? String
-        self.birthDate = properties[birthDateKeyPath] as! NSDate
-        self.isMember = properties[isMemberKeyPath] as! Bool
-        self.addresses = (properties[addressesKeyPath] as! [Any]).map { $0 as! Address) }
+        self.identifier = properties <-! idKeyPath
+        self.name = properties <-! nameKeyPath
+        self.nickname = properties <-? nicknameKeyPath
+        self.birthDate = properties <-! birthDateKeyPath
+        self.isMember = properties <-? isMemberKeyPath
+        self.addresses = properties <--! addressesKeyPath
     }
 }
 ```
@@ -142,8 +149,17 @@ Some other things worth noting in this example:
 2. Standard primitive types are supported as well as `NSURL`, `Array`, and `Dictionary` types. See `ParserPropertyType` definition for the full list.
 3. Elevate facilitates passing a parsed property into a `Decoder` for further manipulation. See the `birthDate` property in the example above. The `DateDecoder` is a standard `Decoder` provided by Elevate to make date parsing hassle free.
 4. A `Decoder` or `Decodable` type can be provided to a property of type `.Array` to parse each item in the array to that type. This also works with the `.Dictionary` type to parse a nested JSON object.
-5. The parser guarantees that properties will be of the specified type, so it is safe to use the `as!` force cast when extracting the values from the returned `[String: Any]`.
-  
+5. The parser guarantees that properties will be of the specified type, so it is safe to use the custom operators to automatically extract the `Any` value from the `properties` dictionary and cast it to the return type.
+
+### Property Extraction Operators
+
+Elevate contains four property extraction operators to make it easy to extract values out of the `properties` dictionary and cast the `Any` value to the appropriate type.
+
+* `<-!` - Extracts the value from the `properties` dictionary for the specified key. This operator should only be used on non-optional properties.
+* `<-?` - Extracts the optional value from the `properties` dictionary for the specified key. This operator should only be used on optional properties.
+* `<--!` - Extracts the array from the `properties` dictionary for the specified key as the specified array type. This operator should only be used on non-optional array properties.
+* `<--?` - Extracts the array from the `properties` dictionary for the specified key as the specified optional array type.
+
 ---
   
 ## Advanced Usage
@@ -178,9 +194,9 @@ class AvatarDecoder: Decoder {
         }
 
         return Avatar(
-            URL: properties[urlKeyPath] as! NSURL,
-            width: properties[widthKeyPath] as! Int,
-            height: properties[heightKeyPath] as! Int
+            URL: properties <-! urlKeyPath,
+            width: properties <-! widthKeyPath,
+            height: properties <-! heightKeyPath
         )
     }
 }
@@ -200,9 +216,9 @@ class AlternateAvatarDecoder: Decoder {
         }
 
         return Avatar(
-            URL: properties[locationKeyPath] as! NSURL,
-            width: properties[wKeyPath] as! Int,
-            height: properties[hKeyPath] as! Int
+            URL: properties <-! locationKeyPath,
+            width: properties <-! wKeyPath,
+            height: properties <-! hKeyPath
         )
     }
 }

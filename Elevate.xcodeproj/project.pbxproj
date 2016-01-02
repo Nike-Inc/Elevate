@@ -28,6 +28,7 @@
 		4CA33F4A1B75592A0047C307 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C4DF61B5475CC000481D2 /* Parser.swift */; };
 		4CA33F4B1B75592A0047C307 /* ParserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE6E1B72C26E005584D4 /* ParserError.swift */; };
 		4CA33F4C1B75592A0047C307 /* ParserProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE6B1B72C1BD005584D4 /* ParserProperty.swift */; };
+		E90298251C339E0700E7F56B /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90298241C339E0700E7F56B /* PerformanceTests.swift */; };
 		E91C4DE31B547559000481D2 /* Elevate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E91C4DD81B547559000481D2 /* Elevate.framework */; };
 		E91C4DFB1B5475CC000481D2 /* Elevate.h in Headers */ = {isa = PBXBuildFile; fileRef = E91C4DF51B5475CC000481D2 /* Elevate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E91C4DFC1B5475CC000481D2 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C4DF61B5475CC000481D2 /* Parser.swift */; };
@@ -82,6 +83,7 @@
 		4C5FB4A01B55C229001258D3 /* PropertyTypesTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PropertyTypesTest.json; sourceTree = "<group>"; };
 		4C5FB4A11B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PropertyTypesWithIncorrectValueTypes.json; sourceTree = "<group>"; };
 		4CA33F3F1B7558C30047C307 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E90298241C339E0700E7F56B /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
 		E91C4DD81B547559000481D2 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91C4DE21B547559000481D2 /* Elevate Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Elevate Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91C4DF51B5475CC000481D2 /* Elevate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Elevate.h; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				E91C4E081B54770C000481D2 /* DecoderTests.swift */,
 				E92426411B81160F000CB0F1 /* ParserInternalTests.swift */,
 				E99C82061B55E5B50090FA56 /* ParserTests.swift */,
+				E90298241C339E0700E7F56B /* PerformanceTests.swift */,
 				4C0C61941C161E7800BBB2F9 /* PropertyExtractionTests.swift */,
 				4C5FB49C1B55C229001258D3 /* Resources */,
 				E91C4E0C1B54771B000481D2 /* Supporting Files */,
@@ -472,6 +475,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E90298251C339E0700E7F56B /* PerformanceTests.swift in Sources */,
 				E99C82071B55E5B50090FA56 /* ParserTests.swift in Sources */,
 				E91C4E0A1B54770C000481D2 /* DecoderTests.swift in Sources */,
 				E92426421B81160F000CB0F1 /* ParserInternalTests.swift in Sources */,

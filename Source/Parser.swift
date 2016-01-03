@@ -151,10 +151,10 @@ public class Parser {
         - returns: The result Dictionary.
     */
     public class func parseProperties(json json: AnyObject, closure: ParserPropertyMaker -> Void) throws -> [String: Any] {
-        if json is [String: AnyObject] {
-            return try parsePropertiesForJSONDictionary(json as! [String: AnyObject], closure: closure)
-        } else if json is [AnyObject] {
-            return try parsePropertiesForJSONArray(json as! [AnyObject], closure: closure)
+        if let json = json as? [String: AnyObject] {
+            return try parsePropertiesForJSONDictionary(json, closure: closure)
+        } else if let json = json as? [AnyObject] {
+            return try parsePropertiesForJSONArray(json, closure: closure)
         } else {
             throw ParserError.Validation(failureReason: "JSON object was not of type: [String: AnyObject] or [AnyObject]")
         }

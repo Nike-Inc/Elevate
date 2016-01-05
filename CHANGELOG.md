@@ -4,6 +4,14 @@ The changelog for Elevate includes information about the each release including 
 
 ---
 
+## 1.2.1
+
+### Release Notes
+
+#### Added
+
+* Default values for keyPath parameters in the top-level Parser APIs.
+
 ## 1.2.0
 
 ### Release Notes

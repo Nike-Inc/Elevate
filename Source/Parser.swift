@@ -27,7 +27,21 @@ public class Parser {
     */
     public class func parseObject<T: Decodable>(data data: NSData, forKeyPath keyPath: String = "") throws -> T {
         let properties = try Parser.parseProperties(data: data) { make in
-            make.propertyForKeyPath(keyPath, type: .Dictionary, decodedToType: T.self)
+            if T.self == String.self {
+                make.propertyForKeyPath(keyPath, type: .String)
+            } else if T.self == Int.self {
+                make.propertyForKeyPath(keyPath, type: .Int)
+            } else if T.self == UInt.self {
+                make.propertyForKeyPath(keyPath, type: .UInt)
+            } else if T.self == Float.self {
+                make.propertyForKeyPath(keyPath, type: .Float)
+            } else if T.self == Double.self {
+                make.propertyForKeyPath(keyPath, type: .Double)
+            } else if T.self == Bool.self {
+                make.propertyForKeyPath(keyPath, type: .Bool)
+            } else {
+                make.propertyForKeyPath(keyPath, type: .Dictionary, decodedToType: T.self)
+            }
         }
 
         return properties[keyPath] as! T

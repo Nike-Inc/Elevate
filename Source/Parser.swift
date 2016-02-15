@@ -165,10 +165,16 @@ public class Parser {
         - returns: The result Dictionary.
     */
     public class func parseProperties(json json: AnyObject, closure: ParserPropertyMaker -> Void) throws -> [String: Any] {
-        guard json is [String: AnyObject] || json is [AnyObject] else {
+        if let json = json as? [String: AnyObject] {
+            return try parsePropertiesForJSONDictionary(json, closure: closure)
+        } else if let json = json as? [AnyObject] {
+            return try parsePropertiesForJSONArray(json, closure: closure)
+        } else {
             throw ParserError.Validation(failureReason: "JSON object was not of type: [String: AnyObject] or [AnyObject]")
         }
+    }
 
+    private class func parsePropertiesForJSONDictionary(dictionary: [String: AnyObject], closure: ParserPropertyMaker -> Void) throws -> [String: Any] {
         var parsingErrorDescriptions = [String]()
         var parsed = [String: Any]()
         let propertyMaker = ParserPropertyMaker()
@@ -176,7 +182,7 @@ public class Parser {
         closure(propertyMaker)
 
         for property in propertyMaker.properties {
-            let jsonValue: AnyObject = Parser.json(json, forKeyPath: property.keyPath)
+            let jsonValue: AnyObject = Parser.json(dictionary, forKeyPath: property.keyPath)
             var parsedValue: AnyObject?
 
             if property.optional && jsonValue is NSNull {
@@ -257,6 +263,29 @@ public class Parser {
         return parsed
     }
 
+    private class func parsePropertiesForJSONArray(array: [AnyObject], closure: ParserPropertyMaker -> Void) throws -> [String: Any] {
+        var parsed = [String: Any]()
+        let propertyMaker = ParserPropertyMaker()
+
+        closure(propertyMaker)
+
+        guard propertyMaker.properties.count == 1 && propertyMaker.properties.first?.type == .Array else {
+            throw ParserError.Validation(failureReason: "Invalid property list for json array.")
+        }
+
+        let property = propertyMaker.properties.first!
+        let jsonValue: AnyObject = array
+
+        if let decodingMethod = property.decodingMethod {
+            let result = try parseArray(data: jsonValue, decodingMethod: decodingMethod)
+            parsed[property.keyPath] = result
+        } else {
+            throw ParserError.Validation(failureReason: "A decoding method was not provided for `\(property.keyPath)` array")
+        }
+
+        return parsed
+    }
+
     // MARK: Internal - Validation Methods
 
     class func valueIsSpecifiedType(value value: AnyObject, type: ParserPropertyType) -> Bool {
@@ -289,12 +318,8 @@ public class Parser {
 
     // MARK: Private - Parser Helper Methods
 
-    private class func json(var json: AnyObject?, forKeyPath keypath: String) -> AnyObject {
-        if let json = json as? [AnyObject] {
-            return json
-        }
-
-        var dictionary = json as! [String: AnyObject]
+    private class func json(var dictionary: [String: AnyObject], forKeyPath keypath: String) -> AnyObject {
+        var json: AnyObject? = dictionary
 
         if dictionary.keys.contains(keypath) {
             json = dictionary[keypath]
@@ -302,9 +327,7 @@ public class Parser {
             let keys = keypath.characters.split() { $0 == "." }.map { String($0) }
 
             for key in keys {
-                dictionary = json as! [String: AnyObject]
-
-                if let value: AnyObject = dictionary[key] {
+                if let dictionary = json as? [String: AnyObject], let value: AnyObject = dictionary[key] {
                     json = value
                 } else {
                     json = nil

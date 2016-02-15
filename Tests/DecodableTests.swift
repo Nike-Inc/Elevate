@@ -85,6 +85,97 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
+    func testThatParseObjectParsesStringSuccessfully() {
+        // Given
+        let data = "{ \"key\":\"981a383074461fcbf7b9c67e2cb7bd13502d664cad0b254b8f426cd77c62d83e\" }"
+            .dataUsingEncoding(NSUTF8StringEncoding)!
+
+        // When
+        do {
+            let result: String = try Parser.parseObject(data: data, forKeyPath: "key")
+
+            // Then
+            XCTAssertEqual(result, "981a383074461fcbf7b9c67e2cb7bd13502d664cad0b254b8f426cd77c62d83e")
+        } catch {
+            XCTFail("Parser unexpectedly failed by throwing error: \(error)")
+        }
+    }
+
+    func testThatParseObjectParsesIntSuccessfully() {
+        // Given
+        let data = "{ \"key\" : 7 }".dataUsingEncoding(NSUTF8StringEncoding)!
+
+        // When
+        do {
+            let result: Int = try Parser.parseObject(data: data, forKeyPath: "key")
+
+            // Then
+            XCTAssertEqual(result, 7)
+        } catch {
+            XCTFail("Parser unexpectedly failed by throwing error: \(error)")
+        }
+    }
+
+    func testThatParseObjectParsesUIntSuccessfully() {
+        // Given
+        let data = "{ \"key\" : 7 }".dataUsingEncoding(NSUTF8StringEncoding)!
+
+        // When
+        do {
+            let result: UInt = try Parser.parseObject(data: data, forKeyPath: "key")
+
+            // Then
+            XCTAssertEqual(result, 7)
+        } catch {
+            XCTFail("Parser unexpectedly failed by throwing error: \(error)")
+        }
+    }
+
+    func testThatParseObjectParsesFloatSuccessfully() {
+        // Given
+        let data = "{ \"key\" : 7.1 }".dataUsingEncoding(NSUTF8StringEncoding)!
+
+        // When
+        do {
+            let result: Float = try Parser.parseObject(data: data, forKeyPath: "key")
+
+            // Then
+            XCTAssertEqual(result, 7.1)
+        } catch {
+            XCTFail("Parser unexpectedly failed by throwing error: \(error)")
+        }
+    }
+
+    func testThatParseObjectParsesDoubleSuccessfully() {
+        // Given
+        let data = "{ \"key\" : 7.1 }".dataUsingEncoding(NSUTF8StringEncoding)!
+
+        // When
+        do {
+            let result: Double = try Parser.parseObject(data: data, forKeyPath: "key")
+
+            // Then
+            XCTAssertEqual(result, 7.1)
+        } catch {
+            XCTFail("Parser unexpectedly failed by throwing error: \(error)")
+        }
+    }
+
+    func testThatParseObjectParsesBoolSuccessfully() {
+        // Given
+        let data = "{ \"key\" : true }".dataUsingEncoding(NSUTF8StringEncoding)!
+
+        // When
+        do {
+            let result: Bool = try Parser.parseObject(data: data, forKeyPath: "key")
+
+            // Then
+            XCTAssertTrue(result)
+        } catch {
+            XCTFail("Parser unexpectedly failed by throwing error: \(error)")
+        }
+    }
+
     func testThatParseThrowsWithInvalidJSON() {
         // Given
         let data = "some random data that isn't json".dataUsingEncoding(NSUTF8StringEncoding)!

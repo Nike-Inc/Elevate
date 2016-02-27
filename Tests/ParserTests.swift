@@ -529,6 +529,114 @@ class ParserTestCase: BaseTestCase {
 
 // MARK: -
 
+class ParserParseObjectTestCase: BaseTestCase {
+    func testThatParserCanParseDecodableObject() {
+        do {
+            // Given
+            let data = loadJSONDataForFileNamed("PropertyTypesTest")
+
+            // When
+            let testObject: TestObject = try Parser.parseObject(data: data, forKeyPath: "sub-object")
+
+            // Then
+            XCTAssertEqual(testObject.subUInt, UInt(1))
+            XCTAssertEqual(testObject.subInt, -1)
+            XCTAssertEqual(testObject.subString, "sub test string")
+        } catch {
+            XCTFail("Test encountered unexpected error: \(error)")
+        }
+    }
+
+    func testThatParserCanParseObjectUsingDecoder() {
+        do {
+            // Given
+            let data = loadJSONDataForFileNamed("PropertyTypesTest")
+
+            // When
+            let testObject: TestObject = try Parser.parseObject(
+                data: data,
+                forKeyPath: "sub-object",
+                withDecoder: TestObjectDecoder()
+            )
+
+            // Then
+            XCTAssertEqual(testObject.subUInt, UInt(1))
+            XCTAssertEqual(testObject.subInt, -1)
+            XCTAssertEqual(testObject.subString, "sub test string")
+        } catch {
+            XCTFail("Test encountered unexpected error: \(error)")
+        }
+    }
+}
+
+// MARK: -
+
+class ParserParseArrayTestCaseCase: BaseTestCase {
+    func testThatParserCanParseDecodableArray() {
+        do {
+            // Given
+            let data = loadJSONDataForFileNamed("ArrayTest")
+
+            // When
+            let testObjects: [TestObject] = try Parser.parseArray(data: data, forKeyPath: "items")
+
+            // Then
+            XCTAssertEqual(testObjects.count, 3)
+
+            if testObjects.count == 3 {
+                XCTAssertEqual(testObjects[0].subUInt, 0)
+                XCTAssertEqual(testObjects[0].subInt, 0)
+                XCTAssertEqual(testObjects[0].subString, "value0")
+
+                XCTAssertEqual(testObjects[1].subUInt, 1)
+                XCTAssertEqual(testObjects[1].subInt, 1)
+                XCTAssertEqual(testObjects[1].subString, "value1")
+
+                XCTAssertEqual(testObjects[2].subUInt, 2)
+                XCTAssertEqual(testObjects[2].subInt, 2)
+                XCTAssertEqual(testObjects[2].subString, "value2")
+            }
+        } catch {
+            XCTFail("Test encountered unexpected error: \(error)")
+        }
+    }
+
+    func testThatParserCanParseArrayUsingDecoder() {
+        do {
+            // Given
+            let data = loadJSONDataForFileNamed("ArrayTest")
+
+            // When
+            let testObjects: [TestObject] = try Parser.parseArray(
+                data: data,
+                forKeyPath: "items",
+                withDecoder: TestObjectDecoder()
+            )
+
+            // Then
+            XCTAssertEqual(testObjects.count, 3)
+
+            if testObjects.count == 3 {
+                XCTAssertEqual(testObjects[0].subUInt, 0)
+                XCTAssertEqual(testObjects[0].subInt, 0)
+                XCTAssertEqual(testObjects[0].subString, "value0")
+
+                XCTAssertEqual(testObjects[1].subUInt, 1)
+                XCTAssertEqual(testObjects[1].subInt, 1)
+                XCTAssertEqual(testObjects[1].subString, "value1")
+
+                XCTAssertEqual(testObjects[2].subUInt, 2)
+                XCTAssertEqual(testObjects[2].subInt, 2)
+                XCTAssertEqual(testObjects[2].subString, "value2")
+            }
+        } catch {
+            XCTFail("Test encountered unexpected error: \(error)")
+        }
+    }
+}
+
+// MARK: -
+
 class ParserJSONFragmentDataTestCase: BaseTestCase {
     func testThatItFailsToParseDataFragments() {
         // Given

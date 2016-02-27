@@ -10,46 +10,6 @@ import Elevate
 import Foundation
 import XCTest
 
-struct TestObject {
-    let subUInt: UInt
-    let subInt: Int
-    let subString: String
-}
-
-extension TestObject: Decodable {
-    init(json: AnyObject) throws {
-        let subUIntKeyPath = "subUInt"
-        let subIntKeyPath = "subInt"
-        let subStringKeyPath = "subString"
-
-        let properties = try Parser.parseProperties(json: json) { make in
-            make.propertyForKeyPath(subUIntKeyPath, type: .UInt)
-            make.propertyForKeyPath(subIntKeyPath, type: .Int)
-            make.propertyForKeyPath(subStringKeyPath, type: .String)
-        }
-
-        self.subUInt = properties[subUIntKeyPath] as! UInt
-        self.subInt = properties[subIntKeyPath] as! Int
-        self.subString = properties[subStringKeyPath] as! String
-    }
-}
-
-struct InvalidDecodable: Decodable {
-    let invalid: String
-
-    init(json: AnyObject) throws {
-        let invalidKeyPath = "invalid"
-
-        let properties = try Parser.parseProperties(json: json) { make in
-            make.propertyForKeyPath(invalidKeyPath, type: .String)
-        }
-
-        self.invalid = properties[invalidKeyPath] as! String
-    }
-}
-
-// MARK: -
-
 class DecodableTestCase: BaseTestCase {
     func testThatParseOnADecodableSucceeds() {
         // Given

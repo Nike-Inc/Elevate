@@ -4,6 +4,20 @@ The changelog for Elevate includes information about the each release including 
 
 ---
 
+## 1.3.0
+
+### Release Notes
+
+#### Added
+
+* Support and tests for primative `Decodable` types in `parseObject` API.
+
+#### Updated
+
+* Performance improvements resulting in a 73% reduction in execution time for release configurations.
+
+---
+
 ## 1.2.1
 
 ### Release Notes

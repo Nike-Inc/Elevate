@@ -22,6 +22,9 @@
 		4C5FB4A91B55C229001258D3 /* PropertyTypesTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB4A01B55C229001258D3 /* PropertyTypesTest.json */; };
 		4C5FB4AA1B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB4A11B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json */; };
 		4C5FB4AB1B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB4A11B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json */; };
+		4C66AE191C84C6EF0002AC77 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C66AE181C84C6EF0002AC77 /* PerformanceTests.swift */; };
+		4C66AE1A1C84C6EF0002AC77 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C66AE181C84C6EF0002AC77 /* PerformanceTests.swift */; };
+		4C66AE1B1C84C6EF0002AC77 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C66AE181C84C6EF0002AC77 /* PerformanceTests.swift */; };
 		4CA33F471B7559250047C307 /* Elevate.h in Headers */ = {isa = PBXBuildFile; fileRef = E91C4DF51B5475CC000481D2 /* Elevate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CA33F481B75592A0047C307 /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE681B72C123005584D4 /* Decoder.swift */; };
 		4CA33F491B75592A0047C307 /* Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE541B713D0C005584D4 /* Decodable.swift */; };
@@ -108,6 +111,7 @@
 		4C5FB49F1B55C229001258D3 /* KeyPathsTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = KeyPathsTest.json; sourceTree = "<group>"; };
 		4C5FB4A01B55C229001258D3 /* PropertyTypesTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PropertyTypesTest.json; sourceTree = "<group>"; };
 		4C5FB4A11B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PropertyTypesWithIncorrectValueTypes.json; sourceTree = "<group>"; };
+		4C66AE181C84C6EF0002AC77 /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
 		4CA33F3F1B7558C30047C307 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CD761001C82679D00DCC104 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CD761091C82679D00DCC104 /* ElevateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ElevateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -254,6 +258,7 @@
 				E91C4E081B54770C000481D2 /* DecoderTests.swift */,
 				E92426411B81160F000CB0F1 /* ParserInternalTests.swift */,
 				E99C82061B55E5B50090FA56 /* ParserTests.swift */,
+				4C66AE181C84C6EF0002AC77 /* PerformanceTests.swift */,
 				4C0C61941C161E7800BBB2F9 /* PropertyExtractionTests.swift */,
 				4C5FB49C1B55C229001258D3 /* Resources */,
 				E91C4E0C1B54771B000481D2 /* Supporting Files */,
@@ -590,6 +595,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C66AE1B1C84C6EF0002AC77 /* PerformanceTests.swift in Sources */,
 				4CD7611E1C82681C00DCC104 /* BaseTestCase.swift in Sources */,
 				4CD761211C82681C00DCC104 /* ParserInternalTests.swift in Sources */,
 				4CD761221C82681C00DCC104 /* ParserTests.swift in Sources */,
@@ -616,6 +622,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C66AE191C84C6EF0002AC77 /* PerformanceTests.swift in Sources */,
 				E99C82071B55E5B50090FA56 /* ParserTests.swift in Sources */,
 				E91C4E0A1B54770C000481D2 /* DecoderTests.swift in Sources */,
 				E92426421B81160F000CB0F1 /* ParserInternalTests.swift in Sources */,
@@ -642,6 +649,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C66AE1A1C84C6EF0002AC77 /* PerformanceTests.swift in Sources */,
 				E99C82081B55E5B50090FA56 /* ParserTests.swift in Sources */,
 				E91C4E2B1B5478B8000481D2 /* DecoderTests.swift in Sources */,
 				E92426431B81160F000CB0F1 /* ParserInternalTests.swift in Sources */,

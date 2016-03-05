@@ -10,11 +10,16 @@ The changelog for Elevate includes information about the each release including 
 
 #### Added
 
-* Support and tests for primative `Decodable` types in `parseObject` API.
+* Support and tests for primitive `Decodable` types in `parseObject` API.
+* Support for `tvOS` framework and test targets.
+* More unit tests for the `parseObject` and `parseArray` APIs to increase code coverage.
 
 #### Updated
 
-* Performance improvements resulting in a 73% reduction in execution time for release configurations.
+* Parsing logic to improve performance resulting in a 73% reduction in execution time for release configurations.
+* Deployment targets to iOS 8.0, OS X 10.10, tvOS 9.0 and watchOS 2.0.
+* The `EnableTestability` to `NO` on release configurations to drastically increase compiler optimizations.
+* The Requirements and Installation sections of the README.
 
 ---
 

@@ -22,13 +22,35 @@
 		4C5FB4A91B55C229001258D3 /* PropertyTypesTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB4A01B55C229001258D3 /* PropertyTypesTest.json */; };
 		4C5FB4AA1B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB4A11B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json */; };
 		4C5FB4AB1B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB4A11B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json */; };
+		4C66AE191C84C6EF0002AC77 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C66AE181C84C6EF0002AC77 /* PerformanceTests.swift */; };
+		4C66AE1A1C84C6EF0002AC77 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C66AE181C84C6EF0002AC77 /* PerformanceTests.swift */; };
+		4C66AE1B1C84C6EF0002AC77 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C66AE181C84C6EF0002AC77 /* PerformanceTests.swift */; };
 		4CA33F471B7559250047C307 /* Elevate.h in Headers */ = {isa = PBXBuildFile; fileRef = E91C4DF51B5475CC000481D2 /* Elevate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4CA33F481B75592A0047C307 /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE681B72C123005584D4 /* Decoder.swift */; };
 		4CA33F491B75592A0047C307 /* Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE541B713D0C005584D4 /* Decodable.swift */; };
 		4CA33F4A1B75592A0047C307 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C4DF61B5475CC000481D2 /* Parser.swift */; };
 		4CA33F4B1B75592A0047C307 /* ParserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE6E1B72C26E005584D4 /* ParserError.swift */; };
 		4CA33F4C1B75592A0047C307 /* ParserProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE6B1B72C1BD005584D4 /* ParserProperty.swift */; };
-		E90298251C339E0700E7F56B /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90298241C339E0700E7F56B /* PerformanceTests.swift */; };
+		4CD7610A1C82679D00DCC104 /* Elevate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD761001C82679D00DCC104 /* Elevate.framework */; };
+		4CD761171C82681300DCC104 /* Elevate.h in Headers */ = {isa = PBXBuildFile; fileRef = E91C4DF51B5475CC000481D2 /* Elevate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4CD761181C82681800DCC104 /* Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE541B713D0C005584D4 /* Decodable.swift */; };
+		4CD761191C82681800DCC104 /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE681B72C123005584D4 /* Decoder.swift */; };
+		4CD7611A1C82681800DCC104 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C4DF61B5475CC000481D2 /* Parser.swift */; };
+		4CD7611B1C82681800DCC104 /* ParserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE6E1B72C26E005584D4 /* ParserError.swift */; };
+		4CD7611C1C82681800DCC104 /* ParserProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = E937BE6B1B72C1BD005584D4 /* ParserProperty.swift */; };
+		4CD7611D1C82681800DCC104 /* PropertyExtraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C61901C161E2700BBB2F9 /* PropertyExtraction.swift */; };
+		4CD7611E1C82681C00DCC104 /* BaseTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C82001B55E1400090FA56 /* BaseTestCase.swift */; };
+		4CD7611F1C82681C00DCC104 /* DecodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C82031B55E3380090FA56 /* DecodableTests.swift */; };
+		4CD761201C82681C00DCC104 /* DecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C4E081B54770C000481D2 /* DecoderTests.swift */; };
+		4CD761211C82681C00DCC104 /* ParserInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92426411B81160F000CB0F1 /* ParserInternalTests.swift */; };
+		4CD761221C82681C00DCC104 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C82061B55E5B50090FA56 /* ParserTests.swift */; };
+		4CD761231C82681C00DCC104 /* PropertyExtractionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0C61941C161E7800BBB2F9 /* PropertyExtractionTests.swift */; };
+		4CD761241C82682000DCC104 /* ArrayTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB49D1B55C229001258D3 /* ArrayTest.json */; };
+		4CD761251C82682000DCC104 /* JSONNumericData.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB49E1B55C229001258D3 /* JSONNumericData.json */; };
+		4CD761261C82682000DCC104 /* KeyPathsTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB49F1B55C229001258D3 /* KeyPathsTest.json */; };
+		4CD761271C82682000DCC104 /* PropertyTypesTest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB4A01B55C229001258D3 /* PropertyTypesTest.json */; };
+		4CD761281C82682000DCC104 /* PropertyTypesWithIncorrectValueTypes.json in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FB4A11B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json */; };
+		4CD761291C82682000DCC104 /* RootArrayTest.json in Resources */ = {isa = PBXBuildFile; fileRef = E924263D1B805229000CB0F1 /* RootArrayTest.json */; };
 		E91C4DE31B547559000481D2 /* Elevate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E91C4DD81B547559000481D2 /* Elevate.framework */; };
 		E91C4DFB1B5475CC000481D2 /* Elevate.h in Headers */ = {isa = PBXBuildFile; fileRef = E91C4DF51B5475CC000481D2 /* Elevate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E91C4DFC1B5475CC000481D2 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91C4DF61B5475CC000481D2 /* Parser.swift */; };
@@ -58,6 +80,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4CD7610B1C82679D00DCC104 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E91C4DCF1B547559000481D2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4CD760FF1C82679D00DCC104;
+			remoteInfo = "Elevate tvOS";
+		};
 		E91C4DE41B547559000481D2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E91C4DCF1B547559000481D2 /* Project object */;
@@ -82,17 +111,19 @@
 		4C5FB49F1B55C229001258D3 /* KeyPathsTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = KeyPathsTest.json; sourceTree = "<group>"; };
 		4C5FB4A01B55C229001258D3 /* PropertyTypesTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PropertyTypesTest.json; sourceTree = "<group>"; };
 		4C5FB4A11B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PropertyTypesWithIncorrectValueTypes.json; sourceTree = "<group>"; };
+		4C66AE181C84C6EF0002AC77 /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
 		4CA33F3F1B7558C30047C307 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E90298241C339E0700E7F56B /* PerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
+		4CD761001C82679D00DCC104 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CD761091C82679D00DCC104 /* ElevateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ElevateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91C4DD81B547559000481D2 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E91C4DE21B547559000481D2 /* Elevate Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Elevate Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E91C4DE21B547559000481D2 /* ElevateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ElevateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91C4DF51B5475CC000481D2 /* Elevate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Elevate.h; sourceTree = "<group>"; };
 		E91C4DF61B5475CC000481D2 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		E91C4DF71B5475CC000481D2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E91C4E081B54770C000481D2 /* DecoderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecoderTests.swift; sourceTree = "<group>"; };
 		E91C4E091B54770C000481D2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E91C4E121B5477BD000481D2 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E91C4E1B1B5477BD000481D2 /* Elevate Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Elevate Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E91C4E1B1B5477BD000481D2 /* ElevateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ElevateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E924263D1B805229000CB0F1 /* RootArrayTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RootArrayTest.json; sourceTree = "<group>"; };
 		E92426411B81160F000CB0F1 /* ParserInternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserInternalTests.swift; sourceTree = "<group>"; };
 		E937BE541B713D0C005584D4 /* Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decodable.swift; sourceTree = "<group>"; };
@@ -109,6 +140,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4CD760FC1C82679D00DCC104 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4CD761061C82679D00DCC104 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4CD7610A1C82679D00DCC104 /* Elevate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,10 +217,12 @@
 			isa = PBXGroup;
 			children = (
 				E91C4DD81B547559000481D2 /* Elevate.framework */,
-				E91C4DE21B547559000481D2 /* Elevate Tests.xctest */,
+				E91C4DE21B547559000481D2 /* ElevateTests.xctest */,
 				E91C4E121B5477BD000481D2 /* Elevate.framework */,
-				E91C4E1B1B5477BD000481D2 /* Elevate Tests.xctest */,
+				E91C4E1B1B5477BD000481D2 /* ElevateTests.xctest */,
 				4CA33F3F1B7558C30047C307 /* Elevate.framework */,
+				4CD761001C82679D00DCC104 /* Elevate.framework */,
+				4CD761091C82679D00DCC104 /* ElevateTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -210,7 +258,7 @@
 				E91C4E081B54770C000481D2 /* DecoderTests.swift */,
 				E92426411B81160F000CB0F1 /* ParserInternalTests.swift */,
 				E99C82061B55E5B50090FA56 /* ParserTests.swift */,
-				E90298241C339E0700E7F56B /* PerformanceTests.swift */,
+				4C66AE181C84C6EF0002AC77 /* PerformanceTests.swift */,
 				4C0C61941C161E7800BBB2F9 /* PropertyExtractionTests.swift */,
 				4C5FB49C1B55C229001258D3 /* Resources */,
 				E91C4E0C1B54771B000481D2 /* Supporting Files */,
@@ -234,6 +282,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CA33F471B7559250047C307 /* Elevate.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4CD760FD1C82679D00DCC104 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4CD761171C82681300DCC104 /* Elevate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +330,42 @@
 			productReference = 4CA33F3F1B7558C30047C307 /* Elevate.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		4CD760FF1C82679D00DCC104 /* Elevate tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4CD761151C82679D00DCC104 /* Build configuration list for PBXNativeTarget "Elevate tvOS" */;
+			buildPhases = (
+				4CD760FB1C82679D00DCC104 /* Sources */,
+				4CD760FC1C82679D00DCC104 /* Frameworks */,
+				4CD760FD1C82679D00DCC104 /* Headers */,
+				4CD760FE1C82679D00DCC104 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Elevate tvOS";
+			productName = "Elevate tvOS";
+			productReference = 4CD761001C82679D00DCC104 /* Elevate.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4CD761081C82679D00DCC104 /* Elevate tvOS Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4CD761161C82679D00DCC104 /* Build configuration list for PBXNativeTarget "Elevate tvOS Tests" */;
+			buildPhases = (
+				4CD761051C82679D00DCC104 /* Sources */,
+				4CD761061C82679D00DCC104 /* Frameworks */,
+				4CD761071C82679D00DCC104 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4CD7610C1C82679D00DCC104 /* PBXTargetDependency */,
+			);
+			name = "Elevate tvOS Tests";
+			productName = "Elevate tvOSTests";
+			productReference = 4CD761091C82679D00DCC104 /* ElevateTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		E91C4DD71B547559000481D2 /* Elevate iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E91C4DEC1B547559000481D2 /* Build configuration list for PBXNativeTarget "Elevate iOS" */;
@@ -307,7 +399,7 @@
 			);
 			name = "Elevate iOS Tests";
 			productName = ElevateTests;
-			productReference = E91C4DE21B547559000481D2 /* Elevate Tests.xctest */;
+			productReference = E91C4DE21B547559000481D2 /* ElevateTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		E91C4E111B5477BD000481D2 /* Elevate OSX */ = {
@@ -343,7 +435,7 @@
 			);
 			name = "Elevate OSX Tests";
 			productName = "Elevate OSXTests";
-			productReference = E91C4E1B1B5477BD000481D2 /* Elevate Tests.xctest */;
+			productReference = E91C4E1B1B5477BD000481D2 /* ElevateTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -352,12 +444,18 @@
 		E91C4DCF1B547559000481D2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Nike;
 				TargetAttributes = {
 					4CA33F3E1B7558C30047C307 = {
 						CreatedOnToolsVersion = 7.0;
+					};
+					4CD760FF1C82679D00DCC104 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+					4CD761081C82679D00DCC104 = {
+						CreatedOnToolsVersion = 7.2.1;
 					};
 					E91C4DD71B547559000481D2 = {
 						CreatedOnToolsVersion = 7.0;
@@ -389,6 +487,8 @@
 				E91C4DE11B547559000481D2 /* Elevate iOS Tests */,
 				E91C4E111B5477BD000481D2 /* Elevate OSX */,
 				E91C4E1A1B5477BD000481D2 /* Elevate OSX Tests */,
+				4CD760FF1C82679D00DCC104 /* Elevate tvOS */,
+				4CD761081C82679D00DCC104 /* Elevate tvOS Tests */,
 				4CA33F3E1B7558C30047C307 /* Elevate watchOS */,
 			);
 		};
@@ -399,6 +499,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4CD760FE1C82679D00DCC104 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4CD761071C82679D00DCC104 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4CD761281C82682000DCC104 /* PropertyTypesWithIncorrectValueTypes.json in Resources */,
+				4CD761291C82682000DCC104 /* RootArrayTest.json in Resources */,
+				4CD761271C82682000DCC104 /* PropertyTypesTest.json in Resources */,
+				4CD761241C82682000DCC104 /* ArrayTest.json in Resources */,
+				4CD761261C82682000DCC104 /* KeyPathsTest.json in Resources */,
+				4CD761251C82682000DCC104 /* JSONNumericData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +578,33 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4CD760FB1C82679D00DCC104 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4CD761191C82681800DCC104 /* Decoder.swift in Sources */,
+				4CD7611D1C82681800DCC104 /* PropertyExtraction.swift in Sources */,
+				4CD7611C1C82681800DCC104 /* ParserProperty.swift in Sources */,
+				4CD761181C82681800DCC104 /* Decodable.swift in Sources */,
+				4CD7611A1C82681800DCC104 /* Parser.swift in Sources */,
+				4CD7611B1C82681800DCC104 /* ParserError.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4CD761051C82679D00DCC104 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C66AE1B1C84C6EF0002AC77 /* PerformanceTests.swift in Sources */,
+				4CD7611E1C82681C00DCC104 /* BaseTestCase.swift in Sources */,
+				4CD761211C82681C00DCC104 /* ParserInternalTests.swift in Sources */,
+				4CD761221C82681C00DCC104 /* ParserTests.swift in Sources */,
+				4CD761201C82681C00DCC104 /* DecoderTests.swift in Sources */,
+				4CD7611F1C82681C00DCC104 /* DecodableTests.swift in Sources */,
+				4CD761231C82681C00DCC104 /* PropertyExtractionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E91C4DD31B547559000481D2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -475,7 +622,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E90298251C339E0700E7F56B /* PerformanceTests.swift in Sources */,
+				4C66AE191C84C6EF0002AC77 /* PerformanceTests.swift in Sources */,
 				E99C82071B55E5B50090FA56 /* ParserTests.swift in Sources */,
 				E91C4E0A1B54770C000481D2 /* DecoderTests.swift in Sources */,
 				E92426421B81160F000CB0F1 /* ParserInternalTests.swift in Sources */,
@@ -502,6 +649,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C66AE1A1C84C6EF0002AC77 /* PerformanceTests.swift in Sources */,
 				E99C82081B55E5B50090FA56 /* ParserTests.swift in Sources */,
 				E91C4E2B1B5478B8000481D2 /* DecoderTests.swift in Sources */,
 				E92426431B81160F000CB0F1 /* ParserInternalTests.swift in Sources */,
@@ -514,6 +662,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4CD7610C1C82679D00DCC104 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4CD760FF1C82679D00DCC104 /* Elevate tvOS */;
+			targetProxy = 4CD7610B1C82679D00DCC104 /* PBXContainerItemProxy */;
+		};
 		E91C4DE51B547559000481D2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E91C4DD71B547559000481D2 /* Elevate iOS */;
@@ -530,6 +683,7 @@
 		4CA33F451B7558C30047C307 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -549,11 +703,12 @@
 		4CA33F461B7558C30047C307 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_TESTABILITY = YES;
+				ENABLE_TESTABILITY = NO;
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -563,6 +718,72 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
+		4CD761111C82679D00DCC104 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Source/Info-tvOS.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nike.Elevate;
+				PRODUCT_NAME = Elevate;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		4CD761121C82679D00DCC104 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Source/Info-tvOS.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nike.Elevate;
+				PRODUCT_NAME = Elevate;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
+		4CD761131C82679D00DCC104 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nike.ElevateTests;
+				PRODUCT_NAME = ElevateTests;
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		4CD761141C82679D00DCC104 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				INFOPLIST_FILE = Tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nike.ElevateTests;
+				PRODUCT_NAME = ElevateTests;
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};
@@ -610,8 +831,10 @@
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -651,15 +874,19 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
 		E91C4DED1B547559000481D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				BITCODE_GENERATION_MODE = marker;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
@@ -679,13 +906,15 @@
 		E91C4DEE1B547559000481D2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				BITCODE_GENERATION_MODE = bitcode;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_TESTABILITY = YES;
+				ENABLE_TESTABILITY = NO;
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -698,28 +927,31 @@
 		E91C4DF01B547559000481D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nike.ElevateTests;
-				PRODUCT_NAME = "Elevate Tests";
+				PRODUCT_NAME = ElevateTests;
 			};
 			name = Debug;
 		};
 		E91C4DF11B547559000481D2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nike.ElevateTests;
-				PRODUCT_NAME = "Elevate Tests";
+				PRODUCT_NAME = ElevateTests;
 			};
 			name = Release;
 		};
 		E91C4E231B5477BD000481D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -731,7 +963,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nike.Elevate-OSX";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nike.Elevate;
 				PRODUCT_NAME = Elevate;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -741,19 +973,20 @@
 		E91C4E241B5477BD000481D2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_TESTABILITY = YES;
+				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nike.Elevate-OSX";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nike.Elevate;
 				PRODUCT_NAME = Elevate;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -763,13 +996,14 @@
 		E91C4E251B5477BD000481D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nike.Elevate-OSXTests";
-				PRODUCT_NAME = "Elevate Tests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nike.ElevateTests;
+				PRODUCT_NAME = ElevateTests;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -777,13 +1011,14 @@
 		E91C4E261B5477BD000481D2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.nike.Elevate-OSXTests";
-				PRODUCT_NAME = "Elevate Tests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.nike.ElevateTests;
+				PRODUCT_NAME = ElevateTests;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -796,6 +1031,24 @@
 			buildConfigurations = (
 				4CA33F451B7558C30047C307 /* Debug */,
 				4CA33F461B7558C30047C307 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4CD761151C82679D00DCC104 /* Build configuration list for PBXNativeTarget "Elevate tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4CD761111C82679D00DCC104 /* Debug */,
+				4CD761121C82679D00DCC104 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4CD761161C82679D00DCC104 /* Build configuration list for PBXNativeTarget "Elevate tvOS Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4CD761131C82679D00DCC104 /* Debug */,
+				4CD761141C82679D00DCC104 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

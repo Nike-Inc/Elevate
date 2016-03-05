@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E91C4DE11B547559000481D2"
-               BuildableName = "Elevate Tests.xctest"
+               BuildableName = "ElevateTests.xctest"
                BlueprintName = "Elevate iOS Tests"
                ReferencedContainer = "container:Elevate.xcodeproj">
             </BuildableReference>
@@ -48,7 +48,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E91C4DE11B547559000481D2"
-               BuildableName = "Elevate Tests.xctest"
+               BuildableName = "ElevateTests.xctest"
                BlueprintName = "Elevate iOS Tests"
                ReferencedContainer = "container:Elevate.xcodeproj">
             </BuildableReference>

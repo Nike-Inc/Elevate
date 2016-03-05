@@ -483,15 +483,15 @@ class ParserTestCase: BaseTestCase {
             // Then
             let actualValue = error.description
             let expectedValue = (
-                "Parser Validation Error - Error parsing array object at index 0 with parser [Elevate_Tests.InvalidDecoder]\n" +
+                "Parser Validation Error - Error parsing array object at index 0 with parser [ElevateTests.InvalidDecoder]\n" +
                     "Value for key path [subUInt] is of incorrect type\n" +
                     "Required key path [missingSubInt] was missing or null\n" +
                     "--\n" +
-                    "Error parsing array object at index 1 with parser [Elevate_Tests.InvalidDecoder]\n" +
+                    "Error parsing array object at index 1 with parser [ElevateTests.InvalidDecoder]\n" +
                     "Value for key path [subUInt] is of incorrect type\n" +
                     "Required key path [missingSubInt] was missing or null\n" +
                     "--\n" +
-                    "Error parsing array object at index 2 with parser [Elevate_Tests.InvalidDecoder]\n" +
+                    "Error parsing array object at index 2 with parser [ElevateTests.InvalidDecoder]\n" +
                     "Value for key path [subUInt] is of incorrect type\n" +
                     "Required key path [missingSubInt] was missing or null\n" +
                 "--"

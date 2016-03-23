@@ -4,6 +4,14 @@ The changelog for Elevate includes information about the each release including 
 
 ---
 
+## 1.3.1
+
+### Release Notes
+
+#### Updated
+
+* All logic to use Swift 2.2 APIs.
+
 ## 1.3.0
 
 ### Release Notes

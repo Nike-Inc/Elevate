@@ -318,7 +318,7 @@ public class Parser {
 
     // MARK: Private - Parser Helper Methods
 
-    private class func json(var dictionary: [String: AnyObject], forKeyPath keypath: String) -> AnyObject {
+    private class func json(dictionary: [String: AnyObject], forKeyPath keypath: String) -> AnyObject {
         var json: AnyObject? = dictionary
 
         if dictionary.keys.contains(keypath) {

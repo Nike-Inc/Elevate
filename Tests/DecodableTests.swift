@@ -237,6 +237,8 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
+// As of Xcode 7.3 there is a compiler bug in Release configuration when executing type.init below
+#if DEBUG
     func testThatItThrowsWithIncorrectInputType() {
         decodableErrorTest(String.self, value: 1)
         decodableErrorTest(Int.self, value: "1")
@@ -261,4 +263,5 @@ class DecodableTestCase: BaseTestCase {
             XCTFail("Parser error was of incorrect type.")
         }
     }
+#endif
 }

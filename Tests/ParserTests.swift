@@ -715,6 +715,8 @@ class ParserJSONNumericDataTestCase: BaseTestCase {
             let parsed = try Parser.parseProperties(data: data) { make in
                 make.propertyForKeyPath("intMin", type: .Int)
                 make.propertyForKeyPath("intMax", type: .Int)
+                make.propertyForKeyPath("intMin32Bit", type: .Int)
+                make.propertyForKeyPath("intMax32Bit", type: .Int)
                 make.propertyForKeyPath("uintMin", type: .UInt)
                 make.propertyForKeyPath("uintMax", type: .UInt)
                 make.propertyForKeyPath("float", type: .Float)
@@ -740,8 +742,13 @@ class ParserJSONNumericDataTestCase: BaseTestCase {
             }
 
             // Then
-            XCTAssertEqual(parsed["intMin"] as? Int, Int.min, "Parsed [intMin] did not equal `Int.min`.")
-            XCTAssertEqual(parsed["intMax"] as? Int, Int.max, "Parsed [intMax] did not equal `Int.max`.")
+            if sizeof(Int) == sizeof(Int32) { // 32-bit
+                XCTAssertEqual(parsed["intMin32Bit"] as? Int, Int.min, "Parsed [intMin32Bit] did not equal `Int.min`.")
+                XCTAssertEqual(parsed["intMax32Bit"] as? Int, Int.max, "Parsed [intMax32Bit] did not equal `Int.max`.")
+            } else if sizeof(Int) == sizeof(Int64) { // 64-bit
+                XCTAssertEqual(parsed["intMin"] as? Int, Int.min, "Parsed [intMin] did not equal `Int.min`.")
+                XCTAssertEqual(parsed["intMax"] as? Int, Int.max, "Parsed [intMax] did not equal `Int.max`.")
+            }
             XCTAssertEqual(parsed["uintMin"] as? UInt, UInt.min, "Parsed [uintMin] did not equal `UInt.min`.")
             XCTAssertEqual(parsed["uintMax"] as? UInt, UInt.max, "Parsed [uintMax] did not equal `UInt.max`.")
             XCTAssertEqual(parsed["float"] as? Float, Float(4123.6789), "Parsed [float] did not equal expected value.")

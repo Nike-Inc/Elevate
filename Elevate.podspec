@@ -1,12 +1,12 @@
 Pod::Spec.new do |s|
   s.name = 'Elevate'
-  s.version = '1.3.1'
-  s.summary = 'Elevate brings sanity and reliability to JSON parsing in Swift.'
-  s.homepage = 'http://stash.nikedev.com/projects/SRG/repos/elevate/browse'
+  s.version = '1.0.0'
+  s.summary = 'Elevate is a JSON parsing framework that leverages Swift to make parsing simple, reliable and composable.'
+  s.homepage = 'https://github.com/Nike-Inc/Elevate'
   s.license = 'MIT'
   s.authors = { 'Eric Appel' => 'eric.appel@nike.com', 'Christian Noon' => 'christian.noon@nike.com' }
 
-  s.source = { :git => 'ssh://git@stash.nikedev.com/srg/elevate.git', :tag => s.version }
+  s.source = { :git => 'https://github.com/Nike/Elevate.git', :tag => s.version }
   s.source_files = 'Source/*.swift'
 
   s.ios.deployment_target = '8.0'

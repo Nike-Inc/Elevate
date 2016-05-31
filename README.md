@@ -1,15 +1,20 @@
 # Elevate
 
-Elevate brings sanity and reliability to JSON parsing in Swift.
+[![Build Status](https://travis-ci.com/Nike-Inc/Elevate.svg?token=V31pWJQaeeD9ES4nyD7o&branch=master)](https://travis-ci.com/Nike-Inc/Elevate)
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Elevate.svg)](https://img.shields.io/cocoapods/v/Elevate.svg)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Platform](https://img.shields.io/cocoapods/p/Willow.svg?style=flat)](http://cocoadocs.org/docsets/Elevate)
+
+Elevate is a JSON parsing framework that leverages Swift to make parsing simple, reliable and composable.
 
 ## Features
 
-- Validation of full JSON payload
-- Parse complex JSON into strongly typed objects
-- Support for optional and required values
-- Convenient and flexible protocols to define object parsing
-- Large object graphs can be parsed into their component objects
-- Error aggregation across entire object graph
+- [X] Validation of full JSON payload
+- [X] Parse complex JSON into strongly typed objects
+- [X] Support for optional and required values
+- [X] Convenient and flexible protocols to define object parsing
+- [X] Large object graphs can be parsed into their component objects
+- [X] Error aggregation across entire object graph
 
 ## Requirements
 
@@ -18,14 +23,10 @@ Elevate brings sanity and reliability to JSON parsing in Swift.
 
 ## Communication
 
-- Need help? Open a [Question](https://jira.nike.com/browse/bmd). (Component => `Elevate`)
-- Have a feature request? Open a [Feature Request](https://jira.nike.com/browse/bmd). (Component => `Elevate`)
-- Find a bug? Open a [Bug](https://jira.nike.com/browse/bmd). (Component => `Elevate`)
+- Need help? Open an issue.
+- Have a feature request? Open an issue.
+- Find a bug? Open an issue.
 - Want to contribute? Fork the repo and submit a pull request.
-
-> These tickets go directly to the developers of Elevate who are very adament about providing top notch support for this library. Please don't hesitate to open tickets for any type of issue. If we don't know about it, we can't fix it, support it or build it.
-
----
 
 ## Installation
 

@@ -1,107 +1,19 @@
 # Changelog
 
-The changelog for Elevate includes information about the each release including any update notes, release notes as well as bug fixes, updates to existing features and new features. Additionally, Elevate follows [semantic versioning](http://semver.org/) (a.k.a semver) which makes it easy to tell whether the release was a MAJOR, MINOR or PATCH revision.
+All notable changes to this project will be documented in this file.
+`Elevate` adheres to [Semantic Versioning](http://semver.org/).
+
+#### 1.x Releases
+
+* `1.0.x` Releases - [1.0.0](#100)
 
 ---
 
-## 1.3.1
+## [1.0.0](https://github.com/Nike/Elevate/releases/tag/1.0.0)
 
-### Release Notes
-
-#### Updated
-
-* All logic to use Swift 2.2 APIs.
-
-## 1.3.0
-
-### Release Notes
+Released on XXXX-XX-XX.
 
 #### Added
 
-* Support and tests for primitive `Decodable` types in `parseObject` API.
-* Support for `tvOS` framework and test targets.
-* More unit tests for the `parseObject` and `parseArray` APIs to increase code coverage.
-
-#### Updated
-
-* Parsing logic to improve performance resulting in a 73% reduction in execution time for release configurations.
-* Deployment targets to iOS 8.0, OS X 10.10, tvOS 9.0 and watchOS 2.0.
-* The `EnableTestability` to `NO` on release configurations to drastically increase compiler optimizations.
-* The Requirements and Installation sections of the README.
-
----
-
-## 1.2.1
-
-### Release Notes
-
-#### Added
-
-* Default values for keyPath parameters in the top-level Parser APIs.
-
-## 1.2.0
-
-### Release Notes
-
-#### Added
-
-* Property extraction operators to make it easy to extract property values and cast them to a specified type.
-* New section to the README about the property extraction operators.
-
-#### Updated
-
-* All sample code in the README to use the property extraction operators.
-
----
-
-## 1.1.2
-
-### Release Notes
-
-#### Fixed
-
-* Support for JSON keys containing the `.` character.
-
-## 1.1.1
-
-### Release Notes
-
-#### Updated
-
-* All logic to compile against Xcode 7 beta 6.
-
-## 1.1.0
-
-### Upgrade Notes
-
-#### `Parser.parse` API Changes
-
-The `Parser.parse` methods names have changed to remove ambiguity between the object and array versions. Their names are now `Parser.parseObject` and `Parser.parseArray`. Your project will need to be updated to change all instances of `Parser.parse` to the corresponding new method.
-
-### Release Notes
-
-#### Added
-
-* Parsing data/json with an array as the root object is now supported.
-* Many new tests were added. Code coverage is now over 99%.
-
-#### Updated
-
-* The `Parser.parse` method names have changed to remove ambiguity between the object and array versions. Their names are now `Parser.parseObject` and `Parser.parseArray`.
-
-#### Fixed
-
-* A public initializer was added to the `StringToIntDecoder`.
-
----
-
-## 1.0.0
-
-This is the initial relase of Elevate. It includes:
-
-- Validation of full JSON payload
-- Parse complex JSON into strongly typed objects
-- Support for optional and required values
-- Convenient and flexible protocols to define object parsing
-- Large object graphs can be parsed into their component objects
-- Error aggregation across entire object graph
+- Initial release of Elevate.
+  - Added by [Eric Appel](https://github.com/EricAppel).

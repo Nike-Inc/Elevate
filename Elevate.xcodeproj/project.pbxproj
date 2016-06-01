@@ -112,6 +112,7 @@
 /* Begin PBXFileReference section */
 		4C0C61901C161E2700BBB2F9 /* PropertyExtraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyExtraction.swift; sourceTree = "<group>"; };
 		4C0C61941C161E7800BBB2F9 /* PropertyExtractionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyExtractionTests.swift; sourceTree = "<group>"; };
+		4C0CE3951CFF93B200D57B03 /* Info-tvOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-tvOS.plist"; sourceTree = "<group>"; };
 		4C5EA12F1C8A72A600BA4202 /* Decoders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decoders.swift; sourceTree = "<group>"; };
 		4C5EA1301C8A72A600BA4202 /* ModelObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelObjects.swift; sourceTree = "<group>"; };
 		4C5FB49D1B55C229001258D3 /* ArrayTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ArrayTest.json; sourceTree = "<group>"; };
@@ -276,6 +277,7 @@
 			children = (
 				E91C4DF51B5475CC000481D2 /* Elevate.h */,
 				E91C4DF71B5475CC000481D2 /* Info.plist */,
+				4C0CE3951CFF93B200D57B03 /* Info-tvOS.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

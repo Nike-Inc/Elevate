@@ -48,8 +48,9 @@ class PerformanceTestCase: BaseTestCase {
     }
 }
 
-private class PerformanceDecodable: Decodable {
+// MARK: -
 
+private class PerformanceDecodable: Decodable {
     static let dateDecoder = DateDecoder(dateFormatString: BaseTestCase.DateFormats.Format1)
 
     required init(json: AnyObject) throws {

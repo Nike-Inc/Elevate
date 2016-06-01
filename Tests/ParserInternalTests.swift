@@ -1,5 +1,5 @@
 //
-//  InternalParserTests.swift
+//  ParserInternalTests.swift
 //
 //  Copyright (c) 2015-2016 Nike, Inc. (https://www.nike.com)
 //
@@ -22,10 +22,10 @@
 //  THE SOFTWARE.
 //
 
-import XCTest
 @testable import Elevate
+import XCTest
 
-class ParserInternalTests: BaseTestCase {
+class ParserInternalTestCase: BaseTestCase {
     func testThatSpecifiedTypeCheckFailsForInvalidValue() {
         class ComplexType {}
 

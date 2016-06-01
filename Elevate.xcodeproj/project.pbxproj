@@ -274,8 +274,8 @@
 		E91C4E051B5475F6000481D2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E91C4DF71B5475CC000481D2 /* Info.plist */,
 				E91C4DF51B5475CC000481D2 /* Elevate.h */,
+				E91C4DF71B5475CC000481D2 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

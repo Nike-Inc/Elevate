@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.com/Nike-Inc/Elevate.svg?token=V31pWJQaeeD9ES4nyD7o&branch=master)](https://travis-ci.com/Nike-Inc/Elevate)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Elevate.svg)](https://img.shields.io/cocoapods/v/Elevate.svg)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Platform](https://img.shields.io/cocoapods/p/Willow.svg?style=flat)](http://cocoadocs.org/docsets/Elevate)
+[![Platform](https://img.shields.io/cocoapods/p/Elevate.svg?style=flat)](http://cocoadocs.org/docsets/Elevate)
 
 Elevate is a JSON parsing framework that leverages Swift to make parsing simple, reliable and composable.
 

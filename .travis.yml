@@ -19,6 +19,8 @@ env:
     - DESTINATION="arch=x86_64"                    SCHEME="$OSX_FRAMEWORK_SCHEME"     SDK="$OSX_SDK"     RUN_TESTS="YES" POD_LINT="NO"
     - DESTINATION="OS=9.2,name=Apple TV 1080p"     SCHEME="$TVOS_FRAMEWORK_SCHEME"    SDK="$TVOS_SDK"    RUN_TESTS="YES" POD_LINT="NO"
     - DESTINATION="OS=2.2,name=Apple Watch - 42mm" SCHEME="$WATCHOS_FRAMEWORK_SCHEME" SDK="$WATCHOS_SDK" RUN_TESTS="NO"  POD_LINT="NO"
+before_install:
+  - gem install slather --no-rdoc --no-ri --no-document --quiet
 script:
   - set -o pipefail
   - xcodebuild -version
@@ -26,7 +28,8 @@ script:
 
   # Build Framework in Debug and Run Tests if specified
   - if [ $RUN_TESTS == "YES" ]; then
-      xcodebuild -project "$PROJECT" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO ENABLE_TESTABILITY=YES test | xcpretty -c;
+      xcodebuild -project "$PROJECT" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=YES ENABLE_TESTABILITY=YES test | xcpretty -c;
+      slather coverage -s --scheme "$SCHEME" --workspace "$WORKSPACE" Elevate.xcodeproj;
     else
       xcodebuild -project "$PROJECT" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO build | xcpretty -c;
     fi

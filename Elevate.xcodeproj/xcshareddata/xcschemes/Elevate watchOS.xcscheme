@@ -30,6 +30,15 @@
       codeCoverageEnabled = "YES">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "4CA33F3E1B7558C30047C307"
+            BuildableName = "Elevate.framework"
+            BlueprintName = "Elevate watchOS"
+            ReferencedContainer = "container:Elevate.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>

@@ -27,6 +27,9 @@ import Foundation
 import XCTest
 
 class DecodableTestCase: BaseTestCase {
+
+    // MARK: - Decodable API Success Tests
+
     func testThatParseOnADecodableSucceeds() {
         // Given
         let data = loadJSONDataForFileNamed("PropertyTypesTest")
@@ -60,6 +63,8 @@ class DecodableTestCase: BaseTestCase {
             XCTFail("Parser uneexpectedly failed by throwing error: \(error)")
         }
     }
+
+    // MARK: - Decodable Primative Success Tests
 
     func testThatParseObjectParsesStringSuccessfully() {
         // Given
@@ -151,6 +156,106 @@ class DecodableTestCase: BaseTestCase {
             XCTFail("Parser unexpectedly failed by throwing error: \(error)")
         }
     }
+
+    // MARK: - Decoable Primative Failure Tests
+
+    func testThatParseObjectThrowsForInvalidString() {
+        // Given
+        let json = ["key": 0]
+
+        // When
+        do {
+            let _ = try String(json: json)
+
+            XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
+        } catch let error as ParserError {
+            XCTAssertEqual(error.failureReason, "JSON object was not of type: String")
+        } catch {
+            XCTFail("Incorrect error type was thrown while parsing Decoable")
+        }
+    }
+
+    func testThatParseObjectThrowsForInvalidInt() {
+        // Given
+        let json = ["key": "invalid"]
+
+        // When
+        do {
+            let _ = try Int(json: json)
+
+            XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
+        } catch let error as ParserError {
+            XCTAssertEqual(error.failureReason, "JSON object was not of type: Int")
+        } catch {
+            XCTFail("Incorrect error type was thrown while parsing Decoable")
+        }
+    }
+
+    func testThatParseObjectThrowsForInvalidUInt() {
+        // Given
+        let json = ["key": "invaild"]
+
+        // When
+        do {
+            let _ = try UInt(json: json)
+
+            XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
+        } catch let error as ParserError {
+            XCTAssertEqual(error.failureReason, "JSON object was not of type: UInt")
+        } catch {
+            XCTFail("Incorrect error type was thrown while parsing Decoable")
+        }
+    }
+
+    func testThatParseObjectThrowsForInvalidFloat() {
+        // Given
+        let json = ["key": "invalid"]
+
+        // When
+        do {
+            let _ = try Float(json: json)
+
+            XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
+        } catch let error as ParserError {
+            XCTAssertEqual(error.failureReason, "JSON object was not of type: Float")
+        } catch {
+            XCTFail("Incorrect error type was thrown while parsing Decoable")
+        }
+    }
+
+    func testThatParseObjectThrowsForInvalidDouble() {
+        // Given
+        let json = ["key": "invalid"]
+
+        // When
+        do {
+            let _ = try Double(json: json)
+
+            XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
+        } catch let error as ParserError {
+            XCTAssertEqual(error.failureReason, "JSON object was not of type: Double")
+        } catch {
+            XCTFail("Incorrect error type was thrown while parsing Decoable")
+        }
+    }
+
+    func testThatParseObjectThrowsForInvalidBool() {
+        // Given
+        let json = ["key": 0]
+
+        // When
+        do {
+            let _ = try Bool(json: json)
+
+            XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
+        } catch let error as ParserError {
+            XCTAssertEqual(error.failureReason, "JSON object was not of type: Bool")
+        } catch {
+            XCTFail("Incorrect error type was thrown while parsing Decoable")
+        }
+    }
+
+    // MARK: - Decodable Failure Tests
 
     func testThatParseThrowsWithInvalidJSON() {
         // Given

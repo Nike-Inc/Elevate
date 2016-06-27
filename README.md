@@ -43,12 +43,9 @@ Elevate is a JSON parsing framework that leverages Swift to make parsing simple,
 To integrate Elevate into your Xcode project using CocoaPods, specify it in your [Podfile](http://guides.cocoapods.org/using/the-podfile.html):
 
 ```ruby
+source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 use_frameworks!
-
-# Spec sources
-source 'ssh://git@stash.nikedev.com/ncps/nike-private-spec.git'
-source 'https://github.com/CocoaPods/Specs.git'
 
 pod 'Elevate', '~> 1.0'
 ```

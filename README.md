@@ -67,7 +67,7 @@ brew install carthage
 To integrate Elevate into your Xcode project using Carthage, specify it in your [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile):
 
 ```bash
-git "ssh://git@stash.nikedev.com/srg/elevate.git" ~> 1.0
+github "Nike-Inc/Elevate" ~> 1.0
 ```
 
 To build Elevate on iOS only, use the following Carthage command:

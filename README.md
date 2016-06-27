@@ -1,6 +1,6 @@
 # Elevate
 
-[![Build Status](https://travis-ci.com/Nike-Inc/Elevate.svg?token=V31pWJQaeeD9ES4nyD7o&branch=master)](https://travis-ci.com/Nike-Inc/Elevate)
+[![Build Status](https://travis-ci.org/Nike-Inc/Elevate.svg)](https://travis-ci.com/Nike-Inc/Elevate)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/Elevate.svg)](https://img.shields.io/cocoapods/v/Elevate.svg)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Platform](https://img.shields.io/cocoapods/p/Elevate.svg?style=flat)](http://cocoadocs.org/docsets/Elevate)
@@ -19,7 +19,7 @@ Elevate is a JSON parsing framework that leverages Swift to make parsing simple,
 ## Requirements
 
 - iOS 8.0+ / Mac OS X 10.10+ / tvOS 9.0+ / watchOS 2.0+
-- Xcode 7.2+
+- Xcode 7.3+
 
 ## Communication
 
@@ -38,12 +38,12 @@ Elevate is a JSON parsing framework that leverages Swift to make parsing simple,
 [sudo] gem install cocoapods
 ```
 
-> CocoaPods 0.39.0+ is required.
+> CocoaPods 1.0+ is required.
 
 To integrate Elevate into your Xcode project using CocoaPods, specify it in your [Podfile](http://guides.cocoapods.org/using/the-podfile.html):
 
 ```ruby
-platform :ios, '8.0'
+platform :ios, '9.0'
 use_frameworks!
 
 # Spec sources
@@ -274,5 +274,5 @@ You are free to create any decoders that you like and use them with your propert
   
 ## Creators
 
-* [@EricAppel](http://twitter.com/EricAppel)
-* [@Christian_Noon](http://twitter.com/Christian_Noon)
+* [Eric Appel](https://github.com/EricAppel) - [@EricAppel](http://twitter.com/EricAppel)
+* [Christian Noon](https://github.com/cnoon) - [@Christian_Noon](http://twitter.com/Christian_Noon)

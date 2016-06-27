@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.license = 'MIT'
   s.authors = { 'Eric Appel' => 'eric.appel@nike.com', 'Christian Noon' => 'christian.noon@nike.com' }
 
-  s.source = { :git => 'https://github.com/Nike/Elevate.git', :tag => s.version }
+  s.source = { :git => 'https://github.com/Nike-Inc/Elevate.git', :tag => s.version }
   s.source_files = 'Source/*.swift'
 
   s.ios.deployment_target = '8.0'

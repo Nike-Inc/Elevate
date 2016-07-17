@@ -30,9 +30,9 @@ public class BaseTestCase: XCTestCase {
         static let Format1 = "yyyy-MM-dd 'at' HH:mm"
     }
 
-    func loadJSONDataForFileNamed(filename: String) -> NSData {
-        let bundle = NSBundle(forClass: BaseTestCase.self)
+    func loadJSONDataForFileNamed(_ filename: String) -> Data {
+        let bundle = Bundle(for: BaseTestCase.self)
         let path = bundle.pathForResource(filename, ofType: "json")
-        return NSData(contentsOfFile: path!)!
+        return (try! Data(contentsOf: URL(fileURLWithPath: path!)))
     }
 }

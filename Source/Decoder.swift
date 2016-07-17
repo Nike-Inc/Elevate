@@ -39,7 +39,7 @@ public protocol Decoder {
         - throws:  A ParserError.Validation error if object decoding fails.
         - returns: The parsed object.
     */
-    func decodeObject(object: AnyObject) throws -> Any
+    func decodeObject(_ object: AnyObject) throws -> Any
 }
 
 // MARK: - Supplied Decoders
@@ -64,7 +64,7 @@ public class StringToIntDecoder: Decoder {
         - throws:  A ParserError.Validation error if int decoding fails.
         - returns: The decoded `Int`.
     */
-    public func decodeObject(object: AnyObject) throws -> Any {
+    public func decodeObject(_ object: AnyObject) throws -> Any {
         if let
             intString = object as? String,
             intValue = Int(intString)
@@ -72,7 +72,7 @@ public class StringToIntDecoder: Decoder {
             return intValue
         }
 
-        throw ParserError.Validation(failureReason: "Could not convert String to Int")
+        throw ParserError.validation(failureReason: "Could not convert String to Int")
     }
 }
 
@@ -81,7 +81,7 @@ public class StringToIntDecoder: Decoder {
     or `NSDateFormatter`.
 */
 public class DateDecoder: Decoder {
-    private let dateFormatter: NSDateFormatter
+    private let dateFormatter: DateFormatter
 
     /**
         Creates a data decoder with the given date format string.
@@ -91,7 +91,7 @@ public class DateDecoder: Decoder {
         - returns: The date decoder.
     */
     public init(dateFormatString: String) {
-        self.dateFormatter = NSDateFormatter()
+        self.dateFormatter = DateFormatter()
         self.dateFormatter.dateFormat = dateFormatString
     }
 
@@ -102,7 +102,7 @@ public class DateDecoder: Decoder {
 
         - returns: The date decoder.
     */
-    public init(dateFormatter: NSDateFormatter) {
+    public init(dateFormatter: DateFormatter) {
         self.dateFormatter = dateFormatter
     }
 
@@ -114,23 +114,23 @@ public class DateDecoder: Decoder {
         - throws: ParserError.Validation
         - returns: The parsed date.
     */
-    public func decodeObject(data: AnyObject) throws -> Any {
+    public func decodeObject(_ data: AnyObject) throws -> Any {
         guard let string = data as? String else {
             let description = "DateParser object to parse was not a String."
-            throw ParserError.Validation(failureReason: description)
+            throw ParserError.validation(failureReason: description)
         }
 
         return try dateFromString(string, withFormatter:self.dateFormatter)
     }
 
-    private func dateFromString(string: String, withFormatter formatter: NSDateFormatter) throws -> Any {
-        let date = formatter.dateFromString(string)
+    private func dateFromString(_ string: String, withFormatter formatter: DateFormatter) throws -> Any {
+        let date = formatter.date(from: string)
 
         if let date = date {
             return date
         }
 
         let description = "DateParser string could not be parsed to NSDate with the given formatter."
-        throw ParserError.Validation(failureReason: description)
+        throw ParserError.validation(failureReason: description)
     }
 }

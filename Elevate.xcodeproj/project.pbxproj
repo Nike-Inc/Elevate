@@ -487,9 +487,11 @@
 					};
 					E91C4DD71B547559000481D2 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 					E91C4DE11B547559000481D2 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0800;
 					};
 					E91C4E111B5477BD000481D2 = {
 						CreatedOnToolsVersion = 7.0;
@@ -932,6 +934,7 @@
 				PRODUCT_NAME = Elevate;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -953,6 +956,7 @@
 				PRODUCT_NAME = Elevate;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -965,6 +969,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nike.ElevateTests;
 				PRODUCT_NAME = ElevateTests;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -978,6 +983,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nike.ElevateTests;
 				PRODUCT_NAME = ElevateTests;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

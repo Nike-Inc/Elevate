@@ -30,16 +30,16 @@ import Foundation
     - Deserialization: An error that occurs from deserializing using `NSJSONSerialization`.
     - Validation:      An error that occurs when one or more values fail validation.
 */
-public enum ParserError: ErrorType, CustomStringConvertible, CustomDebugStringConvertible {
-    case Deserialization(failureReason: String)
-    case Validation(failureReason: String)
+public enum ParserError: ErrorProtocol, CustomStringConvertible, CustomDebugStringConvertible {
+    case deserialization(failureReason: String)
+    case validation(failureReason: String)
 
     /// The failure reason String.
     public var failureReason: String {
         switch self {
-        case .Deserialization(let failureReason):
+        case .deserialization(let failureReason):
             return failureReason
-        case .Validation(let failureReason):
+        case .validation(let failureReason):
             return failureReason
         }
     }
@@ -47,9 +47,9 @@ public enum ParserError: ErrorType, CustomStringConvertible, CustomDebugStringCo
     /// The description of the failure reason.
     public var description: String {
         switch self {
-        case .Deserialization(let failureReason):
+        case .deserialization(let failureReason):
             return "Parser Deserialization Error - \(failureReason)"
-        case .Validation(let failureReason):
+        case .validation(let failureReason):
             return "Parser Validation Error - \(failureReason)"
         }
     }

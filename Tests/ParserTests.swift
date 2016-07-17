@@ -35,18 +35,18 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("testUInt", type: ParserPropertyType.UInt)
-                make.propertyForKeyPath("testInt", type: .Int)
-                make.propertyForKeyPath("testString", type: .String)
-                make.propertyForKeyPath("testStringInt", type: .String, decoder: StringToIntDecoder())
-                make.propertyForKeyPath("testStringIntNegative", type: .String, decoder: StringToIntDecoder())
-                make.propertyForKeyPath("testFloat", type: .Float)
-                make.propertyForKeyPath("testDouble", type: .Double)
-                make.propertyForKeyPath("testNull", type: .String, optional: true)
-                make.propertyForKeyPath("testDictionary", type: .Dictionary)
-                make.propertyForKeyPath("testDate", type: .String, decoder: dateDecoder)
-                make.propertyForKeyPath("testURL", type: .URL)
-                make.propertyForKeyPath("sub-object", type: .Dictionary, decoder: ValidDecoder())
+                make.propertyForKeyPath("testUInt", type: ParserPropertyType.uInt)
+                make.propertyForKeyPath("testInt", type: .int)
+                make.propertyForKeyPath("testString", type: .string)
+                make.propertyForKeyPath("testStringInt", type: .string, decoder: StringToIntDecoder())
+                make.propertyForKeyPath("testStringIntNegative", type: .string, decoder: StringToIntDecoder())
+                make.propertyForKeyPath("testFloat", type: .float)
+                make.propertyForKeyPath("testDouble", type: .double)
+                make.propertyForKeyPath("testNull", type: .string, optional: true)
+                make.propertyForKeyPath("testDictionary", type: .dictionary)
+                make.propertyForKeyPath("testDate", type: .string, decoder: dateDecoder)
+                make.propertyForKeyPath("testURL", type: .url)
+                make.propertyForKeyPath("sub-object", type: .dictionary, decoder: ValidDecoder())
             }
 
             // Then
@@ -72,14 +72,14 @@ class ParserTestCase: BaseTestCase {
                 XCTFail("subObject should not be nil")
             }
 
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = DateFormats.Format1
-            let parsedDate = properties["testDate"] as! NSDate
-            let testDate = dateFormatter.dateFromString("2015-01-30 at 13:00")
+            let parsedDate = properties["testDate"] as! Date
+            let testDate = dateFormatter.date(from: "2015-01-30 at 13:00")
             XCTAssertTrue(parsedDate == testDate, "Parsed NSDate did not equal value from json file.")
 
-            let expectedURL = NSURL(string: "http://apple.com")?.absoluteString ?? "default expected URL"
-            let actualURL = (properties["testURL"] as? NSURL)?.absoluteString ?? "default actual URL"
+            let expectedURL = URL(string: "http://apple.com")?.absoluteString ?? "default expected URL"
+            let actualURL = (properties["testURL"] as? URL)?.absoluteString ?? "default actual URL"
             XCTAssertEqual(actualURL, expectedURL, "Parsed NSURL did not equal value from json file.")
         } catch {
             XCTFail("Parser should not fail with error: \(error)")
@@ -93,7 +93,7 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("testOptional", type: .String, optional: true)
+                make.propertyForKeyPath("testOptional", type: .string, optional: true)
             }
 
             XCTAssertTrue(properties.keys.count == 0, "Parser unexpectedly returned key for missing optional")
@@ -109,11 +109,11 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("uint", type: .UInt)
-                make.propertyForKeyPath("int", type: .Int)
-                make.propertyForKeyPath("string", type: .String)
-                make.propertyForKeyPath("float", type: .Float)
-                make.propertyForKeyPath("double", type: .Double)
+                make.propertyForKeyPath("uint", type: .uInt)
+                make.propertyForKeyPath("int", type: .int)
+                make.propertyForKeyPath("string", type: .string)
+                make.propertyForKeyPath("float", type: .float)
+                make.propertyForKeyPath("double", type: .double)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -141,11 +141,11 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("uint", type: .UInt)
-                make.propertyForKeyPath("int", type: .Int)
-                make.propertyForKeyPath("string", type: .String)
-                make.propertyForKeyPath("float", type: .Float)
-                make.propertyForKeyPath("double", type: .Double)
+                make.propertyForKeyPath("uint", type: .uInt)
+                make.propertyForKeyPath("int", type: .int)
+                make.propertyForKeyPath("string", type: .string)
+                make.propertyForKeyPath("float", type: .float)
+                make.propertyForKeyPath("double", type: .double)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -168,12 +168,12 @@ class ParserTestCase: BaseTestCase {
 
     func testThatItGeneratesADeserializationErrorForInvalidData() {
         // Given
-        let data: NSData! = "not json data".dataUsingEncoding(NSUTF8StringEncoding)
+        let data: Data! = "not json data".data(using: String.Encoding.utf8)
 
         // When
         do {
-            try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("foo", type: .String)
+            _ = try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("foo", type: .string)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -193,8 +193,8 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            try Parser.parseProperties(json: badJSON) { make in
-                make.propertyForKeyPath("foo", type: .String)
+            _ = try Parser.parseProperties(json: badJSON) { make in
+                make.propertyForKeyPath("foo", type: .string)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -214,8 +214,8 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("items", type: .Array)
+            _ = try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("items", type: .array)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -237,8 +237,8 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            try Parser.parseProperties(json: json) { make in
-                make.propertyForKeyPath("invalidURL", type: .URL)
+            _ = try Parser.parseProperties(json: json) { make in
+                make.propertyForKeyPath("invalidURL", type: .url)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -258,8 +258,8 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("missingKeyPath", type: .String)
+            _ = try Parser.parseProperties(data: data) { make in
+                make.propertyForKeyPath("missingKeyPath", type: .string)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -277,13 +277,13 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("keypath", type: .String)
-                make.propertyForKeyPath("two.level", type: .String)
-                make.propertyForKeyPath("multi.level.key.path", type: .String)
-                make.propertyForKeyPath("numb3r", type: .String)
-                make.propertyForKeyPath("speci@l", type: .String)
-                make.propertyForKeyPath("dashed-key-path", type: .String)
-                make.propertyForKeyPath("twoLevelNumb3r.speci@l", type: .String)
+                make.propertyForKeyPath("keypath", type: .string)
+                make.propertyForKeyPath("two.level", type: .string)
+                make.propertyForKeyPath("multi.level.key.path", type: .string)
+                make.propertyForKeyPath("numb3r", type: .string)
+                make.propertyForKeyPath("speci@l", type: .string)
+                make.propertyForKeyPath("dashed-key-path", type: .string)
+                make.propertyForKeyPath("twoLevelNumb3r.speci@l", type: .string)
             }
 
             // Then
@@ -300,7 +300,7 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let parsed = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("dots.key.path", type: .String)
+                make.propertyForKeyPath("dots.key.path", type: .string)
             }
 
             // Then
@@ -334,9 +334,9 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("rootString", type: .String)
-                make.propertyForKeyPath("rootInt", type: .Int)
-                make.propertyForKeyPath("items", type: .Array, decoder: ValidDecoder(toDictionary: true))
+                make.propertyForKeyPath("rootString", type: .string)
+                make.propertyForKeyPath("rootInt", type: .int)
+                make.propertyForKeyPath("items", type: .array, decoder: ValidDecoder(toDictionary: true))
             }
 
             // Then
@@ -345,7 +345,7 @@ class ParserTestCase: BaseTestCase {
 
             XCTAssertTrue((properties["items"] as! [Any]).count == 3, "Incorrect number of elements in testArrayParser()")
 
-            for (index, item) in (properties["items"] as! [Any]).enumerate() {
+            for (index, item) in (properties["items"] as! [Any]).enumerated() {
                 let dict = item as! [String: Any]
                 XCTAssertEqual(dict["subUInt"] as? UInt, UInt(index), "Array UInt object value was incorrect")
                 XCTAssertEqual(dict["subInt"] as? Int, index, "Array Int object value was incorrect")
@@ -363,7 +363,7 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("arrayOfStrings", type: .Array, decodedToType: String.self)
+                make.propertyForKeyPath("arrayOfStrings", type: .array, decodedToType: String.self)
             }
 
             // Then
@@ -384,7 +384,7 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("arrayOfInts", type: .Array, decodedToType: Int.self)
+                make.propertyForKeyPath("arrayOfInts", type: .array, decodedToType: Int.self)
             }
 
             // Then
@@ -406,7 +406,7 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("arrayOfUInts", type: .Array, decodedToType: UInt.self)
+                make.propertyForKeyPath("arrayOfUInts", type: .array, decodedToType: UInt.self)
             }
 
             // Then
@@ -426,7 +426,7 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("arrayOfDoubles", type: .Array, decodedToType: Double.self)
+                make.propertyForKeyPath("arrayOfDoubles", type: .array, decodedToType: Double.self)
             }
 
             // Then
@@ -447,7 +447,7 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("arrayOfFloats", type: .Array, decodedToType: Float.self)
+                make.propertyForKeyPath("arrayOfFloats", type: .array, decodedToType: Float.self)
             }
 
             // Then
@@ -468,7 +468,7 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("arrayOfBools", type: .Array, decodedToType: Bool.self)
+                make.propertyForKeyPath("arrayOfBools", type: .array, decodedToType: Bool.self)
             }
 
             // Then
@@ -489,9 +489,9 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("rootString", type: .String)
-                make.propertyForKeyPath("rootInt", type: .Int)
-                make.propertyForKeyPath("items", type: .Array, decoder: InvalidDecoder())
+                make.propertyForKeyPath("rootString", type: .string)
+                make.propertyForKeyPath("rootInt", type: .int)
+                make.propertyForKeyPath("items", type: .array, decoder: InvalidDecoder())
             }
 
             XCTFail("Array parser succeeded unexpectedly")
@@ -526,12 +526,12 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("testURL", type: .URL)
+                make.propertyForKeyPath("testURL", type: .url)
             }
 
             // Then
-            let actualURL = properties["testURL"] as? NSURL
-            let expectedURL = NSURL(string: "http://apple.com")
+            let actualURL = properties["testURL"] as? URL
+            let expectedURL = URL(string: "http://apple.com")
             if let actualURL = actualURL {
                 XCTAssertEqual(actualURL.absoluteString, expectedURL!.absoluteString, "Parsed URL did not equal value from json file.")
             } else {
@@ -656,30 +656,30 @@ class ParserParseArrayTestCaseCase: BaseTestCase {
 class ParserJSONFragmentDataTestCase: BaseTestCase {
     func testThatItFailsToParseDataFragments() {
         // Given
-        let dataValues: [NSData] = {
-            var values = [NSData]()
+        let dataValues: [Data] = {
+            var values = [Data]()
 
             var intValue: Int = 1000
-            let intData = NSData(bytes: &intValue, length: sizeof(Int))
-            values.append(intData)
+            let intData = NSData(bytes: &intValue, length: sizeof(Int.self))
+            values.append(intData as Data)
 
             var uIntValue: UInt = 1000
-            let uIntData = NSData(bytes: &uIntValue, length: sizeof(UInt))
-            values.append(uIntData)
+            let uIntData = NSData(bytes: &uIntValue, length: sizeof(UInt.self))
+            values.append(uIntData as Data)
 
             var doubleValue: Double = 123.456
-            let doubleData = NSData(bytes: &doubleValue, length: sizeof(Double))
-            values.append(doubleData)
+            let doubleData = NSData(bytes: &doubleValue, length: sizeof(Double.self))
+            values.append(doubleData as Data)
 
             var floatValue: Float = -987.345
-            let floatData = NSData(bytes: &floatValue, length: sizeof(Float))
-            values.append(floatData)
+            let floatData = NSData(bytes: &floatValue, length: sizeof(Float.self))
+            values.append(floatData as Data)
 
             var boolValue = false
-            let boolData = NSData(bytes: &boolValue, length: sizeof(Bool))
-            values.append(boolData)
+            let boolData = NSData(bytes: &boolValue, length: sizeof(Bool.self))
+            values.append(boolData as Data)
 
-            let stringData = "Some random string".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
+            let stringData = "Some random string".data(using: String.Encoding.utf8, allowLossyConversion: false)!
             values.append(stringData)
 
             return values
@@ -688,8 +688,8 @@ class ParserJSONFragmentDataTestCase: BaseTestCase {
         // When
         for dataValue in dataValues {
             do {
-                try Parser.parseProperties(data: dataValue) { make in
-                    make.propertyForKeyPath("not_real_value", type: .Int)
+                _ = try Parser.parseProperties(data: dataValue) { make in
+                    make.propertyForKeyPath("not_real_value", type: .int)
                 }
 
                 XCTFail("Parser succeeded unexpectedly")
@@ -713,39 +713,39 @@ class ParserJSONNumericDataTestCase: BaseTestCase {
         // When
         do {
             let parsed = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("intMin", type: .Int)
-                make.propertyForKeyPath("intMax", type: .Int)
-                make.propertyForKeyPath("intMin32Bit", type: .Int)
-                make.propertyForKeyPath("intMax32Bit", type: .Int)
-                make.propertyForKeyPath("uintMin", type: .UInt)
-                make.propertyForKeyPath("uintMax", type: .UInt)
-                make.propertyForKeyPath("float", type: .Float)
-                make.propertyForKeyPath("double", type: .Double)
+                make.propertyForKeyPath("intMin", type: .int)
+                make.propertyForKeyPath("intMax", type: .int)
+                make.propertyForKeyPath("intMin32Bit", type: .int)
+                make.propertyForKeyPath("intMax32Bit", type: .int)
+                make.propertyForKeyPath("uintMin", type: .uInt)
+                make.propertyForKeyPath("uintMax", type: .uInt)
+                make.propertyForKeyPath("float", type: .float)
+                make.propertyForKeyPath("double", type: .double)
 
-                make.propertyForKeyPath("boolFalse", type: .Bool)
-                make.propertyForKeyPath("boolTrue", type: .Bool)
+                make.propertyForKeyPath("boolFalse", type: .bool)
+                make.propertyForKeyPath("boolTrue", type: .bool)
 
-                make.propertyForKeyPath("intZero", type: .Int)
-                make.propertyForKeyPath("uintZero", type: .UInt)
-                make.propertyForKeyPath("floatZero", type: .Float)
-                make.propertyForKeyPath("doubleZero", type: .Double)
+                make.propertyForKeyPath("intZero", type: .int)
+                make.propertyForKeyPath("uintZero", type: .uInt)
+                make.propertyForKeyPath("floatZero", type: .float)
+                make.propertyForKeyPath("doubleZero", type: .double)
 
-                make.propertyForKeyPath("intOne", type: .Int)
-                make.propertyForKeyPath("uintOne", type: .UInt)
-                make.propertyForKeyPath("floatOne", type: .Float)
-                make.propertyForKeyPath("doubleOne", type: .Double)
+                make.propertyForKeyPath("intOne", type: .int)
+                make.propertyForKeyPath("uintOne", type: .uInt)
+                make.propertyForKeyPath("floatOne", type: .float)
+                make.propertyForKeyPath("doubleOne", type: .double)
 
-                make.propertyForKeyPath("intMinusOne", type: .Int)
-                make.propertyForKeyPath("uintMinusOne", type: .UInt)
-                make.propertyForKeyPath("floatMinusOne", type: .Float)
-                make.propertyForKeyPath("doubleMinusOne", type: .Double)
+                make.propertyForKeyPath("intMinusOne", type: .int)
+                make.propertyForKeyPath("uintMinusOne", type: .uInt)
+                make.propertyForKeyPath("floatMinusOne", type: .float)
+                make.propertyForKeyPath("doubleMinusOne", type: .double)
             }
 
             // Then
-            if sizeof(Int) == sizeof(Int32) { // 32-bit
+            if sizeof(Int.self) == sizeof(Int32.self) { // 32-bit
                 XCTAssertEqual(parsed["intMin32Bit"] as? Int, Int.min, "Parsed [intMin32Bit] did not equal `Int.min`.")
                 XCTAssertEqual(parsed["intMax32Bit"] as? Int, Int.max, "Parsed [intMax32Bit] did not equal `Int.max`.")
-            } else if sizeof(Int) == sizeof(Int64) { // 64-bit
+            } else if sizeof(Int.self) == sizeof(Int64.self) { // 64-bit
                 XCTAssertEqual(parsed["intMin"] as? Int, Int.min, "Parsed [intMin] did not equal `Int.min`.")
                 XCTAssertEqual(parsed["intMax"] as? Int, Int.max, "Parsed [intMax] did not equal `Int.max`.")
             }

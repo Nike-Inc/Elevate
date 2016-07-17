@@ -40,7 +40,7 @@ class PropertyExtractionTestCase: BaseTestCase {
         "array": ["value_0", "value_1"],
         "array_of_any_values": ["value_0" as Any, "value_1" as Any],
         "dictionary": ["key": "value"],
-        "url": NSURL(string: "https://httpbin.org/get")!
+        "url": URL(string: "https://httpbin.org/get")!
     ]
 
     // MARK: - Tests - Operators
@@ -55,7 +55,7 @@ class PropertyExtractionTestCase: BaseTestCase {
         let boolValue: Bool = properties <-! "bool"
         let arrayValue: [String] = properties <-! "array"
         let dictionaryValue: [String: String] = properties <-! "dictionary"
-        let urlValue: NSURL = properties <-! "url"
+        let urlValue: URL = properties <-! "url"
 
         // Then
         XCTAssertEqual(stringValue, "string_value")
@@ -66,7 +66,7 @@ class PropertyExtractionTestCase: BaseTestCase {
         XCTAssertEqual(boolValue, true)
         XCTAssertEqual(arrayValue, ["value_0", "value_1"])
         XCTAssertEqual(dictionaryValue, ["key": "value"])
-        XCTAssertEqual(urlValue, NSURL(string: "https://httpbin.org/get")!)
+        XCTAssertEqual(urlValue, URL(string: "https://httpbin.org/get")!)
     }
 
     func testOptionalValueForKeyPathOperator() {
@@ -95,8 +95,8 @@ class PropertyExtractionTestCase: BaseTestCase {
         let dictionaryValue: [String: String]? = properties <-? "dictionary"
         let dictionaryNilValue: [String: String]? = properties <-? "dictionary_nil"
 
-        let urlValue: NSURL? = properties <-? "url"
-        let urlNilValue: NSURL? = properties <-? "url_nil"
+        let urlValue: URL? = properties <-? "url"
+        let urlNilValue: URL? = properties <-? "url_nil"
 
         // Then
         XCTAssertEqual(stringValue, "string_value")
@@ -123,7 +123,7 @@ class PropertyExtractionTestCase: BaseTestCase {
         XCTAssertEqual(dictionaryValue ?? [:], ["key": "value"])
         XCTAssertNil(dictionaryNilValue)
 
-        XCTAssertEqual(urlValue, NSURL(string: "https://httpbin.org/get")!)
+        XCTAssertEqual(urlValue, URL(string: "https://httpbin.org/get")!)
         XCTAssertNil(urlNilValue)
     }
 

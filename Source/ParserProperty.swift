@@ -38,15 +38,15 @@ import Foundation
     - URL:        Represents a Swift `URL` type.
 */
 public enum ParserPropertyType {
-    case String
-    case UInt
-    case Int
-    case Float
-    case Double
-    case Bool
-    case Array
-    case Dictionary
-    case URL
+    case string
+    case uInt
+    case int
+    case float
+    case double
+    case bool
+    case array
+    case dictionary
+    case url
 }
 
 /**
@@ -61,8 +61,8 @@ public struct ParserProperty {
         - UseDecodable: Should be decoded to an instance of the provided Decodable type.
     */
     public enum DecodingMethod {
-        case UseDecoder(Decoder)
-        case UseDecodable(Decodable.Type)
+        case useDecoder(Decoder)
+        case useDecodable(Decodable.Type)
     }
 
     let type: ParserPropertyType
@@ -99,7 +99,8 @@ public class ParserPropertyMaker {
 
         - returns: The created parser property.
     */
-    public func propertyForKeyPath(keyPath: String, type: ParserPropertyType, optional: Bool = false) -> ParserProperty {
+    @discardableResult
+    public func propertyForKeyPath(_ keyPath: String, type: ParserPropertyType, optional: Bool = false) -> ParserProperty {
         return addProperty(keyPath: keyPath, type: type, optional: optional, decodingMethod: nil)
     }
 
@@ -116,8 +117,9 @@ public class ParserPropertyMaker {
 
         - returns: The created parser property.
     */
+    @discardableResult
     public func propertyForKeyPath(
-        keyPath: String,
+        _ keyPath: String,
         type: ParserPropertyType,
         optional: Bool = false,
         decodedToType decodableType: Decodable.Type?)
@@ -126,7 +128,7 @@ public class ParserPropertyMaker {
         var decodingMethod: ParserProperty.DecodingMethod?
 
         if let decodableType = decodableType {
-            decodingMethod = ParserProperty.DecodingMethod.UseDecodable(decodableType)
+            decodingMethod = ParserProperty.DecodingMethod.useDecodable(decodableType)
         }
 
         return addProperty(keyPath: keyPath, type: type, optional: optional, decodingMethod: decodingMethod)
@@ -145,8 +147,9 @@ public class ParserPropertyMaker {
 
         - returns: The created parser property.
     */
+    @discardableResult
     public func propertyForKeyPath(
-        keyPath: String,
+        _ keyPath: String,
         type: ParserPropertyType,
         optional: Bool = false,
         decoder: Decoder?)
@@ -155,14 +158,14 @@ public class ParserPropertyMaker {
         var decodingMethod: ParserProperty.DecodingMethod?
 
         if let decoder = decoder {
-            decodingMethod = ParserProperty.DecodingMethod.UseDecoder(decoder)
+            decodingMethod = ParserProperty.DecodingMethod.useDecoder(decoder)
         }
 
         return addProperty(keyPath: keyPath, type: type, optional: optional, decodingMethod: decodingMethod)
     }
 
     func addProperty(
-        keyPath keyPath: String,
+        keyPath: String,
         type: ParserPropertyType,
         optional: Bool,
         decodingMethod: ParserProperty.DecodingMethod?)

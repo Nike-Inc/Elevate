@@ -69,7 +69,7 @@ class DecodableTestCase: BaseTestCase {
     func testThatParseObjectParsesStringSuccessfully() {
         // Given
         let data = "{ \"key\":\"981a383074461fcbf7b9c67e2cb7bd13502d664cad0b254b8f426cd77c62d83e\" }"
-            .dataUsingEncoding(NSUTF8StringEncoding)!
+            .data(using: String.Encoding.utf8)!
 
         // When
         do {
@@ -84,7 +84,7 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectParsesIntSuccessfully() {
         // Given
-        let data = "{ \"key\" : 7 }".dataUsingEncoding(NSUTF8StringEncoding)!
+        let data = "{ \"key\" : 7 }".data(using: String.Encoding.utf8)!
 
         // When
         do {
@@ -99,7 +99,7 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectParsesUIntSuccessfully() {
         // Given
-        let data = "{ \"key\" : 7 }".dataUsingEncoding(NSUTF8StringEncoding)!
+        let data = "{ \"key\" : 7 }".data(using: String.Encoding.utf8)!
 
         // When
         do {
@@ -114,7 +114,7 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectParsesFloatSuccessfully() {
         // Given
-        let data = "{ \"key\" : 7.1 }".dataUsingEncoding(NSUTF8StringEncoding)!
+        let data = "{ \"key\" : 7.1 }".data(using: String.Encoding.utf8)!
 
         // When
         do {
@@ -129,7 +129,7 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectParsesDoubleSuccessfully() {
         // Given
-        let data = "{ \"key\" : 7.1 }".dataUsingEncoding(NSUTF8StringEncoding)!
+        let data = "{ \"key\" : 7.1 }".data(using: String.Encoding.utf8)!
 
         // When
         do {
@@ -144,7 +144,7 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectParsesBoolSuccessfully() {
         // Given
-        let data = "{ \"key\" : true }".dataUsingEncoding(NSUTF8StringEncoding)!
+        let data = "{ \"key\" : true }".data(using: String.Encoding.utf8)!
 
         // When
         do {
@@ -259,7 +259,7 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseThrowsWithInvalidJSON() {
         // Given
-        let data = "some random data that isn't json".dataUsingEncoding(NSUTF8StringEncoding)!
+        let data = "some random data that isn't json".data(using: String.Encoding.utf8)!
 
         // When
         do {
@@ -272,7 +272,7 @@ class DecodableTestCase: BaseTestCase {
             XCTAssertTrue(error.description.hasPrefix(expectedPrefix), "Error does not begin with expected prefix")
 
             let expectedFailureReason = "JSON data deserialization failed with error:"
-            let containsFailureReason = (error.description as NSString).containsString(expectedFailureReason)
+            let containsFailureReason = (error.description as NSString).contains(expectedFailureReason)
             XCTAssertTrue(containsFailureReason, "Error should contain expected failure reason")
         } catch {
             XCTFail("Parser error was of incorrect type.")
@@ -329,7 +329,7 @@ class DecodableTestCase: BaseTestCase {
         // When
         do {
             try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("items", type: .Array, decodedToType: InvalidDecodable.self)
+                make.propertyForKeyPath("items", type: .array, decodedToType: InvalidDecodable.self)
             }
 
             XCTFail("Parser unexpectedly succeeded")

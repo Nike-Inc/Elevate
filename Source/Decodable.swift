@@ -57,8 +57,8 @@ extension String: Decodable {
         - throws: A ParserError.Validation error if decoding fails.
     */
     public init(json: AnyObject) throws {
-        guard Parser.valueIsSpecifiedType(value: json, type: .String) else {
-            throw ParserError.Validation(failureReason: "JSON object was not of type: String")
+        guard Parser.valueIsSpecifiedType(value: json, type: .string) else {
+            throw ParserError.validation(failureReason: "JSON object was not of type: String")
         }
 
         self = json as! String
@@ -74,11 +74,11 @@ extension Int: Decodable {
         - throws: A ParserError.Validation error if decoding fails.
     */
     public init(json: AnyObject) throws {
-        guard Parser.valueIsSpecifiedType(value: json, type: .Int) else {
-            throw ParserError.Validation(failureReason: "JSON object was not of type: Int")
+        guard Parser.valueIsSpecifiedType(value: json, type: .int) else {
+            throw ParserError.validation(failureReason: "JSON object was not of type: Int")
         }
 
-        self = (json as! NSNumber).integerValue
+        self = (json as! NSNumber).intValue
     }
 }
 
@@ -91,11 +91,11 @@ extension UInt: Decodable {
         - throws: A ParserError.Validation error if decoding fails.
     */
     public init(json: AnyObject) throws {
-        guard Parser.valueIsSpecifiedType(value: json, type: .UInt) else {
-            throw ParserError.Validation(failureReason: "JSON object was not of type: UInt")
+        guard Parser.valueIsSpecifiedType(value: json, type: .uInt) else {
+            throw ParserError.validation(failureReason: "JSON object was not of type: UInt")
         }
 
-        self = (json as! NSNumber).unsignedLongValue
+        self = (json as! NSNumber).uintValue
     }
 }
 
@@ -108,8 +108,8 @@ extension Float: Decodable {
         - throws: A ParserError.Validation error if decoding fails.
     */
     public init(json: AnyObject) throws {
-        guard Parser.valueIsSpecifiedType(value: json, type: .Float) else {
-            throw ParserError.Validation(failureReason: "JSON object was not of type: Float")
+        guard Parser.valueIsSpecifiedType(value: json, type: .float) else {
+            throw ParserError.validation(failureReason: "JSON object was not of type: Float")
         }
 
         self = (json as! NSNumber).floatValue
@@ -125,8 +125,8 @@ extension Double: Decodable {
         - throws: A ParserError.Validation error if decoding fails.
     */
     public init(json: AnyObject) throws {
-        guard Parser.valueIsSpecifiedType(value: json, type: .Double) else {
-            throw ParserError.Validation(failureReason: "JSON object was not of type: Double")
+        guard Parser.valueIsSpecifiedType(value: json, type: .double) else {
+            throw ParserError.validation(failureReason: "JSON object was not of type: Double")
         }
 
         self = (json as! NSNumber).doubleValue
@@ -142,8 +142,8 @@ extension Bool: Decodable {
         - throws: A ParserError.Validation error if decoding fails.
     */
     public init(json: AnyObject) throws {
-        guard Parser.valueIsSpecifiedType(value: json, type: .Bool) else {
-            throw ParserError.Validation(failureReason: "JSON object was not of type: Bool")
+        guard Parser.valueIsSpecifiedType(value: json, type: .bool) else {
+            throw ParserError.validation(failureReason: "JSON object was not of type: Bool")
         }
 
         self = (json as! NSNumber).boolValue

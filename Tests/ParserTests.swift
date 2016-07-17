@@ -316,7 +316,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let results: [TestObject] = try Parser.parseArray(data: data, forKeyPath: "", withDecoder: ValidDecoder())
+            let results: [TestObject] = try Parser.parseArray(data: data, forKeyPath: "", with: ValidDecoder())
 
             // Then
             XCTAssertEqual(results[0].subInt, 0)
@@ -572,7 +572,7 @@ class ParserParseObjectTestCase: BaseTestCase {
             let testObject: TestObject = try Parser.parseObject(
                 data: data,
                 forKeyPath: "sub-object",
-                withDecoder: TestObjectDecoder()
+                with: TestObjectDecoder()
             )
 
             // Then
@@ -626,7 +626,7 @@ class ParserParseArrayTestCaseCase: BaseTestCase {
             let testObjects: [TestObject] = try Parser.parseArray(
                 data: data,
                 forKeyPath: "items",
-                withDecoder: TestObjectDecoder()
+                with: TestObjectDecoder()
             )
 
             // Then

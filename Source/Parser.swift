@@ -81,17 +81,19 @@ public class Parser {
         return (properties[keyPath] as! [Any]).map { $0 as! T }
     }
 
+    // MARK: Decoder Parsing Methods
+
     /**
         Parses json data at the specified key path into an object of type `T` using the passed in `Decoder` instance.
 
         - parameter data:        An NSData object containing encoded json data.
         - parameter forKeyPath:  The json key path identifying the object to be parsed. Default is `""`.
-        - parameter withDecoder: The `Decoder` instance used to parse the data.
+        - parameter with:        The `Decoder` instance used to parse the data.
 
         - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
         - returns: The parsed object.
     */
-    public class func parseObject<T>(data: Data, forKeyPath keyPath: String = "", withDecoder decoder: Decoder) throws -> T {
+    public class func parseObject<T>(data: Data, forKeyPath keyPath: String = "", with decoder: Decoder) throws -> T {
         let result = try Parser.parseProperties(data: data) { make in
             make.propertyForKeyPath(keyPath, type: .dictionary, decoder: decoder)
         }
@@ -105,12 +107,12 @@ public class Parser {
 
         - parameter data:        An NSData object containing encoded json data.
         - parameter forKeyPath:  The json key path identifying the object to be parsed. Default is `""`.
-        - parameter withDecoder: The `Decoder` instance used to parse the data.
+        - parameter with:        The `Decoder` instance used to parse the data.
 
         - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
         - returns: The parsed array of objects.
     */
-    public class func parseArray<T>(data: Data, forKeyPath keyPath: String = "", withDecoder decoder: Decoder) throws -> [T] {
+    public class func parseArray<T>(data: Data, forKeyPath keyPath: String = "", with decoder: Decoder) throws -> [T] {
         let result = try Parser.parseProperties(data: data) { make in
             make.propertyForKeyPath(keyPath, type: .array, decoder: decoder)
         }

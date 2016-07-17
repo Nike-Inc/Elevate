@@ -41,22 +41,22 @@ public class Parser {
         - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
         - returns: The parsed object.
     */
-    public class func parseObject<T: Decodable>(data data: NSData, forKeyPath keyPath: String = "") throws -> T {
+    public class func parseObject<T: Decodable>(data: Data, forKeyPath keyPath: String = "") throws -> T {
         let properties = try Parser.parseProperties(data: data) { make in
             if T.self == String.self {
-                make.propertyForKeyPath(keyPath, type: .String)
+                make.propertyForKeyPath(keyPath, type: .string)
             } else if T.self == Int.self {
-                make.propertyForKeyPath(keyPath, type: .Int)
+                make.propertyForKeyPath(keyPath, type: .int)
             } else if T.self == UInt.self {
-                make.propertyForKeyPath(keyPath, type: .UInt)
+                make.propertyForKeyPath(keyPath, type: .uInt)
             } else if T.self == Float.self {
-                make.propertyForKeyPath(keyPath, type: .Float)
+                make.propertyForKeyPath(keyPath, type: .float)
             } else if T.self == Double.self {
-                make.propertyForKeyPath(keyPath, type: .Double)
+                make.propertyForKeyPath(keyPath, type: .double)
             } else if T.self == Bool.self {
-                make.propertyForKeyPath(keyPath, type: .Bool)
+                make.propertyForKeyPath(keyPath, type: .bool)
             } else {
-                make.propertyForKeyPath(keyPath, type: .Dictionary, decodedToType: T.self)
+                make.propertyForKeyPath(keyPath, type: .dictionary, decodedToType: T.self)
             }
         }
 
@@ -73,9 +73,9 @@ public class Parser {
         - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
         - returns: The parsed array of objects
     */
-    public class func parseArray<T: Decodable>(data data: NSData, forKeyPath keyPath: String = "") throws -> [T] {
+    public class func parseArray<T: Decodable>(data: Data, forKeyPath keyPath: String = "") throws -> [T] {
         let properties = try Parser.parseProperties(data: data) { make in
-            make.propertyForKeyPath(keyPath, type: .Array, decodedToType: T.self)
+            make.propertyForKeyPath(keyPath, type: .array, decodedToType: T.self)
         }
 
         return (properties[keyPath] as! [Any]).map { $0 as! T }
@@ -91,9 +91,9 @@ public class Parser {
         - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
         - returns: The parsed object.
     */
-    public class func parseObject<T>(data data: NSData, forKeyPath keyPath: String = "", withDecoder decoder: Decoder) throws -> T {
+    public class func parseObject<T>(data: Data, forKeyPath keyPath: String = "", withDecoder decoder: Decoder) throws -> T {
         let result = try Parser.parseProperties(data: data) { make in
-            make.propertyForKeyPath(keyPath, type: .Dictionary, decoder: decoder)
+            make.propertyForKeyPath(keyPath, type: .dictionary, decoder: decoder)
         }
 
         return result[keyPath] as! T
@@ -110,9 +110,9 @@ public class Parser {
         - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
         - returns: The parsed array of objects.
     */
-    public class func parseArray<T>(data data: NSData, forKeyPath keyPath: String = "", withDecoder decoder: Decoder) throws -> [T] {
+    public class func parseArray<T>(data: Data, forKeyPath keyPath: String = "", withDecoder decoder: Decoder) throws -> [T] {
         let result = try Parser.parseProperties(data: data) { make in
-            make.propertyForKeyPath(keyPath, type: .Array, decoder: decoder)
+            make.propertyForKeyPath(keyPath, type: .array, decoder: decoder)
         }
 
         return (result[keyPath] as! [Any]).map { $0 as! T }
@@ -133,12 +133,12 @@ public class Parser {
 
         - returns: The result Dictionary.
     */
-    public class func parseProperties(data data: NSData, closure: ParserPropertyMaker -> Void) throws -> [String: Any] {
+    public class func parseProperties(data: Data, closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
         let result: [String: Any]
         
         do {
-            let options = NSJSONReadingOptions(rawValue: 0)
-            let json = try NSJSONSerialization.JSONObjectWithData(data, options: options)
+            let options = JSONSerialization.ReadingOptions(rawValue: 0)
+            let json = try JSONSerialization.jsonObject(with: data, options: options)
 
             result = try parseProperties(json: json, closure: closure)
         } catch {
@@ -146,7 +146,7 @@ public class Parser {
                 throw error
             } else {
                 let error = error as NSError
-                throw ParserError.Deserialization(failureReason: "JSON data deserialization failed with error: \"\(error.description)\"")
+                throw ParserError.deserialization(failureReason: "JSON data deserialization failed with error: \"\(error.description)\"")
             }
         }
 
@@ -180,17 +180,17 @@ public class Parser {
 
         - returns: The result Dictionary.
     */
-    public class func parseProperties(json json: AnyObject, closure: ParserPropertyMaker -> Void) throws -> [String: Any] {
+    public class func parseProperties(json: AnyObject, closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
         if let json = json as? [String: AnyObject] {
             return try parsePropertiesForJSONDictionary(json, closure: closure)
         } else if let json = json as? [AnyObject] {
             return try parsePropertiesForJSONArray(json, closure: closure)
         } else {
-            throw ParserError.Validation(failureReason: "JSON object was not of type: [String: AnyObject] or [AnyObject]")
+            throw ParserError.validation(failureReason: "JSON object was not of type: [String: AnyObject] or [AnyObject]")
         }
     }
 
-    private class func parsePropertiesForJSONDictionary(dictionary: [String: AnyObject], closure: ParserPropertyMaker -> Void) throws -> [String: Any] {
+    private class func parsePropertiesForJSONDictionary(_ dictionary: [String: AnyObject], closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
         var parsingErrorDescriptions = [String]()
         var parsed = [String: Any]()
         let propertyMaker = ParserPropertyMaker()
@@ -202,45 +202,45 @@ public class Parser {
             var parsedValue: AnyObject?
 
             if property.optional && jsonValue is NSNull {
-                parsedValue = Optional.None
+                parsedValue = Optional.none
             } else if let errorDescription = validateValue(jsonValue, forProperty: property) {
                 parsingErrorDescriptions.append(errorDescription)
             } else {
                 switch property.type {
-                case .String:
+                case .string:
                     parsedValue = jsonValue
                     parsed[property.keyPath] = jsonValue
-                case .UInt:
-                    parsedValue = (jsonValue as! NSNumber).unsignedLongValue
+                case .uInt:
+                    parsedValue = (jsonValue as! NSNumber).uintValue
                     parsed[property.keyPath] = parsedValue
-                case .Int:
-                    parsedValue = (jsonValue as! NSNumber).integerValue
+                case .int:
+                    parsedValue = (jsonValue as! NSNumber).intValue
                     parsed[property.keyPath] = parsedValue
-                case .Float:
+                case .float:
                     parsedValue = (jsonValue as! NSNumber).floatValue
                     parsed[property.keyPath] = parsedValue
-                case .Double:
+                case .double:
                     parsedValue = (jsonValue as! NSNumber).doubleValue
                     parsed[property.keyPath] = parsedValue
-                case .Bool:
+                case .bool:
                     parsedValue = (jsonValue as! NSNumber).boolValue
                     parsed[property.keyPath] = parsedValue
-                case .Array:
+                case .array:
                     if let decodingMethod = property.decodingMethod {
                         do {
                             let result = try parseArray(data: jsonValue, decodingMethod: decodingMethod)
                             parsed[property.keyPath] = result
-                        } catch ParserError.Validation(let failureReason) {
+                        } catch ParserError.validation(let failureReason) {
                             parsingErrorDescriptions.append(failureReason)
                         }
                     } else {
                         parsingErrorDescriptions.append("A decoding method was not provided for `\(property.keyPath)` array")
                     }
-                case .Dictionary:
+                case .dictionary:
                     parsedValue = jsonValue
                     parsed[property.keyPath] = jsonValue
-                case .URL:
-                    let url = NSURL(string: jsonValue as! String)
+                case .url:
+                    let url = URL(string: jsonValue as! String)
                     if url == nil && !property.optional {
                         let description = "Required key path [\(property.keyPath)] could not be parsed to valid URL"
                         parsingErrorDescriptions.append(description)
@@ -256,14 +256,14 @@ public class Parser {
                             let result: Any
 
                             switch decodingMethod {
-                            case .UseDecoder(let decoder):
+                            case .useDecoder(let decoder):
                                 result = try decoder.decodeObject(value)
-                            case .UseDecodable(let decodableType):
+                            case .useDecodable(let decodableType):
                                 result = try decodableType.init(json: value)
                             }
 
                             parsed[property.keyPath] = result
-                        } catch ParserError.Validation(let failureReason) {
+                        } catch ParserError.validation(let failureReason) {
                             parsingErrorDescriptions.append(failureReason)
                         }
                     }
@@ -272,21 +272,21 @@ public class Parser {
         }
 
         guard parsingErrorDescriptions.isEmpty else {
-            let joinedDescriptions = parsingErrorDescriptions.joinWithSeparator("\n")
-            throw ParserError.Validation(failureReason: joinedDescriptions)
+            let joinedDescriptions = parsingErrorDescriptions.joined(separator: "\n")
+            throw ParserError.validation(failureReason: joinedDescriptions)
         }
 
         return parsed
     }
 
-    private class func parsePropertiesForJSONArray(array: [AnyObject], closure: ParserPropertyMaker -> Void) throws -> [String: Any] {
+    private class func parsePropertiesForJSONArray(_ array: [AnyObject], closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
         var parsed = [String: Any]()
         let propertyMaker = ParserPropertyMaker()
 
         closure(propertyMaker)
 
-        guard propertyMaker.properties.count == 1 && propertyMaker.properties.first?.type == .Array else {
-            throw ParserError.Validation(failureReason: "Invalid property list for json array.")
+        guard propertyMaker.properties.count == 1 && propertyMaker.properties.first?.type == .array else {
+            throw ParserError.validation(failureReason: "Invalid property list for json array.")
         }
 
         let property = propertyMaker.properties.first!
@@ -296,7 +296,7 @@ public class Parser {
             let result = try parseArray(data: jsonValue, decodingMethod: decodingMethod)
             parsed[property.keyPath] = result
         } else {
-            throw ParserError.Validation(failureReason: "A decoding method was not provided for `\(property.keyPath)` array")
+            throw ParserError.validation(failureReason: "A decoding method was not provided for `\(property.keyPath)` array")
         }
 
         return parsed
@@ -304,27 +304,27 @@ public class Parser {
 
     // MARK: Internal - Validation Methods
 
-    class func valueIsSpecifiedType(value value: AnyObject, type: ParserPropertyType) -> Bool {
+    class func valueIsSpecifiedType(value: AnyObject, type: ParserPropertyType) -> Bool {
         var isValid = false
 
         switch value {
         case let number as NSNumber:
-            if number.isBool && type == .Bool {
+            if number.isBool && type == .bool {
                 isValid = true
             } else {
                 switch type {
-                case .Int, .UInt, .Double, .Float:
+                case .int, .uInt, .double, .float:
                     isValid = true
                 default:
                     isValid = false
                 }
             }
         case is NSString:
-            isValid = type == .String || type == .URL
+            isValid = type == .string || type == .url
         case is [AnyObject]:
-            isValid = type == .Array
+            isValid = type == .array
         case is [String: AnyObject]:
-            isValid = type == .Dictionary
+            isValid = type == .dictionary
         default:
             break
         }
@@ -334,7 +334,7 @@ public class Parser {
 
     // MARK: Private - Parser Helper Methods
 
-    private class func json(dictionary: [String: AnyObject], forKeyPath keypath: String) -> AnyObject {
+    private class func json(_ dictionary: [String: AnyObject], forKeyPath keypath: String) -> AnyObject {
         var json: AnyObject? = dictionary
 
         if dictionary.keys.contains(keypath) {
@@ -355,7 +355,7 @@ public class Parser {
         return json ?? NSNull()
     }
 
-    private class func validateValue(value: AnyObject, forProperty property: ParserProperty) -> String?  {
+    private class func validateValue(_ value: AnyObject, forProperty property: ParserProperty) -> String?  {
         var errorDescription: String? = nil
 
         if property.optional == false && value is NSNull {
@@ -371,30 +371,30 @@ public class Parser {
         return errorDescription
     }
 
-    private class func parseArray(data data: AnyObject, decodingMethod: ParserProperty.DecodingMethod) throws -> [Any] {
+    private class func parseArray(data: AnyObject, decodingMethod: ParserProperty.DecodingMethod) throws -> [Any] {
         var parsed = [Any]()
         var parsingErrorDescriptions = [String]()
 
         if let items = data as? [AnyObject] {
-            for (index, item) in items.enumerate() {
+            for (index, item) in items.enumerated() {
                 do {
                     let result: Any
 
                     switch decodingMethod {
-                    case .UseDecoder(let decoder):
+                    case .useDecoder(let decoder):
                         result = try decoder.decodeObject(item)
-                    case .UseDecodable(let decodableType):
+                    case .useDecodable(let decodableType):
                         result = try decodableType.init(json: item)
                     }
 
                     parsed.append(result)
-                } catch ParserError.Validation(let failureReason) {
+                } catch ParserError.validation(let failureReason) {
                     let decodingObject: Any
 
                     switch decodingMethod {
-                    case .UseDecoder(let decoder):
+                    case .useDecoder(let decoder):
                         decodingObject = decoder
-                    case .UseDecodable(let decodableType):
+                    case .useDecodable(let decodableType):
                         decodingObject = decodableType
                     }
 
@@ -409,8 +409,8 @@ public class Parser {
         }
 
         guard parsingErrorDescriptions.isEmpty else {
-            let joinedDescriptions = parsingErrorDescriptions.joinWithSeparator("\n")
-            throw ParserError.Validation(failureReason: joinedDescriptions)
+            let joinedDescriptions = parsingErrorDescriptions.joined(separator: "\n")
+            throw ParserError.validation(failureReason: joinedDescriptions)
         }
 
         return parsed
@@ -421,9 +421,9 @@ public class Parser {
 
 extension NSNumber {
     var isBool: Bool {
-        let isTrue = self == NSNumber(bool: true)
-        let isFalse = self == NSNumber(bool: false)
-        let isBoolType = String.fromCString(self.objCType) == "c"
+        let isTrue = self == NSNumber(value: true)
+        let isFalse = self == NSNumber(value: false)
+        let isBoolType = String(cString: self.objCType) == "c"
 
         return (isTrue || isFalse) && isBoolType
     }

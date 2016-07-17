@@ -328,7 +328,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            try Parser.parseProperties(data: data) { make in
+            _ = try Parser.parseProperties(data: data) { make in
                 make.propertyForKeyPath("items", type: .array, decodedToType: InvalidDecodable.self)
             }
 

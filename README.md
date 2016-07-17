@@ -18,9 +18,8 @@ Elevate is a JSON parsing framework that leverages Swift to make parsing simple,
 
 ## Requirements
 
-- iOS 8.0+ / macOS X 10.11+ / tvOS 9.0+ / watchOS 2.0+
+- iOS 8.0+ / macOS 10.11+ / tvOS 9.0+ / watchOS 2.0+
 - Xcode 8.0+
-- Swift 2.3
 
 ## Communication
 
@@ -48,7 +47,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 use_frameworks!
 
-pod 'Elevate', '~> 1.1'
+pod 'Elevate', :git => 'https://github.com/Nike-Inc/Elevate.git', :branch => 'swift3'
 ```
 
 ### Carthage
@@ -65,7 +64,7 @@ brew install carthage
 To integrate Elevate into your Xcode project using Carthage, specify it in your [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile):
 
 ```bash
-github "Nike-Inc/Elevate" ~> 1.1
+github "Nike-Inc/Elevate" "swift3"
 ```
 
 To build Elevate on iOS only, use the following Carthage command:
@@ -169,11 +168,11 @@ In most cases implementing a `Decodable` model object is all that is needed to p
 
 ```swift
 public protocol Decoder {
-    func decodeObject(object: AnyObject) throws -> Any
+    func decode(object: AnyObject) throws -> Any
 }
 ```
 
-A `Decoder` is generally implemented as a separate object that returns instances of the desired model object. This is useful when you have multiple JSON mappings for a single model object, or if you are aggregating data across multiple JSON payloads. For example, if there are two separate services that return JSON for `Avatar` objects that have a slightly different property structure, a `Decoder` could be created for each mapping to handle each one individually.
+A `Decoder` is generally implemented as a separate object that returns instances of the desired model object. This is useful when you have multiple JSON mappings for a single model object, or if you are aggregating data across multiple JSON payloads. For example, if there are two separate services that return JSON for `Avatar` objects that have a slightly different property structure, a `Decoder` could be created for each mapping to handle them individually.
 
 > The input type and output types are intentionally vague to allow for flexibility. A `Decoder` can return any type you want -- a strongly typed model object, a dictionary, etc. It can even dynamically return different types at runtime if needed.
 
@@ -181,7 +180,7 @@ A `Decoder` is generally implemented as a separate object that returns instances
 
 ```swift
 class AvatarDecoder: Decoder {
-    func decodeObject(object: AnyObject) throws -> Any {
+    func decode(object: AnyObject) throws -> Any {
         let urlKeyPath = "url"
         let widthKeyPath = "width"
         let heightKeyPath = "height"
@@ -203,7 +202,7 @@ class AvatarDecoder: Decoder {
 
 ```swift
 class AlternateAvatarDecoder: Decoder {
-    func decodeObject(object: AnyObject) throws -> Any {
+    func decode(object: AnyObject) throws -> Any {
         let locationKeyPath = "location"
         let wKeyPath = "w"
         let hKeyPath = "h"
@@ -229,13 +228,13 @@ Then to use the two different `Decoder` objects with the `Parser`:
 let avatar1: Avatar = try Parser.parseObject(
     data: data1, 
     forKeyPath: "response.avatar", 
-    withDecoder: AvatarDecoder()
+    with: AvatarDecoder()
 )
 
 let avatar2: Avatar = try Parser.parseObject(
     data: data2, 
     forKeyPath: "alternative.response.avatar", 
-    withDecoder: AlternateAvatarDecoder()
+    with: AlternateAvatarDecoder()
 )
 ```
 
@@ -246,8 +245,8 @@ Each `Decoder` is designed to handle a different JSON structure for creating an 
 A second use for the `Decoder` protocol is to allow for the value of a property to be further manipulated. The most common example is a date string. Here is how the `DateDecoder` implements the `Decoder` protocol:
   
 ```swift
-public func decodeObject(data: AnyObject) throws -> Any {
-    if let string = data as? String {
+public func decode(object: AnyObject) throws -> Any {
+    if let string = object as? String {
         return try dateFromString(string, withFormatter:self.dateFormatter)
     } else {
         let description = "DateParser object to parse was not a String."

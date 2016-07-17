@@ -41,7 +41,8 @@ script:
       xcodebuild -project "$PROJECT" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Release ONLY_ACTIVE_ARCH=NO build | xcpretty -c;
     fi
 
-  # Run `pod lib lint` if specified
-  - if [ $POD_LINT == "YES" ]; then
-      pod lib lint --private;
-    fi
+  # temporarily disabling pod linting per beta issue: https://github.com/CocoaPods/CocoaPods/issues/5598#issuecomment-232943917
+  # # Run `pod lib lint` if specified
+  # - if [ $POD_LINT == "YES" ]; then
+  #     pod lib lint --private;
+  #   fi

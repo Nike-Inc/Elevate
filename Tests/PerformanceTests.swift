@@ -34,7 +34,7 @@ class PerformanceTestCase: BaseTestCase {
 
         let dataArray: [Any] = (0...1000).map { _ in json }
 
-        self.measure {
+        measure {
             // When
             _ = try! Parser.parseEntity(json: dataArray) { schema in
                 schema.addProperty(keyPath: "", type: .array, decodableType: PerformanceDecodable.self)

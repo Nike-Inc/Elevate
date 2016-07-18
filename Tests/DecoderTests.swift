@@ -33,7 +33,7 @@ class ValidDecoder: Decoder {
         self.toDictionary = toDictionary
     }
 
-    func decode(object: Any) throws -> Any {
+    func decode(_ object: Any) throws -> Any {
         let result = try Parser.parseEntity(json: object) { schema in
             schema.addProperty(keyPath: "subUInt", type: .uint)
             schema.addProperty(keyPath: "subInt", type: .int)
@@ -53,7 +53,7 @@ class ValidDecoder: Decoder {
 }
 
 class InvalidDecoder: Decoder {
-    func decode(object: Any) throws -> Any {
+    func decode(_ object: Any) throws -> Any {
         return try Parser.parseEntity(json: object) { schema in
             schema.addProperty(keyPath: "subUInt", type: .string)
             schema.addProperty(keyPath: "missingSubInt", type: .int)
@@ -76,7 +76,7 @@ class DecoderTestCase: BaseTestCase {
 
         // When
         do {
-            if let entity = try decoder.decode(object: json["sub-object"]!) as? [String: Any] {
+            if let entity = try decoder.decode(json["sub-object"]!) as? [String: Any] {
                 // Then
                 XCTAssertEqual(entity["subUInt"] as? UInt, UInt(1), "Parsed UInt value did not equal value from json file.")
                 XCTAssertEqual(entity["subInt"] as? Int, -1, "Parsed Int value did not equal value from json file.")

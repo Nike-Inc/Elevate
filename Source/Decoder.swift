@@ -39,7 +39,7 @@ public protocol Decoder {
         - throws:  A ParserError.Validation error if object decoding fails.
         - returns: The parsed object.
     */
-    func decode(object: AnyObject) throws -> Any
+    func decode(_ object: AnyObject) throws -> Any
 }
 
 // MARK: - Supplied Decoders
@@ -64,7 +64,7 @@ public class StringToIntDecoder: Decoder {
         - throws:  A ParserError.Validation error if int decoding fails.
         - returns: The decoded `Int`.
     */
-    public func decode(object: AnyObject) throws -> Any {
+    public func decode(_ object: AnyObject) throws -> Any {
         if let intString = object as? String, let intValue = Int(intString) {
             return intValue
         }
@@ -111,7 +111,7 @@ public class DateDecoder: Decoder {
         - throws: ParserError.Validation
         - returns: The parsed date.
     */
-    public func decode(object: AnyObject) throws -> Any {
+    public func decode(_ object: AnyObject) throws -> Any {
         guard let string = object as? String else {
             let description = "DateParser object to parse was not a String."
             throw ParserError.validation(failureReason: description)

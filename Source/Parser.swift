@@ -259,7 +259,7 @@ public class Parser {
 
                             switch decodingMethod {
                             case .useDecoder(let decoder):
-                                result = try decoder.decode(object: value)
+                                result = try decoder.decode(value)
                             case .useDecodable(let decodableType):
                                 result = try decodableType.init(json: value)
                             }
@@ -384,7 +384,7 @@ public class Parser {
 
                     switch decodingMethod {
                     case .useDecoder(let decoder):
-                        result = try decoder.decode(object: item)
+                        result = try decoder.decode(item)
                     case .useDecodable(let decodableType):
                         result = try decodableType.init(json: item)
                     }

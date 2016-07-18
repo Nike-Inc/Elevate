@@ -168,7 +168,7 @@ In most cases implementing a `Decodable` model object is all that is needed to p
 
 ```swift
 public protocol Decoder {
-    func decode(object: AnyObject) throws -> Any
+    func decode(_ object: AnyObject) throws -> Any
 }
 ```
 
@@ -180,7 +180,7 @@ A `Decoder` is generally implemented as a separate object that returns instances
 
 ```swift
 class AvatarDecoder: Decoder {
-    func decode(object: AnyObject) throws -> Any {
+    func decode(_ object: AnyObject) throws -> Any {
         let urlKeyPath = "url"
         let widthKeyPath = "width"
         let heightKeyPath = "height"
@@ -202,7 +202,7 @@ class AvatarDecoder: Decoder {
 
 ```swift
 class AlternateAvatarDecoder: Decoder {
-    func decode(object: AnyObject) throws -> Any {
+    func decode(_ object: AnyObject) throws -> Any {
         let locationKeyPath = "location"
         let wKeyPath = "w"
         let hKeyPath = "h"
@@ -245,7 +245,7 @@ Each `Decoder` is designed to handle a different JSON structure for creating an 
 A second use for the `Decoder` protocol is to allow for the value of a property to be further manipulated. The most common example is a date string. Here is how the `DateDecoder` implements the `Decoder` protocol:
   
 ```swift
-public func decode(object: AnyObject) throws -> Any {
+public func decode(_ object: AnyObject) throws -> Any {
     if let string = object as? String {
         return try dateFromString(string, withFormatter:self.dateFormatter)
     } else {

@@ -34,7 +34,7 @@ class PerformanceTestCase: BaseTestCase {
 
         let dataArray: [Any] = (0...1000).map { _ in json }
 
-        self.measure {
+        measure {
             // When
             _ = try! Parser.parseProperties(json: dataArray) { make in
                 make.propertyForKeyPath("", type: .array, decodedToType: PerformanceDecodable.self)

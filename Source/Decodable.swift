@@ -91,7 +91,7 @@ extension UInt: Decodable {
         - throws: A ParserError.Validation error if decoding fails.
     */
     public init(json: Any) throws {
-        guard Parser.isValue(json, ofType: .uInt) else {
+        guard Parser.isValue(json, ofType: .uint) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: UInt")
         }
 

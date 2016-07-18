@@ -122,7 +122,7 @@ public class Parser {
                 case .string:
                     parsedValue = jsonValue
                     parsed[property.keyPath] = jsonValue
-                case .uInt:
+                case .uint:
                     parsedValue = (jsonValue as! NSNumber).uintValue
                     parsed[property.keyPath] = parsedValue
                 case .int:
@@ -225,7 +225,7 @@ public class Parser {
                 isValid = true
             } else {
                 switch type {
-                case .int, .uInt, .double, .float:
+                case .int, .uint, .double, .float:
                     isValid = true
                 default:
                     isValid = false

@@ -46,7 +46,7 @@ extension TestObject: Decodable {
         let subStringKeyPath = "subString"
 
         let entity = try Parser.parseEntity(json: json) { schema in
-            schema.addProperty(keyPath: subUIntKeyPath, type: .uInt)
+            schema.addProperty(keyPath: subUIntKeyPath, type: .uint)
             schema.addProperty(keyPath: subIntKeyPath, type: .int)
             schema.addProperty(keyPath: subStringKeyPath, type: .string)
         }

@@ -46,7 +46,7 @@ extension TestObject: Decodable {
         let subStringKeyPath = "subString"
 
         let properties = try Parser.parseProperties(json: json) { make in
-            make.propertyForKeyPath(subUIntKeyPath, type: .uInt)
+            make.propertyForKeyPath(subUIntKeyPath, type: .uint)
             make.propertyForKeyPath(subIntKeyPath, type: .int)
             make.propertyForKeyPath(subStringKeyPath, type: .string)
         }

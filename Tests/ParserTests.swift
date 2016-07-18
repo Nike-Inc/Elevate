@@ -35,7 +35,7 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("testUInt", type: ParserPropertyType.uInt)
+                make.propertyForKeyPath("testUInt", type: ParserPropertyType.uint)
                 make.propertyForKeyPath("testInt", type: .int)
                 make.propertyForKeyPath("testString", type: .string)
                 make.propertyForKeyPath("testStringInt", type: .string, decoder: StringToIntDecoder())
@@ -109,7 +109,7 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("uint", type: .uInt)
+                make.propertyForKeyPath("uint", type: .uint)
                 make.propertyForKeyPath("int", type: .int)
                 make.propertyForKeyPath("string", type: .string)
                 make.propertyForKeyPath("float", type: .float)
@@ -141,7 +141,7 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("uint", type: .uInt)
+                make.propertyForKeyPath("uint", type: .uint)
                 make.propertyForKeyPath("int", type: .int)
                 make.propertyForKeyPath("string", type: .string)
                 make.propertyForKeyPath("float", type: .float)
@@ -717,8 +717,8 @@ class ParserJSONNumericDataTestCase: BaseTestCase {
                 make.propertyForKeyPath("intMax", type: .int)
                 make.propertyForKeyPath("intMin32Bit", type: .int)
                 make.propertyForKeyPath("intMax32Bit", type: .int)
-                make.propertyForKeyPath("uintMin", type: .uInt)
-                make.propertyForKeyPath("uintMax", type: .uInt)
+                make.propertyForKeyPath("uintMin", type: .uint)
+                make.propertyForKeyPath("uintMax", type: .uint)
                 make.propertyForKeyPath("float", type: .float)
                 make.propertyForKeyPath("double", type: .double)
 
@@ -726,17 +726,17 @@ class ParserJSONNumericDataTestCase: BaseTestCase {
                 make.propertyForKeyPath("boolTrue", type: .bool)
 
                 make.propertyForKeyPath("intZero", type: .int)
-                make.propertyForKeyPath("uintZero", type: .uInt)
+                make.propertyForKeyPath("uintZero", type: .uint)
                 make.propertyForKeyPath("floatZero", type: .float)
                 make.propertyForKeyPath("doubleZero", type: .double)
 
                 make.propertyForKeyPath("intOne", type: .int)
-                make.propertyForKeyPath("uintOne", type: .uInt)
+                make.propertyForKeyPath("uintOne", type: .uint)
                 make.propertyForKeyPath("floatOne", type: .float)
                 make.propertyForKeyPath("doubleOne", type: .double)
 
                 make.propertyForKeyPath("intMinusOne", type: .int)
-                make.propertyForKeyPath("uintMinusOne", type: .uInt)
+                make.propertyForKeyPath("uintMinusOne", type: .uint)
                 make.propertyForKeyPath("floatMinusOne", type: .float)
                 make.propertyForKeyPath("doubleMinusOne", type: .double)
             }

@@ -27,19 +27,19 @@ import Foundation
 /**
     Defines a Swift object type used to extract values from a JSON document.
 
-    - String:     Represents a Swift `String` type.
-    - UInt:       Represents a Swift `UInt` type.
-    - Int:        Represents a Swift `Int` type.
-    - Float:      Represents a Swift `Float` type.
-    - Double:     Represents a Swift `Double` type.
-    - Bool:       Represents a Swift `Bool` type.
-    - Array:      Represents a Swift `Array` type.
-    - Dictionary: Represents a Swift `Dictionary` type.
-    - URL:        Represents a Swift `URL` type.
+    - string:     Represents a Swift `String` type.
+    - uint:       Represents a Swift `UInt` type.
+    - int:        Represents a Swift `Int` type.
+    - float:      Represents a Swift `Float` type.
+    - double:     Represents a Swift `Double` type.
+    - bool:       Represents a Swift `Bool` type.
+    - array:      Represents a Swift `Array` type.
+    - dictionary: Represents a Swift `Dictionary` type.
+    - url:        Represents a Swift `URL` type.
 */
 public enum ParserPropertyType {
     case string
-    case uInt
+    case uint
     case int
     case float
     case double

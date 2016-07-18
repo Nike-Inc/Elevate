@@ -50,7 +50,7 @@ private class PerformanceDecodable: Decodable {
 
     required init(json: AnyObject) throws {
         let _ = try Parser.parseProperties(json: json) { make in
-            make.propertyForKeyPath("testUInt", type: ParserPropertyType.uInt)
+            make.propertyForKeyPath("testUInt", type: ParserPropertyType.uint)
             make.propertyForKeyPath("testInt", type: .int)
             make.propertyForKeyPath("testString", type: .string)
             make.propertyForKeyPath("testStringInt", type: .string, decoder: StringToIntDecoder())

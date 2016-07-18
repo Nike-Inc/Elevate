@@ -34,7 +34,7 @@ struct TestObjectDecoder: Decoder {
         }
 
         let properties = try Parser.parseProperties(json: object) { make in
-            make.propertyForKeyPath(KeyPath.subUInt, type: .uInt)
+            make.propertyForKeyPath(KeyPath.subUInt, type: .uint)
             make.propertyForKeyPath(KeyPath.subInt, type: .int)
             make.propertyForKeyPath(KeyPath.subString, type: .string)
         }

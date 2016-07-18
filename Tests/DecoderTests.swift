@@ -35,7 +35,7 @@ class ValidDecoder: Decoder {
 
     func decode(object: AnyObject) throws -> Any {
         let result = try Parser.parseProperties(json: object) { make in
-            make.propertyForKeyPath("subUInt", type: .uInt)
+            make.propertyForKeyPath("subUInt", type: .uint)
             make.propertyForKeyPath("subInt", type: .int)
             make.propertyForKeyPath("subString", type: .string)
         }

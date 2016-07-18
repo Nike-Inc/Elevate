@@ -65,10 +65,7 @@ public class StringToIntDecoder: Decoder {
         - returns: The decoded `Int`.
     */
     public func decode(object: AnyObject) throws -> Any {
-        if let
-            intString = object as? String,
-            intValue = Int(intString)
-        {
+        if let intString = object as? String, let intValue = Int(intString) {
             return intValue
         }
 

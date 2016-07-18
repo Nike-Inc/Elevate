@@ -35,7 +35,7 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let entity = try Parser.parseEntity(data: data) { schema in
-                schema.addProperty(keyPath: "testUInt", type: ParserPropertyType.uInt)
+                schema.addProperty(keyPath: "testUInt", type: ParserPropertyType.uint)
                 schema.addProperty(keyPath: "testInt", type: .int)
                 schema.addProperty(keyPath: "testString", type: .string)
                 schema.addProperty(keyPath: "testStringInt", type: .string, decoder: StringToIntDecoder())
@@ -109,7 +109,7 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let _ = try Parser.parseEntity(data: data) { schema in
-                schema.addProperty(keyPath: "uint", type: .uInt)
+                schema.addProperty(keyPath: "uint", type: .uint)
                 schema.addProperty(keyPath: "int", type: .int)
                 schema.addProperty(keyPath: "string", type: .string)
                 schema.addProperty(keyPath: "float", type: .float)
@@ -141,7 +141,7 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let _ = try Parser.parseEntity(data: data) { schema in
-                schema.addProperty(keyPath: "uint", type: .uInt)
+                schema.addProperty(keyPath: "uint", type: .uint)
                 schema.addProperty(keyPath: "int", type: .int)
                 schema.addProperty(keyPath: "string", type: .string)
                 schema.addProperty(keyPath: "float", type: .float)
@@ -717,8 +717,8 @@ class ParserJSONNumericDataTestCase: BaseTestCase {
                 schema.addProperty(keyPath: "intMax", type: .int)
                 schema.addProperty(keyPath: "intMin32Bit", type: .int)
                 schema.addProperty(keyPath: "intMax32Bit", type: .int)
-                schema.addProperty(keyPath: "uintMin", type: .uInt)
-                schema.addProperty(keyPath: "uintMax", type: .uInt)
+                schema.addProperty(keyPath: "uintMin", type: .uint)
+                schema.addProperty(keyPath: "uintMax", type: .uint)
                 schema.addProperty(keyPath: "float", type: .float)
                 schema.addProperty(keyPath: "double", type: .double)
 
@@ -726,17 +726,17 @@ class ParserJSONNumericDataTestCase: BaseTestCase {
                 schema.addProperty(keyPath: "boolTrue", type: .bool)
 
                 schema.addProperty(keyPath: "intZero", type: .int)
-                schema.addProperty(keyPath: "uintZero", type: .uInt)
+                schema.addProperty(keyPath: "uintZero", type: .uint)
                 schema.addProperty(keyPath: "floatZero", type: .float)
                 schema.addProperty(keyPath: "doubleZero", type: .double)
 
                 schema.addProperty(keyPath: "intOne", type: .int)
-                schema.addProperty(keyPath: "uintOne", type: .uInt)
+                schema.addProperty(keyPath: "uintOne", type: .uint)
                 schema.addProperty(keyPath: "floatOne", type: .float)
                 schema.addProperty(keyPath: "doubleOne", type: .double)
 
                 schema.addProperty(keyPath: "intMinusOne", type: .int)
-                schema.addProperty(keyPath: "uintMinusOne", type: .uInt)
+                schema.addProperty(keyPath: "uintMinusOne", type: .uint)
                 schema.addProperty(keyPath: "floatMinusOne", type: .float)
                 schema.addProperty(keyPath: "doubleMinusOne", type: .double)
             }

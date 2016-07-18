@@ -34,7 +34,7 @@ struct TestObjectDecoder: Decoder {
         }
 
         let entity = try Parser.parseEntity(json: object) { schema in
-            schema.addProperty(keyPath: KeyPath.subUInt, type: .uInt)
+            schema.addProperty(keyPath: KeyPath.subUInt, type: .uint)
             schema.addProperty(keyPath: KeyPath.subInt, type: .int)
             schema.addProperty(keyPath: KeyPath.subString, type: .string)
         }

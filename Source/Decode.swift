@@ -43,7 +43,7 @@ public func decodeObject<T: Decodable>(from data: Data, atKeyPath keyPath: Strin
         } else if T.self == Int.self {
             schema.addProperty(keyPath: keyPath, type: .int)
         } else if T.self == UInt.self {
-            schema.addProperty(keyPath: keyPath, type: .uInt)
+            schema.addProperty(keyPath: keyPath, type: .uint)
         } else if T.self == Float.self {
             schema.addProperty(keyPath: keyPath, type: .float)
         } else if T.self == Double.self {

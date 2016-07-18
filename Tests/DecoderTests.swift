@@ -35,7 +35,7 @@ class ValidDecoder: Decoder {
 
     func decode(object: Any) throws -> Any {
         let result = try Parser.parseEntity(json: object) { schema in
-            schema.addProperty(keyPath: "subUInt", type: .uInt)
+            schema.addProperty(keyPath: "subUInt", type: .uint)
             schema.addProperty(keyPath: "subInt", type: .int)
             schema.addProperty(keyPath: "subString", type: .string)
         }

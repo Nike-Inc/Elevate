@@ -329,7 +329,7 @@ class DecodableTestCase: BaseTestCase {
         // When
         do {
             _ = try Parser.parseProperties(from: data) { make in
-                make.propertyForKeyPath("items", type: .array, decodedToType: InvalidDecodable.self)
+                make.property(forKeyPath: "items", type: .array, decodableType: InvalidDecodable.self)
             }
 
             XCTFail("Parser unexpectedly succeeded")

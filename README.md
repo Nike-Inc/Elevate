@@ -121,12 +121,12 @@ struct Person: Decodable {
         let dateDecoder = DateDecoder(dateFormatString: "yyyy-MM-dd")
 
         let properties = try Parser.parseProperties(from: json) { make in
-            make.propertyForKeyPath(idKeyPath, type: .Int)
-            make.propertyForKeyPath(nameKeyPath, type: .String)
-            make.propertyForKeyPath(nicknameKeyPath, type: .String, optional: true)
-            make.propertyForKeyPath(birthDateKeyPath, type: .String, decoder: dateDecoder)
-            make.propertyForKeyPath(isMemberKeyPath, type: .Bool, optional: true)
-            make.propertyForKeyPath(addressesKeyPath, type: .Array, decodedToType: Address.self)
+            make.property(forKeyPath: idKeyPath, type: .Int)
+            make.property(forKeyPath: nameKeyPath, type: .String)
+            make.property(forKeyPath: nicknameKeyPath, type: .String, optional: true)
+            make.property(forKeyPath: birthDateKeyPath, type: .String, decoder: dateDecoder)
+            make.property(forKeyPath: isMemberKeyPath, type: .Bool, optional: true)
+            make.property(forKeyPath: addressesKeyPath, type: .Array, decodableType: Address.self)
         }
 
         self.identifier = properties <-! idKeyPath
@@ -186,9 +186,9 @@ class AvatarDecoder: Decoder {
         let heightKeyPath = "height"
 
         let properties = try Parser.parseProperties(from: json) { make in
-            make.propertyForKeyPath(urlKeyPath, type: .URL)
-            make.propertyForKeyPath(widthKeyPath, type: .Int)
-            make.propertyForKeyPath(heightKeyPath, type: .Int)
+            make.property(forKeyPath: urlKeyPath, type: .URL)
+            make.property(forKeyPath: widthKeyPath, type: .Int)
+            make.property(forKeyPath: heightKeyPath, type: .Int)
         }
 
         return Avatar(
@@ -208,9 +208,9 @@ class AlternateAvatarDecoder: Decoder {
         let hKeyPath = "h"
 
         let properties = try Parser.parseProperties(from: json) { make in
-            make.propertyForKeyPath(locationKeyPath, type: .URL)
-            make.propertyForKeyPath(wKeyPath, type: .Int)
-            make.propertyForKeyPath(hKeyPath, type: .Int)
+            make.property(forKeyPath: locationKeyPath, type: .URL)
+            make.property(forKeyPath: wKeyPath, type: .Int)
+            make.property(forKeyPath: hKeyPath, type: .Int)
         }
 
         return Avatar(
@@ -261,7 +261,7 @@ And here is how it's used to parse a JSON date string:
 let dateDecoder = DateDecoder(dateFormatString: "yyyy-MM-dd 'at' HH:mm")
 
 let properties = try Parser.parseProperties(from: data) { make in
-    make.propertyForKeyPath("dateString", type: .string, decoder: dateDecoder)
+    make.property(forKeyPath: "dateString", type: .string, decoder: dateDecoder)
 }
 ```
 

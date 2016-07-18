@@ -34,9 +34,9 @@ struct TestObjectDecoder: Decoder {
         }
 
         let properties = try Parser.parseProperties(from: object) { make in
-            make.propertyForKeyPath(KeyPath.subUInt, type: .uint)
-            make.propertyForKeyPath(KeyPath.subInt, type: .int)
-            make.propertyForKeyPath(KeyPath.subString, type: .string)
+            make.property(forKeyPath: KeyPath.subUInt, type: .uint)
+            make.property(forKeyPath: KeyPath.subInt, type: .int)
+            make.property(forKeyPath: KeyPath.subString, type: .string)
         }
 
         return TestObject(

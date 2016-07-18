@@ -35,9 +35,9 @@ class ValidDecoder: Decoder {
 
     func decode(_ object: AnyObject) throws -> Any {
         let result = try Parser.parseProperties(from: object) { make in
-            make.propertyForKeyPath("subUInt", type: .uint)
-            make.propertyForKeyPath("subInt", type: .int)
-            make.propertyForKeyPath("subString", type: .string)
+            make.property(forKeyPath: "subUInt", type: .uint)
+            make.property(forKeyPath: "subInt", type: .int)
+            make.property(forKeyPath: "subString", type: .string)
         }
 
         if toDictionary {
@@ -55,8 +55,8 @@ class ValidDecoder: Decoder {
 class InvalidDecoder: Decoder {
     func decode(_ object: AnyObject) throws -> Any {
         return try Parser.parseProperties(from: object) { make in
-            make.propertyForKeyPath("subUInt", type: .string)
-            make.propertyForKeyPath("missingSubInt", type: .int)
+            make.property(forKeyPath: "subUInt", type: .string)
+            make.property(forKeyPath: "missingSubInt", type: .int)
         }
     }
 }
@@ -131,7 +131,7 @@ class DecoderTestCase: BaseTestCase {
         do {
             // When
             let _ = try Parser.parseProperties(from: data) { make in
-                make.propertyForKeyPath("sub-object", type: .dictionary, decoder: InvalidDecoder())
+                make.property(forKeyPath: "sub-object", type: .dictionary, decoder: InvalidDecoder())
             }
 
             XCTFail("ErroneousTestObjectParser unexpectedly succeeded")
@@ -155,7 +155,7 @@ class DecoderTestCase: BaseTestCase {
         // When
         do {
             let _ = try Parser.parseProperties(from: data) { make in
-                make.propertyForKeyPath("testString", type: .string, decoder: StringToIntDecoder())
+                make.property(forKeyPath: "testString", type: .string, decoder: StringToIntDecoder())
             }
         } catch let error as ParserError {
             // Then
@@ -179,7 +179,7 @@ class DateDecoderTestCase: BaseTestCase {
         // When
         do {
             let properties = try Parser.parseProperties(from: data) { make in
-                make.propertyForKeyPath("testDate", type: .string, decoder: decoder)
+                make.property(forKeyPath: "testDate", type: .string, decoder: decoder)
             }
 
             // Then
@@ -204,7 +204,7 @@ class DateDecoderTestCase: BaseTestCase {
         // When
         do {
             let properties = try Parser.parseProperties(from: data) { make in
-                make.propertyForKeyPath("testDate", type: .string, decoder: decoder)
+                make.property(forKeyPath: "testDate", type: .string, decoder: decoder)
             }
 
             // Then
@@ -226,7 +226,7 @@ class DateDecoderTestCase: BaseTestCase {
         do {
             // When
             _ = try Parser.parseProperties(from: data) { make in
-                make.propertyForKeyPath("testDate", type: .string, decoder: decoder)
+                make.property(forKeyPath: "testDate", type: .string, decoder: decoder)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -248,7 +248,7 @@ class DateDecoderTestCase: BaseTestCase {
         do {
             // When
             _ = try Parser.parseProperties(from: data) { make in
-                make.propertyForKeyPath("testInt", type: .int, decoder: decoder)
+                make.property(forKeyPath: "testInt", type: .int, decoder: decoder)
             }
 
             XCTFail("Parser unexpectedly succeeded")

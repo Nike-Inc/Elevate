@@ -46,9 +46,9 @@ extension TestObject: Decodable {
         let subStringKeyPath = "subString"
 
         let properties = try Parser.parseProperties(from: json) { make in
-            make.propertyForKeyPath(subUIntKeyPath, type: .uint)
-            make.propertyForKeyPath(subIntKeyPath, type: .int)
-            make.propertyForKeyPath(subStringKeyPath, type: .string)
+            make.property(forKeyPath: subUIntKeyPath, type: .uint)
+            make.property(forKeyPath: subIntKeyPath, type: .int)
+            make.property(forKeyPath: subStringKeyPath, type: .string)
         }
 
         subUInt = properties <-! subUIntKeyPath
@@ -70,7 +70,7 @@ extension InvalidDecodable: Decodable {
         let invalidKeyPath = "invalid"
 
         let properties = try Parser.parseProperties(from: json) { make in
-            make.propertyForKeyPath(invalidKeyPath, type: .string)
+            make.property(forKeyPath: invalidKeyPath, type: .string)
         }
 
         invalid = properties[invalidKeyPath] as! String

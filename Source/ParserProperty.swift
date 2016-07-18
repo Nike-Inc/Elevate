@@ -100,8 +100,8 @@ public class ParserPropertyMaker {
         - returns: The created parser property.
     */
     @discardableResult
-    public func propertyForKeyPath(_ keyPath: String, type: ParserPropertyType, optional: Bool = false) -> ParserProperty {
-        return addProperty(keyPath: keyPath, type: type, optional: optional, decodingMethod: nil)
+    public func property(forKeyPath keyPath: String, type: ParserPropertyType, optional: Bool = false) -> ParserProperty {
+        return addProperty(forKeyPath: keyPath, type: type, optional: optional, decodingMethod: nil)
     }
 
     /**
@@ -118,11 +118,11 @@ public class ParserPropertyMaker {
         - returns: The created parser property.
     */
     @discardableResult
-    public func propertyForKeyPath(
-        _ keyPath: String,
+    public func property(
+        forKeyPath keyPath: String,
         type: ParserPropertyType,
         optional: Bool = false,
-        decodedToType decodableType: Decodable.Type?)
+        decodableType: Decodable.Type?)
         -> ParserProperty
     {
         var decodingMethod: ParserProperty.DecodingMethod?
@@ -131,7 +131,7 @@ public class ParserPropertyMaker {
             decodingMethod = ParserProperty.DecodingMethod.useDecodable(decodableType)
         }
 
-        return addProperty(keyPath: keyPath, type: type, optional: optional, decodingMethod: decodingMethod)
+        return addProperty(forKeyPath: keyPath, type: type, optional: optional, decodingMethod: decodingMethod)
     }
 
     /**
@@ -148,8 +148,8 @@ public class ParserPropertyMaker {
         - returns: The created parser property.
     */
     @discardableResult
-    public func propertyForKeyPath(
-        _ keyPath: String,
+    public func property(
+        forKeyPath keyPath: String,
         type: ParserPropertyType,
         optional: Bool = false,
         decoder: Decoder?)
@@ -161,11 +161,11 @@ public class ParserPropertyMaker {
             decodingMethod = ParserProperty.DecodingMethod.useDecoder(decoder)
         }
 
-        return addProperty(keyPath: keyPath, type: type, optional: optional, decodingMethod: decodingMethod)
+        return addProperty(forKeyPath: keyPath, type: type, optional: optional, decodingMethod: decodingMethod)
     }
 
     func addProperty(
-        keyPath: String,
+        forKeyPath keyPath: String,
         type: ParserPropertyType,
         optional: Bool,
         decodingMethod: ParserProperty.DecodingMethod?)

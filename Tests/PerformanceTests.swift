@@ -36,7 +36,7 @@ class PerformanceTestCase: BaseTestCase {
 
         measure {
             // When
-            _ = try! Parser.parseProperties(json: dataArray) { make in
+            _ = try! Parser.parseProperties(from: dataArray) { make in
                 make.propertyForKeyPath("", type: .array, decodedToType: PerformanceDecodable.self)
             }
         }
@@ -49,7 +49,7 @@ private class PerformanceDecodable: Decodable {
     static let dateDecoder = DateDecoder(dateFormatString: BaseTestCase.DateFormats.Format1)
 
     required init(json: AnyObject) throws {
-        let _ = try Parser.parseProperties(json: json) { make in
+        let _ = try Parser.parseProperties(from: json) { make in
             make.propertyForKeyPath("testUInt", type: ParserPropertyType.uint)
             make.propertyForKeyPath("testInt", type: .int)
             make.propertyForKeyPath("testString", type: .string)

@@ -34,7 +34,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
+            let properties = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("testUInt", type: ParserPropertyType.uint)
                 make.propertyForKeyPath("testInt", type: .int)
                 make.propertyForKeyPath("testString", type: .string)
@@ -92,7 +92,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
+            let properties = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("testOptional", type: .string, optional: true)
             }
 
@@ -108,7 +108,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let _ = try Parser.parseProperties(data: data) { make in
+            let _ = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("uint", type: .uint)
                 make.propertyForKeyPath("int", type: .int)
                 make.propertyForKeyPath("string", type: .string)
@@ -140,7 +140,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let _ = try Parser.parseProperties(data: data) { make in
+            let _ = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("uint", type: .uint)
                 make.propertyForKeyPath("int", type: .int)
                 make.propertyForKeyPath("string", type: .string)
@@ -172,7 +172,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            _ = try Parser.parseProperties(data: data) { make in
+            _ = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("foo", type: .string)
             }
 
@@ -193,7 +193,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            _ = try Parser.parseProperties(json: badJSON) { make in
+            _ = try Parser.parseProperties(from: badJSON) { make in
                 make.propertyForKeyPath("foo", type: .string)
             }
 
@@ -214,7 +214,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            _ = try Parser.parseProperties(data: data) { make in
+            _ = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("items", type: .array)
             }
 
@@ -237,7 +237,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            _ = try Parser.parseProperties(json: json) { make in
+            _ = try Parser.parseProperties(from: json) { make in
                 make.propertyForKeyPath("invalidURL", type: .url)
             }
 
@@ -258,7 +258,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            _ = try Parser.parseProperties(data: data) { make in
+            _ = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("missingKeyPath", type: .string)
             }
 
@@ -276,7 +276,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let _ = try Parser.parseProperties(data: data) { make in
+            let _ = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("keypath", type: .string)
                 make.propertyForKeyPath("two.level", type: .string)
                 make.propertyForKeyPath("multi.level.key.path", type: .string)
@@ -299,7 +299,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let parsed = try Parser.parseProperties(data: data) { make in
+            let parsed = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("dots.key.path", type: .string)
             }
 
@@ -316,7 +316,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let results: [TestObject] = try Parser.parseArray(data: data, forKeyPath: "", with: ValidDecoder())
+            let results: [TestObject] = try Parser.parseArray(from: data, withKeyPath: "", decoder: ValidDecoder())
 
             // Then
             XCTAssertEqual(results[0].subInt, 0)
@@ -333,7 +333,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
+            let properties = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("rootString", type: .string)
                 make.propertyForKeyPath("rootInt", type: .int)
                 make.propertyForKeyPath("items", type: .array, decoder: ValidDecoder(toDictionary: true))
@@ -362,7 +362,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
+            let properties = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("arrayOfStrings", type: .array, decodedToType: String.self)
             }
 
@@ -383,7 +383,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
+            let properties = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("arrayOfInts", type: .array, decodedToType: Int.self)
             }
 
@@ -405,7 +405,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
+            let properties = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("arrayOfUInts", type: .array, decodedToType: UInt.self)
             }
 
@@ -425,7 +425,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
+            let properties = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("arrayOfDoubles", type: .array, decodedToType: Double.self)
             }
 
@@ -446,7 +446,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
+            let properties = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("arrayOfFloats", type: .array, decodedToType: Float.self)
             }
 
@@ -467,7 +467,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
+            let properties = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("arrayOfBools", type: .array, decodedToType: Bool.self)
             }
 
@@ -488,7 +488,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let _ = try Parser.parseProperties(data: data) { make in
+            let _ = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("rootString", type: .string)
                 make.propertyForKeyPath("rootInt", type: .int)
                 make.propertyForKeyPath("items", type: .array, decoder: InvalidDecoder())
@@ -525,7 +525,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
+            let properties = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("testURL", type: .url)
             }
 
@@ -552,7 +552,7 @@ class ParserParseObjectTestCase: BaseTestCase {
             let data = loadJSONDataForFileNamed("PropertyTypesTest")
 
             // When
-            let testObject: TestObject = try Parser.parseObject(data: data, forKeyPath: "sub-object")
+            let testObject: TestObject = try Parser.parseObject(from: data, withKeyPath: "sub-object")
 
             // Then
             XCTAssertEqual(testObject.subUInt, UInt(1))
@@ -570,9 +570,9 @@ class ParserParseObjectTestCase: BaseTestCase {
 
             // When
             let testObject: TestObject = try Parser.parseObject(
-                data: data,
-                forKeyPath: "sub-object",
-                with: TestObjectDecoder()
+                from: data,
+                withKeyPath: "sub-object",
+                decoder: TestObjectDecoder()
             )
 
             // Then
@@ -594,7 +594,7 @@ class ParserParseArrayTestCaseCase: BaseTestCase {
             let data = loadJSONDataForFileNamed("ArrayTest")
 
             // When
-            let testObjects: [TestObject] = try Parser.parseArray(data: data, forKeyPath: "items")
+            let testObjects: [TestObject] = try Parser.parseArray(from: data, withKeyPath: "items")
 
             // Then
             XCTAssertEqual(testObjects.count, 3)
@@ -624,9 +624,9 @@ class ParserParseArrayTestCaseCase: BaseTestCase {
 
             // When
             let testObjects: [TestObject] = try Parser.parseArray(
-                data: data,
-                forKeyPath: "items",
-                with: TestObjectDecoder()
+                from: data,
+                withKeyPath: "items",
+                decoder: TestObjectDecoder()
             )
 
             // Then
@@ -688,7 +688,7 @@ class ParserJSONFragmentDataTestCase: BaseTestCase {
         // When
         for dataValue in dataValues {
             do {
-                _ = try Parser.parseProperties(data: dataValue) { make in
+                _ = try Parser.parseProperties(from: dataValue) { make in
                     make.propertyForKeyPath("not_real_value", type: .int)
                 }
 
@@ -712,7 +712,7 @@ class ParserJSONNumericDataTestCase: BaseTestCase {
 
         // When
         do {
-            let parsed = try Parser.parseProperties(data: data) { make in
+            let parsed = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("intMin", type: .int)
                 make.propertyForKeyPath("intMax", type: .int)
                 make.propertyForKeyPath("intMin32Bit", type: .int)

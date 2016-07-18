@@ -34,7 +34,7 @@ class ValidDecoder: Decoder {
     }
 
     func decode(_ object: AnyObject) throws -> Any {
-        let result = try Parser.parseProperties(json: object) { make in
+        let result = try Parser.parseProperties(from: object) { make in
             make.propertyForKeyPath("subUInt", type: .uint)
             make.propertyForKeyPath("subInt", type: .int)
             make.propertyForKeyPath("subString", type: .string)
@@ -54,7 +54,7 @@ class ValidDecoder: Decoder {
 
 class InvalidDecoder: Decoder {
     func decode(_ object: AnyObject) throws -> Any {
-        return try Parser.parseProperties(json: object) { make in
+        return try Parser.parseProperties(from: object) { make in
             make.propertyForKeyPath("subUInt", type: .string)
             make.propertyForKeyPath("missingSubInt", type: .int)
         }
@@ -95,7 +95,7 @@ class DecoderTestCase: BaseTestCase {
 
         // When
         do {
-            let results: [TestObject] = try Parser.parseArray(data: data, forKeyPath: "items", with: ValidDecoder())
+            let results: [TestObject] = try Parser.parseArray(from: data, withKeyPath: "items", decoder: ValidDecoder())
 
             // Then
             XCTAssertEqual(results[0].subInt, 0)
@@ -113,7 +113,7 @@ class DecoderTestCase: BaseTestCase {
 
         do {
             // When
-            let testObject: TestObject = try Parser.parseObject(data: data, forKeyPath: "sub-object", with: decoder)
+            let testObject: TestObject = try Parser.parseObject(from: data, withKeyPath: "sub-object", decoder: decoder)
 
             // Then
             XCTAssertEqual(testObject.subUInt, UInt(1), "Parsed UInt value did not equal value from json file.")
@@ -130,7 +130,7 @@ class DecoderTestCase: BaseTestCase {
 
         do {
             // When
-            let _ = try Parser.parseProperties(data: data) { make in
+            let _ = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("sub-object", type: .dictionary, decoder: InvalidDecoder())
             }
 
@@ -154,7 +154,7 @@ class DecoderTestCase: BaseTestCase {
 
         // When
         do {
-            let _ = try Parser.parseProperties(data: data) { make in
+            let _ = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("testString", type: .string, decoder: StringToIntDecoder())
             }
         } catch let error as ParserError {
@@ -178,7 +178,7 @@ class DateDecoderTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
+            let properties = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("testDate", type: .string, decoder: decoder)
             }
 
@@ -203,7 +203,7 @@ class DateDecoderTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
+            let properties = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("testDate", type: .string, decoder: decoder)
             }
 
@@ -225,7 +225,7 @@ class DateDecoderTestCase: BaseTestCase {
 
         do {
             // When
-            _ = try Parser.parseProperties(data: data) { make in
+            _ = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("testDate", type: .string, decoder: decoder)
             }
 
@@ -247,7 +247,7 @@ class DateDecoderTestCase: BaseTestCase {
 
         do {
             // When
-            _ = try Parser.parseProperties(data: data) { make in
+            _ = try Parser.parseProperties(from: data) { make in
                 make.propertyForKeyPath("testInt", type: .int, decoder: decoder)
             }
 

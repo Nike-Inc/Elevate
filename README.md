@@ -84,7 +84,7 @@ Elevate aims to make JSON parsing and validation simple, yet robust. This is ach
 After you have made your model objects `Decodable` or implemented a `Decoder` for them, parsing with Elevate is as simple as:
 
 ```swift
-let avatar: Avatar = try Parser.parseObject(data: data, forKeyPath: "response.avatar")
+let avatar: Avatar = try Parser.parseObject(from: data, withKeyPath: "response.avatar")
 ```
 
 > Pass an empty string into `forKeyPath` if your object or array is at the root level. 
@@ -120,7 +120,7 @@ struct Person: Decodable {
 
         let dateDecoder = DateDecoder(dateFormatString: "yyyy-MM-dd")
 
-        let properties = try Parser.parseProperties(json: json) { make in
+        let properties = try Parser.parseProperties(from: json) { make in
             make.propertyForKeyPath(idKeyPath, type: .Int)
             make.propertyForKeyPath(nameKeyPath, type: .String)
             make.propertyForKeyPath(nicknameKeyPath, type: .String, optional: true)
@@ -146,7 +146,7 @@ Some other things worth noting in this example:
 1. The `Decodable` protocol conformance was implemented as an extension on the struct. This allows the struct to keep its automatic memberwise initializer.
 2. Standard primitive types are supported as well as `NSURL`, `Array`, and `Dictionary` types. See `ParserPropertyType` definition for the full list.
 3. Elevate facilitates passing a parsed property into a `Decoder` for further manipulation. See the `birthDate` property in the example above. The `DateDecoder` is a standard `Decoder` provided by Elevate to make date parsing hassle free.
-4. A `Decoder` or `Decodable` type can be provided to a property of type `.Array` to parse each item in the array to that type. This also works with the `.Dictionary` type to parse a nested JSON object.
+4. A `Decoder` or `Decodable` type can be provided to a property of type `.array` to parse each item in the array to that type. This also works with the `.dictionary` type to parse a nested JSON object.
 5. The parser guarantees that properties will be of the specified type, so it is safe to use the custom operators to automatically extract the `Any` value from the `properties` dictionary and cast it to the return type.
 
 ### Property Extraction Operators
@@ -185,7 +185,7 @@ class AvatarDecoder: Decoder {
         let widthKeyPath = "width"
         let heightKeyPath = "height"
 
-        let properties = try Parser.parseProperties(json: json) { make in
+        let properties = try Parser.parseProperties(from: json) { make in
             make.propertyForKeyPath(urlKeyPath, type: .URL)
             make.propertyForKeyPath(widthKeyPath, type: .Int)
             make.propertyForKeyPath(heightKeyPath, type: .Int)
@@ -207,7 +207,7 @@ class AlternateAvatarDecoder: Decoder {
         let wKeyPath = "w"
         let hKeyPath = "h"
 
-        let properties = try Parser.parseProperties(json: json) { make in
+        let properties = try Parser.parseProperties(from: json) { make in
             make.propertyForKeyPath(locationKeyPath, type: .URL)
             make.propertyForKeyPath(wKeyPath, type: .Int)
             make.propertyForKeyPath(hKeyPath, type: .Int)
@@ -226,15 +226,15 @@ Then to use the two different `Decoder` objects with the `Parser`:
 
 ```swift
 let avatar1: Avatar = try Parser.parseObject(
-    data: data1, 
-    forKeyPath: "response.avatar", 
-    with: AvatarDecoder()
+    from: data1, 
+    withKeyPath: "response.avatar", 
+    decoder: AvatarDecoder()
 )
 
 let avatar2: Avatar = try Parser.parseObject(
-    data: data2, 
-    forKeyPath: "alternative.response.avatar", 
-    with: AlternateAvatarDecoder()
+    from: data2, 
+    withKeyPath: "alternative.response.avatar", 
+    decoder: AlternateAvatarDecoder()
 )
 ```
 
@@ -260,8 +260,8 @@ And here is how it's used to parse a JSON date string:
 ```swift
 let dateDecoder = DateDecoder(dateFormatString: "yyyy-MM-dd 'at' HH:mm")
 
-let properties = try Parser.parseProperties(data: data) { make in
-    make.propertyForKeyPath("dateString", type: .String, decoder: dateDecoder)
+let properties = try Parser.parseProperties(from: data) { make in
+    make.propertyForKeyPath("dateString", type: .string, decoder: dateDecoder)
 }
 ```
 

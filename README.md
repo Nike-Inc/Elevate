@@ -19,7 +19,7 @@ Elevate is a JSON parsing framework that leverages Swift to make parsing simple,
 ## Requirements
 
 - iOS 8.0+ / Mac OS X 10.10+ / tvOS 9.0+ / watchOS 2.0+
-- Xcode 8.0 beta 3+
+- Xcode 8.0 beta 6+
 
 ## Communication
 

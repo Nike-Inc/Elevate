@@ -34,7 +34,7 @@ class PerformanceTestCase: BaseTestCase {
         let dataArray: [AnyObject] = {
             var array: [AnyObject] = []
             for _ in 0...1000 {
-                array.append(json.copy())
+                array.append(json as AnyObject)
             }
             return array
         }()

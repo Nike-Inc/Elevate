@@ -165,7 +165,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let _ = try String(json: json)
+            let _ = try String(json: json as AnyObject)
 
             XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
@@ -181,7 +181,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let _ = try Int(json: json)
+            let _ = try Int(json: json as AnyObject)
 
             XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
@@ -197,7 +197,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let _ = try UInt(json: json)
+            let _ = try UInt(json: json as AnyObject)
 
             XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
@@ -213,7 +213,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let _ = try Float(json: json)
+            let _ = try Float(json: json as AnyObject)
 
             XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
@@ -229,7 +229,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let _ = try Double(json: json)
+            let _ = try Double(json: json as AnyObject)
 
             XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
@@ -245,7 +245,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let _ = try Bool(json: json)
+            let _ = try Bool(json: json as AnyObject)
 
             XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {

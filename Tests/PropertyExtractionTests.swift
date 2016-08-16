@@ -142,7 +142,7 @@ class PropertyExtractionTestCase: BaseTestCase {
         let missingKey: [String]? = properties <--? "key_does_not_exist"
 
         // Then
-        XCTAssertNil(stringsArray)
+        XCTAssertEqual(stringsArray ?? [], ["value_0", "value_1"])
         XCTAssertEqual(anyArray ?? [], ["value_0", "value_1"])
         XCTAssertNil(missingKey)
     }

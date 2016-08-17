@@ -30,14 +30,8 @@ class PerformanceTestCase: BaseTestCase {
     func testThatItParsesValuesForAllPropertyTypesInSufficientTime() {
         // Given
         let data = loadJSONDataForFileNamed("PropertyTypesTest")
-        let json = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
-        let dataArray: [AnyObject] = {
-            var array: [AnyObject] = []
-            for _ in 0...1000 {
-                array.append(json as AnyObject)
-            }
-            return array
-        }()
+        let json = try! JSONSerialization.jsonObject(with: data, options: .allowFragments)
+        let dataArray: [Any] = (0...1000).map { _ in json }
 
         self.measure {
             // When
@@ -53,7 +47,7 @@ class PerformanceTestCase: BaseTestCase {
 private class PerformanceDecodable: Decodable {
     static let dateDecoder = DateDecoder(dateFormatString: BaseTestCase.DateFormats.Format1)
 
-    required init(json: AnyObject) throws {
+    required init(json: Any) throws {
         let _ = try Parser.parseProperties(json: json) { make in
             make.propertyForKeyPath("testUInt", type: ParserPropertyType.uInt)
             make.propertyForKeyPath("testInt", type: .int)

@@ -137,11 +137,9 @@ public class Parser {
     */
     public class func parseProperties(data: Data, closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
         let result: [String: Any]
-        
-        do {
-            let options = JSONSerialization.ReadingOptions(rawValue: 0)
-            let json = try JSONSerialization.jsonObject(with: data, options: options)
 
+        do {
+            let json = try JSONSerialization.jsonObject(with: data, options: [])
             result = try parseProperties(json: json, closure: closure)
         } catch {
             if error is ParserError {
@@ -183,16 +181,16 @@ public class Parser {
         - returns: The result Dictionary.
     */
     public class func parseProperties(json: Any, closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
-        if let json = json as? [String: AnyObject] {
+        if let json = json as? [String: Any] {
             return try parsePropertiesForJSONDictionary(json, closure: closure)
-        } else if let json = json as? [AnyObject] {
+        } else if let json = json as? [Any] {
             return try parsePropertiesForJSONArray(json, closure: closure)
         } else {
             throw ParserError.validation(failureReason: "JSON object was not of type: [String: AnyObject] or [AnyObject]")
         }
     }
 
-    private class func parsePropertiesForJSONDictionary(_ dictionary: [String: AnyObject], closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
+    private class func parsePropertiesForJSONDictionary(_ dictionary: [String: Any], closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
         var parsingErrorDescriptions = [String]()
         var parsed = [String: Any]()
         let propertyMaker = ParserPropertyMaker()
@@ -200,8 +198,8 @@ public class Parser {
         closure(propertyMaker)
 
         for property in propertyMaker.properties {
-            let jsonValue: AnyObject = Parser.json(dictionary, forKeyPath: property.keyPath)
-            var parsedValue: AnyObject?
+            let jsonValue: Any = Parser.json(dictionary, forKeyPath: property.keyPath)
+            var parsedValue: Any?
 
             if property.optional && jsonValue is NSNull {
                 parsedValue = Optional.none
@@ -213,19 +211,19 @@ public class Parser {
                     parsedValue = jsonValue
                     parsed[property.keyPath] = jsonValue
                 case .uInt:
-                    parsedValue = (jsonValue as! NSNumber).uintValue as AnyObject
+                    parsedValue = (jsonValue as! NSNumber).uintValue
                     parsed[property.keyPath] = parsedValue
                 case .int:
-                    parsedValue = (jsonValue as! NSNumber).intValue as AnyObject
+                    parsedValue = (jsonValue as! NSNumber).intValue
                     parsed[property.keyPath] = parsedValue
                 case .float:
-                    parsedValue = (jsonValue as! NSNumber).floatValue as AnyObject
+                    parsedValue = (jsonValue as! NSNumber).floatValue
                     parsed[property.keyPath] = parsedValue
                 case .double:
-                    parsedValue = (jsonValue as! NSNumber).doubleValue as AnyObject
+                    parsedValue = (jsonValue as! NSNumber).doubleValue
                     parsed[property.keyPath] = parsedValue
                 case .bool:
-                    parsedValue = (jsonValue as! NSNumber).boolValue as AnyObject
+                    parsedValue = (jsonValue as! NSNumber).boolValue
                     parsed[property.keyPath] = parsedValue
                 case .array:
                     if let decodingMethod = property.decodingMethod {
@@ -253,7 +251,7 @@ public class Parser {
                 }
 
                 if let decodingMethod = property.decodingMethod {
-                    if let value: AnyObject = parsedValue {
+                    if let value: Any = parsedValue {
                         do {
                             let result: Any
 
@@ -281,7 +279,7 @@ public class Parser {
         return parsed
     }
 
-    private class func parsePropertiesForJSONArray(_ array: [AnyObject], closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
+    private class func parsePropertiesForJSONArray(_ array: [Any], closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
         var parsed = [String: Any]()
         let propertyMaker = ParserPropertyMaker()
 
@@ -306,7 +304,7 @@ public class Parser {
 
     // MARK: Internal - Validation Methods
 
-    class func valueIsSpecifiedType(value: AnyObject, type: ParserPropertyType) -> Bool {
+    class func valueIsSpecifiedType(value: Any, type: ParserPropertyType) -> Bool {
         var isValid = false
 
         switch value {
@@ -323,9 +321,9 @@ public class Parser {
             }
         case is NSString:
             isValid = type == .string || type == .url
-        case is [AnyObject]:
+        case is [Any]:
             isValid = type == .array
-        case is [String: AnyObject]:
+        case is [String: Any]:
             isValid = type == .dictionary
         default:
             break
@@ -336,8 +334,8 @@ public class Parser {
 
     // MARK: Private - Parser Helper Methods
 
-    private class func json(_ dictionary: [String: AnyObject], forKeyPath keypath: String) -> AnyObject {
-        var json: AnyObject? = dictionary as AnyObject
+    private class func json(_ dictionary: [String: Any], forKeyPath keypath: String) -> Any {
+        var json: Any? = dictionary
 
         if dictionary.keys.contains(keypath) {
             json = dictionary[keypath]
@@ -345,7 +343,7 @@ public class Parser {
             let keys = keypath.characters.split() { $0 == "." }.map { String($0) }
 
             for key in keys {
-                if let dictionary = json as? [String: AnyObject], let value: AnyObject = dictionary[key] {
+                if let dictionary = json as? [String: Any], let value = dictionary[key] {
                     json = value
                 } else {
                     json = nil
@@ -357,12 +355,13 @@ public class Parser {
         return json ?? NSNull()
     }
 
-    private class func validateValue(_ value: AnyObject, forProperty property: ParserProperty) -> String?  {
-        var errorDescription: String? = nil
+    private class func validateValue(_ value: Any, forProperty property: ParserProperty) -> String?  {
+        let isNull = value is NSNull
+        var errorDescription: String?
 
-        if property.optional == false && value is NSNull {
+        if property.optional == false && isNull {
             errorDescription = "Required key path [\(property.keyPath)] was missing or null"
-        } else if property.optional == true && value is NSNull {
+        } else if property.optional == true && isNull {
             return nil
         } else {
             if !valueIsSpecifiedType(value: value, type: property.type) {
@@ -373,11 +372,11 @@ public class Parser {
         return errorDescription
     }
 
-    private class func parseArray(data: AnyObject, decodingMethod: ParserProperty.DecodingMethod) throws -> [Any] {
+    private class func parseArray(data: Any, decodingMethod: ParserProperty.DecodingMethod) throws -> [Any] {
         var parsed = [Any]()
         var parsingErrorDescriptions = [String]()
 
-        if let items = data as? [AnyObject] {
+        if let items = data as? [Any] {
             for (index, item) in items.enumerated() {
                 do {
                     let result: Any

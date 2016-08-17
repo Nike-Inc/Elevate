@@ -47,7 +47,7 @@ class PerformanceTestCase: BaseTestCase {
 private class PerformanceDecodable: Decodable {
     static let dateDecoder = DateDecoder(dateFormatString: BaseTestCase.DateFormats.Format1)
 
-    required init(json: AnyObject) throws {
+    required init(json: Any) throws {
         let _ = try Parser.parseProperties(json: json) { make in
             make.propertyForKeyPath("testUInt", type: ParserPropertyType.uInt)
             make.propertyForKeyPath("testInt", type: .int)

@@ -38,7 +38,7 @@ public protocol Decodable {
 
         - throws: A ParserError.Validation or ParserError.Deserialization if decoding fails.
     */
-    init(json: AnyObject) throws
+    init(json: Any) throws
 }
 
 // MARK: - Primative Decodables
@@ -56,7 +56,7 @@ extension String: Decodable {
 
         - throws: A ParserError.Validation error if decoding fails.
     */
-    public init(json: AnyObject) throws {
+    public init(json: Any) throws {
         guard Parser.valueIsSpecifiedType(value: json, type: .string) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: String")
         }
@@ -73,7 +73,7 @@ extension Int: Decodable {
 
         - throws: A ParserError.Validation error if decoding fails.
     */
-    public init(json: AnyObject) throws {
+    public init(json: Any) throws {
         guard Parser.valueIsSpecifiedType(value: json, type: .int) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: Int")
         }
@@ -90,7 +90,7 @@ extension UInt: Decodable {
 
         - throws: A ParserError.Validation error if decoding fails.
     */
-    public init(json: AnyObject) throws {
+    public init(json: Any) throws {
         guard Parser.valueIsSpecifiedType(value: json, type: .uInt) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: UInt")
         }
@@ -107,7 +107,7 @@ extension Float: Decodable {
 
         - throws: A ParserError.Validation error if decoding fails.
     */
-    public init(json: AnyObject) throws {
+    public init(json: Any) throws {
         guard Parser.valueIsSpecifiedType(value: json, type: .float) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: Float")
         }
@@ -124,7 +124,7 @@ extension Double: Decodable {
 
         - throws: A ParserError.Validation error if decoding fails.
     */
-    public init(json: AnyObject) throws {
+    public init(json: Any) throws {
         guard Parser.valueIsSpecifiedType(value: json, type: .double) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: Double")
         }
@@ -141,7 +141,7 @@ extension Bool: Decodable {
 
         - throws: A ParserError.Validation error if decoding fails.
     */
-    public init(json: AnyObject) throws {
+    public init(json: Any) throws {
         guard Parser.valueIsSpecifiedType(value: json, type: .bool) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: Bool")
         }

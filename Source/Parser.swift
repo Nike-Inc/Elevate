@@ -47,11 +47,9 @@ public class Parser {
     */
     public class func parseEntity(data: Data, closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
         let result: [String: Any]
-        
-        do {
-            let options = JSONSerialization.ReadingOptions(rawValue: 0)
-            let json = try JSONSerialization.jsonObject(with: data, options: options)
 
+        do {
+            let json = try JSONSerialization.jsonObject(with: data, options: [])
             result = try parseEntity(json: json, closure: closure)
         } catch {
             if error is ParserError {

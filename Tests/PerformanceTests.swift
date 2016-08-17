@@ -30,14 +30,8 @@ class PerformanceTestCase: BaseTestCase {
     func testThatItParsesValuesForAllPropertyTypesInSufficientTime() {
         // Given
         let data = loadJSONDataForFileNamed("PropertyTypesTest")
-        let json = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments)
-        let dataArray: [AnyObject] = {
-            var array: [AnyObject] = []
-            for _ in 0...1000 {
-                array.append(json as AnyObject)
-            }
-            return array
-        }()
+        let json = try! JSONSerialization.jsonObject(with: data, options: .allowFragments)
+        let dataArray: [Any] = (0...1000).map { _ in json }
 
         self.measure {
             // When

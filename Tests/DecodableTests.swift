@@ -161,11 +161,11 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectThrowsForInvalidString() {
         // Given
-        let json = ["key": 0]
+        let json = ["key": 0] as AnyObject
 
         // When
         do {
-            let _ = try String(json: json as AnyObject)
+            let _ = try String(json: json)
 
             XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
@@ -177,11 +177,11 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectThrowsForInvalidInt() {
         // Given
-        let json = ["key": "invalid"]
+        let json = ["key": "invalid"] as AnyObject
 
         // When
         do {
-            let _ = try Int(json: json as AnyObject)
+            let _ = try Int(json: json)
 
             XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
@@ -193,11 +193,11 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectThrowsForInvalidUInt() {
         // Given
-        let json = ["key": "invaild"]
+        let json = ["key": "invaild"] as AnyObject
 
         // When
         do {
-            let _ = try UInt(json: json as AnyObject)
+            let _ = try UInt(json: json)
 
             XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
@@ -209,11 +209,11 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectThrowsForInvalidFloat() {
         // Given
-        let json = ["key": "invalid"]
+        let json = ["key": "invalid"] as AnyObject
 
         // When
         do {
-            let _ = try Float(json: json as AnyObject)
+            let _ = try Float(json: json)
 
             XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
@@ -225,11 +225,11 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectThrowsForInvalidDouble() {
         // Given
-        let json = ["key": "invalid"]
+        let json = ["key": "invalid"] as AnyObject
 
         // When
         do {
-            let _ = try Double(json: json as AnyObject)
+            let _ = try Double(json: json)
 
             XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
@@ -241,11 +241,11 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectThrowsForInvalidBool() {
         // Given
-        let json = ["key": 0]
+        let json = ["key": 0] as AnyObject
 
         // When
         do {
-            let _ = try Bool(json: json as AnyObject)
+            let _ = try Bool(json: json)
 
             XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {

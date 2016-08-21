@@ -24,11 +24,16 @@
 
 import Foundation
 
-infix operator <-! { associativity left precedence 140 }
-infix operator <-? { associativity left precedence 140 }
+precedencegroup DictionaryExtractionPrecedence {
+    associativity: left
+    higherThan: AssignmentPrecedence
+}
 
-infix operator <--! { associativity left precedence 140 }
-infix operator <--? { associativity left precedence 140 }
+infix operator <-! : DictionaryExtractionPrecedence
+infix operator <-? : DictionaryExtractionPrecedence
+
+infix operator <--! : DictionaryExtractionPrecedence
+infix operator <--? : DictionaryExtractionPrecedence
 
 /**
     Forcibly extracts the value for the key from the dictionary as the specified type.

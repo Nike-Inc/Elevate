@@ -30,7 +30,7 @@ import Foundation
     - Deserialization: An error that occurs from deserializing using `NSJSONSerialization`.
     - Validation:      An error that occurs when one or more values fail validation.
 */
-public enum ParserError: ErrorProtocol, CustomStringConvertible, CustomDebugStringConvertible {
+public enum ParserError: Error, CustomStringConvertible, CustomDebugStringConvertible {
     case deserialization(failureReason: String)
     case validation(failureReason: String)
 

@@ -32,7 +32,7 @@ public class BaseTestCase: XCTestCase {
 
     func loadJSONDataForFileNamed(_ filename: String) -> Data {
         let bundle = Bundle(for: BaseTestCase.self)
-        let path = bundle.pathForResource(filename, ofType: "json")
+        let path = bundle.path(forResource: filename, ofType: "json")
         return (try! Data(contentsOf: URL(fileURLWithPath: path!)))
     }
 }

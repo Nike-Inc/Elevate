@@ -660,23 +660,23 @@ class ParserJSONFragmentDataTestCase: BaseTestCase {
             var values = [Data]()
 
             var intValue: Int = 1000
-            let intData = NSData(bytes: &intValue, length: sizeof(Int.self))
+            let intData = NSData(bytes: &intValue, length: MemoryLayout<Int>.size)
             values.append(intData as Data)
 
             var uIntValue: UInt = 1000
-            let uIntData = NSData(bytes: &uIntValue, length: sizeof(UInt.self))
+            let uIntData = NSData(bytes: &uIntValue, length: MemoryLayout<UInt>.size)
             values.append(uIntData as Data)
 
             var doubleValue: Double = 123.456
-            let doubleData = NSData(bytes: &doubleValue, length: sizeof(Double.self))
+            let doubleData = NSData(bytes: &doubleValue, length: MemoryLayout<Double>.size)
             values.append(doubleData as Data)
 
             var floatValue: Float = -987.345
-            let floatData = NSData(bytes: &floatValue, length: sizeof(Float.self))
+            let floatData = NSData(bytes: &floatValue, length: MemoryLayout<Float>.size)
             values.append(floatData as Data)
 
             var boolValue = false
-            let boolData = NSData(bytes: &boolValue, length: sizeof(Bool.self))
+            let boolData = NSData(bytes: &boolValue, length: MemoryLayout<Bool>.size)
             values.append(boolData as Data)
 
             let stringData = "Some random string".data(using: String.Encoding.utf8, allowLossyConversion: false)!
@@ -742,10 +742,10 @@ class ParserJSONNumericDataTestCase: BaseTestCase {
             }
 
             // Then
-            if sizeof(Int.self) == sizeof(Int32.self) { // 32-bit
+            if MemoryLayout<Int>.size == MemoryLayout<Int32>.size { // 32-bit
                 XCTAssertEqual(parsed["intMin32Bit"] as? Int, Int.min, "Parsed [intMin32Bit] did not equal `Int.min`.")
                 XCTAssertEqual(parsed["intMax32Bit"] as? Int, Int.max, "Parsed [intMax32Bit] did not equal `Int.max`.")
-            } else if sizeof(Int.self) == sizeof(Int64.self) { // 64-bit
+            } else if MemoryLayout<Int>.size == MemoryLayout<Int64>.size { // 64-bit
                 XCTAssertEqual(parsed["intMin"] as? Int, Int.min, "Parsed [intMin] did not equal `Int.min`.")
                 XCTAssertEqual(parsed["intMax"] as? Int, Int.max, "Parsed [intMax] did not equal `Int.max`.")
             }

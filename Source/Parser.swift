@@ -337,8 +337,8 @@ public class Parser {
     private class func json(dictionary: [String: AnyObject], forKeyPath keypath: String) -> AnyObject {
         var json: AnyObject? = dictionary
 
-        if dictionary.keys.contains(keypath) {
-            json = dictionary[keypath]
+        if let value = dictionary[keypath] {
+            json = value
         } else {
             let keys = keypath.characters.split() { $0 == "." }.map { String($0) }
 

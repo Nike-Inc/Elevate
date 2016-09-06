@@ -33,7 +33,7 @@ class ValidDecoder: Decoder {
         self.toDictionary = toDictionary
     }
 
-    func decode(object: AnyObject) throws -> Any {
+    func decode(object: Any) throws -> Any {
         let result = try Parser.parseProperties(json: object) { make in
             make.propertyForKeyPath("subUInt", type: .uInt)
             make.propertyForKeyPath("subInt", type: .int)
@@ -53,7 +53,7 @@ class ValidDecoder: Decoder {
 }
 
 class InvalidDecoder: Decoder {
-    func decode(object: AnyObject) throws -> Any {
+    func decode(object: Any) throws -> Any {
         return try Parser.parseProperties(json: object) { make in
             make.propertyForKeyPath("subUInt", type: .string)
             make.propertyForKeyPath("missingSubInt", type: .int)
@@ -72,7 +72,7 @@ class DecoderTestCase: BaseTestCase {
         let json = try! JSONSerialization.jsonObject(
             with: data,
             options: JSONSerialization.ReadingOptions(rawValue: 0)
-        ) as! [String: AnyObject]
+        ) as! [String: Any]
 
         // When
         do {

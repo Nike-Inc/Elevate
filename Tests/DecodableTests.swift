@@ -161,7 +161,7 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectThrowsForInvalidString() {
         // Given
-        let json = ["key": 0] as AnyObject
+        let json = ["key": 0] as Any
 
         // When
         do {
@@ -177,7 +177,7 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectThrowsForInvalidInt() {
         // Given
-        let json = ["key": "invalid"] as AnyObject
+        let json = ["key": "invalid"] as Any
 
         // When
         do {
@@ -193,7 +193,7 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectThrowsForInvalidUInt() {
         // Given
-        let json = ["key": "invaild"] as AnyObject
+        let json = ["key": "invaild"] as Any
 
         // When
         do {
@@ -209,7 +209,7 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectThrowsForInvalidFloat() {
         // Given
-        let json = ["key": "invalid"] as AnyObject
+        let json = ["key": "invalid"] as Any
 
         // When
         do {
@@ -225,7 +225,7 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectThrowsForInvalidDouble() {
         // Given
-        let json = ["key": "invalid"] as AnyObject
+        let json = ["key": "invalid"] as Any
 
         // When
         do {
@@ -241,7 +241,7 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectThrowsForInvalidBool() {
         // Given
-        let json = ["key": 0] as AnyObject
+        let json = ["key": 0] as Any
 
         // When
         do {
@@ -355,7 +355,7 @@ class DecodableTestCase: BaseTestCase {
 
     // MARK: Private Helper Methods
 
-    private func decodableErrorTest(type: Decodable.Type, value: AnyObject) {
+    private func decodableErrorTest(type: Decodable.Type, value: Any) {
         do {
             let _ = try type.init(json: value)
 

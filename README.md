@@ -95,22 +95,22 @@ In the previous example `Avatar` implements the `Decodable` protocol. By impleme
 
 ```swift
 public protocol Decodable {
-    init(json: AnyObject) throws
+    init(json: Any) throws
 }
 ```
 
-The `json: AnyObject` will typically be a `[String: AnyObject]` instance that was created from the `NSJSONSerialization` APIs. Use the Elevate `Parser.parseProperties` method to define the structure of the JSON data to be validated and perform the parsing.
+The `json: Any` will typically be a `[String: Any]` instance that was created from the `JSONSerialization` APIs. Use the Elevate `Parser.parseProperties` method to define the structure of the JSON data to be validated and perform the parsing.
 
 ```swift
 struct Person: Decodable {
 	let identifier: String
 	let name: String
 	let nickname: String?
-	let birthDate: NSDate
+	let birthDate: Date
 	let isMember: Bool?
 	let addresses: [Address]
 
-    init(json: AnyObject) throws {
+    init(json: Any) throws {
         let idKeyPath = "identifier"
         let nameKeyPath = "name"
         let nicknameKeyPath = "nickname"
@@ -144,7 +144,7 @@ Implementing the `Decodable` protocol in this way allows you to create fully int
 Some other things worth noting in this example:
 
 1. The `Decodable` protocol conformance was implemented as an extension on the struct. This allows the struct to keep its automatic memberwise initializer.
-2. Standard primitive types are supported as well as `NSURL`, `Array`, and `Dictionary` types. See `ParserPropertyType` definition for the full list.
+2. Standard primitive types are supported as well as `URL`, `Array`, and `Dictionary` types. See `ParserPropertyType` definition for the full list.
 3. Elevate facilitates passing a parsed property into a `Decoder` for further manipulation. See the `birthDate` property in the example above. The `DateDecoder` is a standard `Decoder` provided by Elevate to make date parsing hassle free.
 4. A `Decoder` or `Decodable` type can be provided to a property of type `.Array` to parse each item in the array to that type. This also works with the `.Dictionary` type to parse a nested JSON object.
 5. The parser guarantees that properties will be of the specified type, so it is safe to use the custom operators to automatically extract the `Any` value from the `properties` dictionary and cast it to the return type.
@@ -168,7 +168,7 @@ In most cases implementing a `Decodable` model object is all that is needed to p
 
 ```swift
 public protocol Decoder {
-    func decode(object: AnyObject) throws -> Any
+    func decode(object: Any) throws -> Any
 }
 ```
 
@@ -180,7 +180,7 @@ A `Decoder` is generally implemented as a separate object that returns instances
 
 ```swift
 class AvatarDecoder: Decoder {
-    func decode(object: AnyObject) throws -> Any {
+    func decode(object: Any) throws -> Any {
         let urlKeyPath = "url"
         let widthKeyPath = "width"
         let heightKeyPath = "height"
@@ -202,7 +202,7 @@ class AvatarDecoder: Decoder {
 
 ```swift
 class AlternateAvatarDecoder: Decoder {
-    func decode(object: AnyObject) throws -> Any {
+    func decode(object: Any) throws -> Any {
         let locationKeyPath = "location"
         let wKeyPath = "w"
         let hKeyPath = "h"
@@ -245,7 +245,7 @@ Each `Decoder` is designed to handle a different JSON structure for creating an 
 A second use for the `Decoder` protocol is to allow for the value of a property to be further manipulated. The most common example is a date string. Here is how the `DateDecoder` implements the `Decoder` protocol:
   
 ```swift
-public func decode(object: AnyObject) throws -> Any {
+public func decode(object: Any) throws -> Any {
     if let string = object as? String {
         return try dateFromString(string, withFormatter:self.dateFormatter)
     } else {

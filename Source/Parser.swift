@@ -78,7 +78,7 @@ public class Parser {
             make.propertyForKeyPath(keyPath, type: .array, decodedToType: T.self)
         }
 
-        return (properties[keyPath] as! [Any]).map { $0 as! T }
+        return properties[keyPath] as! [T]
     }
 
     // MARK: Decoder Parsing Methods
@@ -117,7 +117,7 @@ public class Parser {
             make.propertyForKeyPath(keyPath, type: .array, decoder: decoder)
         }
 
-        return (result[keyPath] as! [Any]).map { $0 as! T }
+        return result[keyPath] as! [T]
     }
 
     // MARK: Property Parsing Methods
@@ -342,7 +342,7 @@ public class Parser {
         if let value = dictionary[keypath] {
             json = value
         } else {
-            let keys = keypath.characters.split() { $0 == "." }.map { String($0) }
+            let keys = keypath.components(separatedBy: ".")
 
             for key in keys {
                 if let dictionary = json as? [String: Any], let value: Any = dictionary[key] {

@@ -69,7 +69,7 @@ public func <-? <T>(lhs: [String: Any], rhs: String) -> T? {
 */
 public func <--! <T>(lhs: [String: Any], rhs: String) -> [T] {
     guard let array = lhs[rhs] else { return [] }
-    return (array as! [Any]).map { $0 as! T }
+    return array as! [T]
 }
 
 /**
@@ -82,5 +82,5 @@ public func <--! <T>(lhs: [String: Any], rhs: String) -> [T] {
 */
 public func <--? <T>(lhs: [String: Any], rhs: String) -> [T]? {
     guard let array = lhs[rhs] else { return nil }
-    return (array as? [Any])?.map { $0 as! T }
+    return array as? [T]
 }

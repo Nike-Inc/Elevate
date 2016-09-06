@@ -150,7 +150,7 @@ public class Parser {
         - returns: The result Dictionary.
     */
     public class func parseProperties(
-        from json: AnyObject,
+        from json: Any,
         using closure: (ParserPropertyMaker) -> Void)
         throws -> [String: Any]
     {
@@ -343,7 +343,7 @@ public class Parser {
     private class func json(from dictionary: [String: AnyObject], withKeyPath keyPath: String) -> AnyObject {
         var json: AnyObject? = dictionary as AnyObject
 
-        if let value = dictionary[keypath] {
+        if let value = dictionary[keyPath] {
             json = value
         } else {
             let keys = keyPath.characters.split() { $0 == "." }.map { String($0) }

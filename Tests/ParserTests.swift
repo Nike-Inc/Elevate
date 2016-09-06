@@ -367,7 +367,7 @@ class ParserTestCase: BaseTestCase {
             }
 
             // Then
-            let values = (properties["arrayOfStrings"] as! [Any]).map { $0 as! String }
+            let values = properties["arrayOfStrings"] as! [String]
             XCTAssertEqual(values[0], "array", "Array of Strings object was incorrect")
             XCTAssertEqual(values[1], "of", "Array of Strings object was incorrect")
             XCTAssertEqual(values[2], "strings", "Array of Strings object was incorrect")
@@ -388,7 +388,7 @@ class ParserTestCase: BaseTestCase {
             }
 
             // Then
-            let values = (properties["arrayOfInts"] as! [Any]).map { $0 as! Int }
+            let values = properties["arrayOfInts"] as! [Int]
             XCTAssertEqual(values[0], 0, "Array of Ints object was incorrect")
             XCTAssertEqual(values[1], 1, "Array of Ints object was incorrect")
             XCTAssertEqual(values[2], 2, "Array of Ints object was incorrect")
@@ -410,7 +410,7 @@ class ParserTestCase: BaseTestCase {
             }
 
             // Then
-            let values = (properties["arrayOfUInts"] as! [Any]).map { $0 as! UInt }
+            let values = properties["arrayOfUInts"] as! [UInt]
             XCTAssertEqual(values[0], 0, "Array of UInts object was incorrect")
             XCTAssertEqual(values[1], 1, "Array of UInts object was incorrect")
             XCTAssertEqual(values[2], 2, "Array of UInts object was incorrect")
@@ -430,7 +430,7 @@ class ParserTestCase: BaseTestCase {
             }
 
             // Then
-            let values = (properties["arrayOfDoubles"] as! [Any]).map { $0 as! Double }
+            let values = properties["arrayOfDoubles"] as! [Double]
             XCTAssertEqual(values[0], -1.1, "Array of Doubles object was incorrect")
             XCTAssertEqual(values[1], 0, "Array of Doubles object was incorrect")
             XCTAssertEqual(values[2], 1.1, "Array of Doubles object was incorrect")
@@ -451,7 +451,7 @@ class ParserTestCase: BaseTestCase {
             }
 
             // Then
-            let values = (properties["arrayOfFloats"] as! [Any]).map { $0 as! Float }
+            let values = properties["arrayOfFloats"] as! [Float]
             XCTAssertEqual(values[0], -1.1, "Array of Floats object was incorrect")
             XCTAssertEqual(values[1], 0, "Array of Floats object was incorrect")
             XCTAssertEqual(values[2], 1.1, "Array of Floats object was incorrect")
@@ -472,7 +472,7 @@ class ParserTestCase: BaseTestCase {
             }
 
             // Then
-            let values = (properties["arrayOfBools"] as! [Any]).map { $0 as! Bool }
+            let values = properties["arrayOfBools"] as! [Bool]
             XCTAssertEqual(values[0], true, "Array of Bools object was incorrect")
             XCTAssertEqual(values[1], true, "Array of Bools object was incorrect")
             XCTAssertEqual(values[2], false, "Array of Bools object was incorrect")

@@ -40,7 +40,7 @@ struct TestObject {
 // MARK: -
 
 extension TestObject: Decodable {
-    init(json: AnyObject) throws {
+    init(json: Any) throws {
         let subUIntKeyPath = "subUInt"
         let subIntKeyPath = "subInt"
         let subStringKeyPath = "subString"
@@ -66,7 +66,7 @@ struct InvalidDecodable {
 // MARK: -
 
 extension InvalidDecodable: Decodable {
-    init(json: AnyObject) throws {
+    init(json: Any) throws {
         let invalidKeyPath = "invalid"
 
         let properties = try Parser.parseProperties(from: json) { make in

@@ -26,7 +26,7 @@ import Elevate
 import Foundation
 
 struct TestObjectDecoder: Decoder {
-    func decode(_ object: AnyObject) throws -> Any {
+    func decode(_ object: Any) throws -> Any {
         struct KeyPath {
             static let subUInt = "subUInt"
             static let subInt = "subInt"

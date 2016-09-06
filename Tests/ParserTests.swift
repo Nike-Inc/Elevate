@@ -316,7 +316,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let results: [TestObject] = try Parser.parseArray(data: data, forKeyPath: "", with: ValidDecoder())
+            let results: [TestObject] = try Elevate.decodeArray(from: data, atKeyPath: "", with: ValidDecoder())
 
             // Then
             XCTAssertEqual(results[0].subInt, 0)
@@ -552,7 +552,7 @@ class ParserParseObjectTestCase: BaseTestCase {
             let data = loadJSONDataForFileNamed("PropertyTypesTest")
 
             // When
-            let testObject: TestObject = try Parser.parseObject(data: data, forKeyPath: "sub-object")
+            let testObject: TestObject = try Elevate.decodeObject(from: data, atKeyPath: "sub-object")
 
             // Then
             XCTAssertEqual(testObject.subUInt, UInt(1))
@@ -569,9 +569,9 @@ class ParserParseObjectTestCase: BaseTestCase {
             let data = loadJSONDataForFileNamed("PropertyTypesTest")
 
             // When
-            let testObject: TestObject = try Parser.parseObject(
-                data: data,
-                forKeyPath: "sub-object",
+            let testObject: TestObject = try Elevate.decodeObject(
+                from: data,
+                atKeyPath: "sub-object",
                 with: TestObjectDecoder()
             )
 
@@ -594,7 +594,7 @@ class ParserParseArrayTestCaseCase: BaseTestCase {
             let data = loadJSONDataForFileNamed("ArrayTest")
 
             // When
-            let testObjects: [TestObject] = try Parser.parseArray(data: data, forKeyPath: "items")
+            let testObjects: [TestObject] = try Elevate.decodeArray(from: data, atKeyPath: "items")
 
             // Then
             XCTAssertEqual(testObjects.count, 3)
@@ -623,9 +623,9 @@ class ParserParseArrayTestCaseCase: BaseTestCase {
             let data = loadJSONDataForFileNamed("ArrayTest")
 
             // When
-            let testObjects: [TestObject] = try Parser.parseArray(
-                data: data,
-                forKeyPath: "items",
+            let testObjects: [TestObject] = try Elevate.decodeArray(
+                from: data,
+                atKeyPath: "items",
                 with: TestObjectDecoder()
             )
 

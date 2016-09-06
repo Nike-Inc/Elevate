@@ -100,7 +100,7 @@ public class ParserPropertyMaker {
         - returns: The created parser property.
     */
     @discardableResult
-    public func propertyForKeyPath(_ keyPath: String, type: ParserPropertyType, optional: Bool = false) -> ParserProperty {
+    public func addProperty(keyPath: String, type: ParserPropertyType, optional: Bool = false) -> ParserProperty {
         return addProperty(keyPath: keyPath, type: type, optional: optional, decodingMethod: nil)
     }
 
@@ -118,11 +118,11 @@ public class ParserPropertyMaker {
         - returns: The created parser property.
     */
     @discardableResult
-    public func propertyForKeyPath(
-        _ keyPath: String,
+    public func addProperty(
+        keyPath: String,
         type: ParserPropertyType,
         optional: Bool = false,
-        decodedToType decodableType: Decodable.Type?)
+        decodableType: Decodable.Type?)
         -> ParserProperty
     {
         var decodingMethod: ParserProperty.DecodingMethod?
@@ -148,8 +148,8 @@ public class ParserPropertyMaker {
         - returns: The created parser property.
     */
     @discardableResult
-    public func propertyForKeyPath(
-        _ keyPath: String,
+    public func addProperty(
+        keyPath: String,
         type: ParserPropertyType,
         optional: Bool = false,
         decoder: Decoder?)

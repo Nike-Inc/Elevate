@@ -33,16 +33,16 @@ struct TestObjectDecoder: Decoder {
             static let subString = "subString"
         }
 
-        let properties = try Parser.parseProperties(json: object) { make in
-            make.propertyForKeyPath(KeyPath.subUInt, type: .uInt)
-            make.propertyForKeyPath(KeyPath.subInt, type: .int)
-            make.propertyForKeyPath(KeyPath.subString, type: .string)
+        let entity = try Parser.parseEntity(json: object) { schema in
+            schema.addProperty(keyPath: KeyPath.subUInt, type: .uInt)
+            schema.addProperty(keyPath: KeyPath.subInt, type: .int)
+            schema.addProperty(keyPath: KeyPath.subString, type: .string)
         }
 
         return TestObject(
-            subUInt: properties <-! KeyPath.subUInt,
-            subInt: properties <-! KeyPath.subInt,
-            subString: properties <-! KeyPath.subString
+            subUInt: entity <-! KeyPath.subUInt,
+            subInt: entity <-! KeyPath.subInt,
+            subString: entity <-! KeyPath.subString
         )
     }
 }

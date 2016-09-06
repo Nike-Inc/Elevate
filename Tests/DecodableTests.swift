@@ -36,7 +36,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let testObject: TestObject = try Parser.parseObject(data: data, forKeyPath: "sub-object")
+            let testObject: TestObject = try Parser.parseObject(atKeyPath: "sub-object", from: data)
 
             // Then
             XCTAssertEqual(testObject.subUInt, UInt(1), "test object subUInt does not match expected value")
@@ -53,7 +53,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let result: [TestObject] = try Parser.parseArray(data: data, forKeyPath: "items")
+            let result: [TestObject] = try Parser.parseArray(atKeyPath: "items", from: data)
 
             // Then
             XCTAssertEqual(result[0].subInt, 0, "array item 0 subInt does not match expected value")
@@ -73,7 +73,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let result: String = try Parser.parseObject(data: data, forKeyPath: "key")
+            let result: String = try Parser.parseObject(atKeyPath: "key", from: data)
 
             // Then
             XCTAssertEqual(result, "981a383074461fcbf7b9c67e2cb7bd13502d664cad0b254b8f426cd77c62d83e")
@@ -88,7 +88,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let result: Int = try Parser.parseObject(data: data, forKeyPath: "key")
+            let result: Int = try Parser.parseObject(atKeyPath: "key", from: data)
 
             // Then
             XCTAssertEqual(result, 7)
@@ -103,7 +103,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let result: UInt = try Parser.parseObject(data: data, forKeyPath: "key")
+            let result: UInt = try Parser.parseObject(atKeyPath: "key", from: data)
 
             // Then
             XCTAssertEqual(result, 7)
@@ -118,7 +118,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let result: Float = try Parser.parseObject(data: data, forKeyPath: "key")
+            let result: Float = try Parser.parseObject(atKeyPath: "key", from: data)
 
             // Then
             XCTAssertEqual(result, 7.1)
@@ -133,7 +133,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let result: Double = try Parser.parseObject(data: data, forKeyPath: "key")
+            let result: Double = try Parser.parseObject(atKeyPath: "key", from: data)
 
             // Then
             XCTAssertEqual(result, 7.1)
@@ -148,7 +148,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let result: Bool = try Parser.parseObject(data: data, forKeyPath: "key")
+            let result: Bool = try Parser.parseObject(atKeyPath: "key", from: data)
 
             // Then
             XCTAssertTrue(result)
@@ -161,7 +161,7 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectThrowsForInvalidString() {
         // Given
-        let json = ["key": 0] as AnyObject
+        let json = ["key": 0] as Any
 
         // When
         do {
@@ -177,7 +177,7 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectThrowsForInvalidInt() {
         // Given
-        let json = ["key": "invalid"] as AnyObject
+        let json = ["key": "invalid"] as Any
 
         // When
         do {
@@ -193,7 +193,7 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectThrowsForInvalidUInt() {
         // Given
-        let json = ["key": "invaild"] as AnyObject
+        let json = ["key": "invaild"] as Any
 
         // When
         do {
@@ -209,7 +209,7 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectThrowsForInvalidFloat() {
         // Given
-        let json = ["key": "invalid"] as AnyObject
+        let json = ["key": "invalid"] as Any
 
         // When
         do {
@@ -225,7 +225,7 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectThrowsForInvalidDouble() {
         // Given
-        let json = ["key": "invalid"] as AnyObject
+        let json = ["key": "invalid"] as Any
 
         // When
         do {
@@ -241,7 +241,7 @@ class DecodableTestCase: BaseTestCase {
 
     func testThatParseObjectThrowsForInvalidBool() {
         // Given
-        let json = ["key": 0] as AnyObject
+        let json = ["key": 0] as Any
 
         // When
         do {
@@ -263,7 +263,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let _: TestObject = try Parser.parseObject(data: data, forKeyPath: "sub-object")
+            let _: TestObject = try Parser.parseObject(atKeyPath: "sub-object", from: data)
 
             XCTFail("Parser unexpectedly succeeded.")
         } catch let error as ParserError {
@@ -285,7 +285,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let _: TestObject = try Parser.parseObject(data: data, forKeyPath: "key_does_not_exist")
+            let _: TestObject = try Parser.parseObject(atKeyPath: "key_does_not_exist", from: data)
 
             XCTFail("Parser unexpectedly succeeded.")
         } catch let error as ParserError {
@@ -304,7 +304,7 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            let _: TestObject = try Parser.parseObject(data: data, forKeyPath: "testDictionary")
+            let _: TestObject = try Parser.parseObject(atKeyPath: "testDictionary", from: data)
 
             XCTFail("Parser unexpectedly succeeded.")
         } catch let error as ParserError {
@@ -328,8 +328,8 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("items", type: .array, decodedToType: InvalidDecodable.self)
+            _ = try Parser.parseProperties(from: data) { make in
+                make.property(forKeyPath: "items", type: .array, decodableType: InvalidDecodable.self)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -355,7 +355,7 @@ class DecodableTestCase: BaseTestCase {
 
     // MARK: Private Helper Methods
 
-    private func decodableErrorTest(type: Decodable.Type, value: AnyObject) {
+    private func decodableErrorTest(type: Decodable.Type, value: Any) {
         do {
             let _ = try type.init(json: value)
 

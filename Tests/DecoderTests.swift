@@ -33,11 +33,11 @@ class ValidDecoder: Decoder {
         self.toDictionary = toDictionary
     }
 
-    func decode(object: AnyObject) throws -> Any {
-        let result = try Parser.parseProperties(json: object) { make in
-            make.propertyForKeyPath("subUInt", type: .uInt)
-            make.propertyForKeyPath("subInt", type: .int)
-            make.propertyForKeyPath("subString", type: .string)
+    func decode(_ object: Any) throws -> Any {
+        let result = try Parser.parseProperties(from: object) { make in
+            make.property(forKeyPath: "subUInt", type: .uint)
+            make.property(forKeyPath: "subInt", type: .int)
+            make.property(forKeyPath: "subString", type: .string)
         }
 
         if toDictionary {
@@ -53,10 +53,10 @@ class ValidDecoder: Decoder {
 }
 
 class InvalidDecoder: Decoder {
-    func decode(object: AnyObject) throws -> Any {
-        return try Parser.parseProperties(json: object) { make in
-            make.propertyForKeyPath("subUInt", type: .string)
-            make.propertyForKeyPath("missingSubInt", type: .int)
+    func decode(_ object: Any) throws -> Any {
+        return try Parser.parseProperties(from: object) { make in
+            make.property(forKeyPath: "subUInt", type: .string)
+            make.property(forKeyPath: "missingSubInt", type: .int)
         }
     }
 }
@@ -72,11 +72,11 @@ class DecoderTestCase: BaseTestCase {
         let json = try! JSONSerialization.jsonObject(
             with: data,
             options: JSONSerialization.ReadingOptions(rawValue: 0)
-        ) as! [String: AnyObject]
+        ) as! [String: Any]
 
         // When
         do {
-            if let properties = try decoder.decode(object: json["sub-object"]!) as? [String: Any] {
+            if let properties = try decoder.decode(json["sub-object"]!) as? [String: Any] {
                 // Then
                 XCTAssertEqual(properties["subUInt"] as? UInt, UInt(1), "Parsed UInt value did not equal value from json file.")
                 XCTAssertEqual(properties["subInt"] as? Int, -1, "Parsed Int value did not equal value from json file.")
@@ -95,7 +95,7 @@ class DecoderTestCase: BaseTestCase {
 
         // When
         do {
-            let results: [TestObject] = try Parser.parseArray(data: data, forKeyPath: "items", with: ValidDecoder())
+            let results: [TestObject] = try Parser.parseArray(atKeyPath: "items", from: data, with: ValidDecoder())
 
             // Then
             XCTAssertEqual(results[0].subInt, 0)
@@ -113,7 +113,7 @@ class DecoderTestCase: BaseTestCase {
 
         do {
             // When
-            let testObject: TestObject = try Parser.parseObject(data: data, forKeyPath: "sub-object", with: decoder)
+            let testObject: TestObject = try Parser.parseObject(atKeyPath: "sub-object", from: data, with: decoder)
 
             // Then
             XCTAssertEqual(testObject.subUInt, UInt(1), "Parsed UInt value did not equal value from json file.")
@@ -130,8 +130,8 @@ class DecoderTestCase: BaseTestCase {
 
         do {
             // When
-            let _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("sub-object", type: .dictionary, decoder: InvalidDecoder())
+            let _ = try Parser.parseProperties(from: data) { make in
+                make.property(forKeyPath: "sub-object", type: .dictionary, decoder: InvalidDecoder())
             }
 
             XCTFail("ErroneousTestObjectParser unexpectedly succeeded")
@@ -154,8 +154,8 @@ class DecoderTestCase: BaseTestCase {
 
         // When
         do {
-            let _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("testString", type: .string, decoder: StringToIntDecoder())
+            let _ = try Parser.parseProperties(from: data) { make in
+                make.property(forKeyPath: "testString", type: .string, decoder: StringToIntDecoder())
             }
         } catch let error as ParserError {
             // Then
@@ -178,8 +178,8 @@ class DateDecoderTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("testDate", type: .string, decoder: decoder)
+            let properties = try Parser.parseProperties(from: data) { make in
+                make.property(forKeyPath: "testDate", type: .string, decoder: decoder)
             }
 
             // Then
@@ -187,7 +187,7 @@ class DateDecoderTestCase: BaseTestCase {
             dateFormatter.dateFormat = DateFormats.Format1
             let parsedDate = properties["testDate"] as! Date
             let testDate = dateFormatter.date(from: "2015-01-30 at 13:00")
-            XCTAssertEqual(parsedDate, testDate!, "Parsed NSDate did not equal value from json file.")
+            XCTAssertEqual(parsedDate, testDate!, "Parsed Date did not equal value from json file.")
         } catch {
             XCTFail("Parser unexpectedly returned an error")
         }
@@ -203,8 +203,8 @@ class DateDecoderTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("testDate", type: .string, decoder: decoder)
+            let properties = try Parser.parseProperties(from: data) { make in
+                make.property(forKeyPath: "testDate", type: .string, decoder: decoder)
             }
 
             // Then
@@ -212,7 +212,7 @@ class DateDecoderTestCase: BaseTestCase {
             expectedDateFormatter.dateFormat = DateFormats.Format1
             let parsedDate = properties["testDate"] as! Date
             let testDate = expectedDateFormatter.date(from: "2015-01-30 at 13:00")
-            XCTAssertEqual(parsedDate, testDate!, "Parsed NSDate did not equal value from json file.")
+            XCTAssertEqual(parsedDate, testDate!, "Parsed Date did not equal value from json file.")
         } catch {
             XCTFail("Parser unexpectedly returned an error")
         }
@@ -225,15 +225,15 @@ class DateDecoderTestCase: BaseTestCase {
 
         do {
             // When
-            _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("testDate", type: .string, decoder: decoder)
+            _ = try Parser.parseProperties(from: data) { make in
+                make.property(forKeyPath: "testDate", type: .string, decoder: decoder)
             }
 
             XCTFail("Parser unexpectedly succeeded")
         } catch let error as ParserError {
             // Then
             let actualValue = error.description
-            let expectedValue = "Parser Validation Error - DateParser string could not be parsed to NSDate with the given formatter."
+            let expectedValue = "Parser Validation Error - DateParser string could not be parsed to Date with the given formatter."
             XCTAssertEqual(actualValue, expectedValue, "DateParser error message did not match expected string")
         }  catch {
             XCTFail("Parser error was of incorrect type")
@@ -247,8 +247,8 @@ class DateDecoderTestCase: BaseTestCase {
 
         do {
             // When
-            _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("testInt", type: .int, decoder: decoder)
+            _ = try Parser.parseProperties(from: data) { make in
+                make.property(forKeyPath: "testInt", type: .int, decoder: decoder)
             }
 
             XCTFail("Parser unexpectedly succeeded")

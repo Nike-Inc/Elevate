@@ -27,7 +27,7 @@ import Foundation
 // MARK: Decodable Protocol Definition
 
 /**
-    The `Decodable` protocol declares an interface used to create an instance of an object from an `AnyObject` to be
+    The `Decodable` protocol declares an interface used to create an instance of an object from an `Any` to be
     parsed.
 */
 public protocol Decodable {
@@ -38,7 +38,7 @@ public protocol Decodable {
 
         - throws: A ParserError.Validation or ParserError.Deserialization if decoding fails.
     */
-    init(json: AnyObject) throws
+    init(json: Any) throws
 }
 
 // MARK: - Primative Decodables
@@ -56,8 +56,8 @@ extension String: Decodable {
 
         - throws: A ParserError.Validation error if decoding fails.
     */
-    public init(json: AnyObject) throws {
-        guard Parser.valueIsSpecifiedType(value: json, type: .string) else {
+    public init(json: Any) throws {
+        guard Parser.isValue(json, ofType: .string) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: String")
         }
 
@@ -73,8 +73,8 @@ extension Int: Decodable {
 
         - throws: A ParserError.Validation error if decoding fails.
     */
-    public init(json: AnyObject) throws {
-        guard Parser.valueIsSpecifiedType(value: json, type: .int) else {
+    public init(json: Any) throws {
+        guard Parser.isValue(json, ofType: .int) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: Int")
         }
 
@@ -90,8 +90,8 @@ extension UInt: Decodable {
 
         - throws: A ParserError.Validation error if decoding fails.
     */
-    public init(json: AnyObject) throws {
-        guard Parser.valueIsSpecifiedType(value: json, type: .uInt) else {
+    public init(json: Any) throws {
+        guard Parser.isValue(json, ofType: .uint) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: UInt")
         }
 
@@ -107,8 +107,8 @@ extension Float: Decodable {
 
         - throws: A ParserError.Validation error if decoding fails.
     */
-    public init(json: AnyObject) throws {
-        guard Parser.valueIsSpecifiedType(value: json, type: .float) else {
+    public init(json: Any) throws {
+        guard Parser.isValue(json, ofType: .float) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: Float")
         }
 
@@ -124,8 +124,8 @@ extension Double: Decodable {
 
         - throws: A ParserError.Validation error if decoding fails.
     */
-    public init(json: AnyObject) throws {
-        guard Parser.valueIsSpecifiedType(value: json, type: .double) else {
+    public init(json: Any) throws {
+        guard Parser.isValue(json, ofType: .double) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: Double")
         }
 
@@ -141,8 +141,8 @@ extension Bool: Decodable {
 
         - throws: A ParserError.Validation error if decoding fails.
     */
-    public init(json: AnyObject) throws {
-        guard Parser.valueIsSpecifiedType(value: json, type: .bool) else {
+    public init(json: Any) throws {
+        guard Parser.isValue(json, ofType: .bool) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: Bool")
         }
 

@@ -34,10 +34,10 @@ class PerformanceTestCase: BaseTestCase {
 
         let dataArray: [Any] = (0...1000).map { _ in json }
 
-        self.measure {
+        measure {
             // When
-            _ = try! Parser.parseProperties(json: dataArray) { make in
-                make.propertyForKeyPath("", type: .array, decodedToType: PerformanceDecodable.self)
+            let _: [String: Any] = try! Parser.parseProperties(from: dataArray) { make in
+                make.property(forKeyPath: "", type: .array, decodableType: PerformanceDecodable.self)
             }
         }
     }
@@ -48,21 +48,21 @@ class PerformanceTestCase: BaseTestCase {
 private class PerformanceDecodable: Decodable {
     static let dateDecoder = DateDecoder(dateFormatString: BaseTestCase.DateFormats.Format1)
 
-    required init(json: AnyObject) throws {
-        let _ = try Parser.parseProperties(json: json) { make in
-            make.propertyForKeyPath("testUInt", type: ParserPropertyType.uInt)
-            make.propertyForKeyPath("testInt", type: .int)
-            make.propertyForKeyPath("testString", type: .string)
-            make.propertyForKeyPath("testStringInt", type: .string, decoder: StringToIntDecoder())
-            make.propertyForKeyPath("testStringIntNegative", type: .string, decoder: StringToIntDecoder())
-            make.propertyForKeyPath("testFloat", type: .float)
-            make.propertyForKeyPath("testDouble", type: .double)
-            make.propertyForKeyPath("testNull", type: .string, optional: true)
-            make.propertyForKeyPath("testDictionary", type: .dictionary)
-            make.propertyForKeyPath("testDate", type: .string, decoder: PerformanceDecodable.dateDecoder)
-            make.propertyForKeyPath("testURL", type: .url)
-            make.propertyForKeyPath("sub-object", type: .dictionary, decoder: ValidDecoder())
-            make.propertyForKeyPath("arrayOfInts", type: .array, decodedToType: Int.self)
+    required init(json: Any) throws {
+        let _ = try Parser.parseProperties(from: json) { make in
+            make.property(forKeyPath: "testUInt", type: ParserPropertyType.uint)
+            make.property(forKeyPath: "testInt", type: .int)
+            make.property(forKeyPath: "testString", type: .string)
+            make.property(forKeyPath: "testStringInt", type: .string, decoder: StringToIntDecoder())
+            make.property(forKeyPath: "testStringIntNegative", type: .string, decoder: StringToIntDecoder())
+            make.property(forKeyPath: "testFloat", type: .float)
+            make.property(forKeyPath: "testDouble", type: .double)
+            make.property(forKeyPath: "testNull", type: .string, optional: true)
+            make.property(forKeyPath: "testDictionary", type: .dictionary)
+            make.property(forKeyPath: "testDate", type: .string, decoder: PerformanceDecodable.dateDecoder)
+            make.property(forKeyPath: "testURL", type: .url)
+            make.property(forKeyPath: "sub-object", type: .dictionary, decoder: ValidDecoder())
+            make.property(forKeyPath: "arrayOfInts", type: .array, decodableType: Int.self)
         }
     }
 }

@@ -40,15 +40,15 @@ struct TestObject {
 // MARK: -
 
 extension TestObject: Decodable {
-    init(json: AnyObject) throws {
+    init(json: Any) throws {
         let subUIntKeyPath = "subUInt"
         let subIntKeyPath = "subInt"
         let subStringKeyPath = "subString"
 
-        let properties = try Parser.parseProperties(json: json) { make in
-            make.propertyForKeyPath(subUIntKeyPath, type: .uInt)
-            make.propertyForKeyPath(subIntKeyPath, type: .int)
-            make.propertyForKeyPath(subStringKeyPath, type: .string)
+        let properties = try Parser.parseProperties(from: json) { make in
+            make.property(forKeyPath: subUIntKeyPath, type: .uint)
+            make.property(forKeyPath: subIntKeyPath, type: .int)
+            make.property(forKeyPath: subStringKeyPath, type: .string)
         }
 
         subUInt = properties <-! subUIntKeyPath
@@ -66,11 +66,11 @@ struct InvalidDecodable {
 // MARK: -
 
 extension InvalidDecodable: Decodable {
-    init(json: AnyObject) throws {
+    init(json: Any) throws {
         let invalidKeyPath = "invalid"
 
-        let properties = try Parser.parseProperties(json: json) { make in
-            make.propertyForKeyPath(invalidKeyPath, type: .string)
+        let properties = try Parser.parseProperties(from: json) { make in
+            make.property(forKeyPath: invalidKeyPath, type: .string)
         }
 
         invalid = properties[invalidKeyPath] as! String

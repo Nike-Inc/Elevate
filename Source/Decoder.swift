@@ -27,7 +27,7 @@ import Foundation
 // MARK: Decoder Protocol Definition
 
 /**
-    The `Decoder` protocol declares an interface used to parse an `AnyObject` to an `Any`, which is typically a model
+    The `Decoder` protocol declares an interface used to parse an `Any` to an `Any`, which is typically a model
     object.
 */
 public protocol Decoder {
@@ -39,7 +39,7 @@ public protocol Decoder {
         - throws:  A ParserError.Validation error if object decoding fails.
         - returns: The parsed object.
     */
-    func decode(object: AnyObject) throws -> Any
+    func decode(_ object: Any) throws -> Any
 }
 
 // MARK: - Supplied Decoders
@@ -64,7 +64,7 @@ public class StringToIntDecoder: Decoder {
         - throws:  A ParserError.Validation error if int decoding fails.
         - returns: The decoded `Int`.
     */
-    public func decode(object: AnyObject) throws -> Any {
+    public func decode(_ object: Any) throws -> Any {
         if let intString = object as? String, let intValue = Int(intString) {
             return intValue
         }
@@ -74,8 +74,8 @@ public class StringToIntDecoder: Decoder {
 }
 
 /**
-    The date decoder converts a `String` into an `NSDate` object using the provided date format string
-    or `NSDateFormatter`.
+    The date decoder converts a `String` into an `Date` object using the provided date format string
+    or `DateFormatter`.
 */
 public class DateDecoder: Decoder {
     private let dateFormatter: DateFormatter
@@ -104,14 +104,14 @@ public class DateDecoder: Decoder {
     }
 
     /**
-        Decodes the data parameter into an `NSDate`.
+        Decodes the data parameter into an `Date`.
 
         - parameter data: The string to parse. MUST be of type `String` or `NSString`.
 
         - throws: ParserError.Validation
         - returns: The parsed date.
     */
-    public func decode(object: AnyObject) throws -> Any {
+    public func decode(_ object: Any) throws -> Any {
         guard let string = object as? String else {
             let description = "DateParser object to parse was not a String."
             throw ParserError.validation(failureReason: description)
@@ -127,7 +127,7 @@ public class DateDecoder: Decoder {
             return date
         }
 
-        let description = "DateParser string could not be parsed to NSDate with the given formatter."
+        let description = "DateParser string could not be parsed to Date with the given formatter."
         throw ParserError.validation(failureReason: description)
     }
 }

@@ -26,17 +26,17 @@ import Elevate
 import Foundation
 
 struct TestObjectDecoder: Decoder {
-    func decode(object: AnyObject) throws -> Any {
+    func decode(_ object: Any) throws -> Any {
         struct KeyPath {
             static let subUInt = "subUInt"
             static let subInt = "subInt"
             static let subString = "subString"
         }
 
-        let properties = try Parser.parseProperties(json: object) { make in
-            make.propertyForKeyPath(KeyPath.subUInt, type: .uInt)
-            make.propertyForKeyPath(KeyPath.subInt, type: .int)
-            make.propertyForKeyPath(KeyPath.subString, type: .string)
+        let properties = try Parser.parseProperties(from: object) { make in
+            make.property(forKeyPath: KeyPath.subUInt, type: .uint)
+            make.property(forKeyPath: KeyPath.subInt, type: .int)
+            make.property(forKeyPath: KeyPath.subString, type: .string)
         }
 
         return TestObject(

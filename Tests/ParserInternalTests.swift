@@ -33,7 +33,7 @@ class ParserInternalTestCase: BaseTestCase {
         let value = ComplexType()
 
         // When
-        let isSpecifiedType = Parser.isJSON(value, ofType: .dictionary)
+        let isSpecifiedType = Parser.isValue(value, ofType: .dictionary)
 
         // Then
         XCTAssertFalse(isSpecifiedType, "Invalid value for specified type was returned as valid")

@@ -310,10 +310,10 @@ public class Parser {
 
     // MARK: Internal - Validation Methods
 
-    class func isJSON(_ json: Any, ofType type: ParserPropertyType) -> Bool {
+    class func isValue(_ value: Any, ofType type: ParserPropertyType) -> Bool {
         var isValid = false
 
-        switch json {
+        switch value {
         case let number as NSNumber:
             if number.isBool && type == .bool {
                 isValid = true
@@ -369,7 +369,7 @@ public class Parser {
         } else if property.optional == true && value is NSNull {
             return nil
         } else {
-            if !isJSON(value, ofType: property.type) {
+            if !isValue(value, ofType: property.type) {
                 errorDescription = "Value for key path [\(property.keyPath)] is of incorrect type"
             }
         }

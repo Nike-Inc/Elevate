@@ -216,7 +216,7 @@ public class Parser {
 
     // MARK: Internal - Validation Methods
 
-    class func valueIsSpecifiedType(value: Any, type: ParserPropertyType) -> Bool {
+    class func isValue(_ value: Any, ofType type: ParserPropertyType) -> Bool {
         var isValid = false
 
         switch value {
@@ -275,7 +275,7 @@ public class Parser {
         } else if property.optional == true && value is NSNull {
             return nil
         } else {
-            if !valueIsSpecifiedType(value: value, type: property.type) {
+            if !isValue(value, ofType: property.type) {
                 errorDescription = "Value for key path [\(property.keyPath)] is of incorrect type"
             }
         }

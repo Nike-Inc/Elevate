@@ -59,9 +59,9 @@ class ParserTestCase: BaseTestCase {
             XCTAssertEqual(properties["testDouble"] as? Double, 1.1111, "Parsed Double did not equal value from json file.")
             XCTAssertTrue(properties["testNull"] == nil, "Parsed value did not equal nil from json file.")
 
-            let jsonDictionary = properties["testDictionary"] as! [String: AnyObject]
+            let jsonDictionary = properties["testDictionary"] as! [String: Any]
 
-            XCTAssertEqual(jsonDictionary["key1"] as? String, "value1", "Parsed Dictionary<String, AnyObject> did not equal value from json file.")
+            XCTAssertEqual(jsonDictionary["key1"] as? String, "value1", "Parsed Dictionary<String, Any> did not equal value from json file.")
             XCTAssertTrue(properties["sub-object"] is TestObject, "Parsed sub object did not contain value of correct type")
 
             if let subObject = properties["sub-object"] as? TestObject {
@@ -201,7 +201,7 @@ class ParserTestCase: BaseTestCase {
         } catch let error as ParserError {
             // Then
             let actualValue = error.description
-            let expectedValue = "Parser Validation Error - JSON object was not of type: [String: AnyObject] or [AnyObject]"
+            let expectedValue = "Parser Validation Error - JSON object was not of type: [String: Any] or [Any]"
             XCTAssertEqual(actualValue, expectedValue, "Parser json type error value did not match")
         } catch {
             XCTFail("Parser error was of incorrect type")

@@ -35,7 +35,7 @@ public class Parser {
     /**
         Parses json data at the specified key path into an object of type `T`. `T` must implement the `Decodable` protocol.
 
-        - parameter data:    An NSData object containing encoded json data.
+        - parameter data:    A Data object containing encoded json data.
         - parameter keyPath: The json key path identifying the object to be parsed. Default is `""`.
 
         - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
@@ -67,7 +67,7 @@ public class Parser {
         Parses json data at the specified key path into an array of objects of type `T`. `T` must implement the
         `Decodable` protocol.
 
-        - parameter data:    An NSData object containing encoded json data.
+        - parameter data:    A Data object containing encoded json data.
         - parameter keyPath: The json key path identifying the object to be parsed. Default is `""`.
 
         - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
@@ -86,7 +86,7 @@ public class Parser {
     /**
         Parses json data at the specified key path into an object of type `T` using the passed in `Decoder` instance.
 
-        - parameter data:        An NSData object containing encoded json data.
+        - parameter data:        A Data object containing encoded json data.
         - parameter forKeyPath:  The json key path identifying the object to be parsed. Default is `""`.
         - parameter with:        The `Decoder` instance used to parse the data.
 
@@ -105,7 +105,7 @@ public class Parser {
         Parses json data at the specified key path into an array of objects of type `T` using the passed in `Decoder`
         instance.
 
-        - parameter data:    An NSData object containing encoded json data.
+        - parameter data:    A Data object containing encoded json data.
         - parameter keyPath: The json key path identifying the object to be parsed. Default is `""`.
         - parameter decoder: The `Decoder` instance used to parse the data.
 
@@ -125,7 +125,7 @@ public class Parser {
     /**
         Performs the work of validating and extracting values from the passed in Data, Dictionary or Array object. The 
         type of the object passed in must be Data, [String: Any] or [Any]. Values in the Dictionary must be
-        `NSJSONSerialization` compatible. If the json parameter is an Array, use an empty string for the property key path.
+        `JSONSerialization` compatible. If the json parameter is an Array, use an empty string for the property key path.
 
         Defining the property list to be parsed is achieved using a maker pattern via the `ParserPropertyMaker` object
         passed into the trailing closure. Inside the closure, for each property, call the `propertyForKeyPath` instance
@@ -144,7 +144,7 @@ public class Parser {
 
         See the README for code samples and best practices for creating re-usable `Decoder`s.
 
-        - parameter data:    A NSData object containing encoded json data.
+        - parameter data:    A Data object containing encoded json data.
         - parameter closure: Defines the property list for the parser via the passed in `ParserPropertyMaker` instance.
 
         - returns: The result Dictionary.

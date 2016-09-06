@@ -76,11 +76,11 @@ class ParserTestCase: BaseTestCase {
             dateFormatter.dateFormat = DateFormats.Format1
             let parsedDate = properties["testDate"] as! Date
             let testDate = dateFormatter.date(from: "2015-01-30 at 13:00")
-            XCTAssertTrue(parsedDate == testDate, "Parsed NSDate did not equal value from json file.")
+            XCTAssertTrue(parsedDate == testDate, "Parsed Date did not equal value from json file.")
 
             let expectedURL = URL(string: "http://apple.com")?.absoluteString ?? "default expected URL"
             let actualURL = (properties["testURL"] as? URL)?.absoluteString ?? "default actual URL"
-            XCTAssertEqual(actualURL, expectedURL, "Parsed NSURL did not equal value from json file.")
+            XCTAssertEqual(actualURL, expectedURL, "Parsed URL did not equal value from json file.")
         } catch {
             XCTFail("Parser should not fail with error: \(error)")
         }
@@ -660,23 +660,23 @@ class ParserJSONFragmentDataTestCase: BaseTestCase {
             var values = [Data]()
 
             var intValue: Int = 1000
-            let intData = NSData(bytes: &intValue, length: MemoryLayout<Int>.size)
+            let intData = Data(bytes: &intValue, count: MemoryLayout<Int>.size)
             values.append(intData as Data)
 
             var uIntValue: UInt = 1000
-            let uIntData = NSData(bytes: &uIntValue, length: MemoryLayout<UInt>.size)
+            let uIntData = Data(bytes: &uIntValue, count: MemoryLayout<UInt>.size)
             values.append(uIntData as Data)
 
             var doubleValue: Double = 123.456
-            let doubleData = NSData(bytes: &doubleValue, length: MemoryLayout<Double>.size)
+            let doubleData = Data(bytes: &doubleValue, count: MemoryLayout<Double>.size)
             values.append(doubleData as Data)
 
             var floatValue: Float = -987.345
-            let floatData = NSData(bytes: &floatValue, length: MemoryLayout<Float>.size)
+            let floatData = Data(bytes: &floatValue, count: MemoryLayout<Float>.size)
             values.append(floatData as Data)
 
             var boolValue = false
-            let boolData = NSData(bytes: &boolValue, length: MemoryLayout<Bool>.size)
+            let boolData = Data(bytes: &boolValue, count: MemoryLayout<Bool>.size)
             values.append(boolData as Data)
 
             let stringData = "Some random string".data(using: String.Encoding.utf8, allowLossyConversion: false)!

@@ -99,14 +99,14 @@ public protocol Decodable {
 }
 ```
 
-The `json: Any` will typically be a `[String: Any]` instance that was created from the `NSJSONSerialization` APIs. Use the Elevate `Parser.parseProperties` method to define the structure of the JSON data to be validated and perform the parsing.
+The `json: Any` will typically be a `[String: Any]` instance that was created from the `JSONSerialization` APIs. Use the Elevate `Parser.parseProperties` method to define the structure of the JSON data to be validated and perform the parsing.
 
 ```swift
 struct Person: Decodable {
 	let identifier: String
 	let name: String
 	let nickname: String?
-	let birthDate: NSDate
+	let birthDate: Date
 	let isMember: Bool?
 	let addresses: [Address]
 
@@ -144,7 +144,7 @@ Implementing the `Decodable` protocol in this way allows you to create fully int
 Some other things worth noting in this example:
 
 1. The `Decodable` protocol conformance was implemented as an extension on the struct. This allows the struct to keep its automatic memberwise initializer.
-2. Standard primitive types are supported as well as `NSURL`, `Array`, and `Dictionary` types. See `ParserPropertyType` definition for the full list.
+2. Standard primitive types are supported as well as `URL`, `Array`, and `Dictionary` types. See `ParserPropertyType` definition for the full list.
 3. Elevate facilitates passing a parsed property into a `Decoder` for further manipulation. See the `birthDate` property in the example above. The `DateDecoder` is a standard `Decoder` provided by Elevate to make date parsing hassle free.
 4. A `Decoder` or `Decodable` type can be provided to a property of type `.array` to parse each item in the array to that type. This also works with the `.dictionary` type to parse a nested JSON object.
 5. The parser guarantees that properties will be of the specified type, so it is safe to use the custom operators to automatically extract the `Any` value from the `properties` dictionary and cast it to the return type.

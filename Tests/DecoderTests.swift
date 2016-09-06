@@ -187,7 +187,7 @@ class DateDecoderTestCase: BaseTestCase {
             dateFormatter.dateFormat = DateFormats.Format1
             let parsedDate = properties["testDate"] as! Date
             let testDate = dateFormatter.date(from: "2015-01-30 at 13:00")
-            XCTAssertEqual(parsedDate, testDate!, "Parsed NSDate did not equal value from json file.")
+            XCTAssertEqual(parsedDate, testDate!, "Parsed Date did not equal value from json file.")
         } catch {
             XCTFail("Parser unexpectedly returned an error")
         }
@@ -212,7 +212,7 @@ class DateDecoderTestCase: BaseTestCase {
             expectedDateFormatter.dateFormat = DateFormats.Format1
             let parsedDate = properties["testDate"] as! Date
             let testDate = expectedDateFormatter.date(from: "2015-01-30 at 13:00")
-            XCTAssertEqual(parsedDate, testDate!, "Parsed NSDate did not equal value from json file.")
+            XCTAssertEqual(parsedDate, testDate!, "Parsed Date did not equal value from json file.")
         } catch {
             XCTFail("Parser unexpectedly returned an error")
         }
@@ -233,7 +233,7 @@ class DateDecoderTestCase: BaseTestCase {
         } catch let error as ParserError {
             // Then
             let actualValue = error.description
-            let expectedValue = "Parser Validation Error - DateParser string could not be parsed to NSDate with the given formatter."
+            let expectedValue = "Parser Validation Error - DateParser string could not be parsed to Date with the given formatter."
             XCTAssertEqual(actualValue, expectedValue, "DateParser error message did not match expected string")
         }  catch {
             XCTFail("Parser error was of incorrect type")

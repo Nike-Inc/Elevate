@@ -74,8 +74,8 @@ public class StringToIntDecoder: Decoder {
 }
 
 /**
-    The date decoder converts a `String` into an `NSDate` object using the provided date format string
-    or `NSDateFormatter`.
+    The date decoder converts a `String` into an `Date` object using the provided date format string
+    or `DateFormatter`.
 */
 public class DateDecoder: Decoder {
     private let dateFormatter: DateFormatter
@@ -95,7 +95,7 @@ public class DateDecoder: Decoder {
     /**
         Creates a date decoder with the given date formatter.
 
-        - parameter dateFormatter: A `NSDateFormatter` instance.
+        - parameter dateFormatter: A `DateFormatter` instance.
 
         - returns: The date decoder.
     */
@@ -104,7 +104,7 @@ public class DateDecoder: Decoder {
     }
 
     /**
-        Decodes the data parameter into an `NSDate`.
+        Decodes the data parameter into an `Date`.
 
         - parameter data: The string to parse. MUST be of type `String` or `NSString`.
 
@@ -127,7 +127,7 @@ public class DateDecoder: Decoder {
             return date
         }
 
-        let description = "DateParser string could not be parsed to NSDate with the given formatter."
+        let description = "DateParser string could not be parsed to Date with the given formatter."
         throw ParserError.validation(failureReason: description)
     }
 }

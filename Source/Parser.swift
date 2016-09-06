@@ -45,14 +45,14 @@ public class Parser {
 
         - returns: The result Dictionary.
     */
-    public class func parseProperties(data: Data, closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
+    public class func parseEntity(data: Data, closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
         let result: [String: Any]
         
         do {
             let options = JSONSerialization.ReadingOptions(rawValue: 0)
             let json = try JSONSerialization.jsonObject(with: data, options: options)
 
-            result = try parseProperties(json: json, closure: closure)
+            result = try parseEntity(json: json, closure: closure)
         } catch {
             if error is ParserError {
                 throw error
@@ -92,17 +92,17 @@ public class Parser {
 
         - returns: The result Dictionary.
     */
-    public class func parseProperties(json: Any, closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
+    public class func parseEntity(json: Any, closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
         if let json = json as? [String: Any] {
-            return try parsePropertiesForJSONDictionary(json, closure: closure)
+            return try parseEntityForJSONDictionary(json, closure: closure)
         } else if let json = json as? [Any] {
-            return try parsePropertiesForJSONArray(json, closure: closure)
+            return try parseEntityForJSONArray(json, closure: closure)
         } else {
             throw ParserError.validation(failureReason: "JSON object was not of type: [String: Any] or [Any]")
         }
     }
 
-    private class func parsePropertiesForJSONDictionary(_ dictionary: [String: Any], closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
+    private class func parseEntityForJSONDictionary(_ dictionary: [String: Any], closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
         var parsingErrorDescriptions = [String]()
         var parsed = [String: Any]()
         let propertyMaker = ParserPropertyMaker()
@@ -191,7 +191,7 @@ public class Parser {
         return parsed
     }
 
-    private class func parsePropertiesForJSONArray(_ array: [Any], closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
+    private class func parseEntityForJSONArray(_ array: [Any], closure: (ParserPropertyMaker) -> Void) throws -> [String: Any] {
         var parsed = [String: Any]()
         let propertyMaker = ParserPropertyMaker()
 

@@ -36,8 +36,8 @@ class PerformanceTestCase: BaseTestCase {
 
         self.measure {
             // When
-            _ = try! Parser.parseProperties(json: dataArray) { make in
-                make.propertyForKeyPath("", type: .array, decodedToType: PerformanceDecodable.self)
+            _ = try! Parser.parseEntity(json: dataArray) { schema in
+                schema.addProperty(keyPath: "", type: .array, decodableType: PerformanceDecodable.self)
             }
         }
     }
@@ -49,20 +49,20 @@ private class PerformanceDecodable: Decodable {
     static let dateDecoder = DateDecoder(dateFormatString: BaseTestCase.DateFormats.Format1)
 
     required init(json: Any) throws {
-        let _ = try Parser.parseProperties(json: json) { make in
-            make.propertyForKeyPath("testUInt", type: ParserPropertyType.uInt)
-            make.propertyForKeyPath("testInt", type: .int)
-            make.propertyForKeyPath("testString", type: .string)
-            make.propertyForKeyPath("testStringInt", type: .string, decoder: StringToIntDecoder())
-            make.propertyForKeyPath("testStringIntNegative", type: .string, decoder: StringToIntDecoder())
-            make.propertyForKeyPath("testFloat", type: .float)
-            make.propertyForKeyPath("testDouble", type: .double)
-            make.propertyForKeyPath("testNull", type: .string, optional: true)
-            make.propertyForKeyPath("testDictionary", type: .dictionary)
-            make.propertyForKeyPath("testDate", type: .string, decoder: PerformanceDecodable.dateDecoder)
-            make.propertyForKeyPath("testURL", type: .url)
-            make.propertyForKeyPath("sub-object", type: .dictionary, decoder: ValidDecoder())
-            make.propertyForKeyPath("arrayOfInts", type: .array, decodedToType: Int.self)
+        let _ = try Parser.parseEntity(json: json) { schema in
+            schema.addProperty(keyPath: "testUInt", type: ParserPropertyType.uInt)
+            schema.addProperty(keyPath: "testInt", type: .int)
+            schema.addProperty(keyPath: "testString", type: .string)
+            schema.addProperty(keyPath: "testStringInt", type: .string, decoder: StringToIntDecoder())
+            schema.addProperty(keyPath: "testStringIntNegative", type: .string, decoder: StringToIntDecoder())
+            schema.addProperty(keyPath: "testFloat", type: .float)
+            schema.addProperty(keyPath: "testDouble", type: .double)
+            schema.addProperty(keyPath: "testNull", type: .string, optional: true)
+            schema.addProperty(keyPath: "testDictionary", type: .dictionary)
+            schema.addProperty(keyPath: "testDate", type: .string, decoder: PerformanceDecodable.dateDecoder)
+            schema.addProperty(keyPath: "testURL", type: .url)
+            schema.addProperty(keyPath: "sub-object", type: .dictionary, decoder: ValidDecoder())
+            schema.addProperty(keyPath: "arrayOfInts", type: .array, decodableType: Int.self)
         }
     }
 }

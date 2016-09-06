@@ -34,10 +34,10 @@ class ValidDecoder: Decoder {
     }
 
     func decode(object: Any) throws -> Any {
-        let result = try Parser.parseProperties(json: object) { make in
-            make.propertyForKeyPath("subUInt", type: .uInt)
-            make.propertyForKeyPath("subInt", type: .int)
-            make.propertyForKeyPath("subString", type: .string)
+        let result = try Parser.parseEntity(json: object) { schema in
+            schema.addProperty(keyPath: "subUInt", type: .uInt)
+            schema.addProperty(keyPath: "subInt", type: .int)
+            schema.addProperty(keyPath: "subString", type: .string)
         }
 
         if toDictionary {
@@ -54,9 +54,9 @@ class ValidDecoder: Decoder {
 
 class InvalidDecoder: Decoder {
     func decode(object: Any) throws -> Any {
-        return try Parser.parseProperties(json: object) { make in
-            make.propertyForKeyPath("subUInt", type: .string)
-            make.propertyForKeyPath("missingSubInt", type: .int)
+        return try Parser.parseEntity(json: object) { schema in
+            schema.addProperty(keyPath: "subUInt", type: .string)
+            schema.addProperty(keyPath: "missingSubInt", type: .int)
         }
     }
 }
@@ -76,11 +76,11 @@ class DecoderTestCase: BaseTestCase {
 
         // When
         do {
-            if let properties = try decoder.decode(object: json["sub-object"]!) as? [String: Any] {
+            if let entity = try decoder.decode(object: json["sub-object"]!) as? [String: Any] {
                 // Then
-                XCTAssertEqual(properties["subUInt"] as? UInt, UInt(1), "Parsed UInt value did not equal value from json file.")
-                XCTAssertEqual(properties["subInt"] as? Int, -1, "Parsed Int value did not equal value from json file.")
-                XCTAssertEqual(properties["subString"] as? String, "sub test string", "Parsed String value did not equal value from json file.")
+                XCTAssertEqual(entity["subUInt"] as? UInt, UInt(1), "Parsed UInt value did not equal value from json file.")
+                XCTAssertEqual(entity["subInt"] as? Int, -1, "Parsed Int value did not equal value from json file.")
+                XCTAssertEqual(entity["subString"] as? String, "sub test string", "Parsed String value did not equal value from json file.")
             } else {
                 XCTFail("Parser did not return the expected type")
             }
@@ -130,8 +130,8 @@ class DecoderTestCase: BaseTestCase {
 
         do {
             // When
-            let _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("sub-object", type: .dictionary, decoder: InvalidDecoder())
+            let _ = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "sub-object", type: .dictionary, decoder: InvalidDecoder())
             }
 
             XCTFail("ErroneousTestObjectParser unexpectedly succeeded")
@@ -154,8 +154,8 @@ class DecoderTestCase: BaseTestCase {
 
         // When
         do {
-            let _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("testString", type: .string, decoder: StringToIntDecoder())
+            let _ = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "testString", type: .string, decoder: StringToIntDecoder())
             }
         } catch let error as ParserError {
             // Then
@@ -178,14 +178,14 @@ class DateDecoderTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("testDate", type: .string, decoder: decoder)
+            let entity = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "testDate", type: .string, decoder: decoder)
             }
 
             // Then
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = DateFormats.Format1
-            let parsedDate = properties["testDate"] as! Date
+            let parsedDate = entity["testDate"] as! Date
             let testDate = dateFormatter.date(from: "2015-01-30 at 13:00")
             XCTAssertEqual(parsedDate, testDate!, "Parsed Date did not equal value from json file.")
         } catch {
@@ -203,14 +203,14 @@ class DateDecoderTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("testDate", type: .string, decoder: decoder)
+            let entity = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "testDate", type: .string, decoder: decoder)
             }
 
             // Then
             let expectedDateFormatter = DateFormatter()
             expectedDateFormatter.dateFormat = DateFormats.Format1
-            let parsedDate = properties["testDate"] as! Date
+            let parsedDate = entity["testDate"] as! Date
             let testDate = expectedDateFormatter.date(from: "2015-01-30 at 13:00")
             XCTAssertEqual(parsedDate, testDate!, "Parsed Date did not equal value from json file.")
         } catch {
@@ -225,8 +225,8 @@ class DateDecoderTestCase: BaseTestCase {
 
         do {
             // When
-            _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("testDate", type: .string, decoder: decoder)
+            _ = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "testDate", type: .string, decoder: decoder)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -247,8 +247,8 @@ class DateDecoderTestCase: BaseTestCase {
 
         do {
             // When
-            _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("testInt", type: .int, decoder: decoder)
+            _ = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "testInt", type: .int, decoder: decoder)
             }
 
             XCTFail("Parser unexpectedly succeeded")

@@ -328,8 +328,8 @@ class DecodableTestCase: BaseTestCase {
 
         // When
         do {
-            _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("items", type: .array, decodedToType: InvalidDecodable.self)
+            _ = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "items", type: .array, decodableType: InvalidDecodable.self)
             }
 
             XCTFail("Parser unexpectedly succeeded")

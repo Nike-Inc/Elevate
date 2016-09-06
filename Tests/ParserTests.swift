@@ -316,7 +316,7 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let results: [TestObject] = try Parser.parseArray(from: data, withKeyPath: "", decoder: ValidDecoder())
+            let results: [TestObject] = try Parser.parseArray(atKeyPath: "", from: data, with: ValidDecoder())
 
             // Then
             XCTAssertEqual(results[0].subInt, 0)
@@ -552,7 +552,7 @@ class ParserParseObjectTestCase: BaseTestCase {
             let data = loadJSONDataForFileNamed("PropertyTypesTest")
 
             // When
-            let testObject: TestObject = try Parser.parseObject(from: data, withKeyPath: "sub-object")
+            let testObject: TestObject = try Parser.parseObject(atKeyPath: "sub-object", from: data)
 
             // Then
             XCTAssertEqual(testObject.subUInt, UInt(1))
@@ -570,9 +570,9 @@ class ParserParseObjectTestCase: BaseTestCase {
 
             // When
             let testObject: TestObject = try Parser.parseObject(
+                atKeyPath: "sub-object",
                 from: data,
-                withKeyPath: "sub-object",
-                decoder: TestObjectDecoder()
+                with: TestObjectDecoder()
             )
 
             // Then
@@ -594,7 +594,7 @@ class ParserParseArrayTestCaseCase: BaseTestCase {
             let data = loadJSONDataForFileNamed("ArrayTest")
 
             // When
-            let testObjects: [TestObject] = try Parser.parseArray(from: data, withKeyPath: "items")
+            let testObjects: [TestObject] = try Parser.parseArray(atKeyPath: "items", from: data)
 
             // Then
             XCTAssertEqual(testObjects.count, 3)
@@ -624,9 +624,9 @@ class ParserParseArrayTestCaseCase: BaseTestCase {
 
             // When
             let testObjects: [TestObject] = try Parser.parseArray(
+                atKeyPath: "items",
                 from: data,
-                withKeyPath: "items",
-                decoder: TestObjectDecoder()
+                with: TestObjectDecoder()
             )
 
             // Then

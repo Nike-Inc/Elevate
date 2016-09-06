@@ -95,7 +95,7 @@ class DecoderTestCase: BaseTestCase {
 
         // When
         do {
-            let results: [TestObject] = try Parser.parseArray(from: data, withKeyPath: "items", decoder: ValidDecoder())
+            let results: [TestObject] = try Parser.parseArray(atKeyPath: "items", from: data, with: ValidDecoder())
 
             // Then
             XCTAssertEqual(results[0].subInt, 0)
@@ -113,7 +113,7 @@ class DecoderTestCase: BaseTestCase {
 
         do {
             // When
-            let testObject: TestObject = try Parser.parseObject(from: data, withKeyPath: "sub-object", decoder: decoder)
+            let testObject: TestObject = try Parser.parseObject(atKeyPath: "sub-object", from: data, with: decoder)
 
             // Then
             XCTAssertEqual(testObject.subUInt, UInt(1), "Parsed UInt value did not equal value from json file.")

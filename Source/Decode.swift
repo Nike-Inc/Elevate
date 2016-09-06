@@ -37,25 +37,25 @@ import Foundation
  - returns: The parsed object.
  */
 public func decodeObject<T: Decodable>(from data: Data, atKeyPath keyPath: String = "") throws -> T {
-    let properties = try Parser.parseProperties(data: data) { make in
+    let entity = try Parser.parseEntity(data: data) { schema in
         if T.self == String.self {
-            make.propertyForKeyPath(keyPath, type: .string)
+            schema.addProperty(keyPath: keyPath, type: .string)
         } else if T.self == Int.self {
-            make.propertyForKeyPath(keyPath, type: .int)
+            schema.addProperty(keyPath: keyPath, type: .int)
         } else if T.self == UInt.self {
-            make.propertyForKeyPath(keyPath, type: .uInt)
+            schema.addProperty(keyPath: keyPath, type: .uInt)
         } else if T.self == Float.self {
-            make.propertyForKeyPath(keyPath, type: .float)
+            schema.addProperty(keyPath: keyPath, type: .float)
         } else if T.self == Double.self {
-            make.propertyForKeyPath(keyPath, type: .double)
+            schema.addProperty(keyPath: keyPath, type: .double)
         } else if T.self == Bool.self {
-            make.propertyForKeyPath(keyPath, type: .bool)
+            schema.addProperty(keyPath: keyPath, type: .bool)
         } else {
-            make.propertyForKeyPath(keyPath, type: .dictionary, decodedToType: T.self)
+            schema.addProperty(keyPath: keyPath, type: .dictionary, decodableType: T.self)
         }
     }
 
-    return properties[keyPath] as! T
+    return entity[keyPath] as! T
 }
 
 /**
@@ -69,11 +69,11 @@ public func decodeObject<T: Decodable>(from data: Data, atKeyPath keyPath: Strin
  - returns: The parsed array of objects
  */
 public func decodeArray<T: Decodable>(from data: Data, atKeyPath keyPath: String = "") throws -> [T] {
-    let properties = try Parser.parseProperties(data: data) { make in
-        make.propertyForKeyPath(keyPath, type: .array, decodedToType: T.self)
+    let entity = try Parser.parseEntity(data: data) { schema in
+        schema.addProperty(keyPath: keyPath, type: .array, decodableType: T.self)
     }
 
-    return properties[keyPath] as! [T]
+    return entity[keyPath] as! [T]
 }
 
 // MARK: Decoder Parsing Methods
@@ -89,8 +89,8 @@ public func decodeArray<T: Decodable>(from data: Data, atKeyPath keyPath: String
  - returns: The parsed object.
  */
 public func decodeObject<T>(from data: Data, atKeyPath keyPath: String = "", with decoder: Decoder) throws -> T {
-    let result = try Parser.parseProperties(data: data) { make in
-        make.propertyForKeyPath(keyPath, type: .dictionary, decoder: decoder)
+    let result = try Parser.parseEntity(data: data) { schema in
+        schema.addProperty(keyPath: keyPath, type: .dictionary, decoder: decoder)
     }
 
     return result[keyPath] as! T
@@ -108,8 +108,8 @@ public func decodeObject<T>(from data: Data, atKeyPath keyPath: String = "", wit
  - returns: The parsed array of objects.
  */
 public func decodeArray<T>(from data: Data, atKeyPath keyPath: String = "", with decoder: Decoder) throws -> [T] {
-    let result = try Parser.parseProperties(data: data) { make in
-        make.propertyForKeyPath(keyPath, type: .array, decoder: decoder)
+    let result = try Parser.parseEntity(data: data) { schema in
+        schema.addProperty(keyPath: keyPath, type: .array, decoder: decoder)
     }
 
     return result[keyPath] as! [T]

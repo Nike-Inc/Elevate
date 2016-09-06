@@ -45,15 +45,15 @@ extension TestObject: Decodable {
         let subIntKeyPath = "subInt"
         let subStringKeyPath = "subString"
 
-        let properties = try Parser.parseProperties(json: json) { make in
-            make.propertyForKeyPath(subUIntKeyPath, type: .uInt)
-            make.propertyForKeyPath(subIntKeyPath, type: .int)
-            make.propertyForKeyPath(subStringKeyPath, type: .string)
+        let entity = try Parser.parseEntity(json: json) { schema in
+            schema.addProperty(keyPath: subUIntKeyPath, type: .uInt)
+            schema.addProperty(keyPath: subIntKeyPath, type: .int)
+            schema.addProperty(keyPath: subStringKeyPath, type: .string)
         }
 
-        subUInt = properties <-! subUIntKeyPath
-        subInt = properties <-! subIntKeyPath
-        subString = properties <-! subStringKeyPath
+        subUInt = entity <-! subUIntKeyPath
+        subInt = entity <-! subIntKeyPath
+        subString = entity <-! subStringKeyPath
     }
 }
 
@@ -69,10 +69,10 @@ extension InvalidDecodable: Decodable {
     init(json: Any) throws {
         let invalidKeyPath = "invalid"
 
-        let properties = try Parser.parseProperties(json: json) { make in
-            make.propertyForKeyPath(invalidKeyPath, type: .string)
+        let entity = try Parser.parseEntity(json: json) { schema in
+            schema.addProperty(keyPath: invalidKeyPath, type: .string)
         }
 
-        invalid = properties[invalidKeyPath] as! String
+        invalid = entity[invalidKeyPath] as! String
     }
 }

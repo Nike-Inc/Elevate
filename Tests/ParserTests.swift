@@ -34,37 +34,37 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("testUInt", type: ParserPropertyType.uInt)
-                make.propertyForKeyPath("testInt", type: .int)
-                make.propertyForKeyPath("testString", type: .string)
-                make.propertyForKeyPath("testStringInt", type: .string, decoder: StringToIntDecoder())
-                make.propertyForKeyPath("testStringIntNegative", type: .string, decoder: StringToIntDecoder())
-                make.propertyForKeyPath("testFloat", type: .float)
-                make.propertyForKeyPath("testDouble", type: .double)
-                make.propertyForKeyPath("testNull", type: .string, optional: true)
-                make.propertyForKeyPath("testDictionary", type: .dictionary)
-                make.propertyForKeyPath("testDate", type: .string, decoder: dateDecoder)
-                make.propertyForKeyPath("testURL", type: .url)
-                make.propertyForKeyPath("sub-object", type: .dictionary, decoder: ValidDecoder())
+            let entity = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "testUInt", type: ParserPropertyType.uInt)
+                schema.addProperty(keyPath: "testInt", type: .int)
+                schema.addProperty(keyPath: "testString", type: .string)
+                schema.addProperty(keyPath: "testStringInt", type: .string, decoder: StringToIntDecoder())
+                schema.addProperty(keyPath: "testStringIntNegative", type: .string, decoder: StringToIntDecoder())
+                schema.addProperty(keyPath: "testFloat", type: .float)
+                schema.addProperty(keyPath: "testDouble", type: .double)
+                schema.addProperty(keyPath: "testNull", type: .string, optional: true)
+                schema.addProperty(keyPath: "testDictionary", type: .dictionary)
+                schema.addProperty(keyPath: "testDate", type: .string, decoder: dateDecoder)
+                schema.addProperty(keyPath: "testURL", type: .url)
+                schema.addProperty(keyPath: "sub-object", type: .dictionary, decoder: ValidDecoder())
             }
 
             // Then
-            XCTAssertEqual(properties["testUInt"] as? UInt, UInt(1), "Parsed UInt value did not equal value from json file.")
-            XCTAssertEqual(properties["testInt"] as? Int, -1, "Parsed Int value did not equal value from json file.")
-            XCTAssertEqual(properties["testString"] as? String, "test string", "Parsed String value did not equal value from json file.")
-            XCTAssertEqual(properties["testStringInt"] as? Int, 100, "Parsed StringToIntDecoder value did not equal value from json file.")
-            XCTAssertEqual(properties["testStringIntNegative"] as? Int, -100, "Parsed StringToIntDecoder value did not equal value from json file.")
-            XCTAssertEqual(properties["testFloat"] as? Float, Float(1.1111), "Parsed Float did not equal value from json file.")
-            XCTAssertEqual(properties["testDouble"] as? Double, 1.1111, "Parsed Double did not equal value from json file.")
-            XCTAssertTrue(properties["testNull"] == nil, "Parsed value did not equal nil from json file.")
+            XCTAssertEqual(entity["testUInt"] as? UInt, UInt(1), "Parsed UInt value did not equal value from json file.")
+            XCTAssertEqual(entity["testInt"] as? Int, -1, "Parsed Int value did not equal value from json file.")
+            XCTAssertEqual(entity["testString"] as? String, "test string", "Parsed String value did not equal value from json file.")
+            XCTAssertEqual(entity["testStringInt"] as? Int, 100, "Parsed StringToIntDecoder value did not equal value from json file.")
+            XCTAssertEqual(entity["testStringIntNegative"] as? Int, -100, "Parsed StringToIntDecoder value did not equal value from json file.")
+            XCTAssertEqual(entity["testFloat"] as? Float, Float(1.1111), "Parsed Float did not equal value from json file.")
+            XCTAssertEqual(entity["testDouble"] as? Double, 1.1111, "Parsed Double did not equal value from json file.")
+            XCTAssertTrue(entity["testNull"] == nil, "Parsed value did not equal nil from json file.")
 
-            let jsonDictionary = properties["testDictionary"] as! [String: Any]
+            let jsonDictionary = entity["testDictionary"] as! [String: Any]
 
             XCTAssertEqual(jsonDictionary["key1"] as? String, "value1", "Parsed Dictionary<String, Any> did not equal value from json file.")
-            XCTAssertTrue(properties["sub-object"] is TestObject, "Parsed sub object did not contain value of correct type")
+            XCTAssertTrue(entity["sub-object"] is TestObject, "Parsed sub object did not contain value of correct type")
 
-            if let subObject = properties["sub-object"] as? TestObject {
+            if let subObject = entity["sub-object"] as? TestObject {
                 XCTAssertEqual(subObject.subUInt, UInt(1), "Parsed sub object value did not equal value from json file.")
                 XCTAssertEqual(subObject.subInt, -1, "Parsed sub object value did not equal value from json file.")
                 XCTAssertEqual(subObject.subString, "sub test string", "Parsed sub object value did not equal value from json file.")
@@ -74,12 +74,12 @@ class ParserTestCase: BaseTestCase {
 
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = DateFormats.Format1
-            let parsedDate = properties["testDate"] as! Date
+            let parsedDate = entity["testDate"] as! Date
             let testDate = dateFormatter.date(from: "2015-01-30 at 13:00")
             XCTAssertTrue(parsedDate == testDate, "Parsed Date did not equal value from json file.")
 
             let expectedURL = URL(string: "http://apple.com")?.absoluteString ?? "default expected URL"
-            let actualURL = (properties["testURL"] as? URL)?.absoluteString ?? "default actual URL"
+            let actualURL = (entity["testURL"] as? URL)?.absoluteString ?? "default actual URL"
             XCTAssertEqual(actualURL, expectedURL, "Parsed URL did not equal value from json file.")
         } catch {
             XCTFail("Parser should not fail with error: \(error)")
@@ -92,11 +92,11 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("testOptional", type: .string, optional: true)
+            let entity = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "testOptional", type: .string, optional: true)
             }
 
-            XCTAssertTrue(properties.keys.count == 0, "Parser unexpectedly returned key for missing optional")
+            XCTAssertTrue(entity.keys.count == 0, "Parser unexpectedly returned key for missing optional")
         } catch {
             XCTFail("Parser threw when it should have allowed an optional to be null")
         }
@@ -108,12 +108,12 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("uint", type: .uInt)
-                make.propertyForKeyPath("int", type: .int)
-                make.propertyForKeyPath("string", type: .string)
-                make.propertyForKeyPath("float", type: .float)
-                make.propertyForKeyPath("double", type: .double)
+            let _ = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "uint", type: .uInt)
+                schema.addProperty(keyPath: "int", type: .int)
+                schema.addProperty(keyPath: "string", type: .string)
+                schema.addProperty(keyPath: "float", type: .float)
+                schema.addProperty(keyPath: "double", type: .double)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -140,12 +140,12 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("uint", type: .uInt)
-                make.propertyForKeyPath("int", type: .int)
-                make.propertyForKeyPath("string", type: .string)
-                make.propertyForKeyPath("float", type: .float)
-                make.propertyForKeyPath("double", type: .double)
+            let _ = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "uint", type: .uInt)
+                schema.addProperty(keyPath: "int", type: .int)
+                schema.addProperty(keyPath: "string", type: .string)
+                schema.addProperty(keyPath: "float", type: .float)
+                schema.addProperty(keyPath: "double", type: .double)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -172,8 +172,8 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("foo", type: .string)
+            _ = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "foo", type: .string)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -193,8 +193,8 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            _ = try Parser.parseProperties(json: badJSON) { make in
-                make.propertyForKeyPath("foo", type: .string)
+            _ = try Parser.parseEntity(json: badJSON) { schema in
+                schema.addProperty(keyPath: "foo", type: .string)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -214,8 +214,8 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("items", type: .array)
+            _ = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "items", type: .array)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -237,8 +237,8 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            _ = try Parser.parseProperties(json: json) { make in
-                make.propertyForKeyPath("invalidURL", type: .url)
+            _ = try Parser.parseEntity(json: json) { schema in
+                schema.addProperty(keyPath: "invalidURL", type: .url)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -258,8 +258,8 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("missingKeyPath", type: .string)
+            _ = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "missingKeyPath", type: .string)
             }
 
             XCTFail("Parser unexpectedly succeeded")
@@ -276,14 +276,14 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("keypath", type: .string)
-                make.propertyForKeyPath("two.level", type: .string)
-                make.propertyForKeyPath("multi.level.key.path", type: .string)
-                make.propertyForKeyPath("numb3r", type: .string)
-                make.propertyForKeyPath("speci@l", type: .string)
-                make.propertyForKeyPath("dashed-key-path", type: .string)
-                make.propertyForKeyPath("twoLevelNumb3r.speci@l", type: .string)
+            let _ = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "keypath", type: .string)
+                schema.addProperty(keyPath: "two.level", type: .string)
+                schema.addProperty(keyPath: "multi.level.key.path", type: .string)
+                schema.addProperty(keyPath: "numb3r", type: .string)
+                schema.addProperty(keyPath: "speci@l", type: .string)
+                schema.addProperty(keyPath: "dashed-key-path", type: .string)
+                schema.addProperty(keyPath: "twoLevelNumb3r.speci@l", type: .string)
             }
 
             // Then
@@ -299,8 +299,8 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let parsed = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("dots.key.path", type: .string)
+            let parsed = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "dots.key.path", type: .string)
             }
 
             // Then
@@ -333,19 +333,19 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("rootString", type: .string)
-                make.propertyForKeyPath("rootInt", type: .int)
-                make.propertyForKeyPath("items", type: .array, decoder: ValidDecoder(toDictionary: true))
+            let entity = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "rootString", type: .string)
+                schema.addProperty(keyPath: "rootInt", type: .int)
+                schema.addProperty(keyPath: "items", type: .array, decoder: ValidDecoder(toDictionary: true))
             }
 
             // Then
-            XCTAssertTrue(properties["rootString"] is String, "Parsed root string was of incorrect type.")
-            XCTAssertTrue(properties["rootInt"] is Int, "Parsed root int was of incorrect type.")
+            XCTAssertTrue(entity["rootString"] is String, "Parsed root string was of incorrect type.")
+            XCTAssertTrue(entity["rootInt"] is Int, "Parsed root int was of incorrect type.")
 
-            XCTAssertTrue((properties["items"] as! [Any]).count == 3, "Incorrect number of elements in testArrayParser()")
+            XCTAssertTrue((entity["items"] as! [Any]).count == 3, "Incorrect number of elements in testArrayParser()")
 
-            for (index, item) in (properties["items"] as! [Any]).enumerated() {
+            for (index, item) in (entity["items"] as! [Any]).enumerated() {
                 let dict = item as! [String: Any]
                 XCTAssertEqual(dict["subUInt"] as? UInt, UInt(index), "Array UInt object value was incorrect")
                 XCTAssertEqual(dict["subInt"] as? Int, index, "Array Int object value was incorrect")
@@ -362,12 +362,12 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("arrayOfStrings", type: .array, decodedToType: String.self)
+            let entity = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "arrayOfStrings", type: .array, decodableType: String.self)
             }
 
             // Then
-            let values = properties["arrayOfStrings"] as! [String]
+            let values = entity["arrayOfStrings"] as! [String]
             XCTAssertEqual(values[0], "array", "Array of Strings object was incorrect")
             XCTAssertEqual(values[1], "of", "Array of Strings object was incorrect")
             XCTAssertEqual(values[2], "strings", "Array of Strings object was incorrect")
@@ -383,12 +383,12 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("arrayOfInts", type: .array, decodedToType: Int.self)
+            let entity = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "arrayOfInts", type: .array, decodableType: Int.self)
             }
 
             // Then
-            let values = properties["arrayOfInts"] as! [Int]
+            let values = entity["arrayOfInts"] as! [Int]
             XCTAssertEqual(values[0], 0, "Array of Ints object was incorrect")
             XCTAssertEqual(values[1], 1, "Array of Ints object was incorrect")
             XCTAssertEqual(values[2], 2, "Array of Ints object was incorrect")
@@ -405,12 +405,12 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("arrayOfUInts", type: .array, decodedToType: UInt.self)
+            let entity = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "arrayOfUInts", type: .array, decodableType: UInt.self)
             }
 
             // Then
-            let values = properties["arrayOfUInts"] as! [UInt]
+            let values = entity["arrayOfUInts"] as! [UInt]
             XCTAssertEqual(values[0], 0, "Array of UInts object was incorrect")
             XCTAssertEqual(values[1], 1, "Array of UInts object was incorrect")
             XCTAssertEqual(values[2], 2, "Array of UInts object was incorrect")
@@ -425,12 +425,12 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("arrayOfDoubles", type: .array, decodedToType: Double.self)
+            let entity = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "arrayOfDoubles", type: .array, decodableType: Double.self)
             }
 
             // Then
-            let values = properties["arrayOfDoubles"] as! [Double]
+            let values = entity["arrayOfDoubles"] as! [Double]
             XCTAssertEqual(values[0], -1.1, "Array of Doubles object was incorrect")
             XCTAssertEqual(values[1], 0, "Array of Doubles object was incorrect")
             XCTAssertEqual(values[2], 1.1, "Array of Doubles object was incorrect")
@@ -446,12 +446,12 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("arrayOfFloats", type: .array, decodedToType: Float.self)
+            let entity = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "arrayOfFloats", type: .array, decodableType: Float.self)
             }
 
             // Then
-            let values = properties["arrayOfFloats"] as! [Float]
+            let values = entity["arrayOfFloats"] as! [Float]
             XCTAssertEqual(values[0], -1.1, "Array of Floats object was incorrect")
             XCTAssertEqual(values[1], 0, "Array of Floats object was incorrect")
             XCTAssertEqual(values[2], 1.1, "Array of Floats object was incorrect")
@@ -467,12 +467,12 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("arrayOfBools", type: .array, decodedToType: Bool.self)
+            let entity = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "arrayOfBools", type: .array, decodableType: Bool.self)
             }
 
             // Then
-            let values = properties["arrayOfBools"] as! [Bool]
+            let values = entity["arrayOfBools"] as! [Bool]
             XCTAssertEqual(values[0], true, "Array of Bools object was incorrect")
             XCTAssertEqual(values[1], true, "Array of Bools object was incorrect")
             XCTAssertEqual(values[2], false, "Array of Bools object was incorrect")
@@ -488,10 +488,10 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let _ = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("rootString", type: .string)
-                make.propertyForKeyPath("rootInt", type: .int)
-                make.propertyForKeyPath("items", type: .array, decoder: InvalidDecoder())
+            let _ = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "rootString", type: .string)
+                schema.addProperty(keyPath: "rootInt", type: .int)
+                schema.addProperty(keyPath: "items", type: .array, decoder: InvalidDecoder())
             }
 
             XCTFail("Array parser succeeded unexpectedly")
@@ -525,12 +525,12 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let properties = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("testURL", type: .url)
+            let entity = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "testURL", type: .url)
             }
 
             // Then
-            let actualURL = properties["testURL"] as? URL
+            let actualURL = entity["testURL"] as? URL
             let expectedURL = URL(string: "http://apple.com")
             if let actualURL = actualURL {
                 XCTAssertEqual(actualURL.absoluteString, expectedURL!.absoluteString, "Parsed URL did not equal value from json file.")
@@ -688,8 +688,8 @@ class ParserJSONFragmentDataTestCase: BaseTestCase {
         // When
         for dataValue in dataValues {
             do {
-                _ = try Parser.parseProperties(data: dataValue) { make in
-                    make.propertyForKeyPath("not_real_value", type: .int)
+                _ = try Parser.parseEntity(data: dataValue) { schema in
+                    schema.addProperty(keyPath: "not_real_value", type: .int)
                 }
 
                 XCTFail("Parser succeeded unexpectedly")
@@ -712,33 +712,33 @@ class ParserJSONNumericDataTestCase: BaseTestCase {
 
         // When
         do {
-            let parsed = try Parser.parseProperties(data: data) { make in
-                make.propertyForKeyPath("intMin", type: .int)
-                make.propertyForKeyPath("intMax", type: .int)
-                make.propertyForKeyPath("intMin32Bit", type: .int)
-                make.propertyForKeyPath("intMax32Bit", type: .int)
-                make.propertyForKeyPath("uintMin", type: .uInt)
-                make.propertyForKeyPath("uintMax", type: .uInt)
-                make.propertyForKeyPath("float", type: .float)
-                make.propertyForKeyPath("double", type: .double)
+            let parsed = try Parser.parseEntity(data: data) { schema in
+                schema.addProperty(keyPath: "intMin", type: .int)
+                schema.addProperty(keyPath: "intMax", type: .int)
+                schema.addProperty(keyPath: "intMin32Bit", type: .int)
+                schema.addProperty(keyPath: "intMax32Bit", type: .int)
+                schema.addProperty(keyPath: "uintMin", type: .uInt)
+                schema.addProperty(keyPath: "uintMax", type: .uInt)
+                schema.addProperty(keyPath: "float", type: .float)
+                schema.addProperty(keyPath: "double", type: .double)
 
-                make.propertyForKeyPath("boolFalse", type: .bool)
-                make.propertyForKeyPath("boolTrue", type: .bool)
+                schema.addProperty(keyPath: "boolFalse", type: .bool)
+                schema.addProperty(keyPath: "boolTrue", type: .bool)
 
-                make.propertyForKeyPath("intZero", type: .int)
-                make.propertyForKeyPath("uintZero", type: .uInt)
-                make.propertyForKeyPath("floatZero", type: .float)
-                make.propertyForKeyPath("doubleZero", type: .double)
+                schema.addProperty(keyPath: "intZero", type: .int)
+                schema.addProperty(keyPath: "uintZero", type: .uInt)
+                schema.addProperty(keyPath: "floatZero", type: .float)
+                schema.addProperty(keyPath: "doubleZero", type: .double)
 
-                make.propertyForKeyPath("intOne", type: .int)
-                make.propertyForKeyPath("uintOne", type: .uInt)
-                make.propertyForKeyPath("floatOne", type: .float)
-                make.propertyForKeyPath("doubleOne", type: .double)
+                schema.addProperty(keyPath: "intOne", type: .int)
+                schema.addProperty(keyPath: "uintOne", type: .uInt)
+                schema.addProperty(keyPath: "floatOne", type: .float)
+                schema.addProperty(keyPath: "doubleOne", type: .double)
 
-                make.propertyForKeyPath("intMinusOne", type: .int)
-                make.propertyForKeyPath("uintMinusOne", type: .uInt)
-                make.propertyForKeyPath("floatMinusOne", type: .float)
-                make.propertyForKeyPath("doubleMinusOne", type: .double)
+                schema.addProperty(keyPath: "intMinusOne", type: .int)
+                schema.addProperty(keyPath: "uintMinusOne", type: .uInt)
+                schema.addProperty(keyPath: "floatMinusOne", type: .float)
+                schema.addProperty(keyPath: "doubleMinusOne", type: .double)
             }
 
             // Then

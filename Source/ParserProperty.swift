@@ -54,13 +54,7 @@ public enum ParserPropertyType {
 */
 public struct ParserProperty {
 
-    /**
-        Indicates how a property value should be decoded.
-
-        - UseDecoder:   Should be decoded with the provided instance of a Decoder.
-        - UseDecodable: Should be decoded to an instance of the provided Decodable type.
-    */
-    public enum DecodingMethod {
+    enum DecodingMethod {
         case useDecoder(Decoder)
         case useDecodable(Decodable.Type)
     }
@@ -81,8 +75,8 @@ public struct ParserProperty {
 // MARK: -
 
 /**
-    The parser property maker is used to define the list of properties to be validated and extracted from a object.
-    If a property is not defined in the list it will be ignored.
+    Defines the list of properties to be validated and extracted from a object. If a property is not defined in the 
+    schema  but is present in the JSON data, it will be ignored.
 */
 public class Schema {
     var properties = [ParserProperty]()

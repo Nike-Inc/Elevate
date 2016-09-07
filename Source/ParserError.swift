@@ -24,12 +24,10 @@
 
 import Foundation
 
-/**
-    The error types that can be thrown in Elevate.
-
-    - Deserialization: An error that occurs from deserializing using `JSONSerialization`.
-    - Validation:      An error that occurs when one or more values fail validation.
-*/
+/// The error types that can be thrown in Elevate.
+///
+/// - Deserialization: An error that occurs from deserializing using `JSONSerialization`.
+/// - Validation:      An error that occurs when one or more values fail validation.
 public enum ParserError: Error, CustomStringConvertible, CustomDebugStringConvertible {
     case deserialization(failureReason: String)
     case validation(failureReason: String)

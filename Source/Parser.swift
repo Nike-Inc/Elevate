@@ -24,28 +24,24 @@
 
 import Foundation
 
-/**
-    The `Parser` validates and extracts values from json data by allowing you to define the type and optionality
-    for each property to be parsed. All parser errors encountered are aggregated when evaluating the data.
-*/
+/// The `Parser` validates and extracts values from json data by allowing you to define the type and optionality
+/// for each property to be parsed. All parser errors encountered are aggregated when evaluating the data.
 public class Parser {
 
     // MARK: Property Parsing Methods
 
-    /**
-        Performs the work of validating and extracting values from the passed in Data object. The Data object must
-        contain json that can be deserialized by `JSONSerialization.jsonObject`. Fragments are not allowed.
-
-        Returns resulting Dictionary object containing all property values matching the `Schema` as defined in the 
-        closure. The property keyPath is the key and the extracted object is the value. The value is guaranteed to be an 
-        object of the type defined by the property and can be cast to that type directly, without further checks. Custom 
-        extraction operators are provided for convenience.
-
-        - parameter data:    A Data object containing encoded json data.
-        - parameter closure: Defines the property list for the parser via the passed in `Schema` instance.
-
-        - returns: The parsed entity as a Dictionary.
-    */
+    /// Performs the work of validating and extracting values from the passed in Data object. The Data object must
+    /// contain json that can be deserialized by `JSONSerialization.jsonObject`. Fragments are not allowed.
+    ///
+    /// Returns resulting Dictionary object containing all property values matching the `Schema` as defined in the
+    /// closure. The property keyPath is the key and the extracted object is the value. The value is guaranteed to be an
+    /// object of the type defined by the property and can be cast to that type directly, without further checks. Custom
+    /// extraction operators are provided for convenience.
+    ///
+    /// - parameter data:    A Data object containing encoded json data.
+    /// - parameter closure: Defines the property list for the parser via the passed in `Schema` instance.
+    ///
+    /// - returns: The parsed entity as a Dictionary.
     public class func parseEntity(data: Data, closure: (Schema) -> Void) throws -> [String: Any] {
         let result: [String: Any]
 
@@ -64,33 +60,31 @@ public class Parser {
         return result
     }
 
-    /**
-        Performs the work of validating and extracting values from the passed in Dictionary or Array object. The type of 
-        the object passed in must be [String: Any] or [Any]. Values in the Dictionary must be `JSONSerialization` 
-        compatible. If the json parameter is an Array, use an empty string for the property key path.
-
-        Defining the property list to be parsed is achieved using a maker pattern via the `Schema` object passed into 
-        the trailing closure. Inside the closure, for each property, call the `addProperty` instance method.
-
-        The parser will evaluate each property using the following steps:
-
-        1) Extract the object for the given keyPath
-        2) Validate the value type and optionality
-        3) Extract the value in the specified type
-        4) Optionally, run the `Decoder` on the value or on each item in an array
-
-        The resulting Dictionary contains all property values matching the `Schema` as defined in the closure. The 
-        property keyPath is the key and the extracted object is the value. The value is guaranteed to be an object of 
-        the type defined by the property and can be cast to that type directly, without further checks. Custom
-        extraction operators are provided for convenience.
-
-        See the README for code samples and best practices for creating re-usable `Decoder`s.
-
-        - parameter json:    A Dictionary object containing json data.
-        - parameter closure: Defines the property list for the parser via the passed in `ParserPropertyMaker` instance.
-
-        - returns: The parsed entity as a Dictionary.
-    */
+    /// Performs the work of validating and extracting values from the passed in Dictionary or Array object. The type of
+    /// the object passed in must be [String: Any] or [Any]. Values in the Dictionary must be `JSONSerialization`
+    /// compatible. If the json parameter is an Array, use an empty string for the property key path.
+    ///
+    /// Defining the property list to be parsed is achieved using a maker pattern via the `Schema` object passed into
+    /// the trailing closure. Inside the closure, for each property, call the `addProperty` instance method.
+    ///
+    /// The parser will evaluate each property using the following steps:
+    ///
+    /// 1) Extract the object for the given keyPath
+    /// 2) Validate the value type and optionality
+    /// 3) Extract the value in the specified type
+    /// 4) Optionally, run the `Decoder` on the value or on each item in an array
+    ///
+    /// The resulting Dictionary contains all property values matching the `Schema` as defined in the closure. The
+    /// property keyPath is the key and the extracted object is the value. The value is guaranteed to be an object of
+    /// the type defined by the property and can be cast to that type directly, without further checks. Custom
+    /// extraction operators are provided for convenience.
+    ///
+    /// See the README for code samples and best practices for creating re-usable `Decoder`s.
+    ///
+    /// - parameter json:    A Dictionary object containing json data.
+    /// - parameter closure: Defines the property list for the parser via the passed in `ParserPropertyMaker` instance.
+    ///
+    /// - returns: The parsed entity as a Dictionary.
     public class func parseEntity(json: Any, closure: (Schema) -> Void) throws -> [String: Any] {
         if let json = json as? [String: Any] {
             return try parseEntity(fromJSON: json, closure: closure)

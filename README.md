@@ -84,10 +84,10 @@ Elevate aims to make JSON parsing and validation simple, yet robust. This is ach
 After you have made your model objects `Decodable` or implemented a `Decoder` for them, parsing with Elevate is as simple as:
 
 ```swift
-let avatar: Avatar = try Parser.parseObject(data: data, forKeyPath: "response.avatar")
+let avatar: Avatar = try Elevate.decodeObject(from: data, atKeyPath: "response.avatar")
 ```
 
-> Pass an empty string into `forKeyPath` if your object or array is at the root level. 
+> Pass an empty string into `atKeyPath` if your object or array is at the root level. 
 
 ### Creating Decodables
 
@@ -99,7 +99,7 @@ public protocol Decodable {
 }
 ```
 
-The `json: Any` will typically be a `[String: Any]` instance that was created from the `JSONSerialization` APIs. Use the Elevate `Parser.parseProperties` method to define the structure of the JSON data to be validated and perform the parsing.
+The `json: Any` will typically be a `[String: Any]` instance that was created from the `JSONSerialization` APIs. Use the Elevate `Parser.parseEntity` method to define the structure of the JSON data to be validated and perform the parsing.
 
 ```swift
 struct Person: Decodable {
@@ -120,21 +120,21 @@ struct Person: Decodable {
 
         let dateDecoder = DateDecoder(dateFormatString: "yyyy-MM-dd")
 
-        let properties = try Parser.parseProperties(json: json) { make in
-            make.propertyForKeyPath(idKeyPath, type: .Int)
-            make.propertyForKeyPath(nameKeyPath, type: .String)
-            make.propertyForKeyPath(nicknameKeyPath, type: .String, optional: true)
-            make.propertyForKeyPath(birthDateKeyPath, type: .String, decoder: dateDecoder)
-            make.propertyForKeyPath(isMemberKeyPath, type: .Bool, optional: true)
-            make.propertyForKeyPath(addressesKeyPath, type: .Array, decodedToType: Address.self)
+        let entity = try Parser.parseEntity(json: json) { schema in
+            schema.addProperty(keyPath: idKeyPath, type: .Int)
+            schema.addProperty(keyPath: nameKeyPath, type: .String)
+            schema.addProperty(keyPath: nicknameKeyPath, type: .String, optional: true)
+            schema.addProperty(keyPath: birthDateKeyPath, type: .String, decoder: dateDecoder)
+            schema.addProperty(keyPath: isMemberKeyPath, type: .Bool, optional: true)
+            schema.addProperty(keyPath: addressesKeyPath, type: .Array, decodedToType: Address.self)
         }
 
-        self.identifier = properties <-! idKeyPath
-        self.name = properties <-! nameKeyPath
-        self.nickname = properties <-? nicknameKeyPath
-        self.birthDate = properties <-! birthDateKeyPath
-        self.isMember = properties <-? isMemberKeyPath
-        self.addresses = properties <--! addressesKeyPath
+        self.identifier = entity <-! idKeyPath
+        self.name = entity <-! nameKeyPath
+        self.nickname = entity <-? nicknameKeyPath
+        self.birthDate = entity <-! birthDateKeyPath
+        self.isMember = entity <-? isMemberKeyPath
+        self.addresses = entity <--! addressesKeyPath
     }
 }
 ```
@@ -147,16 +147,16 @@ Some other things worth noting in this example:
 2. Standard primitive types are supported as well as `URL`, `Array`, and `Dictionary` types. See `ParserPropertyType` definition for the full list.
 3. Elevate facilitates passing a parsed property into a `Decoder` for further manipulation. See the `birthDate` property in the example above. The `DateDecoder` is a standard `Decoder` provided by Elevate to make date parsing hassle free.
 4. A `Decoder` or `Decodable` type can be provided to a property of type `.Array` to parse each item in the array to that type. This also works with the `.Dictionary` type to parse a nested JSON object.
-5. The parser guarantees that properties will be of the specified type, so it is safe to use the custom operators to automatically extract the `Any` value from the `properties` dictionary and cast it to the return type.
+5. The parser guarantees that properties will be of the specified type, so it is safe to use the custom operators to automatically extract the `Any` value from the `entity` dictionary and cast it to the return type.
 
 ### Property Extraction Operators
 
-Elevate contains four property extraction operators to make it easy to extract values out of the `properties` dictionary and cast the `Any` value to the appropriate type.
+Elevate contains four property extraction operators to make it easy to extract values out of the `entity` dictionary and cast the `Any` value to the appropriate type.
 
-* `<-!` - Extracts the value from the `properties` dictionary for the specified key. This operator should only be used on non-optional properties.
-* `<-?` - Extracts the optional value from the `properties` dictionary for the specified key. This operator should only be used on optional properties.
-* `<--!` - Extracts the array from the `properties` dictionary for the specified key as the specified array type. This operator should only be used on non-optional array properties.
-* `<--?` - Extracts the array from the `properties` dictionary for the specified key as the specified optional array type.
+* `<-!` - Extracts the value from the `entity` dictionary for the specified key. This operator should only be used on non-optional properties.
+* `<-?` - Extracts the optional value from the `entity` dictionary for the specified key. This operator should only be used on optional properties.
+* `<--!` - Extracts the array from the `entity` dictionary for the specified key as the specified array type. This operator should only be used on non-optional array properties.
+* `<--?` - Extracts the array from the `entity` dictionary for the specified key as the specified optional array type.
 
 ---
   
@@ -185,16 +185,16 @@ class AvatarDecoder: Decoder {
         let widthKeyPath = "width"
         let heightKeyPath = "height"
 
-        let properties = try Parser.parseProperties(json: json) { make in
-            make.propertyForKeyPath(urlKeyPath, type: .URL)
-            make.propertyForKeyPath(widthKeyPath, type: .Int)
-            make.propertyForKeyPath(heightKeyPath, type: .Int)
+        let entity = try Parser.parseEntity(json: json) { schema in
+            schema.addProperty(keyPath: urlKeyPath, type: .URL)
+            schema.addProperty(keyPath: widthKeyPath, type: .Int)
+            schema.addProperty(keyPath: heightKeyPath, type: .Int)
         }
 
         return Avatar(
-            URL: properties <-! urlKeyPath,
-            width: properties <-! widthKeyPath,
-            height: properties <-! heightKeyPath
+            URL: entity <-! urlKeyPath,
+            width: entity <-! widthKeyPath,
+            height: entity <-! heightKeyPath
         )
     }
 }
@@ -207,16 +207,16 @@ class AlternateAvatarDecoder: Decoder {
         let wKeyPath = "w"
         let hKeyPath = "h"
 
-        let properties = try Parser.parseProperties(json: json) { make in
-            make.propertyForKeyPath(locationKeyPath, type: .URL)
-            make.propertyForKeyPath(wKeyPath, type: .Int)
-            make.propertyForKeyPath(hKeyPath, type: .Int)
+        let entity = try Parser.parseEntity(json: json) { schema in
+            schema.addProperty(keyPath: locationKeyPath, type: .URL)
+            schema.addProperty(keyPath: wKeyPath, type: .Int)
+            schema.addProperty(keyPath: hKeyPath, type: .Int)
         }
 
         return Avatar(
-            URL: properties <-! locationKeyPath,
-            width: properties <-! wKeyPath,
-            height: properties <-! hKeyPath
+            URL: entity <-! locationKeyPath,
+            width: entity <-! wKeyPath,
+            height: entity <-! hKeyPath
         )
     }
 }
@@ -225,15 +225,15 @@ class AlternateAvatarDecoder: Decoder {
 Then to use the two different `Decoder` objects with the `Parser`:
 
 ```swift
-let avatar1: Avatar = try Parser.parseObject(
-    data: data1, 
-    forKeyPath: "response.avatar", 
+let avatar1: Avatar = try Elevate.decodeObject(
+    from: data1, 
+    atKeyPath: "response.avatar", 
     with: AvatarDecoder()
 )
 
-let avatar2: Avatar = try Parser.parseObject(
-    data: data2, 
-    forKeyPath: "alternative.response.avatar", 
+let avatar2: Avatar = try Elevate.decodeObject(
+    from: data2, 
+    atKeyPath: "alternative.response.avatar", 
     with: AlternateAvatarDecoder()
 )
 ```
@@ -260,8 +260,8 @@ And here is how it's used to parse a JSON date string:
 ```swift
 let dateDecoder = DateDecoder(dateFormatString: "yyyy-MM-dd 'at' HH:mm")
 
-let properties = try Parser.parseProperties(data: data) { make in
-    make.propertyForKeyPath("dateString", type: .String, decoder: dateDecoder)
+let entity = try Parser.parseEntity(data: data) { schema in
+    schema.addProperty(keyPath: "dateString", type: .String, decoder: dateDecoder)
 }
 ```
 

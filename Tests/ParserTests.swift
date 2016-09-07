@@ -299,12 +299,12 @@ class ParserTestCase: BaseTestCase {
 
         // When
         do {
-            let parsed = try Parser.parseEntity(data: data) { schema in
+            let entity = try Parser.parseEntity(data: data) { schema in
                 schema.addProperty(keyPath: "dots.key.path", type: .string)
             }
 
             // Then
-            XCTAssertEqual(parsed["dots.key.path"] as! String?, "value")
+            XCTAssertEqual(entity["dots.key.path"] as! String?, "value")
         } catch {
             XCTFail("Parser failed to parse dotted key path")
         }

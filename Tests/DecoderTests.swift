@@ -34,19 +34,19 @@ class ValidDecoder: Decoder {
     }
 
     func decode(_ object: Any) throws -> Any {
-        let result = try Parser.parseEntity(json: object) { schema in
+        let entity = try Parser.parseEntity(json: object) { schema in
             schema.addProperty(keyPath: "subUInt", type: .uint)
             schema.addProperty(keyPath: "subInt", type: .int)
             schema.addProperty(keyPath: "subString", type: .string)
         }
 
         if toDictionary {
-            return result
+            return entity
         } else {
             return TestObject(
-                subUInt: result["subUInt"] as! UInt,
-                subInt: result["subInt"] as! Int,
-                subString: result["subString"] as! String
+                subUInt: entity["subUInt"] as! UInt,
+                subInt: entity["subInt"] as! Int,
+                subString: entity["subString"] as! String
             )
         }
     }

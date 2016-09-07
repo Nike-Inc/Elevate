@@ -24,19 +24,17 @@
 
 import Foundation
 
-/**
-    Defines a Swift object type used to extract values from a JSON document.
-
-    - string:     Represents a Swift `String` type.
-    - uint:       Represents a Swift `UInt` type.
-    - int:        Represents a Swift `Int` type.
-    - float:      Represents a Swift `Float` type.
-    - double:     Represents a Swift `Double` type.
-    - bool:       Represents a Swift `Bool` type.
-    - array:      Represents a Swift `Array` type.
-    - dictionary: Represents a Swift `Dictionary` type.
-    - url:        Represents a Swift `URL` type.
-*/
+/// Defines a Swift object type used to extract values from a JSON document.
+///
+/// - string:     Represents a Swift `String` type.
+/// - uint:       Represents a Swift `UInt` type.
+/// - int:        Represents a Swift `Int` type.
+/// - float:      Represents a Swift `Float` type.
+/// - double:     Represents a Swift `Double` type.
+/// - bool:       Represents a Swift `Bool` type.
+/// - array:      Represents a Swift `Array` type.
+/// - dictionary: Represents a Swift `Dictionary` type.
+/// - url:        Represents a Swift `URL` type.
 public enum ParserPropertyType {
     case string
     case uint
@@ -49,9 +47,7 @@ public enum ParserPropertyType {
     case url
 }
 
-/**
-    Represents a parser property and all its internal characteristics.
-*/
+/// Represents a parser property and all its internal characteristics.
 public struct ParserProperty {
 
     enum DecodingMethod {
@@ -74,43 +70,37 @@ public struct ParserProperty {
 
 // MARK: -
 
-/**
-    Defines the list of properties to be validated and extracted from a object. If a property is not defined in the 
-    schema  but is present in the JSON data, it will be ignored.
-*/
+/// Defines the list of properties to be validated and extracted from a object. If a property is not defined in the
+/// schema but is present in the JSON data, it will be ignored.
 public class Schema {
     var properties = [ParserProperty]()
 
-    /**
-        Creates, adds and returns a property for the specified key path, type and optionality.
-
-        NOTE: Compound key paths may be used (e.g. `address.city`). Each property name in the key path MUST be
-        separated by a `.` character.
-
-        - parameter keyPath:  Key path for property.
-        - parameter type:     Swift object type to be validated and extracted.
-        - parameter optional: Specifies if the keyPath is optional. `false` by default.
-
-        - returns: The created parser property.
-    */
+    /// Creates, adds and returns a property for the specified key path, type and optionality.
+    ///
+    /// NOTE: Compound key paths may be used (e.g. `address.city`). Each property name in the key path MUST be
+    /// separated by a `.` character.
+    ///
+    /// - parameter keyPath:  Key path for property.
+    /// - parameter type:     Swift object type to be validated and extracted.
+    /// - parameter optional: Specifies if the keyPath is optional. `false` by default.
+    ///
+    /// - returns: The created parser property.
     @discardableResult
     public func addProperty(keyPath: String, type: ParserPropertyType, optional: Bool = false) -> ParserProperty {
         return addProperty(keyPath: keyPath, type: type, optional: optional, decodingMethod: nil)
     }
 
-    /**
-        Creates, adds and returns a property for the specified key path, type, optionality and decodable type.
-
-        NOTE: Compound key paths may be used (e.g. `address.city`). Each property name in the key path MUST be
-        separated by a `.` character.
-
-        - parameter keyPath:       Key path for property.
-        - parameter type:          Swift object type to be validated and extracted.
-        - parameter optional:      Specifies if the keyPath is optional. `false` by default.
-        - parameter decodedToType: The `Decodable` type associated to the property. `nil` by default.
-
-        - returns: The created parser property.
-    */
+    /// Creates, adds and returns a property for the specified key path, type, optionality and decodable type.
+    ///
+    /// NOTE: Compound key paths may be used (e.g. `address.city`). Each property name in the key path MUST be
+    /// separated by a `.` character.
+    ///
+    /// - parameter keyPath:       Key path for property.
+    /// - parameter type:          Swift object type to be validated and extracted.
+    /// - parameter optional:      Specifies if the keyPath is optional. `false` by default.
+    /// - parameter decodedToType: The `Decodable` type associated to the property. `nil` by default.
+    ///
+    /// - returns: The created parser property.
     @discardableResult
     public func addProperty(
         keyPath: String,
@@ -128,19 +118,17 @@ public class Schema {
         return addProperty(keyPath: keyPath, type: type, optional: optional, decodingMethod: decodingMethod)
     }
 
-    /**
-        Creates, adds and returns a property for the specified key path, type, optionality and decoder.
-
-        NOTE: Compound key paths may be used (e.g. `address.city`). Each property name in the key path MUST be
-        separated by a `.` character.
-
-        - parameter keyPath:  Key path for property.
-        - parameter type:     Swift object type to be validated and extracted.
-        - parameter optional: Specifies if the keyPath is optional. `false` by default.
-        - parameter decoder:  The `Decoder` associated to the property. `nil` by default.
-
-        - returns: The created parser property.
-    */
+    /// Creates, adds and returns a property for the specified key path, type, optionality and decoder.
+    ///
+    /// NOTE: Compound key paths may be used (e.g. `address.city`). Each property name in the key path MUST be
+    /// separated by a `.` character.
+    ///
+    /// - parameter keyPath:  Key path for property.
+    /// - parameter type:     Swift object type to be validated and extracted.
+    /// - parameter optional: Specifies if the keyPath is optional. `false` by default.
+    /// - parameter decoder:  The `Decoder` associated to the property. `nil` by default.
+    ///
+    /// - returns: The created parser property.
     @discardableResult
     public func addProperty(
         keyPath: String,

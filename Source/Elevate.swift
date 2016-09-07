@@ -1,5 +1,5 @@
 //
-//  Decodable.swift
+//  Elevate.swift
 //
 //  Copyright (c) 2015-2016 Nike, Inc. (https://www.nike.com)
 //
@@ -23,7 +23,6 @@
 //
 
 import Foundation
-
 
 // MARK: Decodable Parsing Methods
 

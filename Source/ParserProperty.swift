@@ -84,7 +84,7 @@ public struct ParserProperty {
     The parser property maker is used to define the list of properties to be validated and extracted from a object.
     If a property is not defined in the list it will be ignored.
 */
-public class ParserPropertyMaker {
+public class Schema {
     var properties = [ParserProperty]()
 
     /**

@@ -24,16 +24,16 @@
 
 import Foundation
 
-// MARK: Decodable Parsing Methods
+// MARK: Decodable Methods
 
 /**
- Parses json data at the specified key path into an object of type `T`. `T` must implement the `Decodable` protocol.
+ Decodes json data at the specified key path into an object of type `T`. `T` must implement the `Decodable` protocol.
 
- - parameter data:       A Data object containing encoded json data.
- - parameter forKeyPath: The json key path identifying the object to be parsed. Default is `""`.
+ - parameter from:      A Data object containing encoded json data.
+ - parameter atKeyPath: The json key path identifying the object to be decoded. Default is `""`.
 
  - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
- - returns: The parsed object.
+ - returns: The decoded object.
  */
 public func decodeObject<T: Decodable>(from data: Data, atKeyPath keyPath: String = "") throws -> T {
     let entity = try Parser.parseEntity(data: data) { schema in
@@ -58,14 +58,14 @@ public func decodeObject<T: Decodable>(from data: Data, atKeyPath keyPath: Strin
 }
 
 /**
- Parses json data at the specified key path into an array of objects of type `T`. `T` must implement the
+ Decodes json data at the specified key path into an array of objects of type `T`. `T` must implement the
  `Decodable` protocol.
 
- - parameter data:       A Data object containing encoded json data.
- - parameter forKeyPath: The json key path identifying the object to be parsed. Default is `""`.
+ - parameter from:      A Data object containing encoded json data.
+ - parameter atKeyPath: The json key path identifying the object to be decoded. Default is `""`.
 
  - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
- - returns: The parsed array of objects
+ - returns: The decoded array of objects
  */
 public func decodeArray<T: Decodable>(from data: Data, atKeyPath keyPath: String = "") throws -> [T] {
     let entity = try Parser.parseEntity(data: data) { schema in
@@ -75,17 +75,17 @@ public func decodeArray<T: Decodable>(from data: Data, atKeyPath keyPath: String
     return entity[keyPath] as! [T]
 }
 
-// MARK: Decoder Parsing Methods
+// MARK: Decoder Methods
 
 /**
- Parses json data at the specified key path into an object of type `T` using the passed in `Decoder` instance.
+ Decodes json data at the specified key path into an object of type `T` using the passed in `Decoder` instance.
 
- - parameter data:        A Data object containing encoded json data.
- - parameter forKeyPath:  The json key path identifying the object to be parsed. Default is `""`.
- - parameter with:        The `Decoder` instance used to parse the data.
+ - parameter from:      A Data object containing encoded json data.
+ - parameter atKeyPath: The json key path identifying the object to be decoded. Default is `""`.
+ - parameter with:      The `Decoder` instance used to decode the data.
 
  - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
- - returns: The parsed object.
+ - returns: The decoded object.
  */
 public func decodeObject<T>(from data: Data, atKeyPath keyPath: String = "", with decoder: Decoder) throws -> T {
     let result = try Parser.parseEntity(data: data) { schema in
@@ -96,15 +96,15 @@ public func decodeObject<T>(from data: Data, atKeyPath keyPath: String = "", wit
 }
 
 /**
- Parses json data at the specified key path into an array of objects of type `T` using the passed in `Decoder`
+ Decodes json data at the specified key path into an array of objects of type `T` using the passed in `Decoder`
  instance.
 
- - parameter data:        A Data object containing encoded json data.
- - parameter forKeyPath:  The json key path identifying the object to be parsed. Default is `""`.
- - parameter with:        The `Decoder` instance used to parse the data.
+ - parameter from:      A Data object containing encoded json data.
+ - parameter atKeyPath: The json key path identifying the object to be decoded. Default is `""`.
+ - parameter with:      The `Decoder` instance used to decode the data.
 
  - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
- - returns: The parsed array of objects.
+ - returns: The decoded array of objects.
  */
 public func decodeArray<T>(from data: Data, atKeyPath keyPath: String = "", with decoder: Decoder) throws -> [T] {
     let result = try Parser.parseEntity(data: data) { schema in

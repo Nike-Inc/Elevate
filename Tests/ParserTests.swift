@@ -35,7 +35,7 @@ class ParserTestCase: BaseTestCase {
         // When
         do {
             let entity = try Parser.parseEntity(data: data) { schema in
-                schema.addProperty(keyPath: "testUInt", type: ParserPropertyType.uint)
+                schema.addProperty(keyPath: "testUInt", type: SchemaPropertyProtocol.uint)
                 schema.addProperty(keyPath: "testInt", type: .int)
                 schema.addProperty(keyPath: "testString", type: .string)
                 schema.addProperty(keyPath: "testStringInt", type: .string, decoder: StringToIntDecoder())

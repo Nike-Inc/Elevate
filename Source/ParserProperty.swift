@@ -35,7 +35,7 @@ import Foundation
 /// - array:      Represents a Swift `Array` type.
 /// - dictionary: Represents a Swift `Dictionary` type.
 /// - url:        Represents a Swift `URL` type.
-public enum ParserPropertyType {
+public enum SchemaPropertyProtocol {
     case string
     case uint
     case int
@@ -47,20 +47,20 @@ public enum ParserPropertyType {
     case url
 }
 
-/// Represents a parser property and all its internal characteristics.
-public struct ParserProperty {
+/// Represents a schema property and all its internal characteristics.
+public struct SchemaProperty {
 
     enum DecodingMethod {
         case useDecoder(Decoder)
         case useDecodable(Decodable.Type)
     }
 
-    let type: ParserPropertyType
+    let type: SchemaPropertyProtocol
     let keyPath: String
     let optional: Bool
     let decodingMethod: DecodingMethod?
 
-    init(type: ParserPropertyType, keyPath: String, optional: Bool, decodingMethod: DecodingMethod?) {
+    init(type: SchemaPropertyProtocol, keyPath: String, optional: Bool, decodingMethod: DecodingMethod?) {
         self.type = type
         self.keyPath = keyPath
         self.optional = optional
@@ -73,7 +73,7 @@ public struct ParserProperty {
 /// Defines the list of properties to be validated and extracted from a object. If a property is not defined in the
 /// schema but is present in the JSON data, it will be ignored.
 public class Schema {
-    var properties = [ParserProperty]()
+    var properties = [SchemaProperty]()
 
     /// Creates, adds and returns a property for the specified key path, type and optionality.
     ///
@@ -84,9 +84,9 @@ public class Schema {
     /// - parameter type:     Swift object type to be validated and extracted.
     /// - parameter optional: Specifies if the keyPath is optional. `false` by default.
     ///
-    /// - returns: The created parser property.
+    /// - returns: The created schema property.
     @discardableResult
-    public func addProperty(keyPath: String, type: ParserPropertyType, optional: Bool = false) -> ParserProperty {
+    public func addProperty(keyPath: String, type: SchemaPropertyProtocol, optional: Bool = false) -> SchemaProperty {
         return addProperty(keyPath: keyPath, type: type, optional: optional, decodingMethod: nil)
     }
 
@@ -98,21 +98,21 @@ public class Schema {
     /// - parameter keyPath:       Key path for property.
     /// - parameter type:          Swift object type to be validated and extracted.
     /// - parameter optional:      Specifies if the keyPath is optional. `false` by default.
-    /// - parameter decodedToType: The `Decodable` type associated to the property. `nil` by default.
+    /// - parameter decodableType: The `Decodable` type associated to the property. `nil` by default.
     ///
     /// - returns: The created parser property.
     @discardableResult
     public func addProperty(
         keyPath: String,
-        type: ParserPropertyType,
+        type: SchemaPropertyProtocol,
         optional: Bool = false,
         decodableType: Decodable.Type?)
-        -> ParserProperty
+        -> SchemaProperty
     {
-        var decodingMethod: ParserProperty.DecodingMethod?
+        var decodingMethod: SchemaProperty.DecodingMethod?
 
         if let decodableType = decodableType {
-            decodingMethod = ParserProperty.DecodingMethod.useDecodable(decodableType)
+            decodingMethod = SchemaProperty.DecodingMethod.useDecodable(decodableType)
         }
 
         return addProperty(keyPath: keyPath, type: type, optional: optional, decodingMethod: decodingMethod)
@@ -132,15 +132,15 @@ public class Schema {
     @discardableResult
     public func addProperty(
         keyPath: String,
-        type: ParserPropertyType,
+        type: SchemaPropertyProtocol,
         optional: Bool = false,
         decoder: Decoder?)
-        -> ParserProperty
+        -> SchemaProperty
     {
-        var decodingMethod: ParserProperty.DecodingMethod?
+        var decodingMethod: SchemaProperty.DecodingMethod?
 
         if let decoder = decoder {
-            decodingMethod = ParserProperty.DecodingMethod.useDecoder(decoder)
+            decodingMethod = SchemaProperty.DecodingMethod.useDecoder(decoder)
         }
 
         return addProperty(keyPath: keyPath, type: type, optional: optional, decodingMethod: decodingMethod)
@@ -148,12 +148,12 @@ public class Schema {
 
     func addProperty(
         keyPath: String,
-        type: ParserPropertyType,
+        type: SchemaPropertyProtocol,
         optional: Bool,
-        decodingMethod: ParserProperty.DecodingMethod?)
-        -> ParserProperty
+        decodingMethod: SchemaProperty.DecodingMethod?)
+        -> SchemaProperty
     {
-        let property = ParserProperty(type: type, keyPath: keyPath, optional: optional, decodingMethod: decodingMethod)
+        let property = SchemaProperty(type: type, keyPath: keyPath, optional: optional, decodingMethod: decodingMethod)
         self.properties.append(property)
 
         return property

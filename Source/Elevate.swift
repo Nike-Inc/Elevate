@@ -28,8 +28,8 @@ import Foundation
 
 /// Decodes json data at the specified key path into an object of type `T`. `T` must implement the `Decodable` protocol.
 ///
-/// - parameter from:      A Data object containing encoded json data.
-/// - parameter atKeyPath: The json key path identifying the object to be decoded. Default is `""`.
+/// - parameter data:       A Data object containing encoded json data.
+/// - parameter keyPath:    The json key path identifying the object to be decoded. Default is `""`.
 ///
 /// - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
 /// - returns: The decoded object.
@@ -58,8 +58,8 @@ public func decodeObject<T: Decodable>(from data: Data, atKeyPath keyPath: Strin
 /// Decodes json data at the specified key path into an array of objects of type `T`. `T` must implement the
 /// `Decodable` protocol.
 ///
-/// - parameter from:      A Data object containing encoded json data.
-/// - parameter atKeyPath: The json key path identifying the object to be decoded. Default is `""`.
+/// - parameter data:       A Data object containing encoded json data.
+/// - parameter keyPath:    The json key path identifying the object to be decoded. Default is `""`.
 ///
 /// - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
 /// - returns: The decoded array of objects
@@ -75,9 +75,9 @@ public func decodeArray<T: Decodable>(from data: Data, atKeyPath keyPath: String
 
 /// Decodes json data at the specified key path into an object of type `T` using the passed in `Decoder` instance.
 ///
-/// - parameter from:      A Data object containing encoded json data.
-/// - parameter atKeyPath: The json key path identifying the object to be decoded. Default is `""`.
-/// - parameter with:      The `Decoder` instance used to decode the data.
+/// - parameter data:       A Data object containing encoded json data.
+/// - parameter keyPath:    The json key path identifying the object to be decoded. Default is `""`.
+/// - parameter decoder:    The `Decoder` instance used to decode the data.
 ///
 /// - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
 /// - returns: The decoded object.
@@ -92,9 +92,9 @@ public func decodeObject<T>(from data: Data, atKeyPath keyPath: String = "", wit
 /// Decodes json data at the specified key path into an array of objects of type `T` using the passed in `Decoder`
 /// instance.
 ///
-/// - parameter from:      A Data object containing encoded json data.
-/// - parameter atKeyPath: The json key path identifying the object to be decoded. Default is `""`.
-/// - parameter with:      The `Decoder` instance used to decode the data.
+/// - parameter data:       A Data object containing encoded json data.
+/// - parameter keyPath:    The json key path identifying the object to be decoded. Default is `""`.
+/// - parameter decoder:    The `Decoder` instance used to decode the data.
 ///
 /// - throws:  A ParserError.Deserialization and ParserError.Validation error if parsing fails.
 /// - returns: The decoded array of objects.

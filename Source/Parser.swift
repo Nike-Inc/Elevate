@@ -209,7 +209,7 @@ public class Parser {
 
     // MARK: Internal - Validation Methods
 
-    class func isValue(_ value: Any, ofType type: ParserPropertyType) -> Bool {
+    class func isValue(_ value: Any, ofType type: SchemaPropertyProtocol) -> Bool {
         var isValid = false
 
         switch value {
@@ -260,7 +260,7 @@ public class Parser {
         return json ?? NSNull()
     }
 
-    private class func validateValue(_ value: Any, forProperty property: ParserProperty) -> String?  {
+    private class func validateValue(_ value: Any, forProperty property: SchemaProperty) -> String?  {
         var errorDescription: String? = nil
 
         if property.optional == false && value is NSNull {
@@ -276,7 +276,7 @@ public class Parser {
         return errorDescription
     }
 
-    private class func parseArray(data: Any, decodingMethod: ParserProperty.DecodingMethod) throws -> [Any] {
+    private class func parseArray(data: Any, decodingMethod: SchemaProperty.DecodingMethod) throws -> [Any] {
         var parsed = [Any]()
         var parsingErrorDescriptions = [String]()
 

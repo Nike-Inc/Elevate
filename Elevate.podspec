@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Elevate'
-  s.version = '1.0.0'
+  s.version = '1.1.0'
   s.summary = 'Elevate is a JSON parsing framework that leverages Swift to make parsing simple, reliable and composable.'
   s.homepage = 'https://github.com/Nike-Inc/Elevate'
   s.license = 'MIT'
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.source_files = 'Source/*.swift'
 
   s.ios.deployment_target = '8.0'
-  s.osx.deployment_target = '10.10'
+  s.osx.deployment_target = '10.11'
   s.tvos.deployment_target = '9.0'
   s.watchos.deployment_target = '2.0'
 end

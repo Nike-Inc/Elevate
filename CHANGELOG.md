@@ -3,10 +3,44 @@
 All notable changes to this project will be documented in this file.
 `Elevate` adheres to [Semantic Versioning](http://semver.org/).
 
+#### 2.x Releases
+
+* `2.0.x` Releases = [2.0.0](#200)
+
 #### 1.x Releases
 
 * `1.1.x` Releases = [1.1.0](#110)
 * `1.0.x` Releases - [1.0.0](#100)
+
+---
+
+## [2.0.0](https://github.com/Nike-Inc/Elevate/releases/tag/2.0.0)
+
+Released on 2016-09-07
+
+#### Added
+
+- An Elevate 2.0 Migration Guide detailing all breaking changes between 1.x and 2.0.
+  - Added by [Eric Appel](https://github.com/ericappel)
+
+#### Updated
+
+- All source, test and example logic and project settings to compile against Swift 3.0.
+  - Updated by [Eric Appel](https://github.com/ericappel)
+- All protocols and implementations to use `Any` instead of `AnyObject` to match `JSONSerialization` API.
+  - Updated by [Eric Appel](https://github.com/ericappel) and [Christian Noon](https://github.com/cnoon)
+- The `Parser.parseObject` API to be `Elevate.decodeObject` to add clarity for intended usage.
+  - Updated by [Eric Appel](https://github.com/ericappel) and [Christian Noon](https://github.com/cnoon)
+- The `Parser.parseArray` API to be `Elevate.decodeArray` to add clarity for intended usage.
+  - Updated by [Eric Appel](https://github.com/ericappel) and [Christian Noon](https://github.com/cnoon)
+- The 'Parser.parseProperties' API to be 'Parser.parseEntity' to add clarity for intended usage.
+  - Updated by [Eric Appel](https://github.com/ericappel) and [Christian Noon](https://github.com/cnoon)
+- The `ParserPropertyMaker` and `ParserProperty` APIs to be `Schema` and `SchemaProperty` to add clarity for intended usage.
+  - Updated by [Eric Appel](https://github.com/ericappel) and [Christian Noon](https://github.com/cnoon)
+- The 'propertyForKeyPath' API to be 'addProperty' to add clarity for intended usage.
+  - Updated by [Eric Appel](https://github.com/ericappel) and [Christian Noon](https://github.com/cnoon)
+- The `ParserPropertyType` enum to be `SchemaPropertyProtocol` to adhere to Swift API Design Guidelines.
+  - Updated by [Eric Appel](https://github.com/ericappel) and [Christian Noon](https://github.com/cnoon)
 
 ---
 

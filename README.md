@@ -44,10 +44,10 @@ To integrate Elevate into your Xcode project using CocoaPods, specify it in your
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '9.0'
+platform :ios, '10.0'
 use_frameworks!
 
-pod 'Elevate', :git => 'https://github.com/Nike-Inc/Elevate.git', :branch => 'swift3'
+pod 'Elevate', '~> 2.0'
 ```
 
 ### Carthage
@@ -64,7 +64,7 @@ brew install carthage
 To integrate Elevate into your Xcode project using Carthage, specify it in your [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile):
 
 ```bash
-github "Nike-Inc/Elevate" "swift3"
+github "Nike-Inc/Elevate" ~> 2.0
 ```
 
 To build Elevate on iOS only, use the following Carthage command:

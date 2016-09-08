@@ -50,7 +50,7 @@ private class PerformanceDecodable: Decodable {
 
     required init(json: Any) throws {
         let _ = try Parser.parseEntity(json: json) { schema in
-            schema.addProperty(keyPath: "testUInt", type: ParserPropertyType.uint)
+            schema.addProperty(keyPath: "testUInt", type: SchemaPropertyProtocol.uint)
             schema.addProperty(keyPath: "testInt", type: .int)
             schema.addProperty(keyPath: "testString", type: .string)
             schema.addProperty(keyPath: "testStringInt", type: .string, decoder: StringToIntDecoder())

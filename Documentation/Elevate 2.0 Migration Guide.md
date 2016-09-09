@@ -6,7 +6,7 @@ This guide is provided in order to ease the transition of existing applications 
 
 ## Requirements
 
-Elevate 2.0 officially supports iOS 8.0+, macOS 10.11+, tvOS 9.0+, watchOS 2.0+, Xcode 8.0+ and Swift 3.0+.
+Elevate 2.0 officially supports iOS 8.0+, macOS 10.10+, tvOS 9.0+, watchOS 2.0+, Xcode 8.0+ and Swift 3.0+.
 
 ## Reasons for Bumping to 2.0
 

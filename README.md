@@ -103,14 +103,16 @@ public protocol Decodable {
 The `json: Any` will typically be a `[String: Any]` instance that was created from the `JSONSerialization` APIs. Use the Elevate `Parser.parseEntity` method to define the structure of the JSON data to be validated and perform the parsing.
 
 ```swift
-struct Person: Decodable {
+struct Person {
 	let identifier: String
 	let name: String
 	let nickname: String?
 	let birthDate: Date
 	let isMember: Bool?
 	let addresses: [Address]
+}
 
+extension Person : Decodable {
     init(json: Any) throws {
         let idKeyPath = "identifier"
         let nameKeyPath = "name"

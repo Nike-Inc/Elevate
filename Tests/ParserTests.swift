@@ -326,6 +326,23 @@ class ParserTestCase: BaseTestCase {
             XCTFail("Parser unexpectedly returned an error")
         }
     }
+    
+    func testThatItParsesRootObjectWithParseMethod() {
+        // Given
+        let data = loadJSONDataForFileNamed("RootObjectTest")
+        
+        // When
+        do {
+            let results: TestObject = try Elevate.decodeObject(from: data, atKeyPath: "", with: ValidDecoder())
+            
+            // Then
+            XCTAssertEqual(results.subInt, 0)
+            XCTAssertEqual(results.subString, "value0")
+            XCTAssertEqual(results.subUInt, 0)
+        } catch {
+            XCTFail("Parser unexpectedly returned an error")
+        }
+    }
 
     func testThatItParsesArray() {
         // Given

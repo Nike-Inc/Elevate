@@ -242,17 +242,19 @@ public class Parser {
     private class func json(_ dictionary: [String: Any], forKeyPath keypath: String) -> Any {
         var json: Any? = dictionary as Any
 
-        if let value = dictionary[keypath] {
-            json = value
-        } else {
-            let keys = keypath.components(separatedBy: ".")
-
-            for key in keys {
-                if let dictionary = json as? [String: Any], let value: Any = dictionary[key] {
-                    json = value
-                } else {
-                    json = nil
-                    break
+        if keypath.characters.count > 0 {
+            if let value = dictionary[keypath] {
+                json = value
+            } else {
+                let keys = keypath.components(separatedBy: ".")
+                
+                for key in keys {
+                    if let dictionary = json as? [String: Any], let value: Any = dictionary[key] {
+                        json = value
+                    } else {
+                        json = nil
+                        break
+                    }
                 }
             }
         }

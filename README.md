@@ -124,12 +124,12 @@ extension Person : Decodable {
         let dateDecoder = DateDecoder(dateFormatString: "yyyy-MM-dd")
 
         let entity = try Parser.parseEntity(json: json) { schema in
-            schema.addProperty(keyPath: idKeyPath, type: .Int)
-            schema.addProperty(keyPath: nameKeyPath, type: .String)
-            schema.addProperty(keyPath: nicknameKeyPath, type: .String, optional: true)
-            schema.addProperty(keyPath: birthDateKeyPath, type: .String, decoder: dateDecoder)
-            schema.addProperty(keyPath: isMemberKeyPath, type: .Bool, optional: true)
-            schema.addProperty(keyPath: addressesKeyPath, type: .Array, decodedToType: Address.self)
+            schema.addProperty(keyPath: idKeyPath, type: .int)
+            schema.addProperty(keyPath: nameKeyPath, type: .string)
+            schema.addProperty(keyPath: nicknameKeyPath, type: .string, optional: true)
+            schema.addProperty(keyPath: birthDateKeyPath, type: .string, decoder: dateDecoder)
+            schema.addProperty(keyPath: isMemberKeyPath, type: .bool, optional: true)
+            schema.addProperty(keyPath: addressesKeyPath, type: .array, decodedToType: Address.self)
         }
 
         self.identifier = entity <-! idKeyPath
@@ -189,9 +189,9 @@ class AvatarDecoder: Decoder {
         let heightKeyPath = "height"
 
         let entity = try Parser.parseEntity(json: json) { schema in
-            schema.addProperty(keyPath: urlKeyPath, type: .URL)
-            schema.addProperty(keyPath: widthKeyPath, type: .Int)
-            schema.addProperty(keyPath: heightKeyPath, type: .Int)
+            schema.addProperty(keyPath: urlKeyPath, type: .url)
+            schema.addProperty(keyPath: widthKeyPath, type: .int)
+            schema.addProperty(keyPath: heightKeyPath, type: .int)
         }
 
         return Avatar(
@@ -211,9 +211,9 @@ class AlternateAvatarDecoder: Decoder {
         let hKeyPath = "h"
 
         let entity = try Parser.parseEntity(json: json) { schema in
-            schema.addProperty(keyPath: locationKeyPath, type: .URL)
-            schema.addProperty(keyPath: wKeyPath, type: .Int)
-            schema.addProperty(keyPath: hKeyPath, type: .Int)
+            schema.addProperty(keyPath: locationKeyPath, type: .url)
+            schema.addProperty(keyPath: wKeyPath, type: .int)
+            schema.addProperty(keyPath: hKeyPath, type: .int)
         }
 
         return Avatar(
@@ -264,7 +264,7 @@ And here is how it's used to parse a JSON date string:
 let dateDecoder = DateDecoder(dateFormatString: "yyyy-MM-dd 'at' HH:mm")
 
 let entity = try Parser.parseEntity(data: data) { schema in
-    schema.addProperty(keyPath: "dateString", type: .String, decoder: dateDecoder)
+    schema.addProperty(keyPath: "dateString", type: .string, decoder: dateDecoder)
 }
 ```
 

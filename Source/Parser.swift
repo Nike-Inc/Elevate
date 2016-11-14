@@ -242,7 +242,7 @@ public class Parser {
     private class func json(_ dictionary: [String: Any], forKeyPath keypath: String) -> Any {
         var json: Any? = dictionary as Any
 
-        if keypath.characters.count > 0 {
+        if !keypath.isEmpty {
             if let value = dictionary[keypath] {
                 json = value
             } else {

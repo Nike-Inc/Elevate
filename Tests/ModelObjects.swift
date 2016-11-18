@@ -39,21 +39,41 @@ struct TestObject {
 
 // MARK: -
 
-extension TestObject: Decodable {
-    init(json: Any) throws {
-        let subUIntKeyPath = "subUInt"
-        let subIntKeyPath = "subInt"
-        let subStringKeyPath = "subString"
+extension TestObject: Hashable {
+    var hashValue: Int { return subUInt.hashValue ^ subInt.hashValue ^ subString.hashValue }
+}
 
+func ==(lhs: TestObject, rhs: TestObject) -> Bool {
+    return lhs.hashValue == rhs.hashValue
+}
+
+// MARK: -
+
+extension TestObject: Encodable, Decodable {
+    private struct KeyPath {
+        static let subUInt = "subUInt"
+        static let subInt = "subInt"
+        static let subString = "subString"
+    }
+
+    var json: Any {
+        return [
+            KeyPath.subUInt: subUInt,
+            KeyPath.subInt: subInt,
+            KeyPath.subString: subString
+        ]
+    }
+
+    init(json: Any) throws {
         let entity = try Parser.parseEntity(json: json) { schema in
-            schema.addProperty(keyPath: subUIntKeyPath, type: .uint)
-            schema.addProperty(keyPath: subIntKeyPath, type: .int)
-            schema.addProperty(keyPath: subStringKeyPath, type: .string)
+            schema.addProperty(keyPath: KeyPath.subUInt, type: .uint)
+            schema.addProperty(keyPath: KeyPath.subInt, type: .int)
+            schema.addProperty(keyPath: KeyPath.subString, type: .string)
         }
 
-        subUInt = entity <-! subUIntKeyPath
-        subInt = entity <-! subIntKeyPath
-        subString = entity <-! subStringKeyPath
+        subUInt = entity <-! KeyPath.subUInt
+        subInt = entity <-! KeyPath.subInt
+        subString = entity <-! KeyPath.subString
     }
 }
 

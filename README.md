@@ -80,6 +80,8 @@ carthage update --platform iOS
 
 Elevate aims to make JSON parsing and validation simple, yet robust. This is achieved through a set of protocols and classes that can be utilized to create `Decodable` and `Decoder` classes. By using Elevate's parsing infrastructure, you'll be able to easily parse JSON data into strongly typed model objects or simple dictionaries by specifying each property key path and its associated type. Elevate will validate that the keys exist (if they're not optional) and that they are of the correct type. Validation errors will be aggregated as the JSON data is parsed. If an error is encountered, a `ParserError` will be thrown.
 
+Elevate also supports encoding model objects back into JSON objects through the light-weight `Encodable` protocol. It also supports convenience extensions on collection types to make it easy to encode nested objects in a single pass.
+
 ### Parsing JSON with Elevate
 
 After you have made your model objects `Decodable` or implemented a `Decoder` for them, parsing with Elevate is as simple as:
@@ -104,40 +106,42 @@ The `json: Any` will typically be a `[String: Any]` instance that was created fr
 
 ```swift
 struct Person {
-	let identifier: String
-	let name: String
-	let nickname: String?
-	let birthDate: Date
-	let isMember: Bool?
-	let addresses: [Address]
+    let identifier: String
+    let name: String
+    let nickname: String?
+    let birthDate: Date
+    let isMember: Bool?
+    let addresses: [Address]
 }
 
-extension Person : Decodable {
-    init(json: Any) throws {
-        let idKeyPath = "identifier"
-        let nameKeyPath = "name"
-        let nicknameKeyPath = "nickname"
-        let birthDateKeyPath = "birthDate"
-        let isMemberKeyPath = "isMember"
-        let addressesKeyPath = "addresses"
+extension Person: Decodable {
+    fileprivate struct KeyPath {
+        static let id = "identifier"
+        static let name = "name"
+        static let nickname = "nickname"
+        static let birthDate = "birthDate"
+        static let isMember = "isMember"
+        static let addresses = "addresses"
+    }
 
+    init(json: Any) throws {
         let dateDecoder = DateDecoder(dateFormatString: "yyyy-MM-dd")
 
         let entity = try Parser.parseEntity(json: json) { schema in
-            schema.addProperty(keyPath: idKeyPath, type: .int)
-            schema.addProperty(keyPath: nameKeyPath, type: .string)
-            schema.addProperty(keyPath: nicknameKeyPath, type: .string, optional: true)
-            schema.addProperty(keyPath: birthDateKeyPath, type: .string, decoder: dateDecoder)
-            schema.addProperty(keyPath: isMemberKeyPath, type: .bool, optional: true)
-            schema.addProperty(keyPath: addressesKeyPath, type: .array, decodedToType: Address.self)
+            schema.addProperty(keyPath: KeyPath.id, type: .int)
+            schema.addProperty(keyPath: KeyPath.name, type: .string)
+            schema.addProperty(keyPath: KeyPath.nickname, type: .string, optional: true)
+            schema.addProperty(keyPath: KeyPath.birthDate, type: .string, decoder: dateDecoder)
+            schema.addProperty(keyPath: KeyPath.isMember, type: .bool, optional: true)
+            schema.addProperty(keyPath: KeyPath.addresses, type: .array, decodableType: Address.self)
         }
 
-        self.identifier = entity <-! idKeyPath
-        self.name = entity <-! nameKeyPath
-        self.nickname = entity <-? nicknameKeyPath
-        self.birthDate = entity <-! birthDateKeyPath
-        self.isMember = entity <-? isMemberKeyPath
-        self.addresses = entity <--! addressesKeyPath
+        self.identifier = entity <-! KeyPath.id
+        self.name = entity <-! KeyPath.name
+        self.nickname = entity <-? KeyPath.nickname
+        self.birthDate = entity <-! KeyPath.birthDate
+        self.isMember = entity <-? KeyPath.isMember
+        self.addresses = entity <--! KeyPath.addresses
     }
 }
 ```
@@ -160,6 +164,30 @@ Elevate contains four property extraction operators to make it easy to extract v
 * `<-?` - Extracts the optional value from the `entity` dictionary for the specified key. This operator should only be used on optional properties.
 * `<--!` - Extracts the array from the `entity` dictionary for the specified key as the specified array type. This operator should only be used on non-optional array properties.
 * `<--?` - Extracts the array from the `entity` dictionary for the specified key as the specified optional array type.
+
+### Creating Encodables
+
+Extending a model object to conform to the `Encodable` protocol is less involved than making it `Decodable`. Since your object is already strongly typed, it only needs to be converted into a JSON friendly `Any` object. Building on the previous `Person` type, let's make it conform to the `Encodable` protocol.
+
+```swift
+extension Person: Encodable {
+    var json: Any {
+        var json: [String: Any] = [
+            KeyPath.id: identifier,
+            KeyPath.name: name,
+            KeyPath.birthDate: birthDate,
+            KeyPath.addresses: addresses.json
+        ]
+
+        if let nickname = nickname { json[KeyPath.nickname] = nickname }
+        if let isMember = isMember { json[KeyPath.isMember] = isMember }
+
+        return json
+    }
+}
+```
+
+As you can see in the example, converting the `Person` into a JSON dictionary is straightforward. It's also easy to convert the array of `Address` objects into JSON by calling the `json` property on the array. This works because `Address` also conforms to `Encodable`. The collection type extensions on `Array`, `Set` and `Dictionary` make it easy to convert a complex objects with multiple layers of `Encodable` objects into a JSON objects.
 
 ---
   

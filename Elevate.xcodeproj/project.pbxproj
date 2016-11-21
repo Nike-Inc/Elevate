@@ -87,6 +87,9 @@
 		E9CDF9611D7F833200639059 /* Elevate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CDF95F1D7F833200639059 /* Elevate.swift */; };
 		E9CDF9621D7F833200639059 /* Elevate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CDF95F1D7F833200639059 /* Elevate.swift */; };
 		E9CDF9631D7F833200639059 /* Elevate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CDF95F1D7F833200639059 /* Elevate.swift */; };
+		FC79DCD91DCD2F5F0081379C /* RootObjectTest.json in Resources */ = {isa = PBXBuildFile; fileRef = FC79DCD71DCD2EDC0081379C /* RootObjectTest.json */; };
+		FC79DCDA1DCD2F600081379C /* RootObjectTest.json in Resources */ = {isa = PBXBuildFile; fileRef = FC79DCD71DCD2EDC0081379C /* RootObjectTest.json */; };
+		FC79DCDB1DCD2F610081379C /* RootObjectTest.json in Resources */ = {isa = PBXBuildFile; fileRef = FC79DCD71DCD2EDC0081379C /* RootObjectTest.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +150,7 @@
 		E99C82031B55E3380090FA56 /* DecodableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodableTests.swift; sourceTree = "<group>"; };
 		E99C82061B55E5B50090FA56 /* ParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
 		E9CDF95F1D7F833200639059 /* Elevate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Elevate.swift; sourceTree = "<group>"; };
+		FC79DCD71DCD2EDC0081379C /* RootObjectTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RootObjectTest.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +240,7 @@
 				4C5FB4A01B55C229001258D3 /* PropertyTypesTest.json */,
 				4C5FB4A11B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json */,
 				E924263D1B805229000CB0F1 /* RootArrayTest.json */,
+				FC79DCD71DCD2EDC0081379C /* RootObjectTest.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -552,6 +557,7 @@
 			files = (
 				4CD761281C82682000DCC104 /* PropertyTypesWithIncorrectValueTypes.json in Resources */,
 				4CD761291C82682000DCC104 /* RootArrayTest.json in Resources */,
+				FC79DCDB1DCD2F610081379C /* RootObjectTest.json in Resources */,
 				4CD761271C82682000DCC104 /* PropertyTypesTest.json in Resources */,
 				4CD761241C82682000DCC104 /* ArrayTest.json in Resources */,
 				4CD761261C82682000DCC104 /* KeyPathsTest.json in Resources */,
@@ -572,6 +578,7 @@
 			files = (
 				4C5FB4AA1B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json in Resources */,
 				E924263F1B80522F000CB0F1 /* RootArrayTest.json in Resources */,
+				FC79DCD91DCD2F5F0081379C /* RootObjectTest.json in Resources */,
 				4C5FB4A81B55C229001258D3 /* PropertyTypesTest.json in Resources */,
 				4C5FB4A21B55C229001258D3 /* ArrayTest.json in Resources */,
 				4C5FB4A61B55C229001258D3 /* KeyPathsTest.json in Resources */,
@@ -592,6 +599,7 @@
 			files = (
 				4C5FB4AB1B55C229001258D3 /* PropertyTypesWithIncorrectValueTypes.json in Resources */,
 				E92426401B805230000CB0F1 /* RootArrayTest.json in Resources */,
+				FC79DCDA1DCD2F600081379C /* RootObjectTest.json in Resources */,
 				4C5FB4A91B55C229001258D3 /* PropertyTypesTest.json in Resources */,
 				4C5FB4A31B55C229001258D3 /* ArrayTest.json in Resources */,
 				4C5FB4A71B55C229001258D3 /* KeyPathsTest.json in Resources */,

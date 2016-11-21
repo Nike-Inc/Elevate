@@ -188,7 +188,7 @@ class AvatarDecoder: Decoder {
         let widthKeyPath = "width"
         let heightKeyPath = "height"
 
-        let entity = try Parser.parseEntity(json: json) { schema in
+        let entity = try Parser.parseEntity(json: object) { schema in
             schema.addProperty(keyPath: urlKeyPath, type: .url)
             schema.addProperty(keyPath: widthKeyPath, type: .int)
             schema.addProperty(keyPath: heightKeyPath, type: .int)
@@ -210,7 +210,7 @@ class AlternateAvatarDecoder: Decoder {
         let wKeyPath = "w"
         let hKeyPath = "h"
 
-        let entity = try Parser.parseEntity(json: json) { schema in
+        let entity = try Parser.parseEntity(json: object) { schema in
             schema.addProperty(keyPath: locationKeyPath, type: .url)
             schema.addProperty(keyPath: wKeyPath, type: .int)
             schema.addProperty(keyPath: hKeyPath, type: .int)

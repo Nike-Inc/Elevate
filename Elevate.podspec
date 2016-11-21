@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Elevate'
-  s.version = '2.0.0'
+  s.version = '2.1.0'
   s.summary = 'Elevate is a JSON parsing framework that leverages Swift to make parsing simple, reliable and composable.'
   s.homepage = 'https://github.com/Nike-Inc/Elevate'
   s.license = 'MIT'

@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 #### 2.x Releases
 
+* `2.1.x` Releases = [2.1.0](#210)
 * `2.0.x` Releases = [2.0.0](#200)
 
 #### 1.x Releases
@@ -14,9 +15,47 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [2.1.0](https://github.com/Nike-Inc/Elevate/releases/tag/2.1.0)
+
+Released on 2016-11-21.
+
+#### Added
+
+- The `.swift-version` file pointing at Swift 3.0 to support CocoaPods.
+  - Added by [Christian Noon](https://github.com/cnoon).
+- The `Encodable` protocol along with extensions for common types and unit tests.
+  - Added by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#21](https://github.com/Nike-Inc/Elevate/pull/21).
+- The `Encodable` section to the README and updated `Decodable` to use `KeyPath` struct.
+  - Added by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#21](https://github.com/Nike-Inc/Elevate/pull/21).
+
+#### Updated
+
+- The `Person` example to use an extension in the README.
+  - Updated by [Rich Ellis](https://github.com/richellis) in Pull Request
+  [#16](https://github.com/Nike-Inc/Elevate/pull/16).
+- Xcode project settings to latest defaults and disabled code signing.
+  - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#21](https://github.com/Nike-Inc/Elevate/pull/21).
+- Xcode project by disabling code signing on all targets and removed duplicate code signing identities.
+  - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#21](https://github.com/Nike-Inc/Elevate/pull/21).
+
+#### Fixed
+
+- Incorrect enum case in README for type arguments.
+  - Fixed by [Dave Camp](https://github.com/AtomicCat) in Pull Request
+  [#19](https://github.com/Nike-Inc/Elevate/pull/19).
+- Issue where incorrect parameter name was used in multiple decoders section of the README.
+  - Fixed by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#20](https://github.com/Nike-Inc/Elevate/pull/20).
+
+---
+
 ## [2.0.0](https://github.com/Nike-Inc/Elevate/releases/tag/2.0.0)
 
-Released on 2016-09-08
+Released on 2016-09-08.
 
 #### Added
 

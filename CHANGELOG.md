@@ -17,7 +17,7 @@ All notable changes to this project will be documented in this file.
 
 ## [2.1.0](https://github.com/Nike-Inc/Elevate/releases/tag/2.1.0)
 
-Released on 2016-11-21.
+Released on 2016-11-27.
 
 #### Added
 
@@ -41,6 +41,10 @@ Released on 2016-11-21.
 - Xcode project by disabling code signing on all targets and removed duplicate code signing identities.
   - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
   [#21](https://github.com/Nike-Inc/Elevate/pull/21).
+- Travis config to remove Slather due to test failures and added iOS 8.1 and 9.1 to device matrix.
+  - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#23](https://github.com/Nike-Inc/Elevate/pull/23).
+
 
 #### Fixed
 

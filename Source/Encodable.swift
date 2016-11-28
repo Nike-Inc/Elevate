@@ -24,18 +24,22 @@
 
 import Foundation
 
-/// The `Decodable` protocol type declares an interface used to create a JSON `Any` object from the instance.
+/// The `Encodable` protocol type declares an interface used to create a JSON `Any` object from the instance.
 public protocol Encodable {
     /// Returns the JSON form of the type to be encoded using `JSONSerialization`.
     var json: Any { get }
 }
 
-// MARK: - String
+protocol JSONPrimative: Encodable {}
 
-extension String: Encodable {
+extension JSONPrimative {
     /// Returns `self` as type `Any`.
     public var json: Any { return self }
 }
+
+// MARK: - String
+
+extension String: JSONPrimative { }
 
 extension URL: Encodable {
     /// Returns the `absoluteString` of `self` as type `Any`.
@@ -44,74 +48,25 @@ extension URL: Encodable {
 
 // MARK: - Int
 
-extension Int: Encodable {
-    /// Returns `self` as type `Any`.
-    public var json: Any { return self }
-}
-
-extension Int8: Encodable {
-    /// Returns `self` as type `Any`.
-    public var json: Any { return self }
-}
-
-extension Int16: Encodable {
-    /// Returns `self` as type `Any`.
-    public var json: Any { return self }
-}
-
-extension Int32: Encodable {
-    /// Returns `self` as type `Any`.
-    public var json: Any { return self }
-}
-
-extension Int64: Encodable {
-    /// Returns `self` as type `Any`.
-    public var json: Any { return self }
-}
+extension Int: JSONPrimative {}
+extension Int8: JSONPrimative {}
+extension Int16: JSONPrimative {}
+extension Int32: JSONPrimative {}
+extension Int64: JSONPrimative {}
 
 // MARK: - UInt
 
-extension UInt: Encodable {
-    /// Returns `self` as type `Any`.
-    public var json: Any { return self }
-}
-
-extension UInt8: Encodable {
-    /// Returns `self` as type `Any`.
-    public var json: Any { return self }
-}
-
-extension UInt16: Encodable {
-    /// Returns `self` as type `Any`.
-    public var json: Any { return self }
-}
-
-extension UInt32: Encodable {
-    /// Returns `self` as type `Any`.
-    public var json: Any { return self }
-}
-
-extension UInt64: Encodable {
-    /// Returns `self` as type `Any`.
-    public var json: Any { return self }
-}
+extension UInt: JSONPrimative {}
+extension UInt8: JSONPrimative {}
+extension UInt16: JSONPrimative {}
+extension UInt32: JSONPrimative {}
+extension UInt64: JSONPrimative {}
 
 // MARK: - Number
 
-extension Float: Encodable {
-    /// Returns `self` as type `Any`.
-    public var json: Any { return self }
-}
-
-extension Double: Encodable {
-    /// Returns `self` as type `Any`.
-    public var json: Any { return self }
-}
-
-extension Bool: Encodable {
-    /// Returns `self` as type `Any`.
-    public var json: Any { return self }
-}
+extension Float: JSONPrimative {}
+extension Double: JSONPrimative {}
+extension Bool: JSONPrimative {}
 
 // MARK: - Collection
 

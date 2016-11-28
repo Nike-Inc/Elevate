@@ -80,7 +80,7 @@ carthage update --platform iOS
 
 Elevate aims to make JSON parsing and validation simple, yet robust. This is achieved through a set of protocols and classes that can be utilized to create `Decodable` and `Decoder` classes. By using Elevate's parsing infrastructure, you'll be able to easily parse JSON data into strongly typed model objects or simple dictionaries by specifying each property key path and its associated type. Elevate will validate that the keys exist (if they're not optional) and that they are of the correct type. Validation errors will be aggregated as the JSON data is parsed. If an error is encountered, a `ParserError` will be thrown.
 
-Elevate also supports encoding model objects back into JSON objects through the light-weight `Encodable` protocol. It also supports convenience extensions on collection types to make it easy to encode nested objects in a single pass.
+Elevate also supports encoding model objects back into JSON objects through the light-weight `Encodable` protocol. Convenience extensions have been added to collection types to make it easy to encode nested objects in a single pass.
 
 ### Parsing JSON with Elevate
 

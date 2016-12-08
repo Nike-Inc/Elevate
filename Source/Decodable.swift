@@ -36,9 +36,9 @@ public protocol Decodable {
     init(json: Any) throws
 }
 
-// MARK: - Primative Decodables
+// MARK: - Primitive Decodables
 
-/// The primative decodables implemented below are used by the parser when parsing an array of primative values. The
+/// The primitive decodables implemented below are used by the parser when parsing an array of primitive values. The
 /// input is expected to be of the same type as the object and will be validated and cast as such.
 extension String: Decodable {
     /// Implements the `Decodable` protocol for the `String` type. Expects input to be a `String`.

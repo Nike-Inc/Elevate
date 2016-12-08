@@ -30,11 +30,11 @@ class DecodableTestCase: BaseTestCase {
 
     // MARK: - Decodable API Success Tests
 
-    func testThatParseOnADecodableSucceeds() {
         // Given
         let data = loadJSONDataForFileNamed("PropertyTypesTest")
 
         // When
+    func testThatDecodeOnADecodableSucceeds() {
         do {
             let testObject: TestObject = try Elevate.decodeObject(from: data, atKeyPath: "sub-object")
 
@@ -47,11 +47,11 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatParseOnAnArraySucceeds() {
         // Given
         let data = loadJSONDataForFileNamed("ArrayTest")
 
         // When
+    func testThatDecodeOnAnArraySucceeds() {
         do {
             let result: [TestObject] = try Elevate.decodeArray(from: data, atKeyPath: "items")
 
@@ -157,7 +157,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    // MARK: - Decoable Primitive Failure Tests
+    // MARK: - Decodable Primitive Failure Tests
 
     func testThatParseObjectThrowsForInvalidString() {
         // Given
@@ -353,7 +353,7 @@ class DecodableTestCase: BaseTestCase {
         decodableErrorTest(Bool.self, value: "1")
     }
 
-    // MARK: Private Helper Methods
+    // MARK: - Private - Helper Methods
 
     private func decodableErrorTest(type: Decodable.Type, value: Any) {
         do {

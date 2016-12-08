@@ -64,7 +64,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    // MARK: - Decodable Primative Success Tests
+    // MARK: - Decodable Primitive Success Tests
 
     func testThatParseObjectParsesStringSuccessfully() {
         // Given
@@ -157,7 +157,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    // MARK: - Decoable Primative Failure Tests
+    // MARK: - Decoable Primitive Failure Tests
 
     func testThatParseObjectThrowsForInvalidString() {
         // Given

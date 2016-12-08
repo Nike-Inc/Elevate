@@ -30,16 +30,16 @@ public protocol Encodable {
     var json: Any { get }
 }
 
-protocol JSONPrimative: Encodable {}
+protocol JSONPrimitive: Encodable {}
 
-extension JSONPrimative {
+extension JSONPrimitive {
     /// Returns `self` as type `Any`.
     public var json: Any { return self }
 }
 
 // MARK: - String
 
-extension String: JSONPrimative { }
+extension String: JSONPrimitive { }
 
 extension URL: Encodable {
     /// Returns the `absoluteString` of `self` as type `Any`.
@@ -48,25 +48,25 @@ extension URL: Encodable {
 
 // MARK: - Int
 
-extension Int: JSONPrimative {}
-extension Int8: JSONPrimative {}
-extension Int16: JSONPrimative {}
-extension Int32: JSONPrimative {}
-extension Int64: JSONPrimative {}
+extension Int: JSONPrimitive {}
+extension Int8: JSONPrimitive {}
+extension Int16: JSONPrimitive {}
+extension Int32: JSONPrimitive {}
+extension Int64: JSONPrimitive {}
 
 // MARK: - UInt
 
-extension UInt: JSONPrimative {}
-extension UInt8: JSONPrimative {}
-extension UInt16: JSONPrimative {}
-extension UInt32: JSONPrimative {}
-extension UInt64: JSONPrimative {}
+extension UInt: JSONPrimitive {}
+extension UInt8: JSONPrimitive {}
+extension UInt16: JSONPrimitive {}
+extension UInt32: JSONPrimitive {}
+extension UInt64: JSONPrimitive {}
 
 // MARK: - Number
 
-extension Float: JSONPrimative {}
-extension Double: JSONPrimative {}
-extension Bool: JSONPrimative {}
+extension Float: JSONPrimitive {}
+extension Double: JSONPrimitive {}
+extension Bool: JSONPrimitive {}
 
 // MARK: - Collection
 

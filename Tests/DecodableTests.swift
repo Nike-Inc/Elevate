@@ -30,7 +30,7 @@ class DecodableTestCase: BaseTestCase {
 
     // MARK: - Decodable API Success Tests
 
-    func testThatDecodeOnADecodableSucceeds() {
+    func testThatDecodeObjectWithDecodableTypeSucceeds() {
         do {
             // Given
             let data = loadJSONDataForFileNamed("PropertyTypesTest")
@@ -47,7 +47,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatDecodeOnAnArraySucceeds() {
+    func testThatDecodeArrayWithDecodableArraySucceeds() {
         do {
             // Given
             let data = loadJSONDataForFileNamed("ArrayTest")
@@ -66,7 +66,7 @@ class DecodableTestCase: BaseTestCase {
 
     // MARK: - Decodable Primitive Success Tests
 
-    func testThatParseObjectParsesStringSuccessfully() {
+    func testThatDecodeObjectDecodesStringSuccessfully() {
         do {
             // Given
             let data = "{ \"key\":\"981a383074461fcbf7b9c67e2cb7bd13502d664cad0b254b8f426cd77c62d83e\" }"
@@ -82,7 +82,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatParseObjectParsesIntSuccessfully() {
+    func testThatDecodeObjectDecodesIntSuccessfully() {
         do {
             // Given
             let data = "{ \"key\" : 7 }".data(using: String.Encoding.utf8)!
@@ -97,7 +97,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatParseObjectParsesUIntSuccessfully() {
+    func testThatDecodeObjectDecodesUIntSuccessfully() {
         do {
             // Given
             let data = "{ \"key\" : 7 }".data(using: String.Encoding.utf8)!
@@ -112,7 +112,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatParseObjectParsesFloatSuccessfully() {
+    func testThatDecodeObjectDecodesFloatSuccessfully() {
         do {
             // Given
             let data = "{ \"key\" : 7.1 }".data(using: String.Encoding.utf8)!
@@ -127,7 +127,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatParseObjectParsesDoubleSuccessfully() {
+    func testThatDecodeObjectDecodesDoubleSuccessfully() {
         do {
             // Given
             let data = "{ \"key\" : 7.1 }".data(using: String.Encoding.utf8)!
@@ -142,7 +142,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatParseObjectParsesBoolSuccessfully() {
+    func testThatDecodeObjectDecodesBoolSuccessfully() {
         do {
             // Given
             let data = "{ \"key\" : true }".data(using: String.Encoding.utf8)!
@@ -159,7 +159,7 @@ class DecodableTestCase: BaseTestCase {
 
     // MARK: - Decodable Primitive Failure Tests
 
-    func testThatParseObjectThrowsForInvalidString() {
+    func testThatStringDecodableInitializerThrowsForInvalidString() {
         do {
             // Given
             let json = ["key": 0] as Any
@@ -176,7 +176,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatParseObjectThrowsForInvalidInt() {
+    func testThatIntDecodableInitializerThrowsForInvalidInt() {
         do {
             // Given
             let json = ["key": "invalid"] as Any
@@ -193,7 +193,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatParseObjectThrowsForInvalidUInt() {
+    func testThatUIntDecodableInitializerThrowsForInvalidUInt() {
         do {
             // Given
             let json = ["key": "invaild"] as Any
@@ -210,7 +210,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatParseObjectThrowsForInvalidFloat() {
+    func testThatFloatDecodableInitializerThrowsForInvalidFloat() {
         do {
             // Given
             let json = ["key": "invalid"] as Any
@@ -227,7 +227,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatParseObjectThrowsForInvalidDouble() {
+    func testThatDoubleDecodableInitializerThrowsForInvalidDouble() {
         do {
             // Given
             let json = ["key": "invalid"] as Any
@@ -244,7 +244,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatParseObjectThrowsForInvalidBool() {
+    func testThatBoolDecodableInitializerThrowsForInvalidBool() {
         do {
             // Given
             let json = ["key": 0] as Any
@@ -263,7 +263,7 @@ class DecodableTestCase: BaseTestCase {
 
     // MARK: - Decodable Failure Tests
 
-    func testThatParseThrowsWithInvalidJSON() {
+    func testThatDecodeObjectThrowsWithInvalidJSON() {
         do {
             // Given
             let data = "some random data that isn't json".data(using: String.Encoding.utf8)!
@@ -285,7 +285,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatParseThrowsWithMissingKeyPath() {
+    func testThatDecodeObjectThrowsWithMissingKeyPath() {
         do {
             // Given
             let data = loadJSONDataForFileNamed("PropertyTypesTest")
@@ -304,7 +304,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatParseThrowsWhenDecodableThrows() {
+    func testThatDecodeObjectThrowsWhenDecodableThrows() {
         do {
             // Given
             let data = loadJSONDataForFileNamed("PropertyTypesTest")
@@ -328,7 +328,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatItThrowsWithInvalidDecodable() {
+    func testThatParserParseEntityThrowsWithInvalidDecodable() {
         do {
             // Given
             let data = loadJSONDataForFileNamed("ArrayTest")
@@ -349,7 +349,7 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-    func testThatItThrowsWithIncorrectInputType() {
+    func testThatDecodableInitializerThrowsWithIncorrectInputType() {
         decodableErrorTest(type: String.self, value: 1)
         decodableErrorTest(type: Int.self, value: "1")
         decodableErrorTest(type: UInt.self, value: "1")

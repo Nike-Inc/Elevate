@@ -30,12 +30,12 @@ class DecodableTestCase: BaseTestCase {
 
     // MARK: - Decodable API Success Tests
 
-        // Given
-        let data = loadJSONDataForFileNamed("PropertyTypesTest")
-
-        // When
     func testThatDecodeOnADecodableSucceeds() {
         do {
+            // Given
+            let data = loadJSONDataForFileNamed("PropertyTypesTest")
+
+            // When
             let testObject: TestObject = try Elevate.decodeObject(from: data, atKeyPath: "sub-object")
 
             // Then
@@ -47,12 +47,12 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-        // Given
-        let data = loadJSONDataForFileNamed("ArrayTest")
-
-        // When
     func testThatDecodeOnAnArraySucceeds() {
         do {
+            // Given
+            let data = loadJSONDataForFileNamed("ArrayTest")
+
+            // When
             let result: [TestObject] = try Elevate.decodeArray(from: data, atKeyPath: "items")
 
             // Then
@@ -67,12 +67,12 @@ class DecodableTestCase: BaseTestCase {
     // MARK: - Decodable Primitive Success Tests
 
     func testThatParseObjectParsesStringSuccessfully() {
-        // Given
-        let data = "{ \"key\":\"981a383074461fcbf7b9c67e2cb7bd13502d664cad0b254b8f426cd77c62d83e\" }"
-            .data(using: String.Encoding.utf8)!
-
-        // When
         do {
+            // Given
+            let data = "{ \"key\":\"981a383074461fcbf7b9c67e2cb7bd13502d664cad0b254b8f426cd77c62d83e\" }"
+                .data(using: String.Encoding.utf8)!
+
+            // When
             let result: String = try Elevate.decodeObject(from: data, atKeyPath: "key")
 
             // Then
@@ -83,11 +83,11 @@ class DecodableTestCase: BaseTestCase {
     }
 
     func testThatParseObjectParsesIntSuccessfully() {
-        // Given
-        let data = "{ \"key\" : 7 }".data(using: String.Encoding.utf8)!
-
-        // When
         do {
+            // Given
+            let data = "{ \"key\" : 7 }".data(using: String.Encoding.utf8)!
+
+            // When
             let result: Int = try Elevate.decodeObject(from: data, atKeyPath: "key")
 
             // Then
@@ -98,11 +98,11 @@ class DecodableTestCase: BaseTestCase {
     }
 
     func testThatParseObjectParsesUIntSuccessfully() {
-        // Given
-        let data = "{ \"key\" : 7 }".data(using: String.Encoding.utf8)!
-
-        // When
         do {
+            // Given
+            let data = "{ \"key\" : 7 }".data(using: String.Encoding.utf8)!
+
+            // When
             let result: UInt = try Elevate.decodeObject(from: data, atKeyPath: "key")
 
             // Then
@@ -113,11 +113,11 @@ class DecodableTestCase: BaseTestCase {
     }
 
     func testThatParseObjectParsesFloatSuccessfully() {
-        // Given
-        let data = "{ \"key\" : 7.1 }".data(using: String.Encoding.utf8)!
-
-        // When
         do {
+            // Given
+            let data = "{ \"key\" : 7.1 }".data(using: String.Encoding.utf8)!
+
+            // When
             let result: Float = try Elevate.decodeObject(from: data, atKeyPath: "key")
 
             // Then
@@ -128,11 +128,11 @@ class DecodableTestCase: BaseTestCase {
     }
 
     func testThatParseObjectParsesDoubleSuccessfully() {
-        // Given
-        let data = "{ \"key\" : 7.1 }".data(using: String.Encoding.utf8)!
-
-        // When
         do {
+            // Given
+            let data = "{ \"key\" : 7.1 }".data(using: String.Encoding.utf8)!
+
+            // When
             let result: Double = try Elevate.decodeObject(from: data, atKeyPath: "key")
 
             // Then
@@ -143,11 +143,11 @@ class DecodableTestCase: BaseTestCase {
     }
 
     func testThatParseObjectParsesBoolSuccessfully() {
-        // Given
-        let data = "{ \"key\" : true }".data(using: String.Encoding.utf8)!
-
-        // When
         do {
+            // Given
+            let data = "{ \"key\" : true }".data(using: String.Encoding.utf8)!
+
+            // When
             let result: Bool = try Elevate.decodeObject(from: data, atKeyPath: "key")
 
             // Then
@@ -160,15 +160,16 @@ class DecodableTestCase: BaseTestCase {
     // MARK: - Decodable Primitive Failure Tests
 
     func testThatParseObjectThrowsForInvalidString() {
-        // Given
-        let json = ["key": 0] as Any
-
-        // When
         do {
+            // Given
+            let json = ["key": 0] as Any
+
+            // When
             let _ = try String(json: json)
 
             XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
+            // Then
             XCTAssertEqual(error.failureReason, "JSON object was not of type: String")
         } catch {
             XCTFail("Incorrect error type was thrown while parsing Decoable")
@@ -176,15 +177,16 @@ class DecodableTestCase: BaseTestCase {
     }
 
     func testThatParseObjectThrowsForInvalidInt() {
-        // Given
-        let json = ["key": "invalid"] as Any
-
-        // When
         do {
+            // Given
+            let json = ["key": "invalid"] as Any
+
+            // When
             let _ = try Int(json: json)
 
             XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
+            // Then
             XCTAssertEqual(error.failureReason, "JSON object was not of type: Int")
         } catch {
             XCTFail("Incorrect error type was thrown while parsing Decoable")
@@ -192,15 +194,16 @@ class DecodableTestCase: BaseTestCase {
     }
 
     func testThatParseObjectThrowsForInvalidUInt() {
-        // Given
-        let json = ["key": "invaild"] as Any
-
-        // When
         do {
+            // Given
+            let json = ["key": "invaild"] as Any
+
+            // When
             let _ = try UInt(json: json)
 
             XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
+            // Then
             XCTAssertEqual(error.failureReason, "JSON object was not of type: UInt")
         } catch {
             XCTFail("Incorrect error type was thrown while parsing Decoable")
@@ -208,15 +211,16 @@ class DecodableTestCase: BaseTestCase {
     }
 
     func testThatParseObjectThrowsForInvalidFloat() {
-        // Given
-        let json = ["key": "invalid"] as Any
-
-        // When
         do {
+            // Given
+            let json = ["key": "invalid"] as Any
+
+            // When
             let _ = try Float(json: json)
 
             XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
+            // Then
             XCTAssertEqual(error.failureReason, "JSON object was not of type: Float")
         } catch {
             XCTFail("Incorrect error type was thrown while parsing Decoable")
@@ -224,15 +228,16 @@ class DecodableTestCase: BaseTestCase {
     }
 
     func testThatParseObjectThrowsForInvalidDouble() {
-        // Given
-        let json = ["key": "invalid"] as Any
-
-        // When
         do {
+            // Given
+            let json = ["key": "invalid"] as Any
+
+            // When
             let _ = try Double(json: json)
 
             XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
+            // Then
             XCTAssertEqual(error.failureReason, "JSON object was not of type: Double")
         } catch {
             XCTFail("Incorrect error type was thrown while parsing Decoable")
@@ -240,15 +245,16 @@ class DecodableTestCase: BaseTestCase {
     }
 
     func testThatParseObjectThrowsForInvalidBool() {
-        // Given
-        let json = ["key": 0] as Any
-
-        // When
         do {
+            // Given
+            let json = ["key": 0] as Any
+
+            // When
             let _ = try Bool(json: json)
 
             XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
+            // Then
             XCTAssertEqual(error.failureReason, "JSON object was not of type: Bool")
         } catch {
             XCTFail("Incorrect error type was thrown while parsing Decoable")
@@ -258,11 +264,11 @@ class DecodableTestCase: BaseTestCase {
     // MARK: - Decodable Failure Tests
 
     func testThatParseThrowsWithInvalidJSON() {
-        // Given
-        let data = "some random data that isn't json".data(using: String.Encoding.utf8)!
-
-        // When
         do {
+            // Given
+            let data = "some random data that isn't json".data(using: String.Encoding.utf8)!
+
+            // When
             let _: TestObject = try Elevate.decodeObject(from: data, atKeyPath: "sub-object")
 
             XCTFail("Parser unexpectedly succeeded.")
@@ -280,11 +286,11 @@ class DecodableTestCase: BaseTestCase {
     }
 
     func testThatParseThrowsWithMissingKeyPath() {
-        // Given
-        let data = loadJSONDataForFileNamed("PropertyTypesTest")
-
-        // When
         do {
+            // Given
+            let data = loadJSONDataForFileNamed("PropertyTypesTest")
+
+            // When
             let _: TestObject = try Elevate.decodeObject(from: data, atKeyPath: "key_does_not_exist")
 
             XCTFail("Parser unexpectedly succeeded.")
@@ -299,11 +305,11 @@ class DecodableTestCase: BaseTestCase {
     }
 
     func testThatParseThrowsWhenDecodableThrows() {
-        // Given
-        let data = loadJSONDataForFileNamed("PropertyTypesTest")
-
-        // When
         do {
+            // Given
+            let data = loadJSONDataForFileNamed("PropertyTypesTest")
+
+            // When
             let _: TestObject = try Elevate.decodeObject(from: data, atKeyPath: "testDictionary")
 
             XCTFail("Parser unexpectedly succeeded.")
@@ -323,17 +329,18 @@ class DecodableTestCase: BaseTestCase {
     }
 
     func testThatItThrowsWithInvalidDecodable() {
-        // Given
-        let data = loadJSONDataForFileNamed("ArrayTest")
-
-        // When
         do {
+            // Given
+            let data = loadJSONDataForFileNamed("ArrayTest")
+
+            // When
             _ = try Parser.parseEntity(data: data) { schema in
                 schema.addProperty(keyPath: "items", type: .array, decodableType: InvalidDecodable.self)
             }
 
             XCTFail("Parser unexpectedly succeeded")
         } catch let error as ParserError {
+            // Then
             let actualValue = error.description
             let expectedValue = "Parser Validation Error - Error parsing array object at index 0 with parser [InvalidDecodable]"
             XCTAssertTrue(actualValue.hasPrefix(expectedValue), "Error message for Array Decodable did not match expected value")
@@ -342,25 +349,25 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
-// As of Xcode 7.3 there is a compiler bug in Release configuration when executing type.init below
-#if DEBUG
     func testThatItThrowsWithIncorrectInputType() {
-        decodableErrorTest(String.self, value: 1)
-        decodableErrorTest(Int.self, value: "1")
-        decodableErrorTest(UInt.self, value: "1")
-        decodableErrorTest(Float.self, value: "1")
-        decodableErrorTest(Double.self, value: "1")
-        decodableErrorTest(Bool.self, value: "1")
+        decodableErrorTest(type: String.self, value: 1)
+        decodableErrorTest(type: Int.self, value: "1")
+        decodableErrorTest(type: UInt.self, value: "1")
+        decodableErrorTest(type: Float.self, value: "1")
+        decodableErrorTest(type: Double.self, value: "1")
+        decodableErrorTest(type: Bool.self, value: "1")
     }
 
     // MARK: - Private - Helper Methods
 
     private func decodableErrorTest(type: Decodable.Type, value: Any) {
         do {
+            // Given, When
             let _ = try type.init(json: value)
 
             XCTFail("Parser unexpectedly succeeded")
         } catch let error as ParserError {
+            // Then
             let actualValue = error.failureReason
             let expectedValue = "JSON object was not of type: \(type)"
             XCTAssertEqual(actualValue, expectedValue, "Decodable error message did not match expected value.")
@@ -368,5 +375,4 @@ class DecodableTestCase: BaseTestCase {
             XCTFail("Parser error was of incorrect type.")
         }
     }
-#endif
 }

@@ -129,3 +129,25 @@ extension Bool: Decodable {
         self = (json as! NSNumber).boolValue
     }
 }
+
+// MARK: - Collection Decodables
+
+extension Array: Decodable {
+    public init(json: Any) throws {
+        guard json is [Element] else {
+            throw ParserError.validation(failureReason: "JSON object was not of type: \(Element.self)")
+        }
+
+        self = json as! [Element]
+    }
+}
+
+extension Dictionary: Decodable {
+    public init(json: Any) throws {
+        guard json is [Key: Value] else {
+            throw ParserError.validation(failureReason: "JSON object was not of type: [\(Key.self), \(Value.self)]")
+        }
+
+        self = json as! [Key: Value]
+    }
+}

@@ -168,7 +168,7 @@ class ParserTestCase: BaseTestCase {
 
     func testThatItGeneratesADeserializationErrorForInvalidData() {
         // Given
-        let data: Data! = "not json data".data(using: String.Encoding.utf8)
+        let data: Data! = "not json data".data(using: .utf8)
 
         // When
         do {
@@ -696,7 +696,7 @@ class ParserJSONFragmentDataTestCase: BaseTestCase {
             let boolData = Data(bytes: &boolValue, count: MemoryLayout<Bool>.size)
             values.append(boolData as Data)
 
-            let stringData = "Some random string".data(using: String.Encoding.utf8, allowLossyConversion: false)!
+            let stringData = "Some random string".data(using: .utf8, allowLossyConversion: false)!
             values.append(stringData)
 
             return values

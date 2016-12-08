@@ -70,7 +70,7 @@ class DecodableTestCase: BaseTestCase {
         do {
             // Given
             let data = "{ \"key\":\"981a383074461fcbf7b9c67e2cb7bd13502d664cad0b254b8f426cd77c62d83e\" }"
-                .data(using: String.Encoding.utf8)!
+                .data(using: .utf8)!
 
             // When
             let result: String = try Elevate.decodeObject(from: data, atKeyPath: "key")
@@ -85,7 +85,7 @@ class DecodableTestCase: BaseTestCase {
     func testThatDecodeObjectDecodesIntSuccessfully() {
         do {
             // Given
-            let data = "{ \"key\" : 7 }".data(using: String.Encoding.utf8)!
+            let data = "{ \"key\" : 7 }".data(using: .utf8)!
 
             // When
             let result: Int = try Elevate.decodeObject(from: data, atKeyPath: "key")
@@ -100,7 +100,7 @@ class DecodableTestCase: BaseTestCase {
     func testThatDecodeObjectDecodesUIntSuccessfully() {
         do {
             // Given
-            let data = "{ \"key\" : 7 }".data(using: String.Encoding.utf8)!
+            let data = "{ \"key\" : 7 }".data(using: .utf8)!
 
             // When
             let result: UInt = try Elevate.decodeObject(from: data, atKeyPath: "key")
@@ -115,7 +115,7 @@ class DecodableTestCase: BaseTestCase {
     func testThatDecodeObjectDecodesFloatSuccessfully() {
         do {
             // Given
-            let data = "{ \"key\" : 7.1 }".data(using: String.Encoding.utf8)!
+            let data = "{ \"key\" : 7.1 }".data(using: .utf8)!
 
             // When
             let result: Float = try Elevate.decodeObject(from: data, atKeyPath: "key")
@@ -130,7 +130,7 @@ class DecodableTestCase: BaseTestCase {
     func testThatDecodeObjectDecodesDoubleSuccessfully() {
         do {
             // Given
-            let data = "{ \"key\" : 7.1 }".data(using: String.Encoding.utf8)!
+            let data = "{ \"key\" : 7.1 }".data(using: .utf8)!
 
             // When
             let result: Double = try Elevate.decodeObject(from: data, atKeyPath: "key")
@@ -145,7 +145,7 @@ class DecodableTestCase: BaseTestCase {
     func testThatDecodeObjectDecodesBoolSuccessfully() {
         do {
             // Given
-            let data = "{ \"key\" : true }".data(using: String.Encoding.utf8)!
+            let data = "{ \"key\" : true }".data(using: .utf8)!
 
             // When
             let result: Bool = try Elevate.decodeObject(from: data, atKeyPath: "key")
@@ -172,7 +172,7 @@ class DecodableTestCase: BaseTestCase {
             // Then
             XCTAssertEqual(error.failureReason, "JSON object was not of type: String")
         } catch {
-            XCTFail("Incorrect error type was thrown while parsing Decoable")
+            XCTFail("Incorrect error type was thrown while parsing Decodable")
         }
     }
 
@@ -189,7 +189,7 @@ class DecodableTestCase: BaseTestCase {
             // Then
             XCTAssertEqual(error.failureReason, "JSON object was not of type: Int")
         } catch {
-            XCTFail("Incorrect error type was thrown while parsing Decoable")
+            XCTFail("Incorrect error type was thrown while parsing Decodable")
         }
     }
 
@@ -206,7 +206,7 @@ class DecodableTestCase: BaseTestCase {
             // Then
             XCTAssertEqual(error.failureReason, "JSON object was not of type: UInt")
         } catch {
-            XCTFail("Incorrect error type was thrown while parsing Decoable")
+            XCTFail("Incorrect error type was thrown while parsing Decodable")
         }
     }
 
@@ -223,7 +223,7 @@ class DecodableTestCase: BaseTestCase {
             // Then
             XCTAssertEqual(error.failureReason, "JSON object was not of type: Float")
         } catch {
-            XCTFail("Incorrect error type was thrown while parsing Decoable")
+            XCTFail("Incorrect error type was thrown while parsing Decodable")
         }
     }
 
@@ -240,7 +240,7 @@ class DecodableTestCase: BaseTestCase {
             // Then
             XCTAssertEqual(error.failureReason, "JSON object was not of type: Double")
         } catch {
-            XCTFail("Incorrect error type was thrown while parsing Decoable")
+            XCTFail("Incorrect error type was thrown while parsing Decodable")
         }
     }
 
@@ -257,7 +257,7 @@ class DecodableTestCase: BaseTestCase {
             // Then
             XCTAssertEqual(error.failureReason, "JSON object was not of type: Bool")
         } catch {
-            XCTFail("Incorrect error type was thrown while parsing Decoable")
+            XCTFail("Incorrect error type was thrown while parsing Decodable")
         }
     }
 
@@ -266,7 +266,7 @@ class DecodableTestCase: BaseTestCase {
     func testThatDecodeObjectThrowsWithInvalidJSON() {
         do {
             // Given
-            let data = "some random data that isn't json".data(using: String.Encoding.utf8)!
+            let data = "some random data that isn't json".data(using: .utf8)!
 
             // When
             let _: TestObject = try Elevate.decodeObject(from: data, atKeyPath: "sub-object")

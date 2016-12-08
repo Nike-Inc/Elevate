@@ -43,7 +43,7 @@ class ParserTestCase: BaseTestCase {
                 schema.addProperty(keyPath: "testFloat", type: .float)
                 schema.addProperty(keyPath: "testDouble", type: .double)
                 schema.addProperty(keyPath: "testNull", type: .string, optional: true)
-                schema.addProperty(keyPath: "testDictionary", type: .dictionary)
+                schema.addProperty(keyPath: "testDictionary", type: .dictionary, decodableType: [String: String].self)
                 schema.addProperty(keyPath: "testDate", type: .string, decoder: dateDecoder)
                 schema.addProperty(keyPath: "testURL", type: .url)
                 schema.addProperty(keyPath: "sub-object", type: .dictionary, decoder: ValidDecoder())
@@ -59,9 +59,9 @@ class ParserTestCase: BaseTestCase {
             XCTAssertEqual(entity["testDouble"] as? Double, 1.1111, "Parsed Double did not equal value from json file.")
             XCTAssertTrue(entity["testNull"] == nil, "Parsed value did not equal nil from json file.")
 
-            let jsonDictionary = entity["testDictionary"] as! [String: Any]
+            let jsonDictionary = entity["testDictionary"] as? [String: Any]
 
-            XCTAssertEqual(jsonDictionary["key1"] as? String, "value1", "Parsed Dictionary<String, Any> did not equal value from json file.")
+            XCTAssertEqual(jsonDictionary?["key1"] as? String, "value1", "Parsed Dictionary<String, Any> did not equal value from json file.")
             XCTAssertTrue(entity["sub-object"] is TestObject, "Parsed sub object did not contain value of correct type")
 
             if let subObject = entity["sub-object"] as? TestObject {

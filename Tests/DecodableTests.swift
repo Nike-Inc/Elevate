@@ -43,7 +43,7 @@ class DecodableTestCase: BaseTestCase {
             XCTAssertEqual(testObject.subInt, -1, "test object subInt does not match expected value")
             XCTAssertEqual(testObject.subString, "sub test string", "test object subString does not match expected value")
         } catch {
-            XCTFail("Parser unexpectedly failed by throwing error: \(error)")
+            XCTFail("Test unexpectedly failed with error: \(error)")
         }
     }
 
@@ -60,7 +60,7 @@ class DecodableTestCase: BaseTestCase {
             XCTAssertEqual(result[1].subInt, 1, "array item 0 subInt does not match expected value")
             XCTAssertEqual(result[2].subInt, 2, "array item 0 subInt does not match expected value")
         } catch {
-            XCTFail("Parser uneexpectedly failed by throwing error: \(error)")
+            XCTFail("Test unexpectedly failed with error: \(error)")
         }
     }
 
@@ -78,7 +78,7 @@ class DecodableTestCase: BaseTestCase {
             // Then
             XCTAssertEqual(result, "981a383074461fcbf7b9c67e2cb7bd13502d664cad0b254b8f426cd77c62d83e")
         } catch {
-            XCTFail("Parser unexpectedly failed by throwing error: \(error)")
+            XCTFail("Test unexpectedly failed with error: \(error)")
         }
     }
 
@@ -93,7 +93,7 @@ class DecodableTestCase: BaseTestCase {
             // Then
             XCTAssertEqual(result, 7)
         } catch {
-            XCTFail("Parser unexpectedly failed by throwing error: \(error)")
+            XCTFail("Test unexpectedly failed with error: \(error)")
         }
     }
 
@@ -108,7 +108,7 @@ class DecodableTestCase: BaseTestCase {
             // Then
             XCTAssertEqual(result, 7)
         } catch {
-            XCTFail("Parser unexpectedly failed by throwing error: \(error)")
+            XCTFail("Test unexpectedly failed with error: \(error)")
         }
     }
 
@@ -123,7 +123,7 @@ class DecodableTestCase: BaseTestCase {
             // Then
             XCTAssertEqual(result, 7.1)
         } catch {
-            XCTFail("Parser unexpectedly failed by throwing error: \(error)")
+            XCTFail("Test unexpectedly failed with error: \(error)")
         }
     }
 
@@ -138,7 +138,7 @@ class DecodableTestCase: BaseTestCase {
             // Then
             XCTAssertEqual(result, 7.1)
         } catch {
-            XCTFail("Parser unexpectedly failed by throwing error: \(error)")
+            XCTFail("Test unexpectedly failed with error: \(error)")
         }
     }
 
@@ -153,7 +153,7 @@ class DecodableTestCase: BaseTestCase {
             // Then
             XCTAssertTrue(result)
         } catch {
-            XCTFail("Parser unexpectedly failed by throwing error: \(error)")
+            XCTFail("Test unexpectedly failed with error: \(error)")
         }
     }
 
@@ -167,7 +167,7 @@ class DecodableTestCase: BaseTestCase {
             // When
             let _ = try String(json: json)
 
-            XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
+            XCTFail("String initializer unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
             // Then
             XCTAssertEqual(error.failureReason, "JSON object was not of type: String")
@@ -184,7 +184,7 @@ class DecodableTestCase: BaseTestCase {
             // When
             let _ = try Int(json: json)
 
-            XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
+            XCTFail("Int initializer unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
             // Then
             XCTAssertEqual(error.failureReason, "JSON object was not of type: Int")
@@ -201,7 +201,7 @@ class DecodableTestCase: BaseTestCase {
             // When
             let _ = try UInt(json: json)
 
-            XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
+            XCTFail("UInt initializer unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
             // Then
             XCTAssertEqual(error.failureReason, "JSON object was not of type: UInt")
@@ -218,7 +218,7 @@ class DecodableTestCase: BaseTestCase {
             // When
             let _ = try Float(json: json)
 
-            XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
+            XCTFail("Float initializer unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
             // Then
             XCTAssertEqual(error.failureReason, "JSON object was not of type: Float")
@@ -235,7 +235,7 @@ class DecodableTestCase: BaseTestCase {
             // When
             let _ = try Double(json: json)
 
-            XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
+            XCTFail("Double initializer unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
             // Then
             XCTAssertEqual(error.failureReason, "JSON object was not of type: Double")
@@ -252,7 +252,7 @@ class DecodableTestCase: BaseTestCase {
             // When
             let _ = try Bool(json: json)
 
-            XCTFail("Parser unexpectedly succeeded in parsing data of incorrect type")
+            XCTFail("Bool initializer unexpectedly succeeded in parsing data of incorrect type")
         } catch let error as ParserError {
             // Then
             XCTAssertEqual(error.failureReason, "JSON object was not of type: Bool")
@@ -271,7 +271,7 @@ class DecodableTestCase: BaseTestCase {
             // When
             let _: TestObject = try Elevate.decodeObject(from: data, atKeyPath: "sub-object")
 
-            XCTFail("Parser unexpectedly succeeded.")
+            XCTFail("Decoding unexpectedly succeeded.")
         } catch let error as ParserError {
             // Then
             let expectedPrefix = "Parser Deserialization Error - JSON data deserialization failed with error:" // prefix
@@ -293,7 +293,7 @@ class DecodableTestCase: BaseTestCase {
             // When
             let _: TestObject = try Elevate.decodeObject(from: data, atKeyPath: "key_does_not_exist")
 
-            XCTFail("Parser unexpectedly succeeded.")
+            XCTFail("Decoding unexpectedly succeeded.")
         } catch let error as ParserError {
             // Then
             let actualValue = error.description
@@ -312,7 +312,7 @@ class DecodableTestCase: BaseTestCase {
             // When
             let _: TestObject = try Elevate.decodeObject(from: data, atKeyPath: "testDictionary")
 
-            XCTFail("Parser unexpectedly succeeded.")
+            XCTFail("Decoding unexpectedly succeeded.")
         } catch let error as ParserError {
             // Then
             let actualValue = error.description
@@ -365,7 +365,7 @@ class DecodableTestCase: BaseTestCase {
             // Given, When
             let _ = try type.init(json: value)
 
-            XCTFail("Parser unexpectedly succeeded")
+            XCTFail("Decodable initializer unexpectedly succeeded")
         } catch let error as ParserError {
             // Then
             let actualValue = error.failureReason

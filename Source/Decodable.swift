@@ -66,7 +66,7 @@ extension Int: Decodable {
             throw ParserError.validation(failureReason: "JSON object was not of type: Int")
         }
 
-        self = (json as! NSNumber).intValue
+        self = json as! Int
     }
 }
 
@@ -81,7 +81,7 @@ extension UInt: Decodable {
             throw ParserError.validation(failureReason: "JSON object was not of type: UInt")
         }
 
-        self = (json as! NSNumber).uintValue
+        self = json as! UInt
     }
 }
 
@@ -96,7 +96,7 @@ extension Float: Decodable {
             throw ParserError.validation(failureReason: "JSON object was not of type: Float")
         }
 
-        self = (json as! NSNumber).floatValue
+        self = json as! Float
     }
 }
 
@@ -111,7 +111,7 @@ extension Double: Decodable {
             throw ParserError.validation(failureReason: "JSON object was not of type: Double")
         }
 
-        self = (json as! NSNumber).doubleValue
+        self = json as! Double
     }
 }
 
@@ -126,7 +126,6 @@ extension Bool: Decodable {
             throw ParserError.validation(failureReason: "JSON object was not of type: Bool")
         }
 
-        self = (json as! NSNumber).boolValue
     }
 }
 
@@ -139,6 +138,7 @@ extension Array: Decodable {
         }
 
         self = json as! [Element]
+        self = json as! Bool
     }
 }
 

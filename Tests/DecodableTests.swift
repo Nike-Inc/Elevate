@@ -157,6 +157,22 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
+    func testThatDecodeObjectDecodesDictionarySuccessfully() {
+        do {
+            // Given
+            let data = "{ \"key\" : \"value\" }".data(using: .utf8)!
+
+            // When
+            let result: [String: String] = try Elevate.decodeObject(from: data, atKeyPath: "")
+
+            // Then
+            XCTAssertEqual(result.count, 1)
+            XCTAssertEqual(result["key"], "value")
+        } catch {
+            XCTFail("Test unexpectedly failed with error: \(error)")
+        }
+    }
+
     // MARK: - Decodable Primitive Failure Tests
 
     func testThatStringDecodableInitializerThrowsForInvalidString() {
@@ -261,6 +277,23 @@ class DecodableTestCase: BaseTestCase {
         }
     }
 
+    func testThatDictionaryDecodableInitializerThrowsForInvalidDictionary() {
+        do {
+            // Given
+            let json: Any = "value"
+
+            // When
+            let _ = try Dictionary<String, String>(json: json)
+
+            XCTFail("Dictionary initializer unexpectedly succeeded in parsing data of incorrect type")
+        } catch let error as ParserError {
+            // Then
+            XCTAssertEqual(error.failureReason, "JSON object was not of type: Dictionary<String, String>")
+        } catch {
+            XCTFail("Incorrect error type was thrown while parsing Decodable")
+        }
+    }
+
     // MARK: - Decodable Failure Tests
 
     func testThatDecodeObjectThrowsWithInvalidJSON() {
@@ -356,6 +389,7 @@ class DecodableTestCase: BaseTestCase {
         decodableErrorTest(type: Float.self, value: "1")
         decodableErrorTest(type: Double.self, value: "1")
         decodableErrorTest(type: Bool.self, value: "1")
+        decodableErrorTest(type: [String: String].self, value: "1")
     }
 
     // MARK: - Private - Helper Methods

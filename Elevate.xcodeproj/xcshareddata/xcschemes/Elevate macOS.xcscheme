@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E91C4E111B5477BD000481D2"
                BuildableName = "Elevate.framework"
-               BlueprintName = "Elevate OSX"
+               BlueprintName = "Elevate macOS"
                ReferencedContainer = "container:Elevate.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -30,7 +30,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E91C4E1A1B5477BD000481D2"
                BuildableName = "ElevateTests.xctest"
-               BlueprintName = "Elevate OSX Tests"
+               BlueprintName = "Elevate macOS Tests"
                ReferencedContainer = "container:Elevate.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -49,7 +49,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E91C4E1A1B5477BD000481D2"
                BuildableName = "ElevateTests.xctest"
-               BlueprintName = "Elevate OSX Tests"
+               BlueprintName = "Elevate macOS Tests"
                ReferencedContainer = "container:Elevate.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -59,7 +59,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E91C4E111B5477BD000481D2"
             BuildableName = "Elevate.framework"
-            BlueprintName = "Elevate OSX"
+            BlueprintName = "Elevate macOS"
             ReferencedContainer = "container:Elevate.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -81,7 +81,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E91C4E111B5477BD000481D2"
             BuildableName = "Elevate.framework"
-            BlueprintName = "Elevate OSX"
+            BlueprintName = "Elevate macOS"
             ReferencedContainer = "container:Elevate.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -99,7 +99,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E91C4E111B5477BD000481D2"
             BuildableName = "Elevate.framework"
-            BlueprintName = "Elevate OSX"
+            BlueprintName = "Elevate macOS"
             ReferencedContainer = "container:Elevate.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

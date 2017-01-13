@@ -452,9 +452,9 @@
 			productReference = E91C4DE21B547559000481D2 /* ElevateTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		E91C4E111B5477BD000481D2 /* Elevate OSX */ = {
+		E91C4E111B5477BD000481D2 /* Elevate macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E91C4E271B5477BD000481D2 /* Build configuration list for PBXNativeTarget "Elevate OSX" */;
+			buildConfigurationList = E91C4E271B5477BD000481D2 /* Build configuration list for PBXNativeTarget "Elevate macOS" */;
 			buildPhases = (
 				E91C4E0D1B5477BD000481D2 /* Sources */,
 				E91C4E0E1B5477BD000481D2 /* Frameworks */,
@@ -465,14 +465,14 @@
 			);
 			dependencies = (
 			);
-			name = "Elevate OSX";
+			name = "Elevate macOS";
 			productName = "Elevate OSX";
 			productReference = E91C4E121B5477BD000481D2 /* Elevate.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		E91C4E1A1B5477BD000481D2 /* Elevate OSX Tests */ = {
+		E91C4E1A1B5477BD000481D2 /* Elevate macOS Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E91C4E281B5477BD000481D2 /* Build configuration list for PBXNativeTarget "Elevate OSX Tests" */;
+			buildConfigurationList = E91C4E281B5477BD000481D2 /* Build configuration list for PBXNativeTarget "Elevate macOS Tests" */;
 			buildPhases = (
 				E91C4E171B5477BD000481D2 /* Sources */,
 				E91C4E181B5477BD000481D2 /* Frameworks */,
@@ -483,7 +483,7 @@
 			dependencies = (
 				E91C4E1E1B5477BD000481D2 /* PBXTargetDependency */,
 			);
-			name = "Elevate OSX Tests";
+			name = "Elevate macOS Tests";
 			productName = "Elevate OSXTests";
 			productReference = E91C4E1B1B5477BD000481D2 /* ElevateTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -543,8 +543,8 @@
 			targets = (
 				E91C4DD71B547559000481D2 /* Elevate iOS */,
 				E91C4DE11B547559000481D2 /* Elevate iOS Tests */,
-				E91C4E111B5477BD000481D2 /* Elevate OSX */,
-				E91C4E1A1B5477BD000481D2 /* Elevate OSX Tests */,
+				E91C4E111B5477BD000481D2 /* Elevate macOS */,
+				E91C4E1A1B5477BD000481D2 /* Elevate macOS Tests */,
 				4CD760FF1C82679D00DCC104 /* Elevate tvOS */,
 				4CD761081C82679D00DCC104 /* Elevate tvOS Tests */,
 				4CA33F3E1B7558C30047C307 /* Elevate watchOS */,
@@ -752,7 +752,7 @@
 		};
 		E91C4E1E1B5477BD000481D2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E91C4E111B5477BD000481D2 /* Elevate OSX */;
+			target = E91C4E111B5477BD000481D2 /* Elevate macOS */;
 			targetProxy = E91C4E1D1B5477BD000481D2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1183,7 +1183,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E91C4E271B5477BD000481D2 /* Build configuration list for PBXNativeTarget "Elevate OSX" */ = {
+		E91C4E271B5477BD000481D2 /* Build configuration list for PBXNativeTarget "Elevate macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E91C4E231B5477BD000481D2 /* Debug */,
@@ -1192,7 +1192,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E91C4E281B5477BD000481D2 /* Build configuration list for PBXNativeTarget "Elevate OSX Tests" */ = {
+		E91C4E281B5477BD000481D2 /* Build configuration list for PBXNativeTarget "Elevate macOS Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E91C4E251B5477BD000481D2 /* Debug */,

@@ -19,7 +19,7 @@ Elevate is a JSON parsing framework that leverages Swift to make parsing simple,
 ## Requirements
 
 - iOS 8.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
-- Xcode 8.0+
+- Xcode 8.2+
 - Swift 3.0+
 
 ## Communication
@@ -48,7 +48,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '10.0'
 use_frameworks!
 
-pod 'Elevate', '~> 2.0'
+pod 'Elevate', '~> 2.2'
 ```
 
 ### Carthage
@@ -65,7 +65,7 @@ brew install carthage
 To integrate Elevate into your Xcode project using Carthage, specify it in your [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile):
 
 ```bash
-github "Nike-Inc/Elevate" ~> 2.0
+github "Nike-Inc/Elevate" ~> 2.2
 ```
 
 To build Elevate on iOS only, use the following Carthage command:

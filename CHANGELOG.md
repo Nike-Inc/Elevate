@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 #### 2.x Releases
 
+* `2.2.x` Releases = [2.2.0](#220)
 * `2.1.x` Releases = [2.1.0](#210)
 * `2.0.x` Releases = [2.0.0](#200)
 
@@ -15,9 +16,50 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [2.2.0](https://github.com/Nike-Inc/Elevate/releases/tag/2.2.0)
+
+Released on 2016-01-13. All issues associated with this milestone can be found using this
+[filter](https://github.com/Nike-Inc/Elevate/milestone/3?closed=1).
+
+#### Added
+
+- `Decodable` conformance for Dictionary types along with tests.
+  - Added by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#25](https://github.com/Nike-Inc/Elevate/pull/25).
+
+#### Updated
+
+- `Decodable` test names, failure messages and general structure.
+  - Added by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#25](https://github.com/Nike-Inc/Elevate/pull/25).
+- Primitive `Decodable` implementations by removing unnecessary toll-free bridging.
+  - Added by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#25](https://github.com/Nike-Inc/Elevate/pull/25).
+- The Xcode project to Xcode 8.2 and disabled automatic signing for frameworks.
+  - Added by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#26](https://github.com/Nike-Inc/Elevate/pull/26).
+- The project by refactoring `OSX` to `macOS` throughout along with the target names.
+  - Added by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#26](https://github.com/Nike-Inc/Elevate/pull/26).
+- The travis yaml file to the `xcode8.2` image and updated platforms and destinations.
+  - Added by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#26](https://github.com/Nike-Inc/Elevate/pull/26).
+- The docstrings throughout codebase to use latest Xcode syntax.
+  - Added by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#26](https://github.com/Nike-Inc/Elevate/pull/26).
+
+#### Fixed
+
+- Typo in `primitive` spelling throughout codebase...no breaking public API changes.
+  - Added by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#25](https://github.com/Nike-Inc/Elevate/pull/25).
+
+---
+
 ## [2.1.0](https://github.com/Nike-Inc/Elevate/releases/tag/2.1.0)
 
-Released on 2016-11-27.
+Released on 2016-11-27. All issues associated with this milestone can be found using this
+[filter](https://github.com/Nike-Inc/Elevate/milestone/2?closed=1).
 
 #### Added
 

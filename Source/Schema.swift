@@ -1,5 +1,5 @@
 //
-//  ParserProperty.swift
+//  Schema.swift
 //
 //  Copyright (c) 2015-2016 Nike, Inc. (https://www.nike.com)
 //
@@ -49,7 +49,6 @@ public enum SchemaPropertyProtocol {
 
 /// Represents a schema property and all its internal characteristics.
 public struct SchemaProperty {
-
     enum DecodingMethod {
         case useDecoder(Decoder)
         case useDecodable(Decodable.Type)
@@ -80,11 +79,12 @@ public class Schema {
     /// NOTE: Compound key paths may be used (e.g. `address.city`). Each property name in the key path MUST be
     /// separated by a `.` character.
     ///
-    /// - parameter keyPath:  Key path for property.
-    /// - parameter type:     Swift object type to be validated and extracted.
-    /// - parameter optional: Specifies if the keyPath is optional. `false` by default.
+    /// - Parameters:
+    ///   - keyPath:  Key path for property.
+    ///   - type:     Swift object type to be validated and extracted.
+    ///   - optional: Specifies whether the keyPath is optional. `false` by default.
     ///
-    /// - returns: The created schema property.
+    /// - Returns: The created schema property.
     @discardableResult
     public func addProperty(keyPath: String, type: SchemaPropertyProtocol, optional: Bool = false) -> SchemaProperty {
         return addProperty(keyPath: keyPath, type: type, optional: optional, decodingMethod: nil)
@@ -95,12 +95,13 @@ public class Schema {
     /// NOTE: Compound key paths may be used (e.g. `address.city`). Each property name in the key path MUST be
     /// separated by a `.` character.
     ///
-    /// - parameter keyPath:       Key path for property.
-    /// - parameter type:          Swift object type to be validated and extracted.
-    /// - parameter optional:      Specifies if the keyPath is optional. `false` by default.
-    /// - parameter decodableType: The `Decodable` type associated to the property. `nil` by default.
+    /// - Parameters:
+    ///   - keyPath:       Key path for property.
+    ///   - type:          Swift object type to be validated and extracted.
+    ///   - optional:      Specifies if the keyPath is optional. `false` by default.
+    ///   - decodableType: The `Decodable` type associated to the property. `nil` by default.
     ///
-    /// - returns: The created parser property.
+    /// - Returns: The created schema property.
     @discardableResult
     public func addProperty(
         keyPath: String,
@@ -123,12 +124,13 @@ public class Schema {
     /// NOTE: Compound key paths may be used (e.g. `address.city`). Each property name in the key path MUST be
     /// separated by a `.` character.
     ///
-    /// - parameter keyPath:  Key path for property.
-    /// - parameter type:     Swift object type to be validated and extracted.
-    /// - parameter optional: Specifies if the keyPath is optional. `false` by default.
-    /// - parameter decoder:  The `Decoder` associated to the property. `nil` by default.
+    /// - Parameters:
+    ///   - keyPath:  Key path for property.
+    ///   - type:     Swift object type to be validated and extracted.
+    ///   - optional: Specifies if the keyPath is optional. `false` by default.
+    ///   - decoder:  The `Decoder` associated to the property. `nil` by default.
     ///
-    /// - returns: The created parser property.
+    /// - Returns: The created schema property.
     @discardableResult
     public func addProperty(
         keyPath: String,

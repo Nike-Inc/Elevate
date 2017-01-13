@@ -38,10 +38,11 @@ public class Parser {
     /// object of the type defined by the property and can be cast to that type directly, without further checks. Custom
     /// extraction operators are provided for convenience.
     ///
-    /// - parameter data:    A Data object containing encoded json data.
-    /// - parameter closure: Defines the property list for the parser via the passed in `Schema` instance.
+    /// - Parameters:
+    ///   - data:    The json data.
+    ///   - closure: Defines the property list for the parser via the passed in `Schema` instance.
     ///
-    /// - returns: The parsed entity as a Dictionary.
+    /// - Returns: The parsed entity as a Dictionary.
     public class func parseEntity(data: Data, closure: (Schema) -> Void) throws -> [String: Any] {
         let result: [String: Any]
 
@@ -53,7 +54,9 @@ public class Parser {
                 throw error
             } else {
                 let error = error as NSError
-                throw ParserError.deserialization(failureReason: "JSON data deserialization failed with error: \"\(error.description)\"")
+                let failureReason = "JSON data deserialization failed with error: \"\(error.description)\""
+
+                throw ParserError.deserialization(failureReason: failureReason)
             }
         }
 
@@ -81,10 +84,11 @@ public class Parser {
     ///
     /// See the README for code samples and best practices for creating re-usable `Decoder`s.
     ///
-    /// - parameter json:    A Dictionary object containing json data.
-    /// - parameter closure: Defines the property list for the parser via the passed in `ParserPropertyMaker` instance.
+    /// - Parameters:
+    ///   - json:    The json object.
+    ///   - closure: Defines the property list for the parser via the passed in `ParserPropertyMaker` instance.
     ///
-    /// - returns: The parsed entity as a Dictionary.
+    /// - Returns: The parsed entity as a Dictionary.
     public class func parseEntity(json: Any, closure: (Schema) -> Void) throws -> [String: Any] {
         if let json = json as? [String: Any] {
             return try parseEntity(fromJSON: json, closure: closure)

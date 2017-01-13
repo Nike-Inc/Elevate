@@ -28,11 +28,11 @@ import Foundation
 
 /// The `Decodable` protocol declares an interface used to create an instance of an object from an `Any` to be parsed.
 public protocol Decodable {
-    /// Initializes an instance of the object using the given json object.
+    /// Creates an instance of the object using the specified json object.
     ///
-    /// - parameter json: The data to be parsed.
+    /// - Parameter json: The json object to be decoded.
     ///
-    /// - throws: A ParserError.Validation or ParserError.Deserialization if decoding fails.
+    /// - Throws: A `ParserError` if decoding fails.
     init(json: Any) throws
 }
 
@@ -41,11 +41,11 @@ public protocol Decodable {
 /// The primitive decodables implemented below are used by the parser when parsing an array of primitive values. The
 /// input is expected to be of the same type as the object and will be validated and cast as such.
 extension String: Decodable {
-    /// Implements the `Decodable` protocol for the `String` type. Expects input to be a `String`.
+    /// Creates a `String` instance from the json object expected to be of type `String`.
     ///
-    /// - parameter json: A `String` instance.
+    /// - Parameter json: The json object to decode.
     ///
-    /// - throws: A ParserError.Validation error if decoding fails.
+    /// - Throws: A `ParserError.validation` error if decoding fails.
     public init(json: Any) throws {
         guard Parser.isValue(json, ofType: .string) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: String")
@@ -56,11 +56,11 @@ extension String: Decodable {
 }
 
 extension Int: Decodable {
-    /// Implements the `Decodable` protocol for the `Int` type. Expects input to be an `Int`.
+    /// Creates a `Int` instance from the json object expected to be of type `Int`.
     ///
-    /// - parameter json: An `Int` instance.
+    /// - Parameter json: The json object to decode.
     ///
-    /// - throws: A ParserError.Validation error if decoding fails.
+    /// - Throws: A `ParserError.validation` error if decoding fails.
     public init(json: Any) throws {
         guard Parser.isValue(json, ofType: .int) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: Int")
@@ -71,11 +71,11 @@ extension Int: Decodable {
 }
 
 extension UInt: Decodable {
-    /// Implements the `Decodable` protocol for the `UInt` type. Expects input to be a `UInt`.
+    /// Creates a `UInt` instance from the json object expected to be of type `UInt`.
     ///
-    /// - parameter json: A `UInt` instance.
+    /// - Parameter json: The json object to decode.
     ///
-    /// - throws: A ParserError.Validation error if decoding fails.
+    /// - Throws: A `ParserError.validation` error if decoding fails.
     public init(json: Any) throws {
         guard Parser.isValue(json, ofType: .uint) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: UInt")
@@ -86,11 +86,11 @@ extension UInt: Decodable {
 }
 
 extension Float: Decodable {
-    /// Implements the `Decodable` protocol for the `Float` type. Expects input to be a `Float`.
+    /// Creates a `Float` instance from the json object expected to be of type `Float`.
     ///
-    /// - parameter json: A `Float` instance.
+    /// - Parameter json: The json object to decode.
     ///
-    /// - throws: A ParserError.Validation error if decoding fails.
+    /// - Throws: A `ParserError.validation` error if decoding fails.
     public init(json: Any) throws {
         guard Parser.isValue(json, ofType: .float) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: Float")
@@ -101,11 +101,11 @@ extension Float: Decodable {
 }
 
 extension Double: Decodable {
-    /// Implements the `Decodable` protocol for the `Double` type. Expects input to be a `Double`.
+    /// Creates a `Double` instance from the json object expected to be of type `Double`.
     ///
-    /// - parameter json: A `Double` instance.
+    /// - Parameter json: The json object to decode.
     ///
-    /// - throws: A ParserError.Validation error if decoding fails.
+    /// - Throws: A `ParserError.validation` error if decoding fails.
     public init(json: Any) throws {
         guard Parser.isValue(json, ofType: .double) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: Double")
@@ -116,11 +116,11 @@ extension Double: Decodable {
 }
 
 extension Bool: Decodable {
-    /// Implements the `Decodable` protocol for the `Bool` type. Expects input to be a `Bool`.
+    /// Creates a `Bool` instance from the json object expected to be of type `Bool`.
     ///
-    /// - parameter json: A `Bool` instance.
+    /// - Parameter json: The json object to decode.
     ///
-    /// - throws: A ParserError.Validation error if decoding fails.
+    /// - Throws: A `ParserError.validation` error if decoding fails.
     public init(json: Any) throws {
         guard Parser.isValue(json, ofType: .bool) else {
             throw ParserError.validation(failureReason: "JSON object was not of type: Bool")
@@ -131,6 +131,11 @@ extension Bool: Decodable {
 }
 
 extension Dictionary: Decodable {
+    /// Creates a `Dictionary` instance from the json object expected to be of type `[Key: Value]`.
+    ///
+    /// - Parameter json: The json object to decode.
+    ///
+    /// - Throws: A `ParserError.validation` error if decoding fails.
     public init(json: Any) throws {
         guard json is [Key: Value] else {
             throw ParserError.validation(failureReason: "JSON object was not of type: \(Dictionary<Key, Value>.self)")

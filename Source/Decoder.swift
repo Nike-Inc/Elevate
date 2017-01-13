@@ -29,30 +29,30 @@ import Foundation
 /// The `Decoder` protocol declares an interface used to parse an `Any` of one underlying type to an `Any` of another
 /// underlying type, which is typically a model object.
 public protocol Decoder {
-    /// Parses the given object into a value of type `T`.
+    /// Decodes the specified json object into a value of type `T`.
     ///
-    /// - parameter object: The object to parse.
+    /// - Parameter object: The json object to decode.
     ///
-    /// - throws:  A ParserError.Validation error if object decoding fails.
-    /// - returns: The parsed object.
+    /// - Returns: The decoded object.
+    ///
+    /// - Throws:  A `ParserError` if decoding fails.
     func decode(_ object: Any) throws -> Any
 }
 
 // MARK: - Supplied Decoders
 
-/// Decodes a String to an Int.
+/// Decodes a `String` to an `Int`.
 public class StringToIntDecoder: Decoder {
-    /// Creates a new instance of the `StringToIntDecoder`.
-    ///
-    /// - returns: The new `StringToIntDecoder` instance.
+    /// Creates a `StringToIntDecoder` instance.
     public init() {}
 
     /// Converts the `String` object to an `Int`.
     ///
-    /// - parameter object: The `String` to decode.
+    /// - Parameter object: The `String` to decode.
     ///
-    /// - throws:  A ParserError.Validation error if int decoding fails.
-    /// - returns: The decoded `Int`.
+    /// - Returns: The decoded `Int`.
+    ///
+    /// - Throws: A `ParserError.validation` error if decoding fails.
     public func decode(_ object: Any) throws -> Any {
         if let intString = object as? String, let intValue = Int(intString) {
             return intValue
@@ -66,31 +66,28 @@ public class StringToIntDecoder: Decoder {
 public class DateDecoder: Decoder {
     private let dateFormatter: DateFormatter
 
-    /// Creates a data decoder with the given date format string.
+    /// Creates a `DateDecoder` instance from the specified date format string.
     ///
-    /// - parameter dateFormatString: The date format string.
-    ///
-    /// - returns: The date decoder.
+    /// - Parameter dateFormatString: The date format string.
     public init(dateFormatString: String) {
         self.dateFormatter = DateFormatter()
         self.dateFormatter.dateFormat = dateFormatString
     }
 
-    /// Creates a date decoder with the given date formatter.
+    /// Creates a `DateDecoder` instance from the specified date formatter.
     ///
-    /// - parameter dateFormatter: A `DateFormatter` instance.
-    ///
-    /// - returns: The date decoder.
+    /// - Parameter dateFormatter: The date formatter.
     public init(dateFormatter: DateFormatter) {
         self.dateFormatter = dateFormatter
     }
 
-    /// Decodes the data parameter into an `Date`.
+    /// Converts the json object into a `Date`.
     ///
-    /// - parameter data: The string to parse. MUST be of type `String` or `NSString`.
+    /// - Parameter object: The json object to decode. Must be of type `String`.
     ///
-    /// - throws: ParserError.Validation
-    /// - returns: The parsed date.
+    /// - Returns: The decoded date.
+    ///
+    /// - Throws: A `ParserError.validation` error if decoding fails.
     public func decode(_ object: Any) throws -> Any {
         guard let string = object as? String else {
             let description = "DateParser object to parse was not a String."

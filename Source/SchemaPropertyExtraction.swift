@@ -26,7 +26,7 @@ import Foundation
 
 precedencegroup DictionaryExtractionPrecedence {
     associativity: left
-    higherThan: AssignmentPrecedence
+    higherThan: NilCoalescingPrecedence
 }
 
 infix operator <-! : DictionaryExtractionPrecedence

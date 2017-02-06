@@ -135,15 +135,15 @@ class PropertyExtractionTestCase: BaseTestCase {
         XCTAssertEqual(anyArray, ["value_0", "value_1"])
     }
 
-    func testOptionalArrayForKeyPathOperator() {
+    func testExtractionPrecedence() {
         // Given, When
-        let stringsArray: [String]? = properties <--? "array"
-        let anyArray: [String]? = properties <--? "array_of_any_values"
-        let missingKey: [String]? = properties <--? "key_does_not_exist"
+        let string: String = properties <-? "nope" ?? "default string"
+        let stringsArray: [String] = properties <--? "nope" ?? ["default", "value"]
 
         // Then
-        XCTAssertEqual(stringsArray ?? [], ["value_0", "value_1"])
-        XCTAssertEqual(anyArray ?? [], ["value_0", "value_1"])
-        XCTAssertNil(missingKey)
+        XCTAssertEqual(string, "default string")
+        XCTAssertEqual(stringsArray.count, 2)
+        XCTAssertEqual(stringsArray[0], "default")
+        XCTAssertEqual(stringsArray[1], "value")
     }
 }

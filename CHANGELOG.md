@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 
 #### 2.x Releases
 
-* `2.2.x` Releases = [2.2.0](#220)
+* `2.2.x` Releases = [2.2.0](#220) | [2.2.1](#221)
 * `2.1.x` Releases = [2.1.0](#210)
 * `2.0.x` Releases = [2.0.0](#200)
 
@@ -15,6 +15,17 @@ All notable changes to this project will be documented in this file.
 * `1.0.x` Releases - [1.0.0](#100)
 
 ---
+
+## [2.2.1](https://github.com/Nike-Inc/Elevate/releases/tag/2.2.1)
+
+Released on 2017-02-09. All issues associated with this milestone can be found using this
+[filter](https://github.com/Nike-Inc/Elevate/milestone/4?closed=1).
+
+#### Updated
+
+- Changed `DictionaryExtractionPrecedence` to have a precedence higher than `NilCoalescingPrecedence` 
+  - Added by [Dave Camp](https://github.com/atomiccat) in Pull Request
+  [#27](https://github.com/Nike-Inc/Elevate/pull/27).
 
 ## [2.2.0](https://github.com/Nike-Inc/Elevate/releases/tag/2.2.0)
 

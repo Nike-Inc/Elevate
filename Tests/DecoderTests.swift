@@ -261,4 +261,23 @@ class DateDecoderTestCase: BaseTestCase {
             XCTFail("Parser error was of incorrect type")
         }
     }
+
+    func testThatThrownCustomErrorsCanBeCaught() {
+        do {
+            // Given
+            let data = loadJSONDataForFileNamed("PropertyTypesTest")
+
+            // When
+            let _: ErrorThrowingDecodable = try Elevate.decodeObject(from: data, with: ErrorThrowingDecoder())
+
+            XCTFail("Decoding unexpectedly succeeded.")
+        } catch let error as NSError {
+            // Then
+            XCTAssertEqual(error.domain, "Decoder Test Error", "Error domain did not match expected value.")
+            XCTAssertEqual(error.code, 42, "Error code did not match expected value.")
+        } catch {
+            XCTFail("Parser error was of incorrect type.")
+            
+        }
+    }
 }

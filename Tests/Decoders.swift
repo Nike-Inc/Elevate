@@ -46,3 +46,9 @@ struct TestObjectDecoder: Decoder {
         )
     }
 }
+
+struct ErrorThrowingDecoder: Decoder {
+    func decode(_ object: Any) throws -> Any {
+        throw NSError(domain: "Decoder Test Error", code: 42, userInfo: nil)
+    }
+}

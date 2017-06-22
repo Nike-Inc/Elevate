@@ -392,6 +392,25 @@ class DecodableTestCase: BaseTestCase {
         decodableErrorTest(type: [String: String].self, value: "1")
     }
 
+    func testThatThrownCustomErrorsCanBeCaught() {
+        do {
+            // Given
+            let data = loadJSONDataForFileNamed("PropertyTypesTest")
+
+            // When
+            let _: ErrorThrowingDecodable = try Elevate.decodeObject(from: data)
+
+            XCTFail("Decoding unexpectedly succeeded.")
+        } catch let error as NSError {
+            // Then
+            XCTAssertEqual(error.domain, "Decodable Test Error", "Error domain did not match expected value.")
+            XCTAssertEqual(error.code, 42, "Error code did not match expected value.")
+        } catch {
+            XCTFail("Parser error was of incorrect type.")
+
+        }
+    }
+
     // MARK: - Private - Helper Methods
 
     private func decodableErrorTest(type: Decodable.Type, value: Any) {

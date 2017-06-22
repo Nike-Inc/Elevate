@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 
 #### 2.x Releases
 
-* `2.2.x` Releases = [2.2.0](#220) | [2.2.1](#221)
+* `2.2.x` Releases = [2.2.0](#220) | [2.2.1](#221) | [2.2.2](#222)
 * `2.1.x` Releases = [2.1.0](#210)
 * `2.0.x` Releases = [2.0.0](#200)
 
@@ -13,6 +13,13 @@ All notable changes to this project will be documented in this file.
 
 * `1.1.x` Releases = [1.1.0](#110)
 * `1.0.x` Releases - [1.0.0](#100)
+
+---
+
+## [2.2.2](https://github.com/Nike-Inc/Elevate/releases/tag/2.2.2)
+
+Released on 2017-06-22. All issues associated with this milestone can be found using this
+[filter](https://github.com/Nike-Inc/Elevate/milestone/5?closed=1).
 
 ---
 

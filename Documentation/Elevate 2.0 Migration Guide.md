@@ -89,26 +89,26 @@ Elevate has always followed a maker pattern to build up the list of properties t
 
 Here is an example of the previous set of APIs.
 ```swift
-        let properties = try Parser.parseProperties(json: json) { make in
-            make.propertyForKeyPath(idKeyPath, type: .Int)
-            make.propertyForKeyPath(nameKeyPath, type: .String)
-            make.propertyForKeyPath(nicknameKeyPath, type: .String, optional: true)
-            make.propertyForKeyPath(birthDateKeyPath, type: .String, decoder: dateDecoder)
-            make.propertyForKeyPath(isMemberKeyPath, type: .Bool, optional: true)
-            make.propertyForKeyPath(addressesKeyPath, type: .Array, decodedToType: Address.self)
-        }
+let properties = try Parser.parseProperties(json: json) { make in
+	make.propertyForKeyPath(idKeyPath, type: .Int)
+	make.propertyForKeyPath(nameKeyPath, type: .String)
+	make.propertyForKeyPath(nicknameKeyPath, type: .String, optional: true)
+	make.propertyForKeyPath(birthDateKeyPath, type: .String, decoder: dateDecoder)
+	make.propertyForKeyPath(isMemberKeyPath, type: .Bool, optional: true)
+	make.propertyForKeyPath(addressesKeyPath, type: .Array, decodedToType: Address.self)
+}
 ```
 
 And here is the updated version.
 ```swift
-        let entity = try Parser.parseEntity(json: json) { schema in
-            schema.addProperty(keyPath: idKeyPath, type: .Int)
-            schema.addProperty(keyPath: nameKeyPath, type: .String)
-            schema.addProperty(keyPath: nicknameKeyPath, type: .String, optional: true)
-            schema.addProperty(keyPath: birthDateKeyPath, type: .String, decoder: dateDecoder)
-            schema.addProperty(keyPath: isMemberKeyPath, type: .Bool, optional: true)
-            schema.addProperty(keyPath: addressesKeyPath, type: .Array, decodedToType: Address.self)
-        }
+let entity = try Parser.parseEntity(json: json) { schema in
+	schema.addProperty(keyPath: idKeyPath, type: .Int)
+	schema.addProperty(keyPath: nameKeyPath, type: .String)
+	schema.addProperty(keyPath: nicknameKeyPath, type: .String, optional: true)
+	schema.addProperty(keyPath: birthDateKeyPath, type: .String, decoder: dateDecoder)
+	schema.addProperty(keyPath: isMemberKeyPath, type: .Bool, optional: true)
+	schema.addProperty(keyPath: addressesKeyPath, type: .Array, decodedToType: Address.self)
+}
 ```
 
 The `Parser.parseProperties` API has been updated to `Parser.parseEntity` to more clearly reflect the work that it is doing to parse the entity defined by your schema from the JSON document. 

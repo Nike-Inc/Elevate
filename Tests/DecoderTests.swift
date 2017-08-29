@@ -26,7 +26,7 @@ import Elevate
 import Foundation
 import XCTest
 
-class ValidDecoder: Decoder {
+class ValidDecoder: Elevate.Decoder {
     let toDictionary: Bool
 
     init(toDictionary: Bool = false) {
@@ -52,7 +52,7 @@ class ValidDecoder: Decoder {
     }
 }
 
-class InvalidDecoder: Decoder {
+class InvalidDecoder: Elevate.Decoder {
     func decode(_ object: Any) throws -> Any {
         return try Parser.parseEntity(json: object) { schema in
             schema.addProperty(keyPath: "subUInt", type: .string)

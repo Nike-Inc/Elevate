@@ -114,7 +114,7 @@ struct Person {
     let addresses: [Address]
 }
 
-extension Person: Decodable {
+extension Person: Elevate.Decodable {
     fileprivate struct KeyPath {
         static let id = "identifier"
         static let name = "name"
@@ -170,7 +170,7 @@ Elevate contains four property extraction operators to make it easy to extract v
 Extending a model object to conform to the `Encodable` protocol is less involved than making it `Decodable`. Since your object is already strongly typed, it only needs to be converted into a JSON friendly `Any` object. Building on the previous `Person` type, let's make it conform to the `Encodable` protocol.
 
 ```swift
-extension Person: Encodable {
+extension Person: Elevate.Encodable {
     var json: Any {
         var json: [String: Any] = [
             KeyPath.id: identifier,
@@ -210,7 +210,7 @@ A `Decoder` is generally implemented as a separate object that returns instances
 #### Using Multiple Decoders
 
 ```swift
-class AvatarDecoder: Decoder {
+class AvatarDecoder: Elevate.Decoder {
     func decode(_ object: Any) throws -> Any {
         let urlKeyPath = "url"
         let widthKeyPath = "width"
@@ -232,7 +232,7 @@ class AvatarDecoder: Decoder {
 ```
 
 ```swift
-class AlternateAvatarDecoder: Decoder {
+class AlternateAvatarDecoder: Elevate.Decoder {
     func decode(_ object: Any) throws -> Any {
         let locationKeyPath = "location"
         let wKeyPath = "w"

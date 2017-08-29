@@ -33,7 +33,8 @@ Elevate is a JSON parsing framework that leverages Swift to make parsing simple,
 
 ### CocoaPods
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
+You can install it with the following command:
 
 ```bash
 [sudo] gem install cocoapods
@@ -78,9 +79,15 @@ carthage update --platform iOS
 
 ## Usage
 
-Elevate aims to make JSON parsing and validation simple, yet robust. This is achieved through a set of protocols and classes that can be utilized to create `Decodable` and `Decoder` classes. By using Elevate's parsing infrastructure, you'll be able to easily parse JSON data into strongly typed model objects or simple dictionaries by specifying each property key path and its associated type. Elevate will validate that the keys exist (if they're not optional) and that they are of the correct type. Validation errors will be aggregated as the JSON data is parsed. If an error is encountered, a `ParserError` will be thrown.
+Elevate aims to make JSON parsing and validation simple, yet robust.
+This is achieved through a set of protocols and classes that can be utilized to create `Decodable` and `Decoder` classes.
+By using Elevate's parsing infrastructure, you'll be able to easily parse JSON data into strongly typed model objects or simple dictionaries by specifying each property key path and its associated type.
+Elevate will validate that the keys exist (if they're not optional) and that they are of the correct type.
+Validation errors will be aggregated as the JSON data is parsed.
+If an error is encountered, a `ParserError` will be thrown.
 
-Elevate also supports encoding model objects back into JSON objects through the light-weight `Encodable` protocol. Convenience extensions have been added to collection types to make it easy to encode nested objects in a single pass.
+Elevate also supports encoding model objects back into JSON objects through the light-weight `Encodable` protocol.
+Convenience extensions have been added to collection types to make it easy to encode nested objects in a single pass.
 
 ### Parsing JSON with Elevate
 
@@ -94,7 +101,8 @@ let avatar: Avatar = try Elevate.decodeObject(from: data, atKeyPath: "response.a
 
 ### Creating Decodables
 
-In the previous example `Avatar` implements the `Decodable` protocol. By implementing the `Decodable` protocol on an object, it can be used by Elevate to parse avatars from JSON data as a top-level object, a sub-object, or even an array of avatar objects.
+In the previous example `Avatar` implements the `Decodable` protocol.
+By implementing the `Decodable` protocol on an object, it can be used by Elevate to parse avatars from JSON data as a top-level object, a sub-object, or even an array of avatar objects.
 
 ```swift
 public protocol Decodable {
@@ -102,7 +110,8 @@ public protocol Decodable {
 }
 ```
 
-The `json: Any` will typically be a `[String: Any]` instance that was created from the `JSONSerialization` APIs. Use the Elevate `Parser.parseEntity` method to define the structure of the JSON data to be validated and perform the parsing.
+The `json: Any` will typically be a `[String: Any]` instance that was created from the `JSONSerialization` APIs.
+Use the Elevate `Parser.parseEntity` method to define the structure of the JSON data to be validated and perform the parsing.
 
 ```swift
 struct Person {
@@ -150,24 +159,35 @@ Implementing the `Decodable` protocol in this way allows you to create fully int
 
 Some other things worth noting in this example:
 
-1. The `Decodable` protocol conformance was implemented as an extension on the struct. This allows the struct to keep its automatic memberwise initializer.
-2. Standard primitive types are supported as well as `URL`, `Array`, and `Dictionary` types. See `ParserPropertyProtocol` definition for the full list.
-3. Elevate facilitates passing a parsed property into a `Decoder` for further manipulation. See the `birthDate` property in the example above. The `DateDecoder` is a standard `Decoder` provided by Elevate to make date parsing hassle free.
-4. A `Decoder` or `Decodable` type can be provided to a property of type `.Array` to parse each item in the array to that type. This also works with the `.Dictionary` type to parse a nested JSON object.
-5. The parser guarantees that properties will be of the specified type, so it is safe to use the custom operators to automatically extract the `Any` value from the `entity` dictionary and cast it to the return type.
+1. The `Decodable` protocol conformance was implemented as an extension on the struct.
+This allows the struct to keep its automatic memberwise initializer.
+2. Standard primitive types are supported as well as `URL`, `Array`, and `Dictionary` types.
+See `ParserPropertyProtocol` definition for the full list.
+3. Elevate facilitates passing a parsed property into a `Decoder` for further manipulation.
+See the `birthDate` property in the example above.
+The `DateDecoder` is a standard `Decoder` provided by Elevate to make date parsing hassle free.
+4. A `Decoder` or `Decodable` type can be provided to a property of type `.Array` to parse each item in the array to that type.
+This also works with the `.Dictionary` type to parse a nested JSON object.
+5. The parser guarantees that properties will be of the specified type.
+Therefore, it is safe to use the custom operators to automatically extract the `Any` value from the `entity` dictionary and cast it to the return type.
 
 ### Property Extraction Operators
 
 Elevate contains four property extraction operators to make it easy to extract values out of the `entity` dictionary and cast the `Any` value to the appropriate type.
 
-* `<-!` - Extracts the value from the `entity` dictionary for the specified key. This operator should only be used on non-optional properties.
-* `<-?` - Extracts the optional value from the `entity` dictionary for the specified key. This operator should only be used on optional properties.
-* `<--!` - Extracts the array from the `entity` dictionary for the specified key as the specified array type. This operator should only be used on non-optional array properties.
+* `<-!` - Extracts the value from the `entity` dictionary for the specified key.
+This operator should only be used on non-optional properties.
+* `<-?` - Extracts the optional value from the `entity` dictionary for the specified key.
+This operator should only be used on optional properties.
+* `<--!` - Extracts the array from the `entity` dictionary for the specified key as the specified array type.
+This operator should only be used on non-optional array properties.
 * `<--?` - Extracts the array from the `entity` dictionary for the specified key as the specified optional array type.
 
 ### Creating Encodables
 
-Extending a model object to conform to the `Encodable` protocol is less involved than making it `Decodable`. Since your object is already strongly typed, it only needs to be converted into a JSON friendly `Any` object. Building on the previous `Person` type, let's make it conform to the `Encodable` protocol.
+Extending a model object to conform to the `Encodable` protocol is less involved than making it `Decodable`.
+Since your object is already strongly typed, it only needs to be converted into a JSON friendly `Any` object.
+Building on the previous `Person` type, let's make it conform to the `Encodable` protocol.
 
 ```swift
 extension Person: Elevate.Encodable {
@@ -187,7 +207,10 @@ extension Person: Elevate.Encodable {
 }
 ```
 
-As you can see in the example, converting the `Person` into a JSON dictionary is straightforward. It's also easy to convert the array of `Address` objects into JSON by calling the `json` property on the array. This works because `Address` also conforms to `Encodable`. The collection type extensions on `Array`, `Set` and `Dictionary` make it easy to convert a complex objects with multiple layers of `Encodable` objects into a JSON objects.
+As you can see in the example, converting the `Person` into a JSON dictionary is straightforward.
+It's also easy to convert the array of `Address` objects into JSON by calling the `json` property on the array.
+This works because `Address` also conforms to `Encodable`.
+The collection type extensions on `Array`, `Set` and `Dictionary` make it easy to convert a complex objects with multiple layers of `Encodable` objects into a JSON objects.
 
 ---
   
@@ -195,7 +218,9 @@ As you can see in the example, converting the `Person` into a JSON dictionary is
 
 ### Decoders
 
-In most cases implementing a `Decodable` model object is all that is needed to parse JSON using Elevate. There are some instances though where you will need more flexibility in the way that the JSON is parsed. This is where the `Decoder` protocol comes in.
+In most cases implementing a `Decodable` model object is all that is needed to parse JSON using Elevate.
+There are some instances though where you will need more flexibility in the way that the JSON is parsed.
+This is where the `Decoder` protocol comes in.
 
 ```swift
 public protocol Decoder {
@@ -203,9 +228,13 @@ public protocol Decoder {
 }
 ```
 
-A `Decoder` is generally implemented as a separate object that returns instances of the desired model object. This is useful when you have multiple JSON mappings for a single model object, or if you are aggregating data across multiple JSON payloads. For example, if there are two separate services that return JSON for `Avatar` objects that have a slightly different property structure, a `Decoder` could be created for each mapping to handle them individually.
+A `Decoder` is generally implemented as a separate object that returns instances of the desired model object.
+This is useful when you have multiple JSON mappings for a single model object, or if you are aggregating data across multiple JSON payloads.
+For example, if there are two separate services that return JSON for `Avatar` objects that have a slightly different property structure, a `Decoder` could be created for each mapping to handle them individually.
 
-> The input type and output types are intentionally vague to allow for flexibility. A `Decoder` can return any type you want -- a strongly typed model object, a dictionary, etc. It can even dynamically return different types at runtime if needed.
+> The input type and output types are intentionally vague to allow for flexibility.
+A `Decoder` can return any type you want -- a strongly typed model object, a dictionary, etc.
+It can even dynamically return different types at runtime if needed.
 
 #### Using Multiple Decoders
 
@@ -269,11 +298,16 @@ let avatar2: Avatar = try Elevate.decodeObject(
 )
 ```
 
-Each `Decoder` is designed to handle a different JSON structure for creating an `Avatar`. Each uses the key paths specific to the JSON data it's dealing with, then maps those back to the properties on the `Avatar` object. This is a very simple example to demonstration purposes. There are MANY more complex examples that could be handled in a similar manner via the `Decoder` protocol.
+Each `Decoder` is designed to handle a different JSON structure for creating an `Avatar`.
+Each uses the key paths specific to the JSON data it's dealing with, then maps those back to the properties on the `Avatar` object.
+This is a very simple example to demonstration purposes.
+There are MANY more complex examples that could be handled in a similar manner via the `Decoder` protocol.
 
 ### Decoders as Property Value Transformers
 
-A second use for the `Decoder` protocol is to allow for the value of a property to be further manipulated. The most common example is a date string. Here is how the `DateDecoder` implements the `Decoder` protocol:
+A second use for the `Decoder` protocol is to allow for the value of a property to be further manipulated.
+The most common example is a date string.
+Here is how the `DateDecoder` implements the `Decoder` protocol:
   
 ```swift
 public func decode(_ object: Any) throws -> Any {
@@ -296,7 +330,9 @@ let entity = try Parser.parseEntity(data: data) { schema in
 }
 ```
 
-You are free to create any decoders that you like and use them with your properties during parsing. Some other uses would be to create a `StringToBoolDecoder` or `StringToFloatDecoder` that parses a `Bool` or `Float` from a JSON string value. The `DateDecoder` and `StringToIntDecoder` are already included in Elevate for your convenience.
+You are free to create any decoders that you like and use them with your properties during parsing.
+Some other uses would be to create a `StringToBoolDecoder` or `StringToFloatDecoder` that parses a `Bool` or `Float` from a JSON string value.
+The `DateDecoder` and `StringToIntDecoder` are already included in Elevate for your convenience.
   
 ---
   

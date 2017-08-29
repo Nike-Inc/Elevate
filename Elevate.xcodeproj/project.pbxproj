@@ -138,6 +138,7 @@
 		4CA026401DDF8A0C00C670C8 /* Encodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
 		4CA026451DDF8A7A00C670C8 /* EncodableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncodableTests.swift; sourceTree = "<group>"; };
 		4CA33F3F1B7558C30047C307 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CA7AB981F560466004CE3F3 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		4CD761001C82679D00DCC104 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CD761091C82679D00DCC104 /* ElevateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ElevateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91C4DD81B547559000481D2 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -255,9 +256,18 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		4CA7AB971F560453004CE3F3 /* Deployment */ = {
+			isa = PBXGroup;
+			children = (
+				4CA7AB981F560466004CE3F3 /* Package.swift */,
+			);
+			name = Deployment;
+			sourceTree = "<group>";
+		};
 		E91C4DCE1B547559000481D2 = {
 			isa = PBXGroup;
 			children = (
+				4CA7AB971F560453004CE3F3 /* Deployment */,
 				E91C4DF41B5475CC000481D2 /* Source */,
 				E91C4E071B54770C000481D2 /* Tests */,
 				E91C4DD91B547559000481D2 /* Products */,

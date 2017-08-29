@@ -49,7 +49,7 @@ func ==(lhs: TestObject, rhs: TestObject) -> Bool {
 
 // MARK: -
 
-extension TestObject: Encodable, Decodable {
+extension TestObject: Elevate.Encodable, Elevate.Decodable {
     private struct KeyPath {
         static let subUInt = "subUInt"
         static let subInt = "subInt"
@@ -85,7 +85,7 @@ struct InvalidDecodable {
 
 // MARK: -
 
-extension InvalidDecodable: Decodable {
+extension InvalidDecodable: Elevate.Decodable {
     init(json: Any) throws {
         let invalidKeyPath = "invalid"
 

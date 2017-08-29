@@ -412,7 +412,7 @@ class DecodableTestCase: BaseTestCase {
 
     // MARK: - Private - Helper Methods
 
-    private func decodableErrorTest(type: Decodable.Type, value: Any) {
+    private func decodableErrorTest(type: Elevate.Decodable.Type, value: Any) {
         do {
             // Given, When
             let _ = try type.init(json: value)

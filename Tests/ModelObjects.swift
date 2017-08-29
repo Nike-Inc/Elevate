@@ -103,7 +103,7 @@ struct ErrorThrowingDecodable {}
 
 // MARK: -
 
-extension ErrorThrowingDecodable: Decodable {
+extension ErrorThrowingDecodable: Elevate.Decodable {
     init(json: Any) throws {
         throw NSError(domain: "Decodable Test Error", code: 42, userInfo: nil)
     }

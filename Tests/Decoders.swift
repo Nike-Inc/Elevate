@@ -49,7 +49,7 @@ struct TestObjectDecoder: Elevate.Decoder {
 
 // MARK: -
 
-struct ErrorThrowingDecoder: Decoder {
+struct ErrorThrowingDecoder: Elevate.Decoder {
     func decode(_ object: Any) throws -> Any {
         throw NSError(domain: "Decoder Test Error", code: 42, userInfo: nil)
     }

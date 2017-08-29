@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 
 #### 2.x Releases
 
-* `2.2.x` Releases = [2.2.0](#220) | [2.2.1](#221)
+* `2.2.x` Releases = [2.2.0](#220) | [2.2.1](#221) | [2.2.2](#222)
 * `2.1.x` Releases = [2.1.0](#210)
 * `2.0.x` Releases = [2.0.0](#200)
 
@@ -16,11 +16,28 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## master
+## [2.2.2](https://github.com/Nike-Inc/Elevate/releases/tag/2.2.2)
+
+Released on 2017-08-29. All issues associated with this milestone can be found using this
+[filter](https://github.com/Nike-Inc/Elevate/milestone/5?closed=1).
+
+#### Added
+
+- New package file for Elevate to support the Swift Package Manager.
+  - Added by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#30](https://github.com/Nike-Inc/Elevate/pull/30).
 
 #### Updated
 
 - The `parseEntity` behavior on `Parser` to allow custom `Error` types to be thrown without converting them into `ParserError` types.
+  - Updated by [Dave Camp](https://github.com/atomiccat) in Pull Request
+  [#29](https://github.com/Nike-Inc/Elevate/pull/29).
+- The Xcode project and all schemes to Xcode 9.
+  - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#30](https://github.com/Nike-Inc/Elevate/pull/30).
+- All source and test code to compile against Swift 3.1 and 3.2.
+  - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#30](https://github.com/Nike-Inc/Elevate/pull/30).
 
 ## [2.2.1](https://github.com/Nike-Inc/Elevate/releases/tag/2.2.1)
 

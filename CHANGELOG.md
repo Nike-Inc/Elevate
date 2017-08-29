@@ -16,6 +16,12 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## master
+
+#### Updated
+
+- The `parseEntity` behavior on `Parser` to allow custom `Error` types to be thrown without converting them into `ParserError` types.
+
 ## [2.2.1](https://github.com/Nike-Inc/Elevate/releases/tag/2.2.1)
 
 Released on 2017-02-09. All issues associated with this milestone can be found using this

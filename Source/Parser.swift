@@ -43,22 +43,23 @@ public class Parser {
     ///   - closure: Defines the property list for the parser via the passed in `Schema` instance.
     ///
     /// - Returns: The parsed entity as a Dictionary.
+    ///
+    /// - Throws: `ParserError` types for parsing related errors or custom `Error` types from `Decodable` and
+    ///           `Decoder` implementations.
     public class func parseEntity(data: Data, closure: (Schema) -> Void) throws -> [String: Any] {
         let result: [String: Any]
+        let json: Any
 
         do {
-            let json = try JSONSerialization.jsonObject(with: data, options: [])
-            result = try parseEntity(json: json, closure: closure)
+            json = try JSONSerialization.jsonObject(with: data, options: [])
         } catch {
-            if error is ParserError {
-                throw error
-            } else {
-                let error = error as NSError
-                let failureReason = "JSON data deserialization failed with error: \"\(error.description)\""
+            let error = error as NSError
+            let failureReason = "JSON data deserialization failed with error: \"\(error.description)\""
 
-                throw ParserError.deserialization(failureReason: failureReason)
-            }
+            throw ParserError.deserialization(failureReason: failureReason)
         }
+
+        result = try parseEntity(json: json, closure: closure)
 
         return result
     }

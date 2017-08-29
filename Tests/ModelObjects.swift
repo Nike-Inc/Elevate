@@ -96,3 +96,15 @@ extension InvalidDecodable: Decodable {
         invalid = entity[invalidKeyPath] as! String
     }
 }
+
+// MARK: -
+
+struct ErrorThrowingDecodable {}
+
+// MARK: -
+
+extension ErrorThrowingDecodable: Decodable {
+    init(json: Any) throws {
+        throw NSError(domain: "Decodable Test Error", code: 42, userInfo: nil)
+    }
+}

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 `Elevate` adheres to [Semantic Versioning](http://semver.org/).
 
+#### 3.x Releases
+
+* `3.0.x` Releases = [3.0.0](#300)
+
 #### 2.x Releases
 
 * `2.2.x` Releases = [2.2.0](#220) | [2.2.1](#221) | [2.2.2](#222)
@@ -13,6 +17,19 @@ All notable changes to this project will be documented in this file.
 
 * `1.1.x` Releases = [1.1.0](#110)
 * `1.0.x` Releases - [1.0.0](#100)
+
+---
+
+## [3.0.0](https://github.com/Nike-Inc/Elevate/releases/tag/3.0.0)
+
+Released on 2017-08-29. All issues associated with this milestone can be found using this
+[filter](https://github.com/Nike-Inc/Elevate/milestone/6?closed=1).
+
+#### Updated
+
+- The Xcode project and all source and test code to compile against Swift 4.0.
+  - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#31](https://github.com/Nike-Inc/Elevate/pull/31).
 
 ---
 

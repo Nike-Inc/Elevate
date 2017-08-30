@@ -24,4 +24,4 @@
 
 import PackageDescription
 
-let package = Package(name: "Elevate", swiftLanguageVersions : [3], exclude: ["Tests"])
+let package = Package(name: "Elevate", swiftLanguageVersions : [4], exclude: ["Tests"])

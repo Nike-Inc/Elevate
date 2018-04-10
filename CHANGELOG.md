@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 
 #### 3.x Releases
 
-* `3.0.x` Releases = [3.0.0](#300)
+* `3.0.x` Releases = [3.0.0](#300) | [3.0.1](#301)
 
 #### 2.x Releases
 
@@ -19,6 +19,28 @@ All notable changes to this project will be documented in this file.
 * `1.0.x` Releases - [1.0.0](#100)
 
 ---
+
+## [3.0.1](https://github.com/Nike-Inc/Elevate/releases/tag/3.0.1)
+
+Released on 2018-04-10. All issues associated with this milestone can be found using this
+[filter](https://github.com/Nike-Inc/Elevate/milestone/8?closed=1).
+
+#### Updated
+
+- All the project copyright headers to use present language instead of end year.
+  - Updated by [Christian Noon](https://github.com/cnoon).
+- The Xcode project, settings, and Travis-CI file to build and run against Xcode 9.3.
+  - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#33](https://github.com/Nike-Inc/Elevate/pull/33).
+- The podspec to directly specify `swift_version` and removed legacy `.swift-version` file.
+  - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#33](https://github.com/Nike-Inc/Elevate/pull/33).
+
+#### Fixed
+
+- An issue in Xcode 9.3 where `NSNumber` bridging for `Float` and `Double` is no longer implicit.
+  - Fixed by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#33](https://github.com/Nike-Inc/Elevate/pull/33).
 
 ## [3.0.0](https://github.com/Nike-Inc/Elevate/releases/tag/3.0.0)
 

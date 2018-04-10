@@ -92,11 +92,11 @@ extension Float: Decodable {
     ///
     /// - Throws: A `ParserError.validation` error if decoding fails.
     public init(json: Any) throws {
-        guard Parser.isValue(json, ofType: .float) else {
+        guard Parser.isValue(json, ofType: .float), let number = json as? NSNumber else {
             throw ParserError.validation(failureReason: "JSON object was not of type: Float")
         }
 
-        self = json as! Float
+        self = number.floatValue
     }
 }
 
@@ -107,11 +107,11 @@ extension Double: Decodable {
     ///
     /// - Throws: A `ParserError.validation` error if decoding fails.
     public init(json: Any) throws {
-        guard Parser.isValue(json, ofType: .double) else {
+        guard Parser.isValue(json, ofType: .double), let number = json as? NSNumber else {
             throw ParserError.validation(failureReason: "JSON object was not of type: Double")
         }
 
-        self = json as! Double
+        self = number.doubleValue
     }
 }
 

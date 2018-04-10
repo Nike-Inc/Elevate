@@ -147,6 +147,7 @@
 		4CA7ABA01F5604DD004CE3F3 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		4CD761001C82679D00DCC104 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CD761091C82679D00DCC104 /* ElevateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ElevateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CD9E065207C3B4000D02902 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		E91C4DD81B547559000481D2 /* Elevate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Elevate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91C4DE21B547559000481D2 /* ElevateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ElevateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E91C4DF51B5475CC000481D2 /* Elevate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Elevate.h; sourceTree = "<group>"; };
@@ -291,11 +292,20 @@
 			name = "Migration Guides";
 			sourceTree = "<group>";
 		};
+		4CD9E064207C3ABF00D02902 /* Integration */ = {
+			isa = PBXGroup;
+			children = (
+				4CD9E065207C3B4000D02902 /* .travis.yml */,
+			);
+			name = Integration;
+			sourceTree = "<group>";
+		};
 		E91C4DCE1B547559000481D2 = {
 			isa = PBXGroup;
 			children = (
 				4CA7AB971F560453004CE3F3 /* Deployment */,
 				4CA7AB991F5604AD004CE3F3 /* Documentation */,
+				4CD9E064207C3ABF00D02902 /* Integration */,
 				E91C4DF41B5475CC000481D2 /* Source */,
 				E91C4E071B54770C000481D2 /* Tests */,
 				E91C4DD91B547559000481D2 /* Products */,

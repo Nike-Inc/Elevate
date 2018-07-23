@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode9.3
+osx_image: xcode9.4
 branches:
   only:
     - master
@@ -12,18 +12,18 @@ env:
   - MACOS_FRAMEWORK_SCHEME="Elevate macOS"
   - TVOS_FRAMEWORK_SCHEME="Elevate tvOS"
   - WATCHOS_FRAMEWORK_SCHEME="Elevate watchOS"
-  - IOS_SDK=iphonesimulator11.3
+  - IOS_SDK=iphonesimulator11.4
   - OSX_SDK=macosx10.13
-  - TVOS_SDK=appletvsimulator11.3
+  - TVOS_SDK=appletvsimulator11.4
   - WATCHOS_SDK=watchsimulator4.3
   matrix:
-    - DESTINATION="OS=11.3,name=iPhone X"                   SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES" POD_LINT="YES"
+    - DESTINATION="OS=11.4,name=iPhone X"                   SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES" POD_LINT="YES"
     - DESTINATION="OS=10.3.1,name=iPhone 7"                 SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES" POD_LINT="NO"
-    - DESTINATION="OS=9.3,name=iPhone 5"                    SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES" POD_LINT="NO"
-    - DESTINATION="OS=8.4,name=iPhone 4S"                   SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES" POD_LINT="NO"
+    - DESTINATION="OS=9.3,name=iPhone 5S"                   SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES" POD_LINT="NO"
+    - DESTINATION="OS=8.4,name=iPhone 5"                    SCHEME="$IOS_FRAMEWORK_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES" POD_LINT="NO"
     - DESTINATION="arch=x86_64"                             SCHEME="$MACOS_FRAMEWORK_SCHEME"   SDK="$OSX_SDK"     RUN_TESTS="YES" POD_LINT="NO"
-    - DESTINATION="OS=11.3,name=Apple TV"                   SCHEME="$TVOS_FRAMEWORK_SCHEME"    SDK="$TVOS_SDK"    RUN_TESTS="YES" POD_LINT="NO"
-    - DESTINATION="OS=4.3,name=Apple Watch Series 2 - 42mm" SCHEME="$WATCHOS_FRAMEWORK_SCHEME" SDK="$WATCHOS_SDK" RUN_TESTS="NO"  POD_LINT="NO"
+    - DESTINATION="OS=11.4,name=Apple TV 4K"                SCHEME="$TVOS_FRAMEWORK_SCHEME"    SDK="$TVOS_SDK"    RUN_TESTS="YES" POD_LINT="NO"
+    - DESTINATION="OS=4.3,name=Apple Watch Series 3 - 42mm" SCHEME="$WATCHOS_FRAMEWORK_SCHEME" SDK="$WATCHOS_SDK" RUN_TESTS="NO"  POD_LINT="NO"
 script:
   - set -o pipefail
   - xcodebuild -version

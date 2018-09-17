@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 
 #### 3.x Releases
 
-* `3.0.x` Releases = [3.0.0](#300) | [3.0.1](#301)
+* `3.0.x` Releases = [3.0.0](#300) | [3.0.1](#301) | [3.0.2](#302)
 
 #### 2.x Releases
 
@@ -19,6 +19,29 @@ All notable changes to this project will be documented in this file.
 * `1.0.x` Releases - [1.0.0](#100)
 
 ---
+
+## [3.0.2](https://github.com/Nike-Inc/Elevate/releases/tag/3.0.2)
+
+Released on 2018-09-17. All issues associated with this milestone can be found using this
+[filter](https://github.com/Nike-Inc/Elevate/milestone/9?closed=1).
+
+#### Updated
+
+- The Xcode workspace to be compatible with Xcode 10 and Swift 4.2.
+  - Updated by [Eric Jensen](https://github.com/ejensen) in Pull Request
+  [#35](https://github.com/Nike-Inc/Elevate/pull/35).
+- The podspec swift-version to 4.2.
+  - Updated by [Eric Jensen](https://github.com/ejensen) in Pull Request
+  [#35](https://github.com/Nike-Inc/Elevate/pull/35).
+- The Travis-CI yaml file to build with Xcode 10 by leveraging bundler and a Gemfile.
+  - Updated by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#36](https://github.com/Nike-Inc/Elevate/pull/36).
+
+#### Fixed
+
+- Issue in the tests on iOS 8.4 by updating Travis to use newer OSX image.
+  - Fixed by [Christian Noon](https://github.com/cnoon) in Pull Request
+  [#34](https://github.com/Nike-Inc/Elevate/pull/34).
 
 ## [3.0.1](https://github.com/Nike-Inc/Elevate/releases/tag/3.0.1)
 

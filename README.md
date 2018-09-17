@@ -7,8 +7,9 @@
 
 Elevate is a JSON parsing framework that leverages Swift to make parsing simple, reliable and composable.
 
-> Elevate has been **OFFICIALLY DEPRECATED** in favor of the `Codable` protocol provided by Apple in the `Foundation` framework.
-We will continue to support Elevate throughout the Xcode 9 lifespan.
+> Elevate should no longer be used for new feature development.
+> We recommend using the `Codable` protocol provided by Apple in the `Foundation` framework in its place.
+> We will continue to support and update Elevate for the foreseeable future.
 
 ## Features
 
@@ -22,8 +23,8 @@ We will continue to support Elevate throughout the Xcode 9 lifespan.
 ## Requirements
 
 - iOS 8.0+ / macOS 10.10+ / tvOS 9.0+ / watchOS 2.0+
-- Xcode 9.0+
-- Swift 4.0+
+- Xcode 9.3+
+- Swift 4.1+
 
 ## Communication
 

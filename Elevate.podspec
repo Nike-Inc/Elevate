@@ -1,17 +1,17 @@
 Pod::Spec.new do |s|
-  s.name = 'Elevate'
-  s.version = '3.0.1'
-  s.summary = 'Elevate is a JSON parsing framework that leverages Swift to make parsing simple, reliable and composable.'
-  s.homepage = 'https://github.com/Nike-Inc/Elevate'
-  s.license = 'MIT'
-  s.authors = { 'Eric Appel' => 'eric.appel@nike.com', 'Christian Noon' => 'christian.noon@nike.com' }
+  s.name = "Elevate"
+  s.version = "3.0.2"
+  s.summary = "Elevate is a JSON parsing framework that leverages Swift to make parsing simple, reliable and composable."
+  s.homepage = "https://github.com/Nike-Inc/Elevate"
+  s.license = "MIT"
+  s.authors = { "Eric Appel" => "eric.appel@nike.com", "Christian Noon" => "christian.noon@nike.com" }
 
-  s.source = { :git => 'https://github.com/Nike-Inc/Elevate.git', :tag => s.version }
-  s.source_files = 'Source/*.swift'
-  s.swift_version = '4.2'
+  s.source = { :git => "https://github.com/Nike-Inc/Elevate.git", :tag => s.version }
+  s.source_files = "Source/*.swift"
+  s.swift_version = "4.2"
 
-  s.ios.deployment_target = '8.0'
-  s.osx.deployment_target = '10.11'
-  s.tvos.deployment_target = '9.0'
-  s.watchos.deployment_target = '2.0'
+  s.ios.deployment_target = "8.0"
+  s.osx.deployment_target = "10.11"
+  s.tvos.deployment_target = "9.0"
+  s.watchos.deployment_target = "2.0"
 end

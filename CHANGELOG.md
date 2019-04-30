@@ -3,8 +3,13 @@
 All notable changes to this project will be documented in this file.
 `Elevate` adheres to [Semantic Versioning](http://semver.org/).
 
+#### 4.x Releases
+
+* `4.0.x` Releases = [4.0.0](#400) 
+
 #### 3.x Releases
 
+* `3.1.x` Releases = [3.1.0](#310)
 * `3.0.x` Releases = [3.0.0](#300) | [3.0.1](#301) | [3.0.2](#302)
 
 #### 2.x Releases
@@ -19,6 +24,21 @@ All notable changes to this project will be documented in this file.
 * `1.0.x` Releases - [1.0.0](#100)
 
 ---
+
+## [4.0.0](https://github.com/Nike-Inc/Elevate/releases/tag/4.0.0)
+
+Released on 2019-04-30. All issues associated with this milestone can be found using this
+[filter](https://github.com/Nike-Inc/Elevate/milestone/8?closed=1).
+
+#### Updated
+
+- Dropped Swift 4.2 Support
+- ios depoyment target updated to 10.0
+- macOS deployment target updated to 10.12
+- tvOS deployment target updated to 10.0
+- watchOS deployment target update to 3.0
+- Updated by [Dmitri Fuerle](https://github.com/dfuerle) in Pull Request
+[#38](https://github.com/Nike-Inc/Elevate/pull/38).
 
 ## [3.1.0](https://github.com/Nike-Inc/Elevate/releases/tag/3.1.0)
 

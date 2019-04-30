@@ -28,10 +28,10 @@ import PackageDescription
 let package = Package(
     name: "Elevate",
     platforms: [
-        .macOS(.v10_10),
-        .iOS(.v8),
-        .tvOS(.v9),
-        .watchOS(.v2)
+        .macOS(.v10_12),
+        .iOS(.v10),
+        .tvOS(.v10),
+        .watchOS(.v3)
     ],
     products: [
         .library(
@@ -43,5 +43,5 @@ let package = Package(
             name: "Elevate",
             path: "Source")
     ],
-    swiftLanguageVersions: [.v4_2, .v5]
+    swiftLanguageVersions: [.v5]
 )

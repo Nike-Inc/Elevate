@@ -33,9 +33,9 @@ Released on 2019-04-30. All issues associated with this milestone can be found u
 #### Updated
 
 - The project to support Swift 5 only and no longer support Swift 4.2.
-- Updated by [Dmitri Fuerle](https://github.com/dfuerle) in Pull Request [#38](https://github.com/Nike-Inc/Elevate/pull/38).
+  - Updated by [Dmitri Fuerle](https://github.com/dfuerle) in Pull Request [#38](https://github.com/Nike-Inc/Elevate/pull/38).
 - The deployment targerts to iOS 10.0, macOS 10.12, tvOS 10.0, and watchOS 3.0.
-- Updated by [Dmitri Fuerle](https://github.com/dfuerle) in Pull Request [#38](https://github.com/Nike-Inc/Elevate/pull/38).
+  - Updated by [Dmitri Fuerle](https://github.com/dfuerle) in Pull Request [#38](https://github.com/Nike-Inc/Elevate/pull/38).
 
 ## [3.1.0](https://github.com/Nike-Inc/Elevate/releases/tag/3.1.0)
 

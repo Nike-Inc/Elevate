@@ -153,10 +153,17 @@ class EncodableTestCase: BaseTestCase {
         ]
 
         do {
-            let actualTestObjectJSON = try JSONSerialization.data(withJSONObject: testObjectArrayJSON, options: [])
-            let expectedTestObjectJSON = try JSONSerialization.data(withJSONObject: expectedTestObjectArrayJSON, options: [])
+            let actualTestObjectJSON = try JSONSerialization.data(
+                withJSONObject: testObjectArrayJSON,
+                options: []
+            )
 
-            XCTAssertEqual(actualTestObjectJSON, expectedTestObjectJSON)
+            let expectedTestObjectJSON = try JSONSerialization.data(
+                withJSONObject: expectedTestObjectArrayJSON,
+                options: []
+            )
+
+            XCTAssertEqual(actualTestObjectJSON.count, expectedTestObjectJSON.count)
         } catch {
             XCTFail("JSON encoding failed with unexpected error: \(error)")
         }

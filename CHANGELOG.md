@@ -20,6 +20,17 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [3.1.0](https://github.com/Nike-Inc/Elevate/releases/tag/3.1.0)
+
+Released on 2019-04-30. All issues associated with this milestone can be found using this
+[filter](https://github.com/Nike-Inc/Elevate/milestone/7?closed=1).
+
+#### Updated
+
+- The Xcode workspace to be compatible with Xcode 10.2 and Swift 5.0.
+  - Updated by [Dmitri Fuerle](https://github.com/dfuerle) in Pull Request
+[#37](https://github.com/Nike-Inc/Elevate/pull/37).
+
 ## [3.0.2](https://github.com/Nike-Inc/Elevate/releases/tag/3.0.2)
 
 Released on 2018-09-17. All issues associated with this milestone can be found using this

@@ -1,5 +1,5 @@
 os: osx
-osx_image: xcode10
+osx_image: xcode10.2
 branches:
   only:
     - master
@@ -14,7 +14,7 @@ env:
   - TVOS_FRAMEWORK_SCHEME="Elevate tvOS"
   - WATCHOS_FRAMEWORK_SCHEME="Elevate watchOS"
   matrix:
-    - DESTINATION="OS=12.0,name=iPhone XS"                  SCHEME="$IOS_FRAMEWORK_SCHEME"     RUN_TESTS="YES" POD_LINT="YES"
+    - DESTINATION="OS=12.2,name=iPhone XS"                  SCHEME="$IOS_FRAMEWORK_SCHEME"     RUN_TESTS="YES" POD_LINT="YES"
     - DESTINATION="OS=11.4,name=iPhone X"                   SCHEME="$IOS_FRAMEWORK_SCHEME"     RUN_TESTS="YES" POD_LINT="NO"
     - DESTINATION="OS=10.3.1,name=iPhone 7"                 SCHEME="$IOS_FRAMEWORK_SCHEME"     RUN_TESTS="YES" POD_LINT="NO"
     - DESTINATION="OS=9.3,name=iPhone 5S"                   SCHEME="$IOS_FRAMEWORK_SCHEME"     RUN_TESTS="YES" POD_LINT="NO"

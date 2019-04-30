@@ -40,7 +40,11 @@ struct TestObject {
 // MARK: -
 
 extension TestObject: Hashable {
-    var hashValue: Int { return subUInt.hashValue ^ subInt.hashValue ^ subString.hashValue }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(subUInt.hashValue)
+        hasher.combine(subInt.hashValue)
+        hasher.combine(subString.hashValue)
+    }
 }
 
 func ==(lhs: TestObject, rhs: TestObject) -> Bool {

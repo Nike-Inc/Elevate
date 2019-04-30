@@ -1,6 +1,6 @@
-// swift-tools-version:5.0
+// swift-tools-version:4.2
 //
-//  Package.swift
+//  Package@swift-4.2.swift
 //
 //  Copyright (c) 2015-present Nike, Inc. (https://www.nike.com)
 //
@@ -27,12 +27,6 @@ import PackageDescription
 
 let package = Package(
     name: "Elevate",
-    platforms: [
-        .macOS(.v10_10),
-        .iOS(.v8),
-        .tvOS(.v9),
-        .watchOS(.v2)
-    ],
     products: [
         .library(
             name: "Elevate",
@@ -43,5 +37,5 @@ let package = Package(
             name: "Elevate",
             path: "Source")
     ],
-    swiftLanguageVersions: [.v4_2, .v5]
+    swiftLanguageVersions: [.v4_2]
 )

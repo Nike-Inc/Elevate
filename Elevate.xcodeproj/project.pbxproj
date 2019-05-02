@@ -1092,7 +1092,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nike.Elevate;
 				PRODUCT_NAME = Elevate;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1118,7 +1117,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.nike.Elevate;
 				PRODUCT_NAME = Elevate;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -1136,7 +1134,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nike.ElevateTests;
 				PRODUCT_NAME = ElevateTests;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -1154,7 +1151,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nike.ElevateTests;
 				PRODUCT_NAME = ElevateTests;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

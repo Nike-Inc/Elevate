@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 `Elevate` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 3.x Releases
-
+* `3.1.x` Releases = [3.1.0](#310) | [3.1.1](#311)
 * `3.0.x` Releases = [3.0.0](#300) | [3.0.1](#301) | [3.0.2](#302)
 
 #### 2.x Releases
@@ -17,6 +17,30 @@ All notable changes to this project will be documented in this file.
 
 * `1.1.x` Releases = [1.1.0](#110)
 * `1.0.x` Releases - [1.0.0](#100)
+
+---
+
+## Unreleased
+
+#### Added
+
+#### Updated
+
+#### Deprecated
+
+#### Removed
+
+#### Fixed
+
+---
+
+## [3.1.1](https://github.com/Nike-Inc/Elevate/releases/tag/3.1.1)
+Released on 2019-05-02. All issues associated with this milestone can be found using this
+[filter](https://github.com/Nike-Inc/Elevate/milestone/7?closed=1).
+
+#### Fixed
+- Issue where Swift version was incorrectly set to 5.0 when it should have been 4.2.  
+  - Fixed by [Greg Tropino](https://github.com/gtrop1) in Pull Request [#39](https://github.com/Nike-Inc/Elevate/pull/39).
 
 ---
 
